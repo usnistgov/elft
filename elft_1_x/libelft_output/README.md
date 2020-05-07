@@ -46,6 +46,7 @@ License
 The items in this repository are released in the public domain. See the
 [LICENSE] for details.
 
+[`libelft`]: https://github.com/usnistgov/elft/blob/master/elft_1_x/libelft
 [`elft.h`]: https://github.com/usnistgov/elft/blob/master/elft_1_x/include/elft.h
 [NIST ELFT team]: mailto:elft@nist.gov
 [open an issue]: https://github.com/usnistgov/elft/issues
