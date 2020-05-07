@@ -1,0 +1,24 @@
+# Compilation
+*.o
+*.so
+*.dylib
+build
+
+# Validation
+*/validation/bin
+*/validation/config
+!*/validation/config/README
+*/validation/config.moved
+*/validation/lib
+!*/validation/lib/README
+*/validation/lib.moved
+*/validation/output
+*/validation/elft_validation_*_*/
+*/validation/elft_validation_*_*.tar.xz
+*/validation/images
+*/validation/elft_validation_images-*.tar.xz
+
+# Temp files
+.DS_Store
+._*
+

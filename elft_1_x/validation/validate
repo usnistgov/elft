@@ -1,0 +1,1841 @@
+#!/bin/bash
+################################################################################
+#                Evaluation of Latent Friction Ridge Technology                #
+################################################################################
+# Instructions                                                                 #
+# ------------                                                                 #
+#  1. Copy required files:                                                     #
+#     a. Place all needed libraries in 'lib/', including your properly named   #
+#        ELFT core library.                                                    #
+#     b. Place any needed runtime configuration files in 'config/'.            #
+#  2. Run './validate'.                                                        #
+#     a. Successful? Sign and encrypt the generated archive.                   #
+#     b. Unsuccessful? Work to resolve the listed errors, run                  #
+#        './validate clean', and repeat these steps.                           #
+#  3. Email the encrypted file along with your public key to elft@nist.gov     #
+################################################################################
+#     E-mail: elft@nist.gov                                                    #
+#        URL: https://github.com/usnistgov/elft                                #
+#    License: This software was developed at the National Institute of         #
+#             Standards and Technology (NIST) by employees of the Federal      #
+#             Government in the course of their official duties. Pursuant to   #
+#             title 17 Section 105 of the United States Code, this software is #
+#             not subject to copyright protection and is in the public domain. #
+#             NIST assumes no responsibility whatsoever for its use by other   #
+#             parties, and makes no guarantees, expressed or implied, about    #
+#             its quality, reliability, or any other characteristic.           #
+# Disclaimer: Certain commercial equipment, instruments, or materials are      #
+#             identified in this validation document in order to specify the   #
+#             development procedure adequately. Such identification is not     #
+#             intended to imply recommendation or endorsement by NIST, not is  #
+#             it intended to imply that the materials or equipment identified  #
+#             are necessarily the best available for the purpose.              #
+################################################################################
+
+################################################################################
+# Constants                                                                    #
+################################################################################
+
+# Time in seconds when this script was launched
+start_sec="$(date +%s)"
+
+# URL where the complete validation package can be downloaded
+validation_dl_url="https://github.com/usnistgov/elft/releases"
+# URL where the validation imagery is requested
+validation_image_request_url="https://nigos.nist.gov/datasets/"
+validation_image_request_url+="elft_validation/request"
+
+# Directory containing validation materials
+wd="$(cd "$(dirname "${0}")" && pwd)"
+# Directory containing validation images
+validation_image_dir="images"
+# Directory where libraries go
+lib_dir="${wd}/lib"
+local_lib_dir="${lib_dir}"
+# Directory where validation driver sourcecode lives
+src_dir="${wd}/src"
+# Directory where validation driver is built
+bin_dir="${wd}/bin"
+# Output directory for validation script logs
+output_dir="${wd}/output"
+# Output directory for validation driver output
+driver_output_dir="${output_dir}/driver"
+# Configuration directory provided to implementation
+config_dir="${wd}/config"
+local_config_dir="${config_dir}"
+# Reference database directory provided to implementation
+db_dir="${driver_output_dir}/reference_database"
+# Path to the compiled validation driver binary
+binary="${bin_dir}/elft_validation"
+# Suffix given to files set aside by this script
+move_suffix=".moved"
+
+# Prefix for downloaded validation imagery tarballs
+validation_image_download_prefix=elft_validation_images
+
+# Regular expression that must match core library name
+lib_regex="libelft_[A-Za-z0-9]+_[0-9A-F]{4}.so"
+
+# Make failing return codes persist across pipes
+set -o pipefail
+
+################################################################################
+# Output                                                                       #
+################################################################################
+
+# Dimmed text color
+font_dim() { if [ -t 1 ]; then tput dim; fi }
+# Green text color
+font_green() { if [ -t 1 ]; then tput setaf 2; fi }
+# Red text color
+font_red() { if [ -t 1 ]; then tput setaf 1; fi }
+# Light red text color
+font_lightred() { if [ -t 1 ]; then tput setaf 5; fi }
+# Yellow text color
+font_yellow() { if [ -t 1 ]; then tput setaf 3; fi }
+# Underline the text
+font_underline() { if [ -t 1 ]; then tput smul; fi }
+# Reset to default text color
+font_reset() { if [ -t 1 ]; then tput sgr0; fi }
+
+# Print the path of the argument relative to the current working directory
+rp()
+{
+	realpath=realpath
+	if [ "$(uname)" == "Darwin" ]; then
+		realpath="/opt/local/bin/grealpath"
+	fi
+
+	${realpath} --relative-to="${PWD}" "${1}"
+}
+
+# Convenience function to print a failure method and exit
+# All params are echoed in a box with newlines in between.
+fail()
+{
+	font_red
+	echo "[FAIL]"
+	echo
+
+	if [ "${#}" -eq 1 ]; then
+		box "${1}" 80 '!' '!'
+	elif [ "${#}" -gt 1 ]; then
+		for i in $(seq 1 "${#}"); do
+			if [ "${i}" -eq 1 ]; then
+				box "${!i}" 80 '!' '!' 'l' 1 0
+			elif [ "${i}" -eq "${#}" ]; then
+				box "${!i}" 80 '!' '!' 'l' 0 1
+			else
+				box "${!i}" 80 '!' '!' 'l' 0 0
+			fi
+		done
+	fi
+
+	if ! move_back_dirs; then
+		echo
+		local msg="Additionally, this script could not move back your "
+		msg+="renamed lib and/or config directories. They may be named "
+		msg+="$(rp "${local_lib_dir}${move_suffix}") and "
+		msg+="$(rp "${local_config_dir}${move_suffix}") respectfully."
+		box "${msg}" 80 '!' '!' 'l'
+	fi
+
+	font_reset
+	echo
+
+	print_footer "${start_sec}"
+
+	# Exit from here
+	exit 1
+}
+
+# Print [WARN] with any arguments in a box after.
+# All params are echoed in a box with newlines in between.
+warn()
+{
+	font_lightred
+	echo "[WARN]"
+
+
+	if [ "${#}" -eq 1 ]; then
+		echo
+		box "${1}"
+	elif [ "${#}" -gt 1 ]; then
+		echo
+		for i in $(seq 1 "${#}"); do
+			if [ "${i}" -eq 1 ]; then
+				box "${!i}" 80 '=' '|' 'l' 1 0
+			elif [ "${i}" -eq "${#}" ]; then
+				box "${!i}" 80 '=' '|' 'l' 0 1
+			else
+				box "${!i}" 80 '=' '|' 'l' 0 0
+			fi
+		done
+	fi
+
+	font_reset
+}
+
+# Print [OKAY] with any arguments in parentheses before.
+okay()
+{
+	if [ "${#}" -ne 0 ]; then
+		for i in "${@}"; do
+			font_dim
+			echo -n  "(${i}) "
+		done
+	fi
+	font_reset
+	font_green
+	echo "[OKAY]"
+	font_reset
+}
+
+# Print a repeated line
+printline()
+{
+	if [ $# -ne 2 ]; then
+		echo "Usage: ${FUNCNAME[0]} <char> <times>"
+		return 1
+	fi
+
+	printf "${1}%.0s" $(seq 1 "${2}")
+}
+
+# Output string in a box
+box()
+{
+	if [ "${#}" -lt 1 ] || [ "${#}" -gt 7 ] ; then
+		echo -n "Usage: ${FUNCNAME[0]} <msg> [width=80] "
+		echo "[tb_symbol='='] [lr_symbol='|'] [align=[a|l|c|r]] "
+		echo "[header=0|1] [footer=0|1]"
+		return 1
+	fi
+	local msg="${1}"
+	local width=80
+	if [ "${#}" -ge 2 ]; then
+		width="${2}"
+	fi
+	local tb_symbol='='
+	if [ "${#}" -ge 3 ]; then
+		tb_symbol="${3}"
+		if [ "${#tb_symbol}" -ne 1 ]; then
+			echo "tb_symbol not a single character"
+			return 1
+		fi
+	fi
+	local lr_symbol='|'
+	if [ "${#}" -ge 4 ]; then
+		lr_symbol="${4}"
+		if [ "${#lr_symbol}" -ne 1 ]; then
+			echo "lr_symbol not a single character"
+			return 1
+		fi
+	fi
+	local align="a"
+	if [ "${#}" -ge 5 ]; then
+		align="${5}"
+		if [ "${align}" != "c" ] && [ "${align}" != "a" ] && \
+		    [ "${align}" != "l" ] && [ "${align}" != "r" ]; then
+			echo "Invalid alignment value"
+			return 1
+		fi
+	fi
+	local print_header=1
+	if [ "${#}" -ge 6 ]; then
+		print_header="${6}"
+		if [ "${print_header}" -ne 0 ] && [ "${print_header}" -ne 1 ]
+		then
+			echo "Invalid print_header value"
+		fi
+	fi
+	local print_footer=1
+	if [ "${#}" -eq 7 ]; then
+		print_footer="${7}"
+		if [ "${print_footer}" -ne 0 ] && [ "${print_footer}" -ne 1 ]
+		then
+			echo "Invalid print_footer value"
+		fi
+	fi
+
+	if [ "${print_header}" -eq 1 ]; then
+		printline "${tb_symbol}" "${width}" && echo
+	fi
+
+	local max_width=$(( width - 4 ))
+
+	# Center align if a single line and alignment is auto
+	if [ "${align}" == "a" ]; then
+		if [ "${#msg}" -le "${max_width}" ]; then
+			align="c"
+		else
+			align="l"
+		fi
+	fi
+
+	local num_chars
+	local indent_count
+	local indent_pre
+	local indent_post
+	while read -r line; do
+		num_chars="${#line}"
+		indent_count=$(( (max_width + 2) - num_chars ))
+
+		if [ "${align}" == "c" ]; then
+			indent_pre=$(( indent_count / 2 ))
+			indent_post=$(( (indent_count + 2 - 1) / 2 ))
+		elif [ "${align}" == "l" ]; then
+			indent_pre=1
+			indent_post=$(( indent_count - 1 ))
+		elif [ "${align}" == "r" ]; then
+			indent_pre=$(( indent_count - 1 ))
+			indent_post=1
+		fi
+
+		# Left (floor)
+		echo -n "${lr_symbol}"
+		for i in $(seq 1 "${indent_pre}"); do
+			echo -n ' '
+		done
+
+		# Message
+		echo -n "${line}"
+
+		# Right (ceiling)
+		for i in $(seq 1 "${indent_post}"); do
+			echo -n ' '
+		done
+
+		echo "${lr_symbol}"
+	done < <(echo "${msg}" | fold -s -w "${max_width}")
+
+	if [ "${print_footer}" -eq 1 ]; then
+		printline "${tb_symbol}" "${width}" && echo
+	fi
+}
+
+# Print validation script header message
+print_header()
+{
+	box "ELFT Validation | Version ${validation_version} | $(get_date)"
+}
+
+# Print validation script footer message
+print_footer()
+{
+	local start_sec
+	if [ "${#}" -eq 1 ]; then
+		start_sec="${1}"
+	fi
+
+	font_reset;font_dim
+	echo -n "Completed: $(get_date)"
+	if [ "${start_sec}" != "" ]; then
+		local duration=$(( ("$(date +%s)" - start_sec) ))
+		echo " (Runtime: ${duration}s)"
+	else
+		echo
+	fi
+	font_reset
+}
+
+# Convenience for a middle line with 80 char left align standard box
+boxline()
+{
+	if [ "${#}" -eq 0 ]; then
+		box "" 80 '=' '|' 'l' 0 0
+	else
+		for i in "${@}"; do
+			box "${i}" 80 '=' '|' 'l' 0 0
+		done
+	fi
+}
+
+# Print message when validation version couldn't be checked
+print_couldnt_check_version()
+{
+	font_lightred
+
+	local vers_url="https://github.com/usnistgov/elft/tree/master/elft_1_x/"
+	vers_url+="validation/VERSION"
+
+	local msg="This script could not check online to ensure there are no "
+	msg+="updates available. NIST requires that ELFT submissions always "
+	msg+="use the latest version. Retrieve the latest version number by "
+	msg+="visiting the URL below and be sure it matches this version: "
+	msg+="${validation_version}."
+
+	box "${msg}" 80 '+' '+' 'l' 1 0
+	box "" 80 '+' '+' 'l' 0 0
+	box "${vers_url}" 80 '+' '+' 'l' 0 0
+	box "" 80 '+' '+' 'l' 0 0
+
+	msg="If these numbers don't match, visit our website to retrieve the "
+	msg+="latest version."
+	box "${msg}" 80 '+' '+' 'l' 0 1
+
+	font_reset
+}
+
+# Success message
+print_final_success()
+{
+	local tar_file
+	if ! tar_file="$(get_final_output_name).tar.xz"; then
+		fail "Could not get final output name."
+	fi
+	echo
+	font_green
+
+	local msg="You have successfully completed your part of ELFT "
+	msg+="validation. Please sign and encrypt the file listed below. "
+	box "${msg}" 80 '=' '|' 'l' 1 0
+	boxline
+	box "${tar_file}" 80 '=' '|' 'c' 0 0
+	boxline
+
+	local file_size
+	file_size="$(du -m "${tar_file}" | cut -f 1)"
+	# Likely will be too big for email
+	if [ "${file_size}" -ge 20 ]; then
+		msg="${tar_file}.asc will likely too big for NIST's email "
+		msg+="server, so please contact elft@nist.gov for an upload "
+		msg+="link for both ${tar_file}.asc and your public key."
+	else
+		msg="Please attach both ${tar_file}.asc and your public key to "
+		msg+="an email addressed to elft@nist.gov."
+	fi
+	box "${msg}" 80 '=' '|' 'l' 0 1
+	font_reset
+}
+
+print_encryption()
+{
+	local tar_file
+	if ! tar_file="$(get_final_output_name).tar.xz"; then
+		tar_file="elft_validation_nullimpl_0001.tar.xz"
+	fi
+
+
+	# Sign + encrypt example
+	echo "Example of signing and encrypting with GnuPG:"
+	echo "  gpg --output ${tar_file}.asc \\"
+	echo "      --default-key <#YOUR EMAIL ADDRESS#> \\"
+	echo "      --recipient <#YOUR EMAIL ADDRESS#> \\"
+	echo "      --recipient elft@nist.gov \\"
+	echo "      --armor --sign --encrypt ${tar_file}"
+	echo
+
+	# Extract public key example
+	local lib_name
+	if ! lib_name="$(get_core_library_name)"; then
+		lib_name="libelft_nullimpl_0001.so"
+	fi
+	lib_name="$(basename "${lib_name}" .so)"
+	echo "Example of extracting public key with GnuPG:"
+	echo "  gpg --output ${lib_name}_public_key.asc \\"
+	echo "      --armor --export <# YOUR EMAIL ADDRESS #>"
+	echo
+
+	# Export key fingerprint example
+	echo "Example of extracting fingerprint from public key with GnuPG:"
+	echo "  gpg --fingerprint <# YOUR EMAIL ADDRESS #> | grep '^ '"
+}
+
+# Print instructions to the console
+print_instructions()
+{
+	echo "$0 clean"
+	echo -n " - Restores validation directory to original state, removing "
+	echo "any previous "
+	echo "   output, but leaving copied libraries and configurations."
+	echo
+	echo "$0 encrypt"
+	echo " - Print sample signing and encryption instructions for GnuPG."
+	echo
+	echo "Instructions"
+	echo "============"
+	echo " 1. Copy required files:"
+	echo -n "    a. Place all needed libraries in 'lib/', including your "
+	echo "properly named "
+	echo "          ELFT core library."
+	echo "    b. Place any needed runtime configuration files in 'config/'."
+	echo " 2. Run './validate'."
+	echo "    a. Successful? Sign and encrypt the generated archive."
+	echo "    b. Unsuccessful? Work to resolve the listed errors, run"
+	echo "       './validate clean', and repeat these steps."
+	echo -n " 3. Email the signed and encrypted file along with your "
+	echo "public key to"
+	echo "    elft@nist.gov."
+}
+
+# Print CBEFF information recorded to the console
+print_cbeff()
+{
+	font_lightred
+	local msg="Please review the marketing and CBEFF information compiled "
+	msg+="into your library to ensure correctness:"
+
+	local final_output_dir
+	if ! final_output_dir="${wd}/$(get_final_output_name)"; then
+		fail "Could not get final output name."
+	fi
+
+	echo
+	box "${msg}" 80 '=' '|' 'l' 1 0
+	boxline
+	while read -r line; do
+		boxline "${line}"
+	done < <(grep -h -e Exemplar -e Latent -e Search \
+	    "${final_output_dir}"/id_*)
+	printline '=' 80 && echo
+	font_reset
+}
+
+################################################################################
+# Setup Checks                                                                 #
+################################################################################
+
+# Prevent against possible issues when not using GNU realpath
+check_wd()
+{
+	if [ "${wd}" == "" ]; then
+		local msg="The directory containing \"validate\" could not be "
+		msg+="found, possibly because you are not using GNU realpath "
+		msg+="under CentOS. If you are, please report an issue on the "
+		msg+="ELFT GitHub repository."
+		fail "${msg}"
+	fi
+}
+
+# Check the environment for known variables, and echo them.
+check_environment()
+{
+	echo -n "Checking for known environment variables... "
+	okay
+}
+
+# Check that CentOS packages used in this file have been installed.
+check_required_packages()
+{
+	echo -n "Checking for required packages... "
+
+	# Packages required to run this script
+	local pkgs="binutils centos-release coreutils dnf file gawk gcc-c++ "
+	local pkgs+="grep cmake make tar sed xz"
+
+	if ! command -v dnf > /dev/null; then
+		fail "\`dnf' is required to be installed for validation."
+	fi
+
+	for pkg in ${pkgs}; do
+		if ! dnf -q list installed "${pkg}" > /dev/null 2>&1; then
+			msg="The required package \"${pkg}\" was not "
+			msg+="installed. Try \`dnf install ${pkg}' to install "
+			msg+="\"${pkg}.\""
+			fail "${msg}"
+		fi
+	done
+
+	okay
+}
+
+# If the user has Internet access, check that this script is the latest version.
+# @return 1 if version could be checked, 0 if not.
+check_validation_version()
+{
+	# Confirm validation package version, if possible
+	local checked=0
+
+	if ! command -v curl > /dev/null || ! command -v ping > /dev/null; then
+		font_dim
+		echo -n "(no networking tools)"
+		font_reset
+		font_yellow
+		echo " [SKIP]"
+		font_reset
+		return "${checked}"
+	fi
+
+	# URL with the most recent version number of the validation package
+	local version_url="https://raw.githubusercontent.com/usnistgov/elft/"
+	local version_url+="master/elft_1_x/validation/VERSION"
+
+	echo -n "Checking validation version... "
+	# d.root-servers.net -> 199.7.91.13
+	if ping -W 1 -c 1 199.7.91.13 > /dev/null 2>&1; then
+		local internet_version=0
+		if internet_version=$(curl -m 10 -f "${version_url}" \
+		    2>/dev/null)
+		then
+			if [ "${internet_version}" != "${validation_version}" ];
+			then
+				msg="You are running an old version of the "
+				msg+="validation package (${validation_version}"
+				msg+="). Please download ${internet_version} "
+				msg+="from:"
+				fail "${msg}" "${validation_dl_url}"
+			else
+				okay "${validation_version}"
+				checked=1
+			fi
+		else
+			font_dim
+			echo -n "(connection failure)"
+			font_reset
+			font_yellow
+			echo " [SKIP]"
+			font_reset
+		fi
+	else
+		font_dim
+		echo -n "(no Internet connection)"
+		font_reset
+		font_yellow
+		echo " [SKIP]"
+		font_reset
+	fi
+
+	return "${checked}"
+}
+
+# Ensure that the imagery versions downloaded are compatible with this version
+# of the validation script.
+check_image_versions()
+{
+	# Version of image dataset compatible with this script
+	local expected_image_version="202004161133"
+
+	echo -n "Checking validation image versions... "
+
+	if ! [ -e "${wd}/${validation_image_dir}/VERSION" ]; then
+		local msg="No images were found within within ${wd}/"
+		msg+="${validation_image_dir}.  If you have images, please "
+		msg+="move them to the appropriate location. If you don't have "
+		msg+="images, please request the latest versions from NIST: "
+		fail "${msg}" "${validation_image_request_url}"
+	fi
+
+	local image_version="UNKNOWN"
+	read -r image_version < "${wd}/${validation_image_dir}/VERSION"
+	if [ "${expected_image_version}" != "${image_version}" ]; then
+		local msg="The version of validation images within ${wd}/"
+		msg+="${validation_image_dir} (${image_version}) is not "
+		msg+="compatible with this version of the validation script "
+		msg+="(${validation_version}). Please request the latest "
+		msg+="version from NIST: "
+		fail "${msg}" "${validation_image_request_url}"
+	fi
+
+	okay
+}
+
+# Check and warn if files from a previous validation attempt are still present
+# in the current working directory.
+check_for_previous_attempts()
+{
+	echo -n "Checking for previous validation attempts... "
+	local output_found
+	output_found=$(find "${wd}" -maxdepth 1 -type d -name \
+	    "$(basename "${output_dir}")*" -print -quit)
+	if [ "${output_found}" != "" ]; then
+		fail "Previous attempt at validation found:" \
+		    "$(rp "${output_found}")" "" \
+		    "You can remove it by running: '${0} clean'"
+	fi
+	output_found=$(find "${wd}" -maxdepth 1 -name "elft_validation_*" \
+	    \! -name "elft_validation_images-*" -print -quit)
+	if [ "${output_found}" != "" ]; then
+		fail "Previous attempt at validation found:" \
+		    "$(rp "${output_found}")" "" \
+		    "You can remove it by running: '${0} clean'"
+	fi
+
+	okay
+}
+
+# Check that the version of CentOS is the correct version.
+check_os()
+{
+	local expected="8.1.1911"
+	echo -n "Checking OS and version... "
+	if [ ! -e /etc/redhat-release ]; then
+		local msg="You do not appear to be using the appropriate "
+		msg+="operating system. Please use CentOS ${expected}."
+		fail "${msg}"
+	fi
+	if [ "$(tr -C -d '[:digit:].' < /etc/redhat-release)" != \
+	    "${expected}" ]; then
+		local msg="You do not appear to be using the appropriate "
+		msg+="version of CentOS. Please use ${expected}."
+		fail "${msg}"
+	fi
+	okay "CentOS ${expected}"
+}
+
+# Check that images have been downloaded, placed in the correct spot, etc.
+check_for_images()
+{
+	# Check for data
+	echo -n "Checking for validation images... "
+	if ! [ -d "${wd}/${validation_image_dir}" ]; then
+		# If directory doesn't exist, maybe user didn't expand archive
+		local image_archive
+		image_archive="$(find "${wd}" -maxdepth 1 -name \
+		    "${validation_image_download_prefix}*" | wc -l)"
+		if [ "${image_archive}" -gt 0 ]; then
+			font_yellow
+			echo "[DEFER]"
+			font_reset
+			while read -r i; do
+				echo -n " -> Expanding \""
+				echo -n "$(basename "${i}")\"... "
+				if tar xf "${i}" > /dev/null 2>&1; then
+					okay
+				else
+					fail "Failed to expand ${i}"
+				fi
+			done < <(find "${wd}" -maxdepth 1 -name \
+			    "${validation_image_download_prefix}*" | sort)
+
+			check_for_images
+			return
+		else
+			msg="Cannot find validation images. You must request "
+			msg+="them from NIST's website and place them within:"
+			fail "${msg}" "${wd}" "The URL is:" \
+			    "${validation_image_request_url}"
+		fi
+	else
+		# If the directory does exist, check that every archive present
+		# has been expanded
+		local has_deferred=0
+		while read -r i; do
+		    	local regex=".*\/${validation_image_download_prefix}"
+		    	regex+="\(.*\)-.\+.tar.*"
+			if ! [ -e "${wd}/${validation_image_dir}/VERSION" ];
+			    then
+			    	if [ "${has_deferred}" -eq 0 ]; then
+			    		font_yellow
+	    				echo "[DEFER]"
+	    				font_reset
+	    				has_deferred=1
+	    			fi
+
+				echo -n " -> Expanding "
+				echo -n "$(basename "${i}")\"... "
+				if tar xf "${i}" > /dev/null 2>&1; then
+					okay
+					return
+				else
+					fail "Failed to expand ${i}"
+					return
+				fi
+			fi
+		done < <(find "${wd}" -maxdepth 1 -name \
+		    "${validation_image_download_prefix}*")
+	fi
+
+	okay
+}
+
+# Ensure that a library in the lib directory implements the required naming
+# convention.
+check_library()
+{
+	echo -n "Looking for core library... "
+
+	local core_lib=""
+	if core_library_present; then
+		if ! core_lib="$(get_core_library_name)"; then
+			echo "${core_lib}"
+			return 1
+		fi
+	else
+		if ! get_core_library_name; then
+                	local msg="No core library found in the library "
+			msg+="directory. Please review the ELFT library "
+			msg+="naming conventions."
+                	fail "${msg}" "" "The library directory is:" \
+			    "$(rp "${local_lib_dir}")"
+			return 1
+		fi
+
+		return 1
+	fi
+
+	# Some file systems are case-insensitive
+	local vers
+	vers="$(get_lib_version)"
+	if [ "${vers}" != "$(tr '[:lower:]' '[:upper:]' <<< "${vers}")" ]; then
+		local correct
+		correct="$(cut -f1 -d_ <<< "${core_lib}")_"
+		correct+="$(cut -f2 -d_ <<< "${core_lib}")_"
+		correct+="$(tr '[:lower:]' '[:upper:]' <<< "${vers}")."
+		correct+="$(cut -f2 -d. <<< "${core_lib}")"
+
+		local msg="Please use uppercase hexadecimal digits "
+		msg+="(\"ABCDEF\", not \"abcdef\") for the version in your "
+		msg+="library name. Please rebuild \"${core_lib}\" as "
+		msg+="\"${correct}.\""
+		fail "${msg}"
+	fi
+
+	# If SONAME is present, check that it is the same as the lib name
+	local SONAME
+	SONAME=$(objdump -p "${local_lib_dir}/${core_lib}" | grep SONAME | \
+	    awk '{print $2}')
+	if [ "${SONAME}" != "" ]; then
+		if [ "${SONAME}" != "${core_lib}" ]; then
+			local msg="The SONAME of ${core_lib} is not valid. "
+			msg+="${core_lib} was likely renamed after being "
+			msg+="built. The SONAME must be the same name as the "
+			msg+="core library."
+			fail "${msg}"
+		fi
+	fi
+
+	okay "${core_lib}"
+}
+
+################################################################################
+# Utilities                                                                    #
+################################################################################
+
+# Check that a core library exists
+core_library_present()
+{
+	if ! [ -d "${local_lib_dir}" ]; then
+		return 1
+	fi
+
+	local count
+	count=$(find "${local_lib_dir}" -type f -regextype posix-extended \
+	    -regex "${local_lib_dir}/${lib_regex}" -printf "%P\n" | wc -l)
+	if [ "${count}" -ne 1 ]; then
+		return 1
+	fi
+
+	return 0
+}
+
+# Get the name of the core library
+get_core_library_name()
+{
+	if ! core_library_present; then
+		return 1
+	fi
+
+	if ! [ -d "${local_lib_dir}" ]; then
+		local msg="Library directory not found. Create it and place "
+		msg+="the core library inside."
+		fail "${msg}" "" "The library directory is:" "${local_lib_dir}"
+		return 1
+	fi
+
+	local core_lib=""
+	local count
+	count=$(find "${local_lib_dir}" -type f -regextype posix-extended \
+	    -regex "${local_lib_dir}/${lib_regex}" -printf "%P\n" | wc -l)
+	if [ "${count}" -gt 1 ]; then
+		fail "More than one core library found in ${local_lib_dir}"
+		return 1
+	fi
+
+	local core_lib
+	core_lib=$(find "${local_lib_dir}" -type f -regextype posix-extended \
+	    -regex "${local_lib_dir}/${lib_regex}" -printf "%P\n")
+	if [ "${core_lib}" == "" ]; then
+		local msg="No core library found in the library directory. "
+		msg+="Please review the ELFT library naming conventions."
+		fail "${msg}" "" "The library directory is:" \
+		    "$(rp "${local_lib_dir}")"
+		return 1
+	fi
+
+	echo "${core_lib}"
+	return 0
+}
+
+# Get the version of the library from the core library.
+get_lib_version()
+{
+	local name
+	if ! name="$(get_core_library_name)"; then
+		return 1
+	fi
+
+	(cut -f3 -d_ <<< "${name}") | sed 's/\(.*\).so/\1/'
+}
+
+# Get the name of the organization from the core library.
+get_organization_name()
+{
+	local name
+	if ! name="$(get_core_library_name)"; then
+		return 1
+	fi
+
+	cut -f2 -d_ <<< "${name}"
+}
+
+# Generate a random number.
+get_random_number()
+{
+	od -A n -t uL -N 4 /dev/urandom | tr -d -C '[:digit:]'
+}
+
+# Return "DD MMM YYYY | HH:MM:SS ZZZ"
+get_date()
+{
+	date "+%d %b %Y | %T %Z"
+}
+
+get_final_output_name()
+{
+	local name="elft_validation_"
+	if ! name+="$(get_organization_name)"; then
+		fail "Could not get organization name."
+	fi
+	name+="_"
+	if ! name+="$(get_lib_version)"; then
+		fail "Could not get library versio."
+	fi
+
+	echo "${name}"
+}
+
+num_lines_in_file()
+{
+	if [ "${#}" -ne 1 ]; then
+		echo "Usage: ${FUNCNAME[0]} <path>"
+		fail
+	fi
+
+	if ! [ -e "${1}" ]; then
+		fail "${1} does not exist"
+	fi
+
+	local count
+	if ! count="$(wc -l "${1}")"; then
+		fail "Could not count lines in" "${1}"
+	fi
+
+	cut -f 1 -d ' ' <<< "${count}"
+}
+
+# Merge forked logs into a single file.
+merge_logs()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <log_prefix>"
+	fi
+	local log_prefix="${1}"
+
+	# Is there at least one file with this prefix?
+	local exists
+	if ! exists=$(find "${driver_output_dir}" -type f \
+	    -name "${log_prefix}-*" -print -quit); then
+		fail "Could not find ${log_prefix} logs."
+	elif [ "${exists}" == "" ]; then
+		fail "Could not merge ${log_prefix} logs."
+	fi
+
+	# Make a temp file to store the merge
+	local tmp_file
+	if ! tmp_file="$(mktemp)"; then
+		fail "Could not make temp file."
+	fi
+
+	# Get the header from the first log (they're all the same)
+	head -n 1 "${exists}" >> "${tmp_file}"
+
+	# Merge the logs, minus the header
+	while read -r f; do
+		tail -n +2 "${f}" >> "${tmp_file}"
+	done < <(find "${driver_output_dir}" -type f \
+	    -name "${log_prefix}-*.log")
+
+	# Sort, ignoring the header
+	local log="${driver_output_dir}/${log_prefix}.log"
+	(head -n 1 "${tmp_file}" && tail -n +2 "${tmp_file}" | sort) > "${log}"
+
+	# Remove individual process logs
+	rm -f "${tmp_file}"
+	while read -r f; do
+		rm "${f}"
+	done < <(find "${driver_output_dir}" -type f \
+	    -name "${log_prefix}-*.log")
+}
+
+################################################################################
+# Build                                                                        #
+################################################################################
+
+# Compile the validation driver.
+compile()
+{
+	echo -n "Building... "
+
+	if [ ${#} -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <random_seed>"
+	fi
+
+	local log="${output_dir}/compile.log"
+
+	declare -A md5s
+	md5s["../libelft/libelft.cpp"]="655b665e73e84ed073b98901c7e410a1"
+	md5s["../include/elft.h"]="4e2fdc01e5365606f3768e75c6724e98"
+	md5s["src/elft_validation.cpp"]="f99770b7cc25151cbedaf07577c63b82"
+	md5s["src/elft_validation.h"]="3fb8805ccb586dc33f93a3b38b24988d"
+	md5s["src/elft_validation_data.h"]="bc3b3ff30807b48d09330827e47ef2a4"
+	md5s["src/elft_validation_utils.h"]="3bbef4831145279580120072e3e77fb8"
+
+	# Check checksums
+	local expected
+	local actual
+	echo "Source checksums:" >> "${log}"
+	for f in "${!md5s[@]}"; do
+		expected="${md5s[${f}]}"
+		actual=$(md5sum "${wd}/${f}" | cut -f 1 -d ' ')
+		if [ "${expected}" != "${actual}" ]; then
+			local bf
+			bf="$(basename "${f}")"
+			local msg="Your copy of ${bf} appears to be modified. "
+			msg+="Please restore the original copy. Making changes "
+			msg+="will almost certainly cause errors."
+			fail "${msg}"
+		fi
+
+		echo "${actual} ${f}" >> "${log}"
+	done
+	echo >> "${log}"
+
+	# Check for pre-built libelft.so
+	if [ -e "${local_lib_dir}/libelft.so" ]; then
+		local msg="The library 'libelft.so' is in the directory "
+		msg+="$(rp "${local_lib_dir}"). This script will build its own "
+		msg+="copy of the library to ensure that modifications have "
+		msg+="not been made, since doing so may cause issues during "
+		msg+="the evaluation."
+		warn "${msg}"
+
+		echo -n "Still building... "
+		rm -f "${local_lib_dir}/libelft.so"
+		if [ -e "${local_lib_dir}/libelft.so" ]; then
+			msg="This script could not overwrite your copy of "
+			msg+="libelft.so."
+			fail "${msg}"
+		fi
+	fi
+
+	# Check for pre-built libelft_output.so
+	if [ -e "${local_lib_dir}/libelft_output.so" ]; then
+		local msg="The library 'libelft_output.so' is in the directory "
+		msg+="$(rp "${local_lib_dir}"). You may not link to this "
+		msg+="library in your ELFT submission. It is only for "
+		msg+="debugging purposes. Please ensure your libraries are not "
+		msg+="dependent on libelft_output.so, remove this library, and "
+		msg+="re-run validation."
+		fail "${msg}"
+	fi
+
+	# Catch the case of hardcoding "../lib", etc. into library by always
+	# linking against libs in a different directory
+	local tmp_dir
+	tmp_dir="$(mktemp -u -t elft_libs.XXXXXXXXXX)"
+	cp -r "${lib_dir}" "${tmp_dir}"
+	lib_dir="${tmp_dir}"
+	if [ -d "${local_lib_dir}${move_suffix}" ]; then
+		local msg="You have a directory named ${local_lib_dir}"
+		msg+="${move_suffix}. Please remove or rename it."
+		fail "${msg}"
+	else
+		if ! mv -n "${local_lib_dir}" "${local_lib_dir}${move_suffix}"
+		then
+			fail "Could not move ${local_lib_dir}"
+		fi
+		local_lib_dir="${local_lib_dir}${move_suffix}"
+	fi
+
+	tmp_dir="$(mktemp -u -t elft_configs.XXXXXXXXXX)"
+	cp -r "${config_dir}" "${tmp_dir}"
+	chmod -R -w "${tmp_dir}"
+	config_dir="${tmp_dir}"
+	if [ -d "${local_config_dir}${move_suffix}" ]; then
+		move_back_dirs
+
+		local msg="You have a directory named ${local_config_dir}"
+		msg+="${move_suffix}. Please remove or rename it."
+		fail "${msg}"
+	else
+		if ! mv -n "${local_config_dir}" \
+		    "${local_config_dir}${move_suffix}"
+		then
+			fail "Could not move ${local_config_dir}"
+		fi
+		local_config_dir="${local_config_dir}${move_suffix}"
+	fi
+
+	# Compile
+	echo "Compilation:" >> "${log}"
+	build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
+	cd "${build_dir}" || fail "Could not change to build directory"
+	if ! cmake "${src_dir}" -DELFT_VALIDATION_LIB_DIR="${lib_dir}" \
+	    >> "${log}" 2>&1; then
+		fail "An error occurred during configuration. Please review:" \
+		    "$(rp "${log}")"
+	fi
+	cd - > /dev/null || fail "Could not change back to previous directory"
+	if ! make -C "${build_dir}" VERBOSE=1 >> "${log}" 2>&1; then
+		fail "An error occurred during compilation. Please review:" \
+		    "$(rp "${log}")"
+	fi
+	if ! make -C "${build_dir}" install VERBOSE=1 >> "${log}" 2>&1; then
+		fail "An error occurred during installation. Please review:" \
+		    "$(rp "${log}")"
+	fi
+	echo >> "${log}"
+
+	# Check that binary shows a dependency on the core library
+	local core_lib
+	if ! core_lib="$(get_core_library_name)"; then
+		fail "Could not get core library name"
+	fi
+	if ! ldd "${binary}" | grep -q "${lib_dir}/${core_lib}"; then
+		local msg="${core_lib} is not a dependency of the compiled "
+		msg+="binary. The library was either renamed after being "
+		msg+="built, or the binary is linking against a version of "
+		msg+="${core_lib} from a directory outside of the validation "
+		msg+="package. Please review:"
+		fail "${msg}" "$(rp "${log}")"
+	fi
+
+	# Check for ORIGIN if using multiple libraries
+	local num_libs
+	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
+	if [ "${num_libs}" -gt 2 ]; then
+		if ! readelf -d "${lib_dir}/${core_lib}" | \
+		    grep RPATH | grep -q "\$ORIGIN"
+		then
+			local msg="You have supplied multiple libraries, but "
+			msg+="${core_lib} does not have an RPATH of \$ORIGIN. "
+			msg+="This may cause runtime issues, because the "
+			msg+="location of libraries on NIST's systems will not "
+			msg+="be laid out the same as in this validation "
+			msg+="package and the only library explicitly linked "
+			msg+="will be ${core_lib}."
+
+			warn "${msg}"
+			echo -n "Still building... "
+		fi
+	fi
+
+	# Don't rely on libelft_output
+	while read -r i; do
+		if readelf -d "${i}" 2>&1 | grep -q "libelft_output"; then
+			local msg="The library 'libelft_output.so' is required "
+			msg+="by $(basename "${i}"). You may not link to "
+			msg+="'libelft_output.so' in your ELFT submission. It "
+			msg+="is only for debugging purposes. Please remove "
+			msg+="this dependency and re-run validation."
+			fail "${msg}"
+		fi
+	done < <(find "${lib_dir}" -type f -name "lib*")
+
+	# Suspected non libraries in library directory
+	local non_libs
+	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
+	    -name README | wc -l)"
+	if [ "${non_libs}" -gt 0 ]; then
+		local msg="You have files in ${local_lib_dir} that don't "
+		msg+="appear to be libraries. That's fine, but are you sure "
+		msg+="they don't belong in \"${local_config_dir}\" instead?"
+
+		warn "${msg}"
+		echo -n "Still building... "
+	fi
+
+	# Log some extra compilation information that may be useful in helping
+	# to debug future issues
+	{
+		echo "Linked libraries:"
+		find "${lib_dir}" -type f \! -name README -exec md5sum {} \;
+		echo
+
+		echo "Configs present:"
+		find "${config_dir}" -type f \! -name README -exec md5sum {} \;
+		echo
+
+		echo "CentOS Version:"
+		cat /etc/redhat-release
+		echo
+
+		echo "ldd output of binary:"
+		ldd "${binary}"
+		echo
+
+		echo -n "Dynamic section of binary:"
+		readelf -d "${binary}"
+		echo
+
+		echo "Dynamic section of attached libraries:"
+		while read -r i; do
+			echo -n "readelf -d ${i}"
+			readelf -d "${i}" 2>&1
+			echo
+		done < <(find "${lib_dir}" -type f -name "lib*")
+
+		echo "Validation properties:"
+		echo "Validation Version = ${validation_version}"
+		echo "Random Seed = $1"
+	} >> "${log}"
+
+	okay
+}
+
+check_api_level()
+{
+	echo -n "Checking API version... "
+
+	# If API level is incorrect, text is printed to stderr on execution
+	local tempfile
+	tempfile="$(mktemp)"
+	local output
+	output="$("${binary}" 2> "${tempfile}")"
+	if grep -q "Incompatible " "${tempfile}";  then
+		output=$(<"${tempfile}")
+		rm "${tempfile}"
+		fail "${output}"
+		return 1
+	fi
+
+	rm "${tempfile}"
+	okay
+}
+
+# Remove files from previous validation attempts.
+clean_previous_attempts()
+{
+	echo -n "Removing output directories... "
+	rm -rf "${bin_dir}"
+	if [ -d "${bin_dir}" ]; then
+		fail "Failed to remove" "${bin_dir}"
+		return 1
+	fi
+
+	rm -rf "${output_dir}"
+	if [ -d "${output_dir}" ]; then
+		fail "Failed to remove" "${output_dir}"
+		return 1
+	fi
+
+	rm -rf "${lib_dir}/libelft.so"
+
+	local org_name
+	if ! org_name="$(get_organization_name)"; then
+		fail "Could not get organization name."
+	fi
+
+ 	rm -rf "${wd}"/elft_validation_"${org_name}"_*
+	if [ "$(find "${wd}" -name "elft_validation_""${org_name}""_*" | \
+	    wc -l)" -ne 0 ];
+	then
+	    	fail "Failed to remove some output. Please delete it manually."
+		return 1
+	fi
+
+	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
+	    -exec chmod +w {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
+	    -exec rm -rf {} \;
+
+	okay
+
+	if ! core_library_present; then
+		return 0
+	fi
+
+	echo -n "Cleaning compilation... "
+	if ! make -C "${src_dir}" clean > /dev/null; then
+		fail "Unable to 'make clean' in" "$(rp "${src_dir}")"
+		return 1
+	fi
+
+	okay
+}
+
+################################################################################
+# Operations                                                                   #
+################################################################################
+
+move_back_dirs()
+{
+	local rv=0
+
+	if ! [ -d "$(basename "${local_lib_dir}" "${move_suffix}")" ]; then
+		if mv -n "${local_lib_dir}" \
+		    "$(basename "${local_lib_dir}" "${move_suffix}")" > \
+		     /dev/null 2>&1
+		then
+			local_lib_dir="$(basename "${local_lib_dir}" \
+			    "${move_suffix}")"
+		else
+			rv=1
+		fi
+	fi
+
+	if ! [ -d "$(basename "${local_config_dir}" "${move_suffix}")" ]; then
+		if mv -n "${local_config_dir}" \
+		    "$(basename "${local_config_dir}" "${move_suffix}")" > \
+		   /dev/null 2>&1
+		then
+			local_config_dir="$(basename "${local_config_dir}" \
+			    "${move_suffix}")"
+		else
+			rv=1
+		fi
+	fi
+
+	return "${rv}"
+}
+
+# Record MD5 of randomly-generated files to ensure that you truly have the
+# latest version of the validation imagery
+log_canaries()
+{
+	local canary_prefix="canary"
+	find -L "${wd}/${validation_image_dir}" -maxdepth 1 \
+	    -name "${canary_prefix}*" \
+	    -exec md5sum {} \; >> "${output_dir}/canary.log"
+}
+
+# Log extraction identification information to a log file.
+log_extraction_identification_information()
+{
+	local log="${output_dir}/id_extract.log"
+	echo "Core Library = $(get_core_library_name)" >> "${log}"
+	"${binary}" -i -z "${config_dir}" >> "${log}"
+}
+
+# Log search identification information to a log file.
+log_search_identification_information()
+{
+	local log="${output_dir}/id_search.log"
+	echo "Core Library = $(get_core_library_name)" >> "${log}"
+	"${binary}" -j -d "${db_dir}" -z "${config_dir}" >> "${log}"
+}
+
+# Run template generation and feature extraction.
+# @param type ("probe" or "reference", argument to elft_validation)
+# @param random_seed
+run_extract()
+{
+	if [ $# -ne 2 ]; then
+		fail "Usage: ${FUNCNAME[0]} <type> <random_seed>"
+	fi
+	local type="${1}"
+	local seed="${2}"
+
+	echo -n "Testing ExtractionInterface (${type})... "
+
+	# We want to fork regardless to be sure that implementations can handle
+	# forking, but we don't need to spawn a ton of processes either.
+	local forks
+	if ! forks=$(( $(nproc --all) > 4 ? 4 : 2 )); then
+		forks=2
+	fi
+
+	local log="${output_dir}/run-extract-${type}.log"
+	local cmd="${binary} -e ${type} -z ${config_dir} -f ${forks} "
+	cmd+="-r ${seed} -a ${validation_image_dir} -o ${driver_output_dir}"
+	echo "${cmd}" >> "${log}"
+
+	if ! "${binary}" -e "${type}" -z "${config_dir}" -f "${forks}" \
+	    -r "${seed}" -a "${validation_image_dir}" \
+	    -o "${driver_output_dir}" >> "${log}" 2>&1
+	then
+		local msg="An error occurred while running. Please review:"
+		fail "${msg}" "$(rp "${log}")"
+		return 1
+	fi
+
+	# Check for runtime error messages
+	if [ "$(wc -l < "${log}")" -ne 1 ]; then
+		local msg="Unexpected output was logged. Please review: "
+		fail "${msg}" "$(rp "${log}")"
+	fi
+
+	okay
+}
+
+# Run creation of reference database after reference template generation
+run_create_database()
+{
+	echo -n "Testing reference database creation... "
+
+	local max_size=125829120
+	local log="${output_dir}/run-createReferenceDatabase.log"
+	local cmd="${binary} -c -d ${db_dir} -z ${config_dir} "
+	cmd+="-o ${driver_output_dir} -m ${max_size}"
+	echo "${cmd}" >> "${log}"
+
+	if ! "${binary}" -c -d "${db_dir}" -z "${config_dir}" \
+	    -o "${driver_output_dir}" -m "${max_size}" >> "${log}" 2>&1
+	then
+		local msg="An error occurred while running. Please review:"
+		fail "${msg}" "$(rp "${log}")"
+		return 1
+	fi
+
+	# Check for runtime error messages
+	if [ "$(wc -l < "${log}")" -ne 1 ]; then
+		local msg="Unexpected output was logged. Please review: "
+		fail "${msg}" "$(rp "${log}")"
+	fi
+
+	okay
+}
+
+# Run database modification steps
+run_modify_database()
+{
+	echo -n "Testing reference database modification... "
+
+	local log="${output_dir}/run-modifyReferenceDatabase.log"
+	local cmd="${binary} -c -d ${db_dir} -z ${config_dir} "
+	cmd+="-o ${driver_output_dir}"
+	echo "${cmd}" >> "${log}"
+
+	if ! "${binary}" -t -d "${db_dir}" -z "${config_dir}" \
+	    -o "${driver_output_dir}" >> "${log}" 2>&1
+	then
+		local msg="An error occurred while running. Please review:"
+		fail "${msg}" "$(rp "${log}")"
+		return 1
+	fi
+
+	# Check for runtime error messages
+	if [ "$(wc -l < "${log}")" -ne 1 ]; then
+		local msg="Unexpected output was logged. Please review: "
+		fail "${msg}" "$(rp "${log}")"
+	fi
+
+	okay
+}
+
+# Run searches and extract correspondence
+# @param random seed
+run_search()
+{
+	if [ $# -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <random_seed>"
+	fi
+	local seed="${1}"
+
+	echo -n "Testing SearchInterface... "
+
+	# We want to fork regardless to be sure that implementations can handle
+	# forking, but we don't need to spawn a ton of processes either.
+	local forks
+	if ! forks=$(( $(nproc --all) > 4 ? 4 : 2 )); then
+		forks=2
+	fi
+
+	local max_candidates=10
+	local log="${output_dir}/run-search.log"
+	local cmd="${binary} -s -d ${db_dir} -z ${config_dir} -f ${forks} "
+	cmd+="-r ${seed} -o ${driver_output_dir} -m ${max_candidates}"
+	echo "${cmd}" >> "${log}"
+
+	if ! "${binary}" -s -d "${db_dir}" -z "${config_dir}" -f "${forks}" \
+	    -r "${seed}" -o "${driver_output_dir}" \
+	    -m "${max_candidates}" >> "${log}" 2>&1
+	then
+		local msg="An error occurred while running. Please review:"
+		fail "${msg}" "$(rp "${log}")"
+		return 1
+	fi
+
+	# Check for runtime error messages
+	if [ "$(wc -l < "${log}")" -ne 1 ]; then
+		local msg="Unexpected output was logged. Please review: "
+		fail "${msg}" "$(rp "${log}")"
+	fi
+
+	okay
+}
+
+# Make a tarball of all libraries and logfiles to send to NIST.
+make_tarball()
+{
+	echo -n "Creating validation submission... "
+
+	local final_output_name
+	if ! final_output_name="$(get_final_output_name)"; then
+		fail "Could not get final output name."
+	fi
+	local final_output_path="${wd}/${final_output_name}"
+	local tar_file="${final_output_name}.tar.xz"
+
+	if ! mv -n "${output_dir}" "${final_output_path}" > /dev/null 2>&1; then
+		fail "Could not rename $(rp "${output_dir}")"
+	fi
+	if ! cp -pr "${local_lib_dir}" "${final_output_path}"; then
+		fail "Could not copy $(rp "${local_lib_dir}")"
+	fi
+	if ! cp -pr "${local_config_dir}" "${final_output_path}"; then
+		fail "Could not copy $(rp "${local_config_dir}")"
+	fi
+
+	# Remove unnecessary files
+	if ! find "${final_output_path}" \( -type f -name 'libelft.so' -o \
+	    -name 'README' \) -exec rm -f {} \;; then
+		fail "Could not remove unnecessary validation files"
+	fi
+
+	if ! tar -C "${wd}" -c -J -f "${tar_file}" "${final_output_name}" > \
+	    /dev/null 2>&1; then
+		fail "There was an issue creating the validation tar file."
+	fi
+
+	okay "${tar_file}"
+}
+
+################################################################################
+# Checks                                                                       #
+################################################################################
+
+# Check extraction logs for potential errors
+check_extract()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <probe|reference>"
+	fi
+	local type="${1}"
+	if [ "${type}" != "probe" ] && [ "${type}" != "reference" ]; then
+		fail "Invalid template type: ${type}"
+	fi
+
+	local suffix
+	if [ "${type}" == "probe" ]; then
+		suffix="0"
+	elif [ "${type}" == "reference" ]; then
+		suffix="1"
+	fi
+
+	echo -n "Checking ${type} extraction logs... "
+
+	# Make a single log
+	merge_logs "extractionCreate-${suffix}"
+	merge_logs "extractionData-${suffix}"
+
+	# Check number of lines
+	if ! check_counts "extractionCreate-${suffix}"; then
+		local msg="Incorrect number of lines in ${type} extraction "
+		msg+="log. Please review: "
+		fail "${msg}" "$(rp \
+		    "${driver_output_dir}/extractionCreate-${suffix}.log")"
+	fi
+
+	# Count FTE and 0 byte templates
+	local fte=0
+	local empty_tmpl=0
+	while read -r line; do
+		read -r result tmpl_size <<< \
+		    "$(cut -f 3,7 -d ',' <<< "${line}" | tr ',' ' ')"
+
+		if [ "${result}" -ne 0 ]; then
+			fte=$(( fte + 1 ))
+			continue
+		fi
+
+		if [ "${tmpl_size}" -eq 0 ]; then
+			empty_tmpl=$(( empty_tmpl + 1 ))
+		fi
+	done < <(tail -n +2 \
+	    "${driver_output_dir}/extractionCreate-${suffix}.log")
+
+	if [ "${fte}" -gt 0 ]; then
+	    	local log="${driver_output_dir}/extractionCreate-${suffix}.log"
+	    	local msg="There are some (${fte}) failure to enroll ${type} "
+	    	msg+="templates. Please review: "
+	    	warn "${msg}" "$(rp "${log}")"
+    		echo -n "Still checking ${type} extraction logs... "
+	fi
+
+	if [ "${empty_tmpl}" -gt 0 ]; then
+	    	local log="${driver_output_dir}/extractionCreate-${suffix}.log"
+	    	local msg="There are some (${empty_tmpl}) failure to enroll "
+	    	msg+="zero-byte ${type} templates. Please review: "
+	    	warn "${msg}" "$(rp "${log}")"
+	fi
+
+	okay
+}
+
+check_search()
+{
+	check_search_candidates
+	check_search_correspondence
+}
+
+# Check search correspondence log for potential errors
+check_search_correspondence()
+{
+	#
+	# TODO: Too slow in bash. Just merge the logs.
+	#
+# 	echo -n "Checking search logs (correspondence)... "
+	merge_logs "correspondence"
+	return 0
+
+	local bad_coord=0
+	local bad_theta=0
+    	local log="${driver_output_dir}/correspondence.log"
+	while read -r line; do
+# 		read -r identifier ref_id ref_x ref_y ref_theta probe_id \
+# 		    probe_x probe_y probe_theta <<< "$(cut -f \
+# 		    1,6,7,8,9,11,12,13,14 -d ',' <<< "${line}" | tr ',' ' ')"
+		read -r identifier ref_theta probe_x probe_y probe_theta <<< \
+		    "$(cut -f 1,9,12,13,14 -d ',' <<< "${line}" | tr ',' ' ')"
+		read -r probe_width probe_height <<< "$(cut -f 12 -d '_' \
+		    <<< "${identifier}" | tr -d '\"' | tr 'x' ' ')"
+
+		# Location within image
+		if [ "${probe_x}" -ge "${probe_width}" ] || \
+		    [ "${probe_y}" -ge "${probe_height}" ]; then
+			bad_coord=1
+		fi
+		# TODO: Reference image
+
+		# Theta [0,359]
+		if [ "${probe_theta}" -lt 0 ] || \
+		    [ "${probe_theta}" -gt 359 ] || \
+		    [ "${ref_theta}" -lt 0 ] || \
+		    [ "${ref_theta}" -gt 359 ]; then
+			bad_theta=$(( bad_theta + 1 ))
+		fi
+
+		# TODO: Probe/Reference ID valid based on number of images.
+		#       Right now, only ever one probe. Reference difficult to
+		#       do on a per-line basis.
+
+		# TODO: Rank valid based on candidates returned for this search.
+		#       Difficult to do on a per-line basis.
+
+		# TODO: All corresponding minutia are identical to those
+		#       extracted in ExtractionInterface. Difficult to do on a
+		#       per-line basis.
+	done < <(tail -n +2 "${log}")
+
+	if [ "${bad_coord}" -gt 0 ]; then
+	    	local msg="There are some (${bad_coord}) coordinates returned "
+	    	msg+="that are outside the image. Please review: "
+	    	fail "${msg}" "${log}"
+	fi
+
+	if [ "${bad_theta}" -gt 0 ]; then
+	    	local msg="There are some (${bad_theta}) theta values outside "
+	    	msg+="the allowed range of [0, 359]. Please review: "
+	    	fail "${msg}" "${log}"
+	fi
+
+	okay
+}
+
+# Check search candidates log for potential errors
+check_search_candidates()
+{
+	echo -n "Checking search logs (candidates)... "
+
+	merge_logs "searchCandidates"
+
+	local fts=0
+	local no_candidates=0
+	local too_many=0
+	local bad_frgp=0
+	local neg_sim=0
+    	local candidate_log="${driver_output_dir}/searchCandidates.log"
+	while read -r line; do
+		read -r max_candidates result num_candidates rank frgp \
+		    similarity <<< "$(cut -f 2,4,7,8,10,11 -d ',' \
+		    <<< "${line}" | tr ',' ' ')"
+
+		# Search failure
+		if [ "${result}" -ne 0 ]; then
+			fts=$(( fts + 1 ))
+			continue
+		fi
+
+		# Success, but no candidates
+		if [ "${num_candidates}" == "NA" ]; then
+			no_candidates=$(( no_candidates + 1 ))
+			continue
+		fi
+
+		# Too many candidates
+		if [ "${rank}" -gt "${max_candidates}" ] || \
+		    [ "${num_candidates}" -gt "${max_candidates}" ]; then
+			too_many=$(( too_many + 1 ))
+		fi
+
+		# Inappropriate FRGP (no extra fingers in validation set)
+		if [ "${frgp}" -lt 1 ] || [ "${frgp}" -gt 10 ]; then
+			bad_frgp=$(( bad_frgp + 1 ))
+		fi
+
+		# Negative similarity
+		if [ "$(cut -c 1 <<< "${similarity}")" == "-" ]; then
+			neg_sim=$(( neg_sim + 1 ))
+		fi
+	done < <(tail -n +2 "${candidate_log}")
+
+	if [ "${fts}" -gt 0 ]; then
+	    	local msg="There are some (${fts}) failures to search. Please "
+	    	msg+="review: "
+	    	warn "${msg}" "${candidate_log}"
+    		echo -n "Still checking search logs... "
+	fi
+
+	if [ "${no_candidates}" -gt 0 ]; then
+	    	local msg="There are some (${no_candidates}) searches that "
+	    	msg+="returned successfully,  but did not produce any  "
+	    	msg+="candidates. Please review:"
+	    	warn "${msg}" "${candidate_log}"
+    		echo -n "Still checking search logs... "
+	fi
+
+	if [ "${too_many}" -gt 0 ]; then
+	    	local msg="There are some (${too_many}) searches that returned "
+	    	msg+=" more than the  maximum number of candidates. Please "
+	    	msg+="review: "
+	    	fail "${msg}" "${candidate_log}"
+	fi
+
+	if [ "${bad_frgp}" -gt 0 ]; then
+	    	local msg="There are some (${bad_frgp}) searches that returned "
+	    	msg+="a combination finger position for a candidate. Please "
+	    	msg+="review: "
+	    	fail "${msg}" "${candidate_log}"
+	fi
+
+	if [ "${neg_sim}" -gt 0 ]; then
+	    	local msg="There are some (${neg_sim}) searches that returned "
+	    	msg+="a similarity score < 0. Please review: "
+	    	fail "${msg}" "${candidate_log}"
+	fi
+
+	okay
+}
+
+check_counts()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} driver_log_file"
+	fi
+	local log="${driver_output_dir}/${1}.log"
+	if ! [ -e "${log}" ]; then
+		fail "File does not exist:" "${log}"
+	fi
+	local log_key="${1}"
+
+	declare -A counts
+	counts["extractionCreate-0"]=100
+	counts["extractionCreate-1"]=55
+
+	# Not all logs have an expected number of lines
+	local expected="${counts["${log_key}"]}"
+	if [ "${expected}" == "" ]; then
+		return 0
+	fi
+
+	local actual
+	if ! actual="$(num_lines_in_file "${log}")"; then
+		fail "Could not count lines in:" "${log}"
+	fi
+	# Remove header
+	actual=$(( actual - 1 ))
+
+	if [ "${expected}" -eq "${actual}" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+###############################################################################
+###############################################################################
+###############################################################################
+
+# Move directories back on SIGINT
+trap move_back_dirs INT
+
+check_wd
+cd "${wd}" || exit 1
+read -r validation_version < "${wd}/VERSION"
+print_header
+
+if [ "${#}" -ne 0 ]; then
+	if [ "${1}" == "clean" ]; then
+		clean_previous_attempts
+		exit
+	elif [ "${1}" == "encrypt" ]; then
+		print_encryption
+		exit
+	elif [ "${1}" == "help" ]; then
+		print_instructions
+		exit
+	else
+		echo "Usage: ${0} [clean|encrypt|help]"
+		print_instructions
+		exit 1
+	fi
+else
+	# Quick check to see if it looks like we're fresh
+	if ! core_library_present; then
+		print_instructions
+		exit
+	fi
+fi
+
+# Pre-check
+check_required_packages
+check_for_previous_attempts
+check_validation_version; validation_version_checked="${?}"
+check_os
+check_for_images
+check_library
+check_environment
+
+# Run
+mkdir -p "${output_dir}" || exit 1
+log_canaries
+seed="$(get_random_number)" || exit 1
+compile "${seed}"
+check_api_level
+log_extraction_identification_information
+run_extract "probe" "${seed}"
+check_extract "probe"
+run_extract "reference" "${seed}"
+check_extract "reference"
+run_create_database
+run_modify_database
+log_search_identification_information
+run_search "${seed}"
+check_search
+
+# Cleanup
+move_back_dirs
+make_tarball
+
+# Notifications
+print_cbeff
+if [ "${validation_version_checked}" -ne 1 ]; then
+	echo
+	print_couldnt_check_version
+fi
+print_final_success
+print_footer "${start_sec}"
