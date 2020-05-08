@@ -1086,10 +1086,12 @@ compile()
 	if ! cmake "${src_dir}" \
 	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" >> "${log}" 2>&1
 	then
+		local msg="Could not change back to previous directory"
+		cd "${wd}" > /dev/null || fail "${msg}"
 		fail "An error occurred during configuration. Please review:" \
 		    "$(rp "${log}")"
 	fi
-	cd - > /dev/null || fail "Could not change back to previous directory"
+	cd "${wd}" > /dev/null || fail "Could not change back to previous directory"
 	if ! make -C "${build_dir}" VERBOSE=1 >> "${log}" 2>&1; then
 		fail "An error occurred during compilation. Please review:" \
 		    "$(rp "${log}")"
