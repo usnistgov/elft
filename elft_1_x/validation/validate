@@ -1563,9 +1563,10 @@ check_extract()
 
 	if [ "${empty_tmpl}" -gt 0 ]; then
 	    	local log="${driver_output_dir}/extractionCreate-${suffix}.log"
-	    	local msg="There are some (${empty_tmpl}) failure to enroll "
-	    	msg+="zero-byte ${type} templates. Please review: "
+	    	local msg="There are some (${empty_tmpl}) zero-byte ${type} "
+	    	msg+="templates. Please review: "
 	    	warn "${msg}" "$(rp "${log}")"
+    		echo -n "Still checking ${type} extraction logs... "
 	fi
 
 	okay
