@@ -71,5 +71,9 @@ else()
 	endif()
 endif()
 
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+        set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../validation CACHE PATH "..." FORCE)
+endif()
+include(GNUInstallDirs)
 install(TARGETS ${LIB_NAME}
-   LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/../validation/lib)
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

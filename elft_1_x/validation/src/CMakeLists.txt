@@ -9,6 +9,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 project(elft_validation)
+include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -17,11 +18,6 @@ add_executable(elft_validation)
 target_sources(elft_validation PRIVATE elft_validation.cpp)
 target_include_directories(elft_validation PRIVATE .)
 target_include_directories(elft_validation PUBLIC ../../include)
-
-# Allow override of libs directory
-if(NOT ELFT_VALIDATION_LIB_DIR)
-	set(ELFT_VALIDATION_LIB_DIR ${PROJECT_SOURCE_DIR}/../lib)
-endif()
 
 # Build libelft first
 add_subdirectory(${PROJECT_SOURCE_DIR}/../../libelft ${CMAKE_CURRENT_BINARY_DIR}/libelft)
@@ -34,12 +30,12 @@ function(find_core_library)
 	set(CORE_LIB_PREFIX "libelft_")
 	file(GLOB CORE_LIB_POSSIBILITIES
 	    LIST_DIRECTORIES true
-	    RELATIVE ${ELFT_VALIDATION_LIB_DIR}
-	    ${ELFT_VALIDATION_LIB_DIR}/${CORE_LIB_PREFIX}*_*${CMAKE_SHARED_LIBRARY_SUFFIX})
+	    RELATIVE ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
+	    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CORE_LIB_PREFIX}*_*${CMAKE_SHARED_LIBRARY_SUFFIX})
 
 	foreach (lib ${CORE_LIB_POSSIBILITIES})
 		if(CORE_LIB)
-			message(FATAL_ERROR "More than one core library found in ${ELFT_VALIDATION_LIB_DIR}. Please review ELFT naming conventions.")
+			message(FATAL_ERROR "More than one core library found in ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}. Please review ELFT naming conventions.")
 		endif()
 
 		string(REGEX MATCH "${CORE_LIB_PREFIX}[A-Za-z0-9]+_[0-9A-F][0-9A-F][0-9A-F][0-9A-F]${CMAKE_SHARED_LIBRARY_SUFFIX}" CORE_LIB ${lib})
@@ -50,10 +46,10 @@ endfunction()
 
 find_core_library()
 if(NOT CORE_LIB)
-	message(FATAL_ERROR "No core library found in ${ELFT_VALIDATION_LIB_DIR}. Please review ELFT naming conventions.")
+	message(FATAL_ERROR "No core library found in ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}. Please review ELFT naming conventions.")
 else()
 	message(STATUS "Found core library: ${CORE_LIB}")
-	target_link_libraries(elft_validation PUBLIC ${ELFT_VALIDATION_LIB_DIR}/${CORE_LIB})
+	target_link_libraries(elft_validation PUBLIC ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CORE_LIB})
 endif()
 
 # GCC < 9 needs to explicitly link libstdc++fs
@@ -70,11 +66,11 @@ target_compile_options(elft_validation PRIVATE
 # Set RPATH
 set_target_properties(elft_validation PROPERTIES
     # Set RPATH to installed version of libs
-    INSTALL_RPATH ${ELFT_VALIDATION_LIB_DIR})
+    INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 # Don't also include local copy of libs in RPATH
 set_target_properties(elft_validation PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE)
 
 install(TARGETS elft_validation
-    RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/../bin)
+    RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/../${CMAKE_INSTALL_BINDIR})

@@ -17,9 +17,8 @@ add_library(elft SHARED)
 target_sources(elft PRIVATE libelft.cpp)
 target_include_directories(elft PRIVATE ${PROJECT_SOURCE_DIR}/../include)
 
-# Allow override of libs directory
-if(NOT ELFT_VALIDATION_LIB_DIR)
-	set(ELFT_VALIDATION_LIB_DIR ${PROJECT_SOURCE_DIR}/../validation/lib)
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+	set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../validation CACHE PATH "..." FORCE)
 endif()
 
 # Extern the version symbols
@@ -34,6 +33,6 @@ target_compile_options(elft PRIVATE
 target_compile_options(elft PRIVATE
     -Wall -Wextra -pedantic -Wconversion -Wsign-conversion)
 
+include(GNUInstallDirs)
 install(TARGETS elft
-    LIBRARY DESTINATION ${ELFT_VALIDATION_LIB_DIR})
-
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

@@ -9,9 +9,9 @@ build
 */validation/config
 !*/validation/config/README
 */validation/config.moved
-*/validation/lib
-!*/validation/lib/README
-*/validation/lib.moved
+*/validation/lib64
+!*/validation/lib64/README
+*/validation/lib64.moved
 */validation/output
 */validation/elft_validation_*_*/
 */validation/elft_validation_*_*.tar.xz

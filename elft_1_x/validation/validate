@@ -5,7 +5,7 @@
 # Instructions                                                                 #
 # ------------                                                                 #
 #  1. Copy required files:                                                     #
-#     a. Place all needed libraries in 'lib/', including your properly named   #
+#     a. Place all needed libraries in 'lib64/', including your properly named #
 #        ELFT core library.                                                    #
 #     b. Place any needed runtime configuration files in 'config/'.            #
 #  2. Run './validate'.                                                        #
@@ -50,7 +50,7 @@ wd="$(cd "$(dirname "${0}")" && pwd)"
 # Directory containing validation images
 validation_image_dir="images"
 # Directory where libraries go
-lib_dir="${wd}/lib"
+lib_dir="${wd}/lib64"
 local_lib_dir="${lib_dir}"
 # Directory where validation driver sourcecode lives
 src_dir="${wd}/src"
@@ -456,7 +456,7 @@ print_instructions()
 	echo "Instructions"
 	echo "============"
 	echo " 1. Copy required files:"
-	echo -n "    a. Place all needed libraries in 'lib/', including your "
+	echo -n "    a. Place all needed libraries in 'lib64/', including your "
 	echo "properly named "
 	echo "          ELFT core library."
 	echo "    b. Place any needed runtime configuration files in 'config/'."
@@ -1040,12 +1040,13 @@ compile()
 		fail "${msg}"
 	fi
 
-	# Catch the case of hardcoding "../lib", etc. into library by always
+	# Catch the case of hardcoding "../lib64", etc. into library by always
 	# linking against libs in a different directory
 	local tmp_dir
 	tmp_dir="$(mktemp -u -t elft_libs.XXXXXXXXXX)"
-	cp -r "${lib_dir}" "${tmp_dir}"
-	lib_dir="${tmp_dir}"
+	mkdir -p "${tmp_dir}"
+	cp -r "${lib_dir}" "${tmp_dir}/lib64"
+	lib_dir="${tmp_dir}/lib64"
 	if [ -d "${local_lib_dir}${move_suffix}" ]; then
 		local msg="You have a directory named ${local_lib_dir}"
 		msg+="${move_suffix}. Please remove or rename it."
@@ -1081,8 +1082,9 @@ compile()
 	echo "Compilation:" >> "${log}"
 	build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
 	cd "${build_dir}" || fail "Could not change to build directory"
-	if ! cmake "${src_dir}" -DELFT_VALIDATION_LIB_DIR="${lib_dir}" \
-	    >> "${log}" 2>&1; then
+	if ! cmake "${src_dir}" \
+	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" >> "${log}" 2>&1
+	then
 		fail "An error occurred during configuration. Please review:" \
 		    "$(rp "${log}")"
 	fi
