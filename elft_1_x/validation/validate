@@ -1272,25 +1272,26 @@ move_back_dirs()
 {
 	local rv=0
 
-	if ! [ -d "$(basename "${local_lib_dir}" "${move_suffix}")" ]; then
-		if mv -n "${local_lib_dir}" \
-		    "$(basename "${local_lib_dir}" "${move_suffix}")" > \
+	local original_path
+	original_path="$(dirname "${local_lib_dir}")/"
+	original_path+="$(basename "${local_lib_dir}" "${move_suffix}")"
+	if ! [ -d "${original_path}" ]; then
+		if mv -n "${local_lib_dir}" "${original_path}" > \
 		     /dev/null 2>&1
 		then
-			local_lib_dir="$(basename "${local_lib_dir}" \
-			    "${move_suffix}")"
+			local_lib_dir="${original_path}"
 		else
 			rv=1
 		fi
 	fi
 
-	if ! [ -d "$(basename "${local_config_dir}" "${move_suffix}")" ]; then
-		if mv -n "${local_config_dir}" \
-		    "$(basename "${local_config_dir}" "${move_suffix}")" > \
+	original_path="$(dirname "${local_config_dir}")/"
+	original_path+="$(basename "${local_config_dir}" "${move_suffix}")"
+	if ! [ -d "${original_path}" ]; then
+		if mv -n "${local_config_dir}" "${original_path}" > \
 		   /dev/null 2>&1
 		then
-			local_config_dir="$(basename "${local_config_dir}" \
-			    "${move_suffix}")"
+			local_config_dir="${original_path}"
 		else
 			rv=1
 		fi
