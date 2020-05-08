@@ -1217,7 +1217,7 @@ check_api_level()
 # Remove files from previous validation attempts.
 clean_previous_attempts()
 {
-	echo -n "Removing output directories... "
+	echo -n "Cleaning up... "
 	rm -rf "${bin_dir}"
 	if [ -d "${bin_dir}" ]; then
 		fail "Failed to remove" "${bin_dir}"
@@ -1257,14 +1257,6 @@ clean_previous_attempts()
 	if ! core_library_present; then
 		return 0
 	fi
-
-	echo -n "Cleaning compilation... "
-	if ! make -C "${src_dir}" clean > /dev/null; then
-		fail "Unable to 'make clean' in" "$(rp "${src_dir}")"
-		return 1
-	fi
-
-	okay
 }
 
 ################################################################################
