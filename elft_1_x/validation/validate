@@ -388,7 +388,8 @@ print_final_success()
 	font_green
 
 	local msg="You have successfully completed your part of ELFT "
-	msg+="validation. Please sign and encrypt the file listed below. "
+	msg+="validation. Please sign and encrypt the file listed below (run "
+	msg+="'${0} encrypt' for an example)."
 	box "${msg}" 80 '=' '|' 'l' 1 0
 	boxline
 	box "${tar_file}" 80 '=' '|' 'c' 0 0
