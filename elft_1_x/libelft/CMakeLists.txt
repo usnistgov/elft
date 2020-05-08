@@ -33,6 +33,10 @@ target_compile_options(elft PRIVATE
 target_compile_options(elft PRIVATE
     -Wall -Wextra -pedantic -Wconversion -Wsign-conversion)
 
+set_target_properties(elft PROPERTIES
+    PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/../include/elft.h)
+
 include(GNUInstallDirs)
 install(TARGETS elft
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
