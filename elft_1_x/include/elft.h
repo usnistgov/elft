@@ -379,7 +379,8 @@ namespace ELFT
 		FrictionRidgeCaptureTechnology frct{
 		    FrictionRidgeCaptureTechnology::Unknown};
 		/** Description of the depicted region. */
-		FrictionRidgeGeneralizedPosition frgp{};
+		FrictionRidgeGeneralizedPosition frgp{
+		    FrictionRidgeGeneralizedPosition::UnknownFrictionRidge};
 
 		/**
 		 * Degrees to rotate image upright. Uncertainty is assumed to
