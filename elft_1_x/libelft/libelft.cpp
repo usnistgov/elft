@@ -59,6 +59,17 @@ ELFT::ReturnStatus::operator bool()
 }
 
 
+ELFT::Candidate::Candidate(
+    const std::string &identifier,
+    const FrictionRidgeGeneralizedPosition frgp,
+    const double similarity) :
+    identifier{identifier},
+    frgp{frgp},
+    similarity{similarity}
+{
+
+}
+
 bool
 ELFT::Candidate::operator==(
     const Candidate &rhs)
@@ -75,6 +86,15 @@ ELFT::Candidate::operator<(
     const
 {
 	return (this->similarity < rhs.similarity);
+}
+
+ELFT::Coordinate::Coordinate(
+    const uint32_t x,
+    const uint32_t y) :
+    x{x},
+    y{y}
+{
+
 }
 
 bool
@@ -106,3 +126,28 @@ ELFT::Coordinate::operator<(
 	return (false);
 
 }
+
+ELFT::Correspondence::Correspondence(
+    const uint8_t referenceInputIdentifier,
+    const Minutia &referenceMinutia,
+    const uint8_t probeInputIdentifier,
+    const Minutia &probeMinutia) :
+    referenceInputIdentifier{referenceInputIdentifier},
+    referenceMinutia{referenceMinutia},
+    probeInputIdentifier{probeInputIdentifier},
+    probeMinutia{probeMinutia}
+{
+
+}
+
+ELFT::Minutia::Minutia(
+    const Coordinate &coordinate,
+    const uint16_t theta,
+    const MinutiaType type) :
+    coordinate{coordinate},
+    theta{theta},
+    type{type}
+{
+
+}
+

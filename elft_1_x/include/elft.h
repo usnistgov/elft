@@ -308,6 +308,19 @@ namespace ELFT
 		/** Y coordinate in pixels. */
 		uint32_t y{};
 
+		/**
+		 * @brief
+		 * Coordinate constructor.
+		 *
+		 * @param x
+		 * X coordinate in pixels.
+		 * @param y
+		 * Y coordinate in pixels.
+		 */
+		Coordinate(
+		    const uint32_t x = {},
+		    const uint32_t y = {});
+
 		bool
 		operator==(
 		    const Coordinate &rhs)
@@ -340,6 +353,23 @@ namespace ELFT
 		uint16_t theta{};
 		/** Type of feature */
 		MinutiaType type{MinutiaType::Unknown};
+
+		/**
+		 * @brief
+		 * Minutia constructor.
+		 *
+		 * @param coordinate
+		 * Location of the feature.
+		 * @param theta
+		 * Ridge direction of the feature, in degrees [0,359], following
+		 * conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.331.
+		 * @param type
+		 * Type of feature.
+		 */
+		Minutia(
+		    const Coordinate &coordinate = {},
+		    const uint16_t theta = {},
+		    const MinutiaType type = MinutiaType::Unknown);
 	};
 
 	/** Location of identical features from two images. */
@@ -355,6 +385,25 @@ namespace ELFT
 		uint8_t probeInputIdentifier{};
 		/** Location in the probe image of a reference image feature. */
 		Minutia probeMinutia{};
+
+		/**
+		 * @brief
+		 * Correspondence constructor
+		 *
+		 * @param referenceInputIdentifier
+		 * Link to Image#identifier and/or EFS#identifier for reference.
+		 * @param referenceMinutia
+		 * Location in the reference image of a probe image feature.
+		 * @param probeInputIdentifier
+		 * Link to Image#identifier and/or EFS#identifier for probe.
+		 * @param probeMinutia
+		 * Location in the probe image of a reference image feature.
+		 */
+		Correspondence(
+		    const uint8_t referenceInputIdentifier = {},
+		    const Minutia &referenceMinutia = {},
+		    const uint8_t probeInputIdentifier = {},
+		    const Minutia &probeMinutia = {});
 	};
 
 	/**
@@ -471,6 +520,22 @@ namespace ELFT
 		FrictionRidgeGeneralizedPosition frgp{};
 		/** Quantification of probe's similarity to reference sample. */
 		double similarity{};
+
+		/**
+		 * @brief
+		 * Candidate constructor.
+		 *
+		 * @param identifier
+		 * Identifier of the sample in the reference database.
+		 * @param frgp
+		 * Most localized position in the identifier.
+		 * @param similarity
+		 * Quantification of probe's similarity to reference sample.
+		 */
+		Candidate(
+		    const std::string &identifier = {},
+		    const FrictionRidgeGeneralizedPosition frgp = {},
+		    const double similarity = {});
 
 		bool
 		operator==(
