@@ -4,7 +4,7 @@ var searchData=
   ['referenceinputidentifier_118',['referenceInputIdentifier',['../struct_e_l_f_t_1_1_correspondence.html#abbe3847a9620e2e2ae2ebb90deaf799a',1,'ELFT::Correspondence']]],
   ['referenceminutia_119',['referenceMinutia',['../struct_e_l_f_t_1_1_correspondence.html#a06c2a2b2ce04f3ed8557cca37207f793',1,'ELFT::Correspondence']]],
   ['remove_120',['remove',['../class_e_l_f_t_1_1_search_interface.html#abd66bc247d9c89553608b6fe3cfe3982',1,'ELFT::SearchInterface']]],
-  ['result_121',['result',['../struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6',1,'ELFT::ReturnStatus::result()'],['../struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeb',1,'ELFT::ReturnStatus::Result()']]],
+  ['result_121',['Result',['../struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeb',1,'ELFT::ReturnStatus::Result()'],['../struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6',1,'ELFT::ReturnStatus::result()']]],
   ['returnstatus_122',['ReturnStatus',['../struct_e_l_f_t_1_1_return_status.html',1,'ELFT']]],
   ['ridgeending_123',['RidgeEnding',['../namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca61ec52603470e28c6dfd65a24feb2c0a',1,'ELFT']]],
   ['rightandleftthumbs_124',['RightAndLeftThumbs',['../namespace_e_l_f_t.html#a64c3606a139b43ade4d715991c52707fa54fa76bd058fee59b687238381b26933',1,'ELFT']]],

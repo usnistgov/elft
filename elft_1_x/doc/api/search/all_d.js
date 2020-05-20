@@ -2,8 +2,8 @@ var searchData=
 [
   ['paper_100',['Paper',['../namespace_e_l_f_t.html#a46866ac1cc871035b93aebf73a7ff8cdad0a662a5235ecde30739fe50cf0de830',1,'ELFT']]],
   ['paperglossy_101',['PaperGlossy',['../namespace_e_l_f_t.html#a46866ac1cc871035b93aebf73a7ff8cda828462f50cecc1cb8bd4a70bd2d29893',1,'ELFT']]],
-  ['patternclassification_102',['PatternClassification',['../namespace_e_l_f_t.html#aaeaafba2ddd23db5cbfc5f7dfd316ecf',1,'ELFT']]],
-  ['pct_103',['pct',['../struct_e_l_f_t_1_1_e_f_s.html#a94da13590fb9390acdf0ecb08c75158c',1,'ELFT::EFS']]],
+  ['pat_102',['pat',['../struct_e_l_f_t_1_1_e_f_s.html#a34bbbc3717efd253fb73d5e7b2fc68c2',1,'ELFT::EFS']]],
+  ['patternclassification_103',['PatternClassification',['../namespace_e_l_f_t.html#aaeaafba2ddd23db5cbfc5f7dfd316ecf',1,'ELFT']]],
   ['pixels_104',['pixels',['../struct_e_l_f_t_1_1_image.html#aebe841b68734b3dbc00d1c9c5c20adb7',1,'ELFT::Image']]],
   ['plaincontact_105',['PlainContact',['../namespace_e_l_f_t.html#a586cfa4e8dfaea89699e57eec474a6baa3107075dc8194de8d258eebc7ded5062',1,'ELFT']]],
   ['plaincontactlessmoving_106',['PlainContactlessMoving',['../namespace_e_l_f_t.html#a586cfa4e8dfaea89699e57eec474a6baa84beba03e5c87af0592ef840832853a2',1,'ELFT']]],

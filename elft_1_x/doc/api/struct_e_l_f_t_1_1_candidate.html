@@ -89,6 +89,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad8deb4076e3301f6722bb48b54511cdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#ad8deb4076e3301f6722bb48b54511cdd">Candidate</a> (const std::string &amp;<a class="el" href="struct_e_l_f_t_1_1_candidate.html#a18d14e24ed10de786a607b1622136e33">identifier</a>={}, const <a class="el" href="namespace_e_l_f_t.html#a64c3606a139b43ade4d715991c52707f">FrictionRidgeGeneralizedPosition</a> <a class="el" href="struct_e_l_f_t_1_1_candidate.html#a1eaa95f9a96ce819ec9e68fdbf2ce9e2">frgp</a>={}, const double <a class="el" href="struct_e_l_f_t_1_1_candidate.html#afa96ebaaec090947fb0e2b96208e9f20">similarity</a>={})</td></tr>
+<tr class="memdesc:ad8deb4076e3301f6722bb48b54511cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> constructor.  <a href="struct_e_l_f_t_1_1_candidate.html#ad8deb4076e3301f6722bb48b54511cdd">More...</a><br /></td></tr>
+<tr class="separator:ad8deb4076e3301f6722bb48b54511cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a63fd9ab1a1a466d4a451d584034164"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a4a63fd9ab1a1a466d4a451d584034164">operator==</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
 <tr class="separator:a4a63fd9ab1a1a466d4a451d584034164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a235fb55987347254c6a5138bec99541a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a235fb55987347254c6a5138bec99541a">operator&lt;</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
@@ -109,8 +112,55 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Elements of a candidate list. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00465">465</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00515">515</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad8deb4076e3301f6722bb48b54511cdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8deb4076e3301f6722bb48b54511cdd">&#9670;&nbsp;</a></span>Candidate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ELFT::Candidate::Candidate </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>identifier</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_e_l_f_t.html#a64c3606a139b43ade4d715991c52707f">FrictionRidgeGeneralizedPosition</a>&#160;</td>
+          <td class="paramname"><em>frgp</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>similarity</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">identifier</td><td>Identifier of the sample in the reference database. </td></tr>
+    <tr><td class="paramname">frgp</td><td>Most localized position in the identifier. </td></tr>
+    <tr><td class="paramname">similarity</td><td>Quantification of probe's similarity to reference sample. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00062">62</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4a63fd9ab1a1a466d4a451d584034164"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a63fd9ab1a1a466d4a451d584034164">&#9670;&nbsp;</a></span>operator==()</h2>
 
@@ -127,7 +177,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00063">63</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00074">74</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
 
 </div>
 </div>
@@ -147,7 +197,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00072">72</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00083">83</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
 
 </div>
 </div>
@@ -166,7 +216,7 @@ Public Attributes</h2></td></tr>
 
 <p>Identifier of the sample in the reference database. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00468">468</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00518">518</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -184,7 +234,7 @@ Public Attributes</h2></td></tr>
 
 <p>Most localized position in the identifier. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00470">470</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00520">520</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -202,7 +252,7 @@ Public Attributes</h2></td></tr>
 
 <p>Quantification of probe's similarity to reference sample. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00472">472</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00522">522</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

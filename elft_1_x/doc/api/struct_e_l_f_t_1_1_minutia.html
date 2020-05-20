@@ -74,6 +74,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_e_l_f_t_1_1_minutia-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -86,6 +87,12 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="elft_8h_source.html">elft.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a52db357248b9dcb235b7f17e228bd369"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_minutia.html#a52db357248b9dcb235b7f17e228bd369">Minutia</a> (const <a class="el" href="struct_e_l_f_t_1_1_coordinate.html">Coordinate</a> &amp;<a class="el" href="struct_e_l_f_t_1_1_minutia.html#a8c61cd1581c25e3221fda4142861ec90">coordinate</a>={}, const uint16_t <a class="el" href="struct_e_l_f_t_1_1_minutia.html#a071adbcac13b404b1516a218a3ec8b07">theta</a>={}, const <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">MinutiaType</a> <a class="el" href="struct_e_l_f_t_1_1_minutia.html#a7dac418c8dfa14377e4a54b9e98858da">type</a>=<a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca88183b946cc5f0e8c96b2e66e1c74a7e">MinutiaType::Unknown</a>)</td></tr>
+<tr class="memdesc:a52db357248b9dcb235b7f17e228bd369"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> constructor.  <a href="struct_e_l_f_t_1_1_minutia.html#a52db357248b9dcb235b7f17e228bd369">More...</a><br /></td></tr>
+<tr class="separator:a52db357248b9dcb235b7f17e228bd369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8c61cd1581c25e3221fda4142861ec90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_l_f_t_1_1_coordinate.html">Coordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_minutia.html#a8c61cd1581c25e3221fda4142861ec90">coordinate</a> {}</td></tr>
@@ -101,8 +108,55 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Friction ridge feature details. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00332">332</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00345">345</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a52db357248b9dcb235b7f17e228bd369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52db357248b9dcb235b7f17e228bd369">&#9670;&nbsp;</a></span>Minutia()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ELFT::Minutia::Minutia </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_coordinate.html">Coordinate</a> &amp;&#160;</td>
+          <td class="paramname"><em>coordinate</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>theta</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">MinutiaType</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca88183b946cc5f0e8c96b2e66e1c74a7e">MinutiaType::Unknown</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">coordinate</td><td>Location of the feature. </td></tr>
+    <tr><td class="paramname">theta</td><td>Ridge direction of the feature, in degrees [0,359], following conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.331. </td></tr>
+    <tr><td class="paramname">type</td><td>Type of feature. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00143">143</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a8c61cd1581c25e3221fda4142861ec90"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c61cd1581c25e3221fda4142861ec90">&#9670;&nbsp;</a></span>coordinate</h2>
 
@@ -117,7 +171,7 @@ Public Attributes</h2></td></tr>
 
 <p>Location of the feature. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00335">335</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00348">348</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -135,7 +189,7 @@ Public Attributes</h2></td></tr>
 
 <p>Ridge direction of the feature, in degrees [0,359], following conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.331. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00340">340</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00353">353</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -153,12 +207,13 @@ Public Attributes</h2></td></tr>
 
 <p>Type of feature. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00342">342</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00355">355</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li><a class="el" href="elft_8h_source.html">elft.h</a></li>
+<li><a class="el" href="libelft_8cpp_source.html">libelft.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.18-->

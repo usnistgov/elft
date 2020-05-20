@@ -74,6 +74,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_e_l_f_t_1_1_correspondence-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -86,6 +87,12 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="elft_8h_source.html">elft.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a555c748ccacf1d4fa3fb829aa55dad11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_correspondence.html#a555c748ccacf1d4fa3fb829aa55dad11">Correspondence</a> (const uint8_t <a class="el" href="struct_e_l_f_t_1_1_correspondence.html#abbe3847a9620e2e2ae2ebb90deaf799a">referenceInputIdentifier</a>={}, const <a class="el" href="struct_e_l_f_t_1_1_minutia.html">Minutia</a> &amp;<a class="el" href="struct_e_l_f_t_1_1_correspondence.html#a06c2a2b2ce04f3ed8557cca37207f793">referenceMinutia</a>={}, const uint8_t <a class="el" href="struct_e_l_f_t_1_1_correspondence.html#a79ed0021dbe76c7c6be74b57d28c2a2d">probeInputIdentifier</a>={}, const <a class="el" href="struct_e_l_f_t_1_1_minutia.html">Minutia</a> &amp;<a class="el" href="struct_e_l_f_t_1_1_correspondence.html#a64e74c3a4e07be79ebd2cc499d674c4e">probeMinutia</a>={})</td></tr>
+<tr class="memdesc:a555c748ccacf1d4fa3fb829aa55dad11"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_e_l_f_t_1_1_correspondence.html" title="Location of identical features from two images.">Correspondence</a> constructor.  <a href="struct_e_l_f_t_1_1_correspondence.html#a555c748ccacf1d4fa3fb829aa55dad11">More...</a><br /></td></tr>
+<tr class="separator:a555c748ccacf1d4fa3fb829aa55dad11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:abbe3847a9620e2e2ae2ebb90deaf799a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_correspondence.html#abbe3847a9620e2e2ae2ebb90deaf799a">referenceInputIdentifier</a> {}</td></tr>
@@ -104,8 +111,62 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Location of identical features from two images. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00346">346</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00376">376</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a555c748ccacf1d4fa3fb829aa55dad11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a555c748ccacf1d4fa3fb829aa55dad11">&#9670;&nbsp;</a></span>Correspondence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ELFT::Correspondence::Correspondence </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>referenceInputIdentifier</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_minutia.html">Minutia</a> &amp;&#160;</td>
+          <td class="paramname"><em>referenceMinutia</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>probeInputIdentifier</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_minutia.html">Minutia</a> &amp;&#160;</td>
+          <td class="paramname"><em>probeMinutia</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="struct_e_l_f_t_1_1_correspondence.html" title="Location of identical features from two images.">Correspondence</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">referenceInputIdentifier</td><td>Link to <a class="el" href="struct_e_l_f_t_1_1_image.html#aa1b0f26a365595bf6477bef7e7311fbf" title="An identifier for this image.">Image::identifier</a> and/or <a class="el" href="struct_e_l_f_t_1_1_e_f_s.html#af4f5a5f825c5a09d4afdac330394f857" title="An identifier for this set of data.">EFS::identifier</a> for reference. </td></tr>
+    <tr><td class="paramname">referenceMinutia</td><td>Location in the reference image of a probe image feature. </td></tr>
+    <tr><td class="paramname">probeInputIdentifier</td><td>Link to <a class="el" href="struct_e_l_f_t_1_1_image.html#aa1b0f26a365595bf6477bef7e7311fbf" title="An identifier for this image.">Image::identifier</a> and/or <a class="el" href="struct_e_l_f_t_1_1_e_f_s.html#af4f5a5f825c5a09d4afdac330394f857" title="An identifier for this set of data.">EFS::identifier</a> for probe. </td></tr>
+    <tr><td class="paramname">probeMinutia</td><td>Location in the probe image of a reference image feature. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00130">130</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="abbe3847a9620e2e2ae2ebb90deaf799a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbe3847a9620e2e2ae2ebb90deaf799a">&#9670;&nbsp;</a></span>referenceInputIdentifier</h2>
 
@@ -120,7 +181,7 @@ Public Attributes</h2></td></tr>
 
 <p>Link to <a class="el" href="struct_e_l_f_t_1_1_image.html#aa1b0f26a365595bf6477bef7e7311fbf" title="An identifier for this image.">Image::identifier</a> and/or <a class="el" href="struct_e_l_f_t_1_1_e_f_s.html#af4f5a5f825c5a09d4afdac330394f857" title="An identifier for this set of data.">EFS::identifier</a> for reference. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00351">351</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00381">381</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -138,7 +199,7 @@ Public Attributes</h2></td></tr>
 
 <p>Location in the reference image of a probe image feature. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00353">353</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00383">383</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -156,7 +217,7 @@ Public Attributes</h2></td></tr>
 
 <p>Link to <a class="el" href="struct_e_l_f_t_1_1_image.html#aa1b0f26a365595bf6477bef7e7311fbf" title="An identifier for this image.">Image::identifier</a> and/or <a class="el" href="struct_e_l_f_t_1_1_e_f_s.html#af4f5a5f825c5a09d4afdac330394f857" title="An identifier for this set of data.">EFS::identifier</a> for probe. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00355">355</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00385">385</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -174,12 +235,13 @@ Public Attributes</h2></td></tr>
 
 <p>Location in the probe image of a reference image feature. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00357">357</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00387">387</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li><a class="el" href="elft_8h_source.html">elft.h</a></li>
+<li><a class="el" href="libelft_8cpp_source.html">libelft.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.18-->
