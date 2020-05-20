@@ -484,7 +484,7 @@ ELFT::to_string(
 
 	s += " * Value Assessment: " + to_string(efs.valueAssessment) + '\n';
 	s += " * Substrate: " + to_string(efs.lsb) + '\n';
-	s += " * Pattern Classification: " + to_string(efs.pct) + '\n';
+	s += " * Pattern Classification: " + to_string(efs.pat) + '\n';
 	s += " * Laterally Reversed: " + to_string(efs.plr) + '\n';
 	s += " * Some/All Tonally Reversed: " + to_string(efs.trv) + '\n';
 

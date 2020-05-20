@@ -599,7 +599,7 @@ ELFT::Validation::runExtractionExtractData(
 {
 	static const std::string header{"\"template_filename\",elapsed,"
 	    "type,index,num_templates_in_buffer,image_identifier,quality,"
-	    "imp,frct,frgp,orientation,lpm,value_assessment,lsb,pct,plr,trv,"
+	    "imp,frct,frgp,orientation,lpm,value_assessment,lsb,pat,plr,trv,"
 	    "cores,deltas,minutia,roi"};
 
 	const std::string logName{"extractionData-" +
@@ -922,7 +922,7 @@ ELFT::Validation::performSingleExtractData(
 		logLine += (efs.valueAssessment ?
 		    e2i2s(*efs.valueAssessment) : NA) + ',';
 		logLine += (efs.lsb ? e2i2s(*efs.lsb) : NA) + ',';
-		logLine += (efs.pct ? e2i2s(*efs.pct) : NA) + ',';
+		logLine += (efs.pat ? e2i2s(*efs.pat) : NA) + ',';
 		logLine += (efs.plr ? ts(*efs.plr) : NA) + ',';
 		logLine += (efs.trv ? ts(*efs.trv) : NA) + ',';
 		logLine += (efs.cores ? splice(*efs.cores) : NA) + ',';

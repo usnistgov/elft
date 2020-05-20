@@ -394,7 +394,7 @@ namespace ELFT
 		/** Substrate from which the print was developed. */
 		std::optional<Substrate> lsb{};
 		/** Observed pattern classification. */
-		std::optional<PatternClassification> pct{};
+		std::optional<PatternClassification> pat{};
 
 		/**
 		 * Image is known to be or may possibly be laterally reversed.
