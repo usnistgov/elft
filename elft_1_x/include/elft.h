@@ -422,6 +422,12 @@ namespace ELFT
 		 */
 		uint8_t identifier{};
 
+		/**
+		 * Resolution of the image used to derive these features in 
+		 * pixels per inch.
+		 */
+		uint16_t ppi{};
+
 		/** Impression type of the depicted region. */
 		Impression imp{Impression::Unknown};
 		/** Capture technology that created this image. */
