@@ -254,7 +254,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A single <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>, which contains information about the result of the operation and a single template.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 500 * <code>samples.size()</code> microseconds, on average, as measured on a fixed subset of data.</dd>
+<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 500 * <code>samples.size()</code> milliseconds, on average, as measured on a fixed subset of data.</dd>
 <dd>
 The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">CreateTemplateResult::data</a> will only be recorded if <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>'s <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6" title="The result of the operation.">ReturnStatus::result</a> is <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeba505a83f220c02df2f85c3810cd9ceb38" title="Successfully performed operation.">ReturnStatus::Result::Success</a>. On <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeb" title="Possible outcomes when performing operations.">ReturnStatus::Result</a>:: Failure, subsequent searches will automatically increase false negative identification rate. </dd></dl>
 
@@ -363,7 +363,7 @@ The <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Informatio
 <dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method may use more than one thread.</dd>
 <dd>
-This method must return in &lt;= 10 * <code>referenceTemplates.size()</code> microseconds. </dd></dl>
+This method must return in &lt;= 10 * <code>referenceTemplates.size()</code> milliseconds. </dd></dl>
 
 </div>
 </div>
