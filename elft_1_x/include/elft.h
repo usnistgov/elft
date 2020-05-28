@@ -704,7 +704,7 @@ namespace ELFT
 		 *
 		 * @note
 		 * This method must return in <= 500 * `samples.size()`
-		 * microseconds, on average, as measured on a fixed subset of
+		 * milliseconds, on average, as measured on a fixed subset of
 		 * data.
 		 *
 		 * @note
@@ -785,7 +785,7 @@ namespace ELFT
 		 *
 		 * @note
 		 * This method must return in <= 10 *
-		 * `referenceTemplates.size()` microseconds.
+		 * `referenceTemplates.size()` milliseconds.
 		 */
 		virtual
 		ReturnStatus
@@ -984,7 +984,7 @@ namespace ELFT
 		 *
 		 * @note
 		 * This method must return in <= 300 * `number of database
-		 * identifiers` microseconds, on average, as measured on a fixed
+		 * identifiers` milliseconds, on average, as measured on a fixed
 		 * subset of data.
 		 */
 		virtual
