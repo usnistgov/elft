@@ -824,7 +824,7 @@ namespace ELFT
 		 *      configurationDirectory));`
 		 *
 		 * @note
-		 * This method shall return in <= 10 seconds.
+		 * This method shall return in <= 5 seconds.
 		 */
 		static
 		std::shared_ptr<ExtractionInterface>
