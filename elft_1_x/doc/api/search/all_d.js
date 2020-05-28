@@ -11,7 +11,7 @@ var searchData=
   ['plastic_108',['Plastic',['../namespace_e_l_f_t.html#a46866ac1cc871035b93aebf73a7ff8cda1c230158ba570fb39c64e2b8b9863624',1,'ELFT']]],
   ['plr_109',['plr',['../struct_e_l_f_t_1_1_e_f_s.html#a9d9b0c38e44acfbb275ef701c2f12c89',1,'ELFT::EFS']]],
   ['porousother_110',['PorousOther',['../namespace_e_l_f_t.html#a46866ac1cc871035b93aebf73a7ff8cdac56918d5607f201fe3286223a0183a8d',1,'ELFT']]],
-  ['ppi_111',['ppi',['../struct_e_l_f_t_1_1_image.html#a702879c099e3127ffbf22d6413f11996',1,'ELFT::Image']]],
+  ['ppi_111',['ppi',['../struct_e_l_f_t_1_1_image.html#a702879c099e3127ffbf22d6413f11996',1,'ELFT::Image::ppi()'],['../struct_e_l_f_t_1_1_e_f_s.html#aef0485fdd4fa45def811bb4b24199b46',1,'ELFT::EFS::ppi()']]],
   ['probe_112',['Probe',['../namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3',1,'ELFT']]],
   ['probeinputidentifier_113',['probeInputIdentifier',['../struct_e_l_f_t_1_1_correspondence.html#a79ed0021dbe76c7c6be74b57d28c2a2d',1,'ELFT::Correspondence']]],
   ['probeminutia_114',['probeMinutia',['../struct_e_l_f_t_1_1_correspondence.html#a64e74c3a4e07be79ebd2cc499d674c4e',1,'ELFT::Correspondence']]],
