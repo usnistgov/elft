@@ -709,9 +709,16 @@ namespace ELFT
 		 * about the result of the operation and a single template.
 		 *
 		 * @note
-		 * This method must return in <= 500 * `samples.size()`
-		 * milliseconds, on average, as measured on a fixed subset of
-		 * data.
+		 * This method must return in <= N * M seconds, on average, as
+		 * measured on a fixed subset of data, where N is
+		 *   * 20.0 for latent images
+		 *   *  5.0 for exemplar images
+		 *   *  2.5 for feature sets
+		 * and M is
+		 *   * `samples.size()` + finger_factor
+		 * For the purposes of timing, finger_factor is 0 for single
+		 * fingers, 2 for 2-finger slaps, 4 for 4-finger slaps and
+		 * upper/lower palm images, and 8 for full palm images.
 		 *
 		 * @note
 		 * The value of the returned CreateTemplateResult#data will only
@@ -982,14 +989,11 @@ namespace ELFT
 		 *
 		 * @note
 		 * Candidate.frgp shall be the most localized region where the
-		 * match was made to be considered correct. For instance, if
-		 * a latent right hypothenar region was searched, it is
-		 * incorrect to return right full palm or right lower palm, even
-		 * if it is from the correct identifier, regardless of the image
-		 * types provided when creating the reference template.
+		 * match was made to be considered as correct as possible. See
+		 * the test plan for more information.
 		 *
 		 * @note
-		 * This method must return in <= 300 * `number of database
+		 * This method must return in <= 10 * `number of database
 		 * identifiers` milliseconds, on average, as measured on a fixed
 		 * subset of data.
 		 */
