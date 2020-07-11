@@ -254,13 +254,24 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A single <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>, which contains information about the result of the operation and a single template.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= N * M seconds, on average, as measured on a fixed subset of data, where N is<ul>
+<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= <code>N * M</code> seconds for each element of <code>samples</code>, on average, as measured on a fixed subset of data, where<ul>
+<li><code>N</code><ul>
 <li>20.0 for latent images</li>
 <li>5.0 for exemplar images</li>
-<li>2.5 for feature sets and M is</li>
-<li><code>samples.size()</code> + finger_factor For the purposes of timing, finger_factor is 0 for single fingers, 2 for 2-finger slaps, 4 for 4-finger slaps and upper/lower palm images, and 8 for full palm images.</li>
+<li>2.5 for feature sets</li>
+</ul>
+</li>
+<li><code>M</code><ul>
+<li>1 for single fingers</li>
+<li>2 for two-finger simultaneous captures</li>
+<li>4 for four-finger simultaneous captures, upper palm, lower palm, and all other palm/joint regions <em>except</em> full palm</li>
+<li>8 for full palm</li>
+</ul>
+</li>
 </ul>
 </dd>
+<dd>
+If <code>samples</code> contained <code>RightThumb</code>, <code>LeftFour</code>, and <code>EJIOrTip</code>, the time requirement would be &lt;= ((5 * 1) + (5 * 4) + (5 * 4)) seconds.</dd>
 <dd>
 The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">CreateTemplateResult::data</a> will only be recorded if <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>'s <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6" title="The result of the operation.">ReturnStatus::result</a> is <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeba505a83f220c02df2f85c3810cd9ceb38" title="Successfully performed operation.">ReturnStatus::Result::Success</a>. On <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeb" title="Possible outcomes when performing operations.">ReturnStatus::Result</a>:: Failure, subsequent searches will automatically increase false negative identification rate. </dd></dl>
 
