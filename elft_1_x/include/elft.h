@@ -709,16 +709,25 @@ namespace ELFT
 		 * about the result of the operation and a single template.
 		 *
 		 * @note
-		 * This method must return in <= N * M seconds, on average, as
-		 * measured on a fixed subset of data, where N is
-		 *   * 20.0 for latent images
-		 *   *  5.0 for exemplar images
-		 *   *  2.5 for feature sets
-		 * and M is
-		 *   * `samples.size()` + finger_factor
-		 * For the purposes of timing, finger_factor is 0 for single
-		 * fingers, 2 for 2-finger slaps, 4 for 4-finger slaps and
-		 * upper/lower palm images, and 8 for full palm images.
+		 * This method must return in <= `N * M` seconds for each
+		 * element of `samples`, on average, as measured on a fixed
+		 * subset of data, where
+		 *   * `N`
+		 *     * 20.0 for latent images
+		 *     *  5.0 for exemplar images
+		 *     *  2.5 for feature sets
+		 *   * `M`
+		 *     * 1 for single fingers
+		 *     * 2 for two-finger simultaneous captures
+		 *     * 4 for four-finger simultaneous captures, upper palm,
+		 *       lower palm, and all other palm/joint regions *except*
+		 *       full palm
+		 *     * 8 for full palm
+		 *
+		 * @note
+		 * If `samples` contained `RightThumb`, `LeftFour`, and
+		 * `EJIOrTip`, the time requirement would be
+		 * <= ((5 * 1) + (5 * 4) + (5 * 4)) seconds.
 		 *
 		 * @note
 		 * The value of the returned CreateTemplateResult#data will only
