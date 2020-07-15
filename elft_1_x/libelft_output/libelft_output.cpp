@@ -345,7 +345,8 @@ std::string
 ELFT::to_string(
     const TemplateData &td)
 {
-	std::string s{"ID #" + std::to_string(td.inputIdentifier)};
+	std::string s{"ID: " + td.candidateIdentifier + ", #" +
+	    std::to_string(td.inputIdentifier)};
 	if (td.efs) {
 		s += "\n\tEFS:\n";
 		std::stringstream ss{to_string(*td.efs)};

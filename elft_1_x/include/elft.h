@@ -507,6 +507,12 @@ namespace ELFT
 	 */
 	struct TemplateData
 	{
+		/**
+		 * Candidate identifier provided in
+		 * ExtractionInterface::createTemplate().
+		 */
+		std::string candidateIdentifier{};
+
 		/** Link to Image#identifier and/or EFS#identifier. */
 		uint8_t inputIdentifier{};
 

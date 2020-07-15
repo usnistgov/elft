@@ -217,6 +217,7 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 	std::vector<TemplateData> tds{};
 	for (const auto &t : templates) {
 		TemplateData td{};
+		td.candidateIdentifier = t.candidateIdentifier;
 		td.inputIdentifier = t.inputIdentifier;
 
 		/* Make up a couple features */
