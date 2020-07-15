@@ -473,7 +473,7 @@ namespace ELFT
 		/**
 		 * Delta locations.
 		 *
- 		 * @details
+		 * @details
 		 * Coordinate are relative to the bounding rectangle created
 		 * by #roi, if supplied. Otherwise, they are relative to the
 		 * source image.
@@ -482,11 +482,11 @@ namespace ELFT
 		/**
 		 * Minutia locations.
 		 *
- 		 * @details
+		 * @details
 		 * Coordinate are relative to the bounding rectangle created
 		 * by #roi, if supplied. Otherwise, they are relative to the
 		 * source image.
- 		 *
+		 *
 		 * @note
 		 * NIST **strongly** discourages more than one Minutia at
 		 * equivalent Coordinate. This can result in ambiguous
@@ -933,7 +933,7 @@ namespace ELFT
 		 * @note
 		 * This method must return in <= 5 seconds.
 		 *
- 		 * @note
+		 * @note
 		 * This method need not be threadsafe. It may use more than one
 		 * thread.
 		 */
@@ -960,7 +960,7 @@ namespace ELFT
 		 * @note
 		 * This method must return in <= 5 seconds.
 		 *
- 		 * @note
+		 * @note
 		 * This method need not be threadsafe. It may use more than one
 		 * thread.
 		 */
