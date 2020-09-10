@@ -701,8 +701,7 @@ namespace ELFT
 		 * a template.
 		 *
 		 * @param templateType
-		 * Operation where this template will be used in future
-		 * searches.
+		 * Where this template will be used in the future.
 		 * @param identifier
 		 * Unique identifier used to identify the returned template
 		 * in future *search* operations (e.g., Candidate#identifier).
