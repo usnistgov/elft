@@ -17,6 +17,10 @@
  * When submitting to ELFT, do NOT link against this library.
  */
 
+#include <ostream>
+#include <string>
+#include <sstream>
+
 #include <elft.h>
 
 namespace ELFT
