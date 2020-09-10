@@ -71,6 +71,17 @@ else()
 	endif()
 endif()
 
+# Add debug option
+option(DEBUG "Print debugging information during runtime" OFF)
+if(DEBUG)
+	target_compile_definitions(${LIB_NAME} PRIVATE DEBUG)
+	add_subdirectory(${PROJECT_SOURCE_DIR}/../libelft_output ${CMAKE_CURRENT_BINARY_DIR}/libelft_output)
+	add_dependencies(${LIB_NAME} elft_output)
+	target_include_directories(${LIB_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/../libelft_output)
+	target_link_libraries(${LIB_NAME} PUBLIC elft_output)
+	target_compile_options(${LIB_NAME} PRIVATE -g -O0)
+endif()
+
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../validation CACHE PATH "..." FORCE)
 endif()

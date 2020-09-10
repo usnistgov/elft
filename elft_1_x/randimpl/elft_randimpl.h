@@ -15,6 +15,10 @@
 
 #include <elft.h>
 
+#ifdef DEBUG
+#include <ostream>
+#endif /* DEBUG */
+
 namespace ELFT
 {
 	namespace RandomImplementation
@@ -115,6 +119,25 @@ namespace ELFT
 			    const std::filesystem::path &directory,
 			    const std::vector<std::byte> &templateData,
 			    const bool truncate = true);
+
+#ifdef DEBUG
+			/**
+			 * @brief
+			 * Print textual description of Tmpl to stream.
+			 *
+			 * @param s
+			 * Stream to append to.
+			 * @param t
+			 * Tmpl to describe.
+			 *
+			 * @return
+			 * `s` with `t` appended.
+			 */
+			std::ostream&
+			operator<<(
+			    std::ostream &s,
+			    const Tmpl &t);
+#endif /* DEBUG */
 		}
 
 		class ExtractionImplementation : public ExtractionInterface

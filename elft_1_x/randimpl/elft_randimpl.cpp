@@ -13,6 +13,11 @@
 
 #include <elft_randimpl.h>
 
+#ifdef DEBUG
+#include <iostream>
+#include <libelft_output.h>
+#endif /* DEBUG */
+
 ELFT::RandomImplementation::ConfigurationParameters
 ELFT::RandomImplementation::Util::loadConfiguration(
     const std::filesystem::path &configurationDirectory)
@@ -108,6 +113,20 @@ ELFT::RandomImplementation::Util::writeTemplate(
 
 	return {};
 }
+
+#ifdef DEBUG
+std::ostream&
+ELFT::RandomImplementation::Util::operator<<(
+    std::ostream &s,
+    const Tmpl &t)
+{
+	return (s << "Candidate Identifier = " << t.candidateIdentifier <<
+	    "\nInput Identifier = " <<
+	    static_cast<uint16_t>(t.inputIdentifier) << '\n' << "FRGP = " <<
+	    t.frgp << "\nSize = " << static_cast<uint16_t>(t.size));
+}
+
+#endif /* DEBUG */
 
 /******************************************************************************/
 
