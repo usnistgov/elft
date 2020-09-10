@@ -1,8 +1,10 @@
 # Compilation
+a.out
 *.o
 *.so
 *.dylib
-build
+*.dSYM
+build*
 
 # Validation
 */validation/bin
@@ -21,4 +23,5 @@ build
 # Temp files
 .DS_Store
 ._*
+*.swp
 
