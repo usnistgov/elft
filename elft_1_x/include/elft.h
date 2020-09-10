@@ -724,15 +724,15 @@ namespace ELFT
 		 *   * `M`
 		 *     * 1 for single fingers
 		 *     * 2 for two-finger simultaneous captures
-		 *     * 4 for four-finger simultaneous captures, upper palm,
-		 *       lower palm, and all other palm/joint regions *except*
-		 *       full palm
-		 *     * 8 for full palm
+		 *     * 4 for four-finger simultaneous captures
+		 *     * 8 for upper palm, lower palm, and all other palm/joint
+		 *       regions *except* full palm
+		 *     * 16 for full palm
 		 *
 		 * @note
 		 * If `samples` contained `RightThumb`, `LeftFour`, and
 		 * `EJIOrTip`, the time requirement would be
-		 * <= ((5 * 1) + (5 * 4) + (5 * 4)) seconds.
+		 * <= ((5 * 1) + (5 * 4) + (5 * 8)) seconds.
 		 *
 		 * @note
 		 * The value of the returned CreateTemplateResult#data will only
