@@ -755,9 +755,9 @@ namespace ELFT
 		 * Extract information contained within a template.
 		 *
 		 * @param templateType
-		 * templateType passed to `createTemplate()`.
+		 * templateType passed to createTemplate().
 		 * @param templateResult
-		 * Object returned from `createTemplate()`.
+		 * Object returned from createTemplate() or mergeTemplates().
 		 *
 		 * @return
 		 * One or more TemplateData describing the contents of
@@ -796,8 +796,9 @@ namespace ELFT
 		 * Create a reference database on the filesystem.
 		 *
 		 * @param referenceTemplates
-		 * One or more templates returned from createTemplate() with
-		 * a `templateType` of TemplateType::Reference.
+		 * One or more templates returned from createTemplate() or
+		 * mergeTemplates() with a `templateType` of
+		 * TemplateType::Reference.
 		 * @param databaseDirectory
 		 * Entry to a read/write directory where the reference database
 		 * shall be written.
@@ -982,8 +983,8 @@ namespace ELFT
 		 * `probeTemplate`.
 		 *
 		 * @param probeTemplate
-		 * Object returned from `createTemplate()` with `templateType`
-		 * of `Probe`.
+		 * Object returned from createTemplate() or mergeTemplates()
+		 * with `templateType` of TemplateType::Probe.
 		 * @param maxCandidates
 		 * The maximum number of Candidate to return.
 		 *
