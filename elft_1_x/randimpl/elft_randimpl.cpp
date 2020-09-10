@@ -273,6 +273,55 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 	return (tds);
 }
 
+ELFT::CreateTemplateResult
+ELFT::RandomImplementation::ExtractionImplementation::mergeTemplates(
+    const std::vector<std::vector<std::byte>> &templates)
+    const
+{
+	/*
+	 * Our templates work by having the identifier first, followed
+	 * by N pieces of data. Start by appending all templates without
+	 * the subject identifier.
+	 */
+	std::vector<std::byte> combinedTemplate{};
+	for (const auto &tmpl : templates) {
+		const std::string id{Util::parseTemplate(tmpl).front().
+		    candidateIdentifier};
+
+		auto tmplCopy = tmpl;
+		tmplCopy.erase(tmplCopy.begin(),
+		    std::next(tmplCopy.begin(),
+		    static_cast<int>(id.length()) + 1));
+		combinedTemplate.insert(combinedTemplate.end(), tmplCopy.begin(),
+		    tmplCopy.end());
+	}
+
+	/* Then add the subject identifier to the beginning. */
+	const std::string id{Util::parseTemplate(templates.front()).front().
+	    candidateIdentifier};
+	std::vector<std::byte> idBytes{};
+	for (const auto &c : id)
+		idBytes.push_back(static_cast<std::byte>(c));
+	idBytes.push_back(static_cast<std::byte>('\0'));
+	combinedTemplate.insert(combinedTemplate.begin(), idBytes.begin(),
+	    idBytes.end());
+
+#ifdef DEBUG
+	/* Output the merged */
+	using ELFT::RandomImplementation::Util::operator<<;
+	std::cout << "Started with " << templates.size() << " templates:\n";
+	for (const auto &t : templates)
+		std::cout << Util::parseTemplate(t).front() << '\n';
+
+	std::cout << "\nMerged to 1 template:\n";
+	const auto parsedCombined = Util::parseTemplate(combinedTemplate);
+	for (const auto &t : parsedCombined)
+		std::cout << t << '\n';
+#endif /* DEBUG */
+
+	return {{}, combinedTemplate};
+}
+
 ELFT::ReturnStatus
 ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
     const std::vector<std::vector<std::byte>> &referenceTemplates,

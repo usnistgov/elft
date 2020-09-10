@@ -793,6 +793,58 @@ namespace ELFT
 
 		/**
 		 * @brief
+		 * Merge multiple templates into a single template.
+		 * @details
+		 * This method is necessary because more than one set of samples
+		 * for a given identifier may have been provided to
+		 * createTemplate().
+		 *
+		 * @param templates
+		 * One or more template returned from createTemplate() that
+		 * should be merged into a single template.
+		 *
+		 * @return
+		 * A single CreateTemplateResult that can accurately represent
+		 * `identifier` in future operations.
+		 *
+		 * @note
+		 * The merged template does not need to include all information.
+		 * For instance, if two reference templates are provided, each
+		 * derived from an identification flat capture, and an internal
+		 * heuristic deems one set of samples to be of significanly
+		 * lower quality, a reasonable result would be for this method
+		 * to return the template from the higher quality set of samples
+		 * without modification.
+		 *
+		 * @note
+		 * The contents of `templates` may be the result of previous
+		 * calls to mergeTemplates().
+		 *
+		 * @note
+		 * Identifiers and template types should be stored within the
+		 * template data itself and so are not provided as input.
+		 *
+		 * @note
+		 * This method shall return in <= 10 * `templates.size()`
+		 * milliseconds.
+		 *
+		 * @note
+		 * The value of the returned CreateTemplateResult#data will only
+		 * be recorded if CreateTemplateResult's ReturnStatus#result is
+		 * ReturnStatus::Result::Success. On ReturnStatus::Result::
+		 * Failure, subsequent searches will automatically increase
+		 * false negative identification rate.
+		 *
+		 * @see SearchInterface#insert.
+		 */
+		virtual
+		CreateTemplateResult
+		mergeTemplates(
+		    const std::vector<std::vector<std::byte>> &templates)
+		    const = 0;
+
+		/**
+		 * @brief
 		 * Create a reference database on the filesystem.
 		 *
 		 * @param referenceTemplates

@@ -165,6 +165,13 @@ namespace ELFT
 			    const
 			    override;
 
+			CreateTemplateResult
+			mergeTemplates(
+			    const std::vector<std::vector<std::byte>>
+			        &templates)
+			    const
+			    override;
+
 			ReturnStatus
 			createReferenceDatabase(
 			    const std::vector<std::vector<std::byte>>

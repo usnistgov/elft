@@ -72,6 +72,14 @@ ELFT::NullExtractionImplementation::extractTemplateData(
 	return {};
 }
 
+ELFT::CreateTemplateResult
+ELFT::NullExtractionImplementation::mergeTemplates(
+    const std::vector<std::vector<std::byte>> &templates)
+    const
+{
+	return {};
+}
+
 ELFT::ReturnStatus
 ELFT::NullExtractionImplementation::createReferenceDatabase(
     const std::vector<std::vector<std::byte>> &referenceTemplates,
