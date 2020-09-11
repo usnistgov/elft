@@ -658,7 +658,7 @@ check_for_previous_attempts()
 # Check that the version of CentOS is the correct version.
 check_os()
 {
-	local expected="8.1.1911"
+	local expected="8.2.2004"
 	echo -n "Checking OS and version... "
 	if [ ! -e /etc/redhat-release ]; then
 		local msg="You do not appear to be using the appropriate "
