@@ -182,7 +182,7 @@ okay()
 	if [ "${#}" -ne 0 ]; then
 		for i in "${@}"; do
 			font_dim
-			echo -n  "(${i}) "
+			echo -n "(${i}) "
 		done
 	fi
 	font_reset
@@ -611,7 +611,7 @@ check_image_versions()
 
 	if ! [ -e "${wd}/${validation_image_dir}/VERSION" ]; then
 		local msg="No images were found within within ${wd}/"
-		msg+="${validation_image_dir}.  If you have images, please "
+		msg+="${validation_image_dir}. If you have images, please "
 		msg+="move them to the appropriate location. If you don't have "
 		msg+="images, please request the latest versions from NIST: "
 		fail "${msg}" "${validation_image_request_url}"
@@ -712,16 +712,16 @@ check_for_images()
 		# has been expanded
 		local has_deferred=0
 		while read -r i; do
-		    	local regex=".*\/${validation_image_download_prefix}"
-		    	regex+="\(.*\)-.\+.tar.*"
+			local regex=".*\/${validation_image_download_prefix}"
+			regex+="\(.*\)-.\+.tar.*"
 			if ! [ -e "${wd}/${validation_image_dir}/VERSION" ];
 			    then
-			    	if [ "${has_deferred}" -eq 0 ]; then
-			    		font_yellow
-	    				echo "[DEFER]"
-	    				font_reset
-	    				has_deferred=1
-	    			fi
+				if [ "${has_deferred}" -eq 0 ]; then
+					font_yellow
+					echo "[DEFER]"
+					font_reset
+					has_deferred=1
+				fi
 
 				echo -n " -> Expanding "
 				echo -n "$(basename "${i}")\"... "
@@ -754,10 +754,10 @@ check_library()
 		fi
 	else
 		if ! get_core_library_name; then
-                	local msg="No core library found in the library "
+			local msg="No core library found in the library "
 			msg+="directory. Please review the ELFT library "
 			msg+="naming conventions."
-                	fail "${msg}" "" "The library directory is:" \
+			fail "${msg}" "" "The library directory is:" \
 			    "$(rp "${local_lib_dir}")"
 			return 1
 		fi
@@ -1208,7 +1208,7 @@ check_api_level()
 	tempfile="$(mktemp)"
 	local output
 	output="$("${binary}" 2> "${tempfile}")"
-	if grep -q "Incompatible " "${tempfile}";  then
+	if grep -q "Incompatible " "${tempfile}"; then
 		output=$(<"${tempfile}")
 		rm "${tempfile}"
 		fail "${output}"
@@ -1242,11 +1242,11 @@ clean_previous_attempts()
 		fail "Could not get organization name."
 	fi
 
- 	rm -rf "${wd}"/elft_validation_"${org_name}"_*
+	rm -rf "${wd}"/elft_validation_"${org_name}"_*
 	if [ "$(find "${wd}" -name "elft_validation_""${org_name}""_*" | \
 	    wc -l)" -ne 0 ];
 	then
-	    	fail "Failed to remove some output. Please delete it manually."
+		fail "Failed to remove some output. Please delete it manually."
 		return 1
 	fi
 
@@ -1557,19 +1557,19 @@ check_extract()
 	    "${driver_output_dir}/extractionCreate-${suffix}.log")
 
 	if [ "${fte}" -gt 0 ]; then
-	    	local log="${driver_output_dir}/extractionCreate-${suffix}.log"
-	    	local msg="There are some (${fte}) failure to enroll ${type} "
-	    	msg+="templates. Please review: "
-	    	warn "${msg}" "$(rp "${log}")"
-    		echo -n "Still checking ${type} extraction logs... "
+		local log="${driver_output_dir}/extractionCreate-${suffix}.log"
+		local msg="There are some (${fte}) failure to enroll ${type} "
+		msg+="templates. Please review: "
+		warn "${msg}" "$(rp "${log}")"
+		echo -n "Still checking ${type} extraction logs... "
 	fi
 
 	if [ "${empty_tmpl}" -gt 0 ]; then
-	    	local log="${driver_output_dir}/extractionCreate-${suffix}.log"
-	    	local msg="There are some (${empty_tmpl}) zero-byte ${type} "
-	    	msg+="templates. Please review: "
-	    	warn "${msg}" "$(rp "${log}")"
-    		echo -n "Still checking ${type} extraction logs... "
+		local log="${driver_output_dir}/extractionCreate-${suffix}.log"
+		local msg="There are some (${empty_tmpl}) zero-byte ${type} "
+		msg+="templates. Please review: "
+		warn "${msg}" "$(rp "${log}")"
+		echo -n "Still checking ${type} extraction logs... "
 	fi
 
 	okay
@@ -1587,17 +1587,17 @@ check_search_correspondence()
 	#
 	# TODO: Too slow in bash. Just merge the logs.
 	#
-# 	echo -n "Checking search logs (correspondence)... "
+#	echo -n "Checking search logs (correspondence)... "
 	merge_logs "correspondence"
 	return 0
 
 	local bad_coord=0
 	local bad_theta=0
-    	local log="${driver_output_dir}/correspondence.log"
+	local log="${driver_output_dir}/correspondence.log"
 	while read -r line; do
-# 		read -r identifier ref_id ref_x ref_y ref_theta probe_id \
-# 		    probe_x probe_y probe_theta <<< "$(cut -f \
-# 		    1,6,7,8,9,11,12,13,14 -d ',' <<< "${line}" | tr ',' ' ')"
+#		read -r identifier ref_id ref_x ref_y ref_theta probe_id \
+#		    probe_x probe_y probe_theta <<< "$(cut -f \
+#		    1,6,7,8,9,11,12,13,14 -d ',' <<< "${line}" | tr ',' ' ')"
 		read -r identifier ref_theta probe_x probe_y probe_theta <<< \
 		    "$(cut -f 1,9,12,13,14 -d ',' <<< "${line}" | tr ',' ' ')"
 		read -r probe_width probe_height <<< "$(cut -f 12 -d '_' \
@@ -1631,15 +1631,15 @@ check_search_correspondence()
 	done < <(tail -n +2 "${log}")
 
 	if [ "${bad_coord}" -gt 0 ]; then
-	    	local msg="There are some (${bad_coord}) coordinates returned "
-	    	msg+="that are outside the image. Please review: "
-	    	fail "${msg}" "${log}"
+		local msg="There are some (${bad_coord}) coordinates returned "
+		msg+="that are outside the image. Please review: "
+		fail "${msg}" "${log}"
 	fi
 
 	if [ "${bad_theta}" -gt 0 ]; then
-	    	local msg="There are some (${bad_theta}) theta values outside "
-	    	msg+="the allowed range of [0, 359]. Please review: "
-	    	fail "${msg}" "${log}"
+		local msg="There are some (${bad_theta}) theta values outside "
+		msg+="the allowed range of [0, 359]. Please review: "
+		fail "${msg}" "${log}"
 	fi
 
 	okay
@@ -1657,7 +1657,7 @@ check_search_candidates()
 	local too_many=0
 	local bad_frgp=0
 	local neg_sim=0
-    	local candidate_log="${driver_output_dir}/searchCandidates.log"
+	local candidate_log="${driver_output_dir}/searchCandidates.log"
 	while read -r line; do
 		read -r max_candidates result num_candidates rank frgp \
 		    similarity <<< "$(cut -f 2,4,7,8,10,11 -d ',' \
@@ -1693,38 +1693,38 @@ check_search_candidates()
 	done < <(tail -n +2 "${candidate_log}")
 
 	if [ "${fts}" -gt 0 ]; then
-	    	local msg="There are some (${fts}) failures to search. Please "
-	    	msg+="review: "
-	    	warn "${msg}" "${candidate_log}"
-    		echo -n "Still checking search logs... "
+		local msg="There are some (${fts}) failures to search. Please "
+		msg+="review: "
+		warn "${msg}" "${candidate_log}"
+		echo -n "Still checking search logs... "
 	fi
 
 	if [ "${no_candidates}" -gt 0 ]; then
-	    	local msg="There are some (${no_candidates}) searches that "
-	    	msg+="returned successfully,  but did not produce any  "
-	    	msg+="candidates. Please review:"
-	    	warn "${msg}" "${candidate_log}"
-    		echo -n "Still checking search logs... "
+		local msg="There are some (${no_candidates}) searches that "
+		msg+="returned successfully, but did not produce any "
+		msg+="candidates. Please review:"
+		warn "${msg}" "${candidate_log}"
+		echo -n "Still checking search logs... "
 	fi
 
 	if [ "${too_many}" -gt 0 ]; then
-	    	local msg="There are some (${too_many}) searches that returned "
-	    	msg+=" more than the  maximum number of candidates. Please "
-	    	msg+="review: "
-	    	fail "${msg}" "${candidate_log}"
+		local msg="There are some (${too_many}) searches that returned "
+		msg+=" more than the maximum number of candidates. Please "
+		msg+="review: "
+		fail "${msg}" "${candidate_log}"
 	fi
 
 	if [ "${bad_frgp}" -gt 0 ]; then
-	    	local msg="There are some (${bad_frgp}) searches that returned "
-	    	msg+="a combination finger position for a candidate. Please "
-	    	msg+="review: "
-	    	fail "${msg}" "${candidate_log}"
+		local msg="There are some (${bad_frgp}) searches that returned "
+		msg+="a combination finger position for a candidate. Please "
+		msg+="review: "
+		fail "${msg}" "${candidate_log}"
 	fi
 
 	if [ "${neg_sim}" -gt 0 ]; then
-	    	local msg="There are some (${neg_sim}) searches that returned "
-	    	msg+="a similarity score < 0. Please review: "
-	    	fail "${msg}" "${candidate_log}"
+		local msg="There are some (${neg_sim}) searches that returned "
+		msg+="a similarity score < 0. Please review: "
+		fail "${msg}" "${candidate_log}"
 	fi
 
 	okay
