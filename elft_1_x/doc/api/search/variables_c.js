@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['referenceinputidentifier_267',['referenceInputIdentifier',['../struct_e_l_f_t_1_1_correspondence.html#abbe3847a9620e2e2ae2ebb90deaf799a',1,'ELFT::Correspondence']]],
-  ['referenceminutia_268',['referenceMinutia',['../struct_e_l_f_t_1_1_correspondence.html#a06c2a2b2ce04f3ed8557cca37207f793',1,'ELFT::Correspondence']]],
-  ['result_269',['result',['../struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6',1,'ELFT::ReturnStatus']]],
-  ['roi_270',['roi',['../struct_e_l_f_t_1_1_e_f_s.html#ae4a27d20824d916864c5d377cb3f8498',1,'ELFT::EFS']]]
+  ['quality_280',['quality',['../struct_e_l_f_t_1_1_ridge_quality_region.html#a9e319a5dec334c12c7e8b8aa235d27a7',1,'ELFT::RidgeQualityRegion']]]
 ];

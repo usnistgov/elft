@@ -105,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae2078c4832d626e50b335e2c44b875a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the reference database for the samples represented in <code>probeTemplate</code>.  <a href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4">More...</a><br /></td></tr>
 <tr class="separator:ae2078c4832d626e50b335e2c44b875a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62044a2f57b446e4929ac070c2b92bb"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; std::vector&lt; std::vector&lt; <a class="el" href="struct_e_l_f_t_1_1_correspondence.html">Correspondence</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#ab62044a2f57b446e4929ac070c2b92bb">extractCorrespondence</a> (const std::vector&lt; std::byte &gt; &amp;probeTemplate, const <a class="el" href="struct_e_l_f_t_1_1_search_result.html">SearchResult</a> &amp;searchResult) const =0</td></tr>
-<tr class="memdesc:ab62044a2f57b446e4929ac070c2b92bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract pairs of corresponding minutia between probe template and reference template.  <a href="class_e_l_f_t_1_1_search_interface.html#ab62044a2f57b446e4929ac070c2b92bb">More...</a><br /></td></tr>
+<tr class="memdesc:ab62044a2f57b446e4929ac070c2b92bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract pairs of corresponding minutiae between probe template and reference template.  <a href="class_e_l_f_t_1_1_search_interface.html#ab62044a2f57b446e4929ac070c2b92bb">More...</a><br /></td></tr>
 <tr class="separator:ab62044a2f57b446e4929ac070c2b92bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19a93795b6e04bca5f883ec9026ffd1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a19a93795b6e04bca5f883ec9026ffd1a">SearchInterface</a> ()</td></tr>
 <tr class="separator:a19a93795b6e04bca5f883ec9026ffd1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,7 +121,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for database search implemented by participant. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00921">921</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00972">972</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19a93795b6e04bca5f883ec9026ffd1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19a93795b6e04bca5f883ec9026ffd1a">&#9670;&nbsp;</a></span>SearchInterface()</h2>
@@ -419,7 +419,7 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
 </table>
 </div><div class="memdoc">
 
-<p>Extract pairs of corresponding minutia between probe template and reference template. </p>
+<p>Extract pairs of corresponding minutiae between probe template and reference template. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">probeTemplate</td><td>Probe template sent to searchReferences(). </td></tr>
@@ -427,8 +427,8 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A vector the length of <code>searchResult.candidateList.size()</code>, where each entry is the collection of corresponding minutia points between <code>probeTemplate</code> and the reference template of the <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> at the same position as <code>searchResult</code>'s <a class="el" href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b" title="List of Candidate most similar to the probe.">SearchResult.candidateList</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> must align with minutia returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a0593d93752fb33924bbc1beaa09b934c" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData()</a> for the given identifier + position pair.</dd>
+<dl class="section return"><dt>Returns</dt><dd>A vector the length of <code>searchResult.candidateList.size()</code>, where each entry is the collection of corresponding minutiae points between <code>probeTemplate</code> and the reference template of the <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> at the same position as <code>searchResult</code>'s <a class="el" href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b" title="List of Candidate most similar to the probe.">SearchResult.candidateList</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">ELFT::Minutia</a> must align with minutiae returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a0593d93752fb33924bbc1beaa09b934c" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData()</a> for the given identifier + position pair.</dd>
 <dd>
 You must implement this method to compile, but providing the requested information is optional. If provided, information may help in debugging, as well as informing future NIST analysis.</dd>
 <dd>

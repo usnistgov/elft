@@ -110,6 +110,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about the result of calling an <a class="el" href="namespace_e_l_f_t.html">ELFT</a> API function.  <a href="struct_e_l_f_t_1_1_return_status.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_ridge_quality_region.html">RidgeQualityRegion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Region defined in a map of ridge quality/confidence.  <a href="struct_e_l_f_t_1_1_ridge_quality_region.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html">SearchInterface</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for database search implemented by participant.  <a href="class_e_l_f_t_1_1_search_interface.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -273,8 +276,20 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca6311ae17c1ee52b36e68aaf4ad066387">MinutiaType::Other</a>, 
 <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca88183b946cc5f0e8c96b2e66e1c74a7e">MinutiaType::Unknown</a>
  }</td></tr>
-<tr class="memdesc:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of minutia.  <a href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">More...</a><br /></td></tr>
+<tr class="memdesc:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of minutiae.  <a href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">More...</a><br /></td></tr>
 <tr class="separator:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a013801939a27e2c25dc9079be8ea3d93"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93">RidgeQuality</a> { <br />
+&#160;&#160;<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93aa9ded1e5ce5d75814730bb4caaf49419">RidgeQuality::Background</a> = 0, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a2cff6da9bb8fbca5e8cc3ca02b08ff51">RidgeQuality::DebatableRidgeFlow</a> = 1, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a25d32a6911e68ff2f70a12ac7b0c669d">RidgeQuality::DebatableMinutiae</a> = 2, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93ae854d0b9ed17455ddbce45e7ba21573b">RidgeQuality::DefinitiveMinutiae</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a7ca153999e97cb14e87658b69457812f">RidgeQuality::DefinitiveRidgeEdges</a> = 4, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a85b3c7451c9b7373bcedc8cabc3843b1">RidgeQuality::DefinitivePores</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:a013801939a27e2c25dc9079be8ea3d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015).  <a href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93">More...</a><br /></td></tr>
+<tr class="separator:a013801939a27e2c25dc9079be8ea3d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa83ab86791fa0b1f5c682039664ff99d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99d">TemplateType</a> { <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3">TemplateType::Probe</a>, 
 <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca">TemplateType::Reference</a>
  }</td></tr>
@@ -605,7 +620,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Types of minutia. </p>
+<p>Types of minutiae. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a48ae44916ed3b8be77c3ee9ee010b30ca61ec52603470e28c6dfd65a24feb2c0a"></a>RidgeEnding&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a48ae44916ed3b8be77c3ee9ee010b30ca6d2c2ac14bef408b9e4a5f994a9c696b"></a>Bifurcation&#160;</td><td class="fielddoc"></td></tr>
@@ -614,6 +629,46 @@ Variables</h2></td></tr>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00336">336</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+
+</div>
+</div>
+<a id="a013801939a27e2c25dc9079be8ea3d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a013801939a27e2c25dc9079be8ea3d93">&#9670;&nbsp;</a></span>RidgeQuality</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93">ELFT::RidgeQuality</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93aa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"><p>No ridge information. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93a2cff6da9bb8fbca5e8cc3ca02b08ff51"></a>DebatableRidgeFlow&#160;</td><td class="fielddoc"><p>Continuity of ridge flow is uncertain. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93a25d32a6911e68ff2f70a12ac7b0c669d"></a>DebatableMinutiae&#160;</td><td class="fielddoc"><p>Continuity of ridge flow is certain; minutiae are debatable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93ae854d0b9ed17455ddbce45e7ba21573b"></a>DefinitiveMinutiae&#160;</td><td class="fielddoc"><p>Minutiae and ridge flow are obvious and unambiguous; ridge edges are debatable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93a7ca153999e97cb14e87658b69457812f"></a>DefinitiveRidgeEdges&#160;</td><td class="fielddoc"><p>Ridge edges, minutiae, and ridge flow are obvious and unambiguous; pores are either debatable or not present. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a013801939a27e2c25dc9079be8ea3d93a85b3c7451c9b7373bcedc8cabc3843b1"></a>DefinitivePores&#160;</td><td class="fielddoc"><p>Pores and ridge edges are obvious and unambiguous. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00411">411</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -645,7 +700,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00580">580</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00632">632</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -664,7 +719,7 @@ Variables</h2></td></tr>
 
 <p>API major version number. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01174">1174</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01225">1225</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -682,7 +737,7 @@ Variables</h2></td></tr>
 
 <p>API minor version number. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01176">1176</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01227">1227</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -700,7 +755,7 @@ Variables</h2></td></tr>
 
 <p>API patch version number. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01178">1178</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01229">1229</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

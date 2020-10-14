@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['theta_273',['theta',['../struct_e_l_f_t_1_1_minutia.html#a071adbcac13b404b1516a218a3ec8b07',1,'ELFT::Minutia']]],
-  ['trv_274',['trv',['../struct_e_l_f_t_1_1_e_f_s.html#a615f4f5d4b36858e101945a23ea0321b',1,'ELFT::EFS']]],
-  ['type_275',['type',['../struct_e_l_f_t_1_1_minutia.html#a7dac418c8dfa14377e4a54b9e98858da',1,'ELFT::Minutia']]]
+  ['similarity_287',['similarity',['../struct_e_l_f_t_1_1_candidate.html#afa96ebaaec090947fb0e2b96208e9f20',1,'ELFT::Candidate']]],
+  ['status_288',['status',['../struct_e_l_f_t_1_1_create_template_result.html#a4804b850e681ff277894ade38fe11af3',1,'ELFT::CreateTemplateResult::status()'],['../struct_e_l_f_t_1_1_search_result.html#a9a6c7a9fb8e7e44a456e9628bffc97ec',1,'ELFT::SearchResult::status()']]]
 ];

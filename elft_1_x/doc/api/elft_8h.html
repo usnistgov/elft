@@ -113,6 +113,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_correspondence.html">ELFT::Correspondence</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location of identical features from two images.  <a href="struct_e_l_f_t_1_1_correspondence.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_ridge_quality_region.html">ELFT::RidgeQualityRegion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Region defined in a map of ridge quality/confidence.  <a href="struct_e_l_f_t_1_1_ridge_quality_region.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_e_f_s.html">ELFT::EFS</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of ANSI/NIST-ITL 1-2011 (Update: 2015) Extended Feature Set fields understood by <a class="el" href="namespace_e_l_f_t.html">ELFT</a>.  <a href="struct_e_l_f_t_1_1_e_f_s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,8 +302,20 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca6311ae17c1ee52b36e68aaf4ad066387">ELFT::MinutiaType::Other</a>, 
 <a class="el" href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30ca88183b946cc5f0e8c96b2e66e1c74a7e">ELFT::MinutiaType::Unknown</a>
  }</td></tr>
-<tr class="memdesc:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of minutia.  <a href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">More...</a><br /></td></tr>
+<tr class="memdesc:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of minutiae.  <a href="namespace_e_l_f_t.html#a48ae44916ed3b8be77c3ee9ee010b30c">More...</a><br /></td></tr>
 <tr class="separator:a48ae44916ed3b8be77c3ee9ee010b30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a013801939a27e2c25dc9079be8ea3d93"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93">ELFT::RidgeQuality</a> { <br />
+&#160;&#160;<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93aa9ded1e5ce5d75814730bb4caaf49419">ELFT::RidgeQuality::Background</a> = 0, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a2cff6da9bb8fbca5e8cc3ca02b08ff51">ELFT::RidgeQuality::DebatableRidgeFlow</a> = 1, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a25d32a6911e68ff2f70a12ac7b0c669d">ELFT::RidgeQuality::DebatableMinutiae</a> = 2, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93ae854d0b9ed17455ddbce45e7ba21573b">ELFT::RidgeQuality::DefinitiveMinutiae</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a7ca153999e97cb14e87658b69457812f">ELFT::RidgeQuality::DefinitiveRidgeEdges</a> = 4, 
+<a class="el" href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93a85b3c7451c9b7373bcedc8cabc3843b1">ELFT::RidgeQuality::DefinitivePores</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:a013801939a27e2c25dc9079be8ea3d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015).  <a href="namespace_e_l_f_t.html#a013801939a27e2c25dc9079be8ea3d93">More...</a><br /></td></tr>
+<tr class="separator:a013801939a27e2c25dc9079be8ea3d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa83ab86791fa0b1f5c682039664ff99d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99d">ELFT::TemplateType</a> { <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3">ELFT::TemplateType::Probe</a>, 
 <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca">ELFT::TemplateType::Reference</a>
  }</td></tr>
