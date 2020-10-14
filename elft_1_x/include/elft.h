@@ -407,6 +407,48 @@ namespace ELFT
 		    const Minutia &probeMinutia = {});
 	};
 
+	/** Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015). */
+	enum class RidgeQuality
+	{
+		/** No ridge information. */
+		Background = 0,
+		/** Continuity of ridge flow is uncertain. */
+		DebatableRidgeFlow = 1,
+		/**
+		 * Continuity of ridge flow is certain; minutiae are
+		 * debatable.
+		 */
+		DebatableMinutiae = 2,
+		/**
+		 * Minutiae and ridge flow are obvious and unambiguous; ridge
+		 * edges are debatable.
+		 */
+		DefinitiveMinutiae = 3,
+		/**
+		 * Ridge edges, minutiae, and ridge flow are obvious and
+		 * unambiguous; pores are either debatable or not present.
+		 */
+		DefinitiveRidgeEdges = 4,
+		/** Pores and ridge edges are obvious and unambiguous. */
+		DefinitivePores = 5
+	};
+
+	/** Region defined in a map of ridge quality/confidence. */
+	struct RidgeQualityRegion
+	{
+		/**
+		 * Closed convex polygon whose contents is #quality.
+		 *
+		 * @details
+		 * Coordinate are relative to the bounding rectangle created by
+		 * EFS::roi, if supplied. Otherwise, they are relative to the
+		 * the source image.
+		 */
+		std::vector<Coordinate> region{};
+		/** Clarity of ridge features enclosed within #region. */
+		RidgeQuality quality{RidgeQuality::Background};
+	};
+
 	/**
 	 * Collection of ANSI/NIST-ITL 1-2011 (Update: 2015) Extended Feature
 	 * Set fields understood by ELFT.
@@ -496,6 +538,15 @@ namespace ELFT
 		std::optional<std::vector<Minutia>> minutiae{};
 		/** Closed convex polygon forming region of interest. */
 		std::optional<std::vector<Coordinate>> roi{};
+
+		/**
+		 * Assessment of ridge quality within local areas of an image.
+		 *
+		 * @note
+		 * If populated, regions not explicitly defined will default to
+		 * RidgeQuality::Background.
+		 */
+		std::optional<std::vector<RidgeQualityRegion>> rqm{};
 	};
 
 	/**

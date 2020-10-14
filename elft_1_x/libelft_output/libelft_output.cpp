@@ -275,6 +275,28 @@ ELFT::to_string(
 
 std::string
 ELFT::to_string(
+    const RidgeQuality &rq)
+{
+	switch (rq) {
+	case RidgeQuality::Background:
+		return ("Background");
+	case RidgeQuality::DebatableRidgeFlow:
+		return ("DebatableRidgeFlow");
+	case RidgeQuality::DebatableMinutiae:
+		return ("DebatableMinutiae");
+	case RidgeQuality::DefinitiveMinutiae:
+		return ("DefinitiveMinutiae");
+	case RidgeQuality::DefinitiveRidgeEdges:
+		return ("DefinitiveRidgeEdges");
+	case RidgeQuality::DefinitivePores:
+		return ("DefinitivePores");
+	default:
+		return ("[ERROR]");
+	}
+}
+
+std::string
+ELFT::to_string(
     const ReturnStatus &rs)
 {
 	std::string s{"Result: " + to_string(rs.result)};
@@ -462,6 +484,23 @@ ELFT::to_string(
 
 std::string
 ELFT::to_string(
+    const RidgeQualityRegion &rqr)
+{
+	std::string s{" * Region: "};
+	if (rqr.region.empty()) {
+		s += "<# EMPTY #>";
+	} else {
+		for (const auto &c : rqr.region)
+			s += "\n   * " + to_string(c);
+	}
+
+	s += " * Quality: " + to_string(rqr.quality);
+
+	return (s);
+}
+
+std::string
+ELFT::to_string(
     const EFS &efs)
 {
 	std::string s{"ID #: " + std::to_string(efs.identifier) + '\n'};
@@ -540,6 +579,18 @@ ELFT::to_string(
 		s += to_string(std::optional<Coordinate>{});
 	}
 
+	s += " * Ridge Quality Map: ";
+	if (efs.rqm) {
+		if (efs.rqm->empty()) {
+			s += "<# EMPTY #>";
+		} else {
+			for (const auto &c : *efs.rqm)
+				s += "\n   * " + to_string(c);
+		}
+	} else {
+		s += to_string(std::optional<RidgeQualityRegion>{});
+	}
+
 	return (s);
 }
 
@@ -599,6 +650,14 @@ ELFT::operator<<(
     const Substrate &sub)
 {
 	return (s << ELFT::to_string(sub));
+}
+
+std::ostream&
+ELFT::operator<<(
+    std::ostream &s,
+    const RidgeQuality &rq)
+{
+	return (s << ELFT::to_string(rq));
 }
 
 std::ostream&
@@ -711,6 +770,14 @@ ELFT::operator<<(
     const Image &i)
 {
 	return (s << ELFT::to_string(i));
+}
+
+std::ostream&
+ELFT::operator<<(
+    std::ostream &s,
+    const RidgeQualityRegion &rqr)
+{
+	return (s << ELFT::to_string(rqr));
 }
 
 std::ostream&

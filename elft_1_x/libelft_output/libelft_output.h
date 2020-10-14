@@ -34,6 +34,7 @@ namespace ELFT
 	std::ostream& operator<<(std::ostream&, const PatternClassification&);
 	std::ostream& operator<<(std::ostream&, const ValueAssessment&);
 	std::ostream& operator<<(std::ostream&, const Substrate&);
+	std::ostream& operator<<(std::ostream&, const RidgeQuality&);
 	std::ostream& operator<<(std::ostream&, const ReturnStatus&);
 	std::ostream& operator<<(std::ostream&, const ReturnStatus::Result&);
 	std::ostream& operator<<(std::ostream&, const Coordinate&);
@@ -50,6 +51,7 @@ namespace ELFT
 	    const ExtractionInterface::SubmissionIdentification&);
 	std::ostream& operator<<(std::ostream&, const CreateTemplateResult&);
 	std::ostream& operator<<(std::ostream&, const Image&);
+	std::ostream& operator<<(std::ostream&, const RidgeQualityRegion&);
 	std::ostream& operator<<(std::ostream&, const EFS&);
 	template<typename T,
 	    std::enable_if_t<std::is_arithmetic<T>{}, int> = 0>
@@ -65,6 +67,7 @@ namespace ELFT
 	std::string to_string(const PatternClassification&);
 	std::string to_string(const ValueAssessment&);
 	std::string to_string(const Substrate&);
+	std::string to_string(const RidgeQuality&);
 	std::string to_string(const ReturnStatus&);
 	std::string to_string(const ReturnStatus::Result&);
 	std::string to_string(const Coordinate&);
@@ -80,6 +83,7 @@ namespace ELFT
 	    const ExtractionInterface::SubmissionIdentification&);
 	std::string to_string(const CreateTemplateResult&);
 	std::string to_string(const Image&);
+	std::string to_string(const RidgeQualityRegion&);
 	std::string to_string(const EFS&);
 	template<typename T,
 	    std::enable_if_t<std::is_arithmetic<T>{}, int> = 0>
