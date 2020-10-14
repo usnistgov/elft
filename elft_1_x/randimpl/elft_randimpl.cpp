@@ -248,12 +248,12 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 				    efs.orientation.value() * -1);
 		}
 
-		const uint8_t numMinutia{static_cast<uint8_t>(
+		const uint8_t numMinutiae{static_cast<uint8_t>(
 		    this->rng() % UINT8_MAX)};
-		if (numMinutia > 0) {
-			efs.minutia = std::vector<Minutia>{};
-			efs.minutia->reserve(numMinutia);
-			for (uint8_t i{}; i < numMinutia; ++i) {
+		if (numMinutiae > 0) {
+			efs.minutiae = std::vector<Minutia>{};
+			efs.minutiae->reserve(numMinutiae);
+			for (uint8_t i{}; i < numMinutiae; ++i) {
 				Minutia m{};
 				m.coordinate.x = static_cast<uint16_t>(
 				    this->rng() % 1000);
@@ -262,7 +262,7 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 				m.theta = static_cast<uint16_t>(
 				    this->rng() % 360);
 
-				efs.minutia->push_back(m);
+				efs.minutiae->push_back(m);
 			}
 		}
 
@@ -532,7 +532,7 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 					continue;
 			}
 
-			const uint8_t numMinutia{static_cast<uint8_t>(
+			const uint8_t numMinutiae{static_cast<uint8_t>(
 			    this->rng() % UINT8_MAX)};
 
 			/*
@@ -542,8 +542,8 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 			 *       There's no easy way to do so in this example.
 			 */
 			std::vector<Correspondence> candidateCorr{};
-			candidateCorr.reserve(numMinutia);
-			for (uint8_t i{}; i < numMinutia; ++i) {
+			candidateCorr.reserve(numMinutiae);
+			for (uint8_t i{}; i < numMinutiae; ++i) {
 				Correspondence singleCorr{};
 				singleCorr.probeInputIdentifier =
 				    probe.inputIdentifier;

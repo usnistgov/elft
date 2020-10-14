@@ -515,12 +515,12 @@ ELFT::to_string(
 	}
 	s += '\n';
 
-	s += " * Minutia: ";
-	if (efs.minutia) {
-		if (efs.minutia->empty()) {
+	s += " * Minutiae: ";
+	if (efs.minutiae) {
+		if (efs.minutiae->empty()) {
 			s += "<# EMPTY #>";
 		} else {
-			for (const auto &m : *efs.minutia)
+			for (const auto &m : *efs.minutiae)
 				s += "\n   * " + to_string(m);
 		}
 	} else {

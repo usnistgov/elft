@@ -332,7 +332,7 @@ namespace ELFT
 		    const;
 	};
 
-	/** Types of minutia. */
+	/** Types of minutiae. */
 	enum class MinutiaType
 	{
 		RidgeEnding,
@@ -377,7 +377,8 @@ namespace ELFT
 	{
 		/**
 		 * Link to Image#identifier and/or EFS#identifier for
-		 * reference. */
+		 * reference.
+		 */
 		uint8_t referenceInputIdentifier{};
 		/** Location in the reference image of a probe image feature. */
 		Minutia referenceMinutia{};
@@ -480,7 +481,7 @@ namespace ELFT
 		 */
 		std::optional<std::vector<Coordinate>> deltas{};
 		/**
-		 * Minutia locations.
+		 * Locations of minutiae.
 		 *
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created
@@ -492,7 +493,7 @@ namespace ELFT
 		 * equivalent Coordinate. This can result in ambiguous
 		 * Correspondence.
 		 */
-		std::optional<std::vector<Minutia>> minutia{};
+		std::optional<std::vector<Minutia>> minutiae{};
 		/** Closed convex polygon forming region of interest. */
 		std::optional<std::vector<Coordinate>> roi{};
 	};
@@ -774,10 +775,9 @@ namespace ELFT
 		 *
 		 * @note
 		 * You should not return information that was provided in
-		 * createTemplate(). For instance, if examiner Minutia was
-		 * provided, EFS#minutia should be left `std::nullopt`. However,
-		 * if you discovered _different_ Minutia, they should be
-		 * returned.
+		 * createTemplate(). For instance, if Minutia was provided,
+		 * EFS#minutiae should be left `std::nullopt`. However, if you
+		 * discovered _different_ Minutia, they should be returned.
 		 *
 		 * @note
 		 * The ReturnStatus member of CreateTemplateResult is not
@@ -1073,8 +1073,8 @@ namespace ELFT
 
 		/**
 		 * @brief
-		 * Extract pairs of corresponding minutia between probe template
-		 * and reference template.
+		 * Extract pairs of corresponding minutiae between probe
+		 * template and reference template.
 		 *
 		 * @param probeTemplate
 		 * Probe template sent to searchReferences().
@@ -1083,13 +1083,13 @@ namespace ELFT
 		 *
 		 * @return
 		 * A vector the length of `searchResult.candidateList.size()`,
-		 * where each entry is the collection of corresponding minutia
+		 * where each entry is the collection of corresponding minutiae
 		 * points between `probeTemplate` and the reference template of
 		 * the Candidate at the same position as `searchResult`'s
 		 * SearchResult.candidateList.
 		 *
 		 * @note
-		 * Minutia must align with minutia returned from
+		 * ELFT::Minutia must align with minutiae returned from
 		 * ExtractionInterface::extractTemplateData() for the given
 		 * identifier + position pair.
 		 *
