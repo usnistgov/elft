@@ -529,12 +529,12 @@ ELFT::to_string(
 	s += '\n';
 
 	s += " * ROI: ";
-	if (efs.deltas) {
+	if (efs.roi) {
 		if (efs.roi->empty()) {
 			s += "<# EMPTY #>";
 		} else {
-			for (const auto &c : *efs.roi)
-				s += "\n   * " + to_string(c);
+			for (const auto &r : *efs.roi)
+				s += "\n   * " + to_string(r);
 		}
 	} else {
 		s += to_string(std::optional<Coordinate>{});
