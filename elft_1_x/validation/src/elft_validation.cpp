@@ -927,7 +927,7 @@ ELFT::Validation::performSingleExtractData(
 		logLine += (efs.trv ? ts(*efs.trv) : NA) + ',';
 		logLine += (efs.cores ? splice(*efs.cores) : NA) + ',';
 		logLine += (efs.deltas ? splice(*efs.deltas) : NA) + ',';
-		logLine += (efs.minutia ? splice(*efs.minutia) : NA) + ',';
+		logLine += (efs.minutiae ? splice(*efs.minutiae) : NA) + ',';
 		logLine += (efs.roi ? splice(*efs.roi) : NA);
 
 		logLine += '\n';
