@@ -1302,6 +1302,31 @@ namespace ELFT::Validation::Data
 	                ProcessingMethod::Laser
 	            }
 	        }
+	    }}},
+
+	    {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_3CH_LP02_1_882x1003", {
+	        {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_3CH_LP02_1_882x1003"
+	         ".gray", 882, 1003, 1200, 8, 24, EFS{0, 1200,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::BlackPowder
+	            }
+	        }
+	    }}},
+
+	    {"00002357_3_X_0234_IN_D800_1044PPI_16BPC_1CH_LP05_3_1656x2392", {
+	        {"00002357_3_X_0234_IN_D800_1044PPI_16BPC_1CH_LP05_3_1656x2392"
+	         ".gray", 1656, 2392, 1044, 16, 16, EFS{0, 1044,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            }
+	        }
 	    }}}
 	};
 
@@ -2570,6 +2595,42 @@ namespace ELFT::Validation::Data
 	            Impression::RolledContactlessMoving,
 	            FrictionRidgeCaptureTechnology::OpticalDirect,
 	            FrictionRidgeGeneralizedPosition::RightRing,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_27_2500x2500.gray", 2500, 2500, 500,
+	            8, 8, EFS{53, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::LeftLowerPalm,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_28_2500x2500.gray", 2500, 2500, 500,
+	            8, 8, EFS{54, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::LeftUpperPalm,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_24_900x2500.gray", 900, 2500, 500,
+	            8, 8, EFS{55, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::LeftWritersPalm,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_26_2500x2500.gray", 2500, 2500, 500,
+	            8, 8, EFS{56, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::RightUpperPalm,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_25_2500x2500.gray", 2500, 2500, 500,
+	            8, 8, EFS{57, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::RightLowerPalm,
+	            {}, {}, ValueAssessment::Value}},
+	        {"00002357_N_500_palm_22_900x2500.gray", 900, 2500, 500,
+	            8, 8, EFS{58, 500,
+	            Impression::PlainContact,
+	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
+	            FrictionRidgeGeneralizedPosition::RightWritersPalm,
 	            {}, {}, ValueAssessment::Value}}}
 	    },
 

@@ -605,7 +605,7 @@ check_validation_version()
 check_image_versions()
 {
 	# Version of image dataset compatible with this script
-	local expected_image_version="202004161133"
+	local expected_image_version="202101191638"
 
 	echo -n "Checking validation image versions... "
 
@@ -989,7 +989,7 @@ compile()
 	md5s["../include/elft.h"]="3bd28031af913aefe3a7bae965d00cb8"
 	md5s["src/elft_validation.cpp"]="852ab4d0884a908b9c91a28eed6e64e2"
 	md5s["src/elft_validation.h"]="3fb8805ccb586dc33f93a3b38b24988d"
-	md5s["src/elft_validation_data.h"]="a599228ef17ab20b2681d71157ca5ab4"
+	md5s["src/elft_validation_data.h"]="dc59c5dd0ad9971fcf6bbb3c00137bba"
 	md5s["src/elft_validation_utils.h"]="3bbef4831145279580120072e3e77fb8"
 
 	# Check checksums
