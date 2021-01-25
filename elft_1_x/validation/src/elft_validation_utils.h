@@ -153,6 +153,71 @@ namespace ELFT
 
 		/**
 		 * @brief
+		 * Make a log-able string out of a vector of Core.
+		 *
+		 * @param v
+		 * Vector of Core to output.
+		 * @param sep
+		 * Token to separate multiple Core.
+		 *
+		 * @return
+		 * Log-able string version of `v`.
+		 */
+		std::string
+		splice(
+		    const std::vector<Core> &v,
+		    const std::string &sep = "-")
+		{
+			std::string ret{};
+			for (const auto &c : v)
+				ret += ts(c.coordinate.x) + ';' +
+				    ts(c.coordinate.y) + ';' +
+				    (c.direction ? ts(*c.direction) : NA) +
+				    sep;
+			ret.erase(ret.find_last_of(sep), sep.length());
+			return (ret);
+		}
+
+		/**
+		 * @brief
+		 * Make a log-able string out of a vector of Delta.
+		 *
+		 * @param v
+		 * Vector of Delta to output.
+		 * @param sep
+		 * Token to separate multiple Delta.
+		 *
+		 * @return
+		 * Log-able string version of `v`.
+		 */
+		std::string
+		splice(
+		    const std::vector<Delta> &v,
+		    const std::string &sep = "-")
+		{
+			std::string ret{};
+			for (const auto &d : v) {
+				ret += ts(d.coordinate.x) + ';' +
+				    ts(d.coordinate.y) + ';';
+				if (d.direction)
+					ret +=
+					    (std::get<0>(*d.direction) ?
+					        ts(*std::get<0>(*d.direction)) :
+					        NA) + ';' +
+					    (std::get<1>(*d.direction) ?
+					        ts(*std::get<1>(*d.direction)) :
+					        NA) + ';' +
+					    (std::get<2>(*d.direction) ?
+					        ts(*std::get<2>(*d.direction)) :
+					        NA) + ';';
+				ret += sep;
+			}
+			ret.erase(ret.find_last_of(sep), sep.length());
+			return (ret);
+		}
+
+		/**
+		 * @brief
 		 * Make a log-able string out of a vector of string.
 		 *
 		 * @param v

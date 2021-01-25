@@ -355,6 +355,48 @@ ELFT::to_string(
 
 std::string
 ELFT::to_string(
+    const Core &c)
+{
+	return ('[' + to_string(c.coordinate) + ',' +
+	    (c.direction ? std::to_string(*c.direction) : "<# EMPTY #>") +
+	    (c.direction.value_or(0) > 359 ? " [INVALID: >359]" : "") + ']');
+}
+
+std::string
+ELFT::to_string(
+    const Delta &d)
+{
+	std::string s{'[' + to_string(d.coordinate) + ','};
+
+	if (!d.direction)
+		return (s + "<# EMPTY #>,<# EMPTY #>,<# EMPTY #>]");
+
+	if (std::get<0>(*d.direction)) {
+		s += std::to_string(*std::get<0>(*d.direction)) +
+		    (*std::get<0>(*d.direction) > 359 ? " [INVALID: >359]" :
+		    "") + ",";
+	} else
+		s+= "<# EMPTY #>,";
+
+	if (std::get<1>(*d.direction)) {
+		s += std::to_string(*std::get<1>(*d.direction)) +
+		    (*std::get<1>(*d.direction) > 359 ? " [INVALID: >359]" :
+		    "") + ",";
+	} else
+		s+= "<# EMPTY #>,";
+
+	if (std::get<2>(*d.direction)) {
+		s += std::to_string(*std::get<2>(*d.direction)) +
+		    (*std::get<2>(*d.direction) > 359 ? " [INVALID: >359]" :
+		    "");
+	} else
+		s+= "<# EMPTY #>";
+
+	return (s + "]");
+}
+
+std::string
+ELFT::to_string(
     const Correspondence &c)
 {
 	return ("Probe (ID #" + std::to_string(c.probeInputIdentifier) + ") " +
@@ -698,6 +740,22 @@ ELFT::operator<<(
     const Minutia &m)
 {
 	return (s << ELFT::to_string(m));
+}
+
+std::ostream&
+ELFT::operator<<(
+    std::ostream &s,
+    const Core &c)
+{
+	return (s << ELFT::to_string(c));
+}
+
+std::ostream&
+ELFT::operator<<(
+    std::ostream &s,
+    const Delta &d)
+{
+	return (s << ELFT::to_string(d));
 }
 
 std::ostream&

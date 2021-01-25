@@ -40,6 +40,8 @@ namespace ELFT
 	std::ostream& operator<<(std::ostream&, const Coordinate&);
 	std::ostream& operator<<(std::ostream&, const MinutiaType&);
 	std::ostream& operator<<(std::ostream&, const Minutia&);
+	std::ostream& operator<<(std::ostream&, const Core&);
+	std::ostream& operator<<(std::ostream&, const Delta&);
 	std::ostream& operator<<(std::ostream&, const Correspondence&);
 	std::ostream& operator<<(std::ostream&, const TemplateData&);
 	std::ostream& operator<<(std::ostream&, const Candidate&);
@@ -73,6 +75,8 @@ namespace ELFT
 	std::string to_string(const Coordinate&);
 	std::string to_string(const MinutiaType&);
 	std::string to_string(const Minutia&);
+	std::string to_string(const Core&);
+	std::string to_string(const Delta&);
 	std::string to_string(const Correspondence&);
 	std::string to_string(const TemplateData&);
 	std::string to_string(const Candidate&);

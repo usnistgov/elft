@@ -372,6 +372,35 @@ namespace ELFT
 		    const MinutiaType type = MinutiaType::Unknown);
 	};
 
+	/** Singular point of focus of innermost recurving ridge. */
+	struct Core
+	{
+		/** Location of the feature. */
+		Coordinate coordinate{};
+		/**
+		 * Direction pointing away from the center of the curve, in
+		 * degrees [0,359] counterclockwise to the right, following
+		 * conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.320.
+		 */
+		std::optional<uint16_t> direction{};
+	};
+
+	/** Singular point of ridge divergence. */
+	struct Delta
+	{
+		/** Location of the feature. */
+		Coordinate coordinate{};
+		/**
+		 * Ridge directions of the feature (typically up, left, and
+		 * right), in degrees [0,359] counterclockwise to the right,
+		 * following conventions from ANSI/NIST-ITL 1-2011 (2015) Field
+		 * 9.321.
+		 */
+		std::optional<std::tuple<std::optional<uint16_t>,
+		    std::optional<uint16_t>, std::optional<uint16_t>>>
+		    direction{};
+	};
+
 	/** Location of identical features from two images. */
 	struct Correspondence
 	{
@@ -512,7 +541,7 @@ namespace ELFT
 		 * by #roi, if supplied. Otherwise, they are relative to the
 		 * source image.
 		 */
-		std::optional<std::vector<Coordinate>> cores{};
+		std::optional<std::vector<Core>> cores{};
 		/**
 		 * Delta locations.
 		 *
@@ -521,7 +550,7 @@ namespace ELFT
 		 * by #roi, if supplied. Otherwise, they are relative to the
 		 * source image.
 		 */
-		std::optional<std::vector<Coordinate>> deltas{};
+		std::optional<std::vector<Delta>> deltas{};
 		/**
 		 * Locations of minutiae.
 		 *

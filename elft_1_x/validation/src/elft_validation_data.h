@@ -1343,7 +1343,7 @@ namespace ELFT::Validation::Data
 	            {},
 	            false,
 	            false,
-	            {{176, 633}},
+	            {{{{176, 633}, 260}}},
 	            {},
 	            {{{{319, 539}, 288, MinutiaType::RidgeEnding},
 	              {{295, 495}, 138, MinutiaType::RidgeEnding},
