@@ -1374,6 +1374,46 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    {"00002357_1D_R_L01_BP_S24_1000PPI_8BPC_1CH_LP03_1_742x1087_EFS", {
+	        {nullptr, 742, 1087, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            0,
+	            {{ProcessingMethod::BlackPowder}},
+	            ValueAssessment::Value,
+	            Substrate::Glass,
+	            {},
+	            false,
+	            false,
+	            {},
+	            {},
+	            {{{{297, 523}, 172, MinutiaType::RidgeEnding},
+	              {{208, 528}, 208, MinutiaType::Bifurcation},
+	              {{208, 493}, 202, MinutiaType::RidgeEnding},
+	              {{165, 484}, 210, MinutiaType::RidgeEnding},
+	              {{104, 515},  41, MinutiaType::Bifurcation},
+	              {{147, 386}, 196, MinutiaType::RidgeEnding},
+	              {{195, 349}, 192, MinutiaType::RidgeEnding},
+	              {{271, 300}, 170, MinutiaType::RidgeEnding},
+	              {{369, 438}, 153, MinutiaType::Bifurcation},
+	              {{469, 341}, 329, MinutiaType::Bifurcation},
+	              {{512, 363}, 156, MinutiaType::Bifurcation},
+	              {{471, 317}, 151, MinutiaType::Bifurcation},
+	              {{393, 160}, 149, MinutiaType::RidgeEnding},
+	              {{204, 245}, 177, MinutiaType::RidgeEnding},
+	              {{200, 289},   7, MinutiaType::Bifurcation},
+	              {{515, 619}, 151, MinutiaType::RidgeEnding},
+	              {{347, 541}, 319, MinutiaType::RidgeEnding},
+	              {{341, 525}, 154, MinutiaType::Bifurcation},
+	              {{273, 495}, 354, MinutiaType::RidgeEnding},
+	              {{215, 647}, 241, MinutiaType::RidgeEnding},
+	              {{219, 706},  75, MinutiaType::Bifurcation}}}
+	        }
+	    }}},
+
 	    {"00002357_COMBO_IMAGE", {
 	        {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_1CH_LP02_1_882x1003"
 	         ".gray", 882, 1003, 1200, 8, 8, EFS{0, 1200,
