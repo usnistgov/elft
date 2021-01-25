@@ -1330,7 +1330,7 @@ namespace ELFT::Validation::Data
 	    }}},
 
 	    {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836_EFS", {
-	        {nullptr, 735, 836, 1000, 8, 8, EFS{
+	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1375,7 +1375,7 @@ namespace ELFT::Validation::Data
 	    }}},
 
 	    {"00002357_1D_R_L01_BP_S24_1000PPI_8BPC_1CH_LP03_1_742x1087_EFS", {
-	        {nullptr, 742, 1087, 1000, 8, 8, EFS{
+	        {std::optional<std::string>(), 742, 1087, 1000, 8, 8, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1425,7 +1425,7 @@ namespace ELFT::Validation::Data
 	            }
 	        }},
 	        {"00002357_1D_R_L01_BP_S24_1200PPI_8BPC_1CH_LP03_1_891x1305"
-	         ".gray", 891, 1305, 1200, 8, 8, EFS{0, 1200,
+	         ".gray", 891, 1305, 1200, 8, 8, EFS{1, 1200,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
@@ -1446,8 +1446,8 @@ namespace ELFT::Validation::Data
 	            }
 	        }
 	    },
-	    {nullptr, 735, 836, 1000, 8, 8, EFS{
-	            0,
+	    {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	            1,
 	            1000,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
@@ -1491,7 +1491,7 @@ namespace ELFT::Validation::Data
 	    }}},
 
 	    {"00002357_COMBO_FEATURES", {
-	        {nullptr, 735, 836, 1000, 8, 8, EFS{
+	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1533,8 +1533,8 @@ namespace ELFT::Validation::Data
 	              {{206, 271}, 337, MinutiaType::Bifurcation},
 	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
 	        }},
-	        {nullptr, 742, 1087, 1000, 8, 8, EFS{
-	            0,
+	        {std::optional<std::string>(), 742, 1087, 1000, 8, 8, EFS{
+	            1,
 	            1000,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
