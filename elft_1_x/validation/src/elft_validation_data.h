@@ -1372,6 +1372,27 @@ namespace ELFT::Validation::Data
 	              {{206, 271}, 337, MinutiaType::Bifurcation},
 	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
 	        }
+	    }}},
+
+	    {"00002357_COMBO_IMAGE", {
+	        {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_1CH_LP02_1_882x1003"
+	         ".gray", 882, 1003, 1200, 8, 8, EFS{0, 1200,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::BlackPowder
+	            }
+	        }},
+	        {"00002357_1D_R_L01_BP_S24_1200PPI_8BPC_1CH_LP03_1_891x1305"
+	         ".gray", 891, 1305, 1200, 8, 8, EFS{0, 1200,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::BlackPowder
+	            }
+	        }
 	    }}}
 	};
 
