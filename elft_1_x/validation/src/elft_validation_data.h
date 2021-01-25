@@ -1393,6 +1393,61 @@ namespace ELFT::Validation::Data
 	                ProcessingMethod::BlackPowder
 	            }
 	        }
+	    }}},
+
+	    {"00002357_COMBO_IMAGE+FEATURES", {
+	        {"00002357_1D_R_L01_BP_S24_1200PPI_8BPC_1CH_LP03_1_891x1305"
+	         ".gray", 891, 1305, 1200, 8, 8, EFS{0, 1200,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::BlackPowder
+	            }
+	        }
+	    },
+	    {nullptr, 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            -40,
+	            {{ProcessingMethod::BlackPowder}},
+	            ValueAssessment::Value,
+	            Substrate::Glass,
+	            {},
+	            false,
+	            false,
+	            {{{{176, 633}, 260}}},
+	            {},
+	            {{{{319, 539}, 288, MinutiaType::RidgeEnding},
+	              {{295, 495}, 138, MinutiaType::RidgeEnding},
+	              {{197, 443}, 180, MinutiaType::Bifurcation},
+	              {{230, 419}, 171, MinutiaType::RidgeEnding},
+	              {{295, 458}, 311, MinutiaType::RidgeEnding},
+	              {{328, 530}, 110, MinutiaType::Bifurcation},
+	              {{149, 534}, 199, MinutiaType::RidgeEnding},
+	              {{106, 582},  30, MinutiaType::Bifurcation},
+	              {{123, 602}, 233, MinutiaType::Bifurcation},
+	              {{176, 645}, 257, MinutiaType::RidgeEnding},
+	              {{176, 619}, 206, MinutiaType::Bifurcation},
+	              {{210, 612}, 302, MinutiaType::RidgeEnding},
+	              {{223, 634}, 118, MinutiaType::RidgeEnding},
+	              {{236, 610}, 127, MinutiaType::RidgeEnding},
+	              {{210, 567}, 336, MinutiaType::RidgeEnding},
+	              {{228, 576}, 152, MinutiaType::RidgeEnding},
+	              {{193, 386}, 177, MinutiaType::RidgeEnding},
+	              {{134, 373}, 358, MinutiaType::Bifurcation},
+	              {{236, 306}, 163, MinutiaType::RidgeEnding},
+	              {{308, 310}, 159, MinutiaType::RidgeEnding},
+	              {{389, 319}, 135, MinutiaType::RidgeEnding},
+	              {{354, 273}, 319, MinutiaType::Bifurcation},
+	              {{349, 208}, 157, MinutiaType::RidgeEnding},
+	              {{410, 243}, 319, MinutiaType::RidgeEnding},
+	              {{206, 271}, 337, MinutiaType::Bifurcation},
+	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
+	        }
 	    }}}
 	};
 
