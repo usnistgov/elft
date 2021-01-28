@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['efs_204',['EFS',['../struct_e_l_f_t_1_1_e_f_s.html',1,'ELFT']]],
-  ['extractioninterface_205',['ExtractionInterface',['../class_e_l_f_t_1_1_extraction_interface.html',1,'ELFT']]]
+  ['delta_213',['Delta',['../struct_e_l_f_t_1_1_delta.html',1,'ELFT']]]
 ];

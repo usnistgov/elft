@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['image_229',['Image',['../struct_e_l_f_t_1_1_image.html#a03d6d107cab944a563712733ec2d6f10',1,'ELFT::Image::Image()'],['../struct_e_l_f_t_1_1_image.html#ace511e616025ee7924de2b2c3d81e0c3',1,'ELFT::Image::Image(const uint8_t identifier, const uint16_t width, const uint16_t height, const uint16_t ppi, const uint8_t bpc, const uint8_t bpp, const std::vector&lt; std::byte &gt; &amp;pixels)']]],
-  ['insert_230',['insert',['../class_e_l_f_t_1_1_search_interface.html#add77ba7a6fee35e43d85f43bd566792c',1,'ELFT::SearchInterface']]]
+  ['getidentification_239',['getIdentification',['../class_e_l_f_t_1_1_extraction_interface.html#ad8dfbd48ea1ea2db606862192b9b9665',1,'ELFT::ExtractionInterface::getIdentification()'],['../class_e_l_f_t_1_1_search_interface.html#a1dcfa6e2f3c9a75d357b33f78a01d563',1,'ELFT::SearchInterface::getIdentification()']]],
+  ['getimplementation_240',['getImplementation',['../class_e_l_f_t_1_1_extraction_interface.html#a62471204a10023db68623e68149a37b3',1,'ELFT::ExtractionInterface::getImplementation()'],['../class_e_l_f_t_1_1_search_interface.html#a5c976ae13b936d68f355c745079b164a',1,'ELFT::SearchInterface::getImplementation()']]]
 ];

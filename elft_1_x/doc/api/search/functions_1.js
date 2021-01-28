@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['exists_223',['exists',['../class_e_l_f_t_1_1_search_interface.html#a58db8e5fc0f997f190de2cc77ea21ea3',1,'ELFT::SearchInterface']]],
-  ['extractcorrespondence_224',['extractCorrespondence',['../class_e_l_f_t_1_1_search_interface.html#ab62044a2f57b446e4929ac070c2b92bb',1,'ELFT::SearchInterface']]],
-  ['extractioninterface_225',['ExtractionInterface',['../class_e_l_f_t_1_1_extraction_interface.html#a46412b977709d82af4713260bd254762',1,'ELFT::ExtractionInterface']]],
-  ['extracttemplatedata_226',['extractTemplateData',['../class_e_l_f_t_1_1_extraction_interface.html#a0593d93752fb33924bbc1beaa09b934c',1,'ELFT::ExtractionInterface']]]
+  ['delta_234',['Delta',['../struct_e_l_f_t_1_1_delta.html#a73b0df4511016b1801d45ebbc3cec9a7',1,'ELFT::Delta']]]
 ];
