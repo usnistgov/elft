@@ -566,7 +566,7 @@ check_validation_version()
 	# d.root-servers.net -> 199.7.91.13
 	if ping -W 1 -c 1 199.7.91.13 > /dev/null 2>&1; then
 		local internet_version=0
-		if internet_version=$(curl -m 10 -f "${version_url}" \
+		if ! internet_version=$(curl -m 10 -f "${version_url}" \
 		    2>/dev/null)
 		then
 			if [ "${internet_version}" != "${validation_version}" ];
