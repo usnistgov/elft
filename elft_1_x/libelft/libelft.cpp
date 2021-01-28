@@ -151,3 +151,21 @@ ELFT::Minutia::Minutia(
 
 }
 
+ELFT::Core::Core(
+    const Coordinate &coordinate,
+    const std::optional<uint16_t> &direction) :
+    coordinate{coordinate},
+    direction{direction}
+{
+
+}
+
+ELFT::Delta::Delta(
+    const Coordinate &coordinate,
+    const std::optional<std::tuple<std::optional<uint16_t>,
+        std::optional<uint16_t>, std::optional<uint16_t>>> &direction) :
+    coordinate{coordinate},
+    direction{direction}
+{
+
+}

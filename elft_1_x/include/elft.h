@@ -383,6 +383,21 @@ namespace ELFT
 		 * conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.320.
 		 */
 		std::optional<uint16_t> direction{};
+
+		/**
+		 * @brief
+		 * Core constructor.
+		 *
+		 * @param coordinate
+		 * Location of the feature.
+		 * @param direction
+		 * Direction pointing away from the center of the curve, in
+		 * degrees [0,359] counterclockwise to the right, following
+		 * conventions from ANSI/NIST-ITL 1-2011 (2015) Field 9.320.
+		 */
+		Core(
+		    const Coordinate &coordinate = {},
+		    const std::optional<uint16_t> &direction = {});
 	};
 
 	/** Singular point of ridge divergence. */
@@ -399,6 +414,23 @@ namespace ELFT
 		std::optional<std::tuple<std::optional<uint16_t>,
 		    std::optional<uint16_t>, std::optional<uint16_t>>>
 		    direction{};
+
+		/**
+		 * Delta constructor.
+		 *
+		 * @param coordinate
+		 * Location of the feature.
+		 * @param direction
+		 * Ridge directions of the feature (typically up, left, and
+		 * right), in degrees [0,359] counterclockwise to the right,
+		 * following conventions from ANSI/NIST-ITL 1-2011 (2015) Field
+		 * 9.321.
+		 */
+		Delta(
+		    const Coordinate &coordinate = {},
+		    const std::optional<std::tuple<std::optional<uint16_t>,
+		        std::optional<uint16_t>, std::optional<uint16_t>>>
+		        &direction = {});
 	};
 
 	/** Location of identical features from two images. */
