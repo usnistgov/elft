@@ -116,7 +116,7 @@ namespace ELFT
 		std::string
 		splice(
 		    const std::vector<Coordinate> &v,
-		    const std::string &sep = "-")
+		    const std::string &sep = "|")
 		{
 			std::string ret{};
 			for (const auto &c : v)
@@ -140,7 +140,7 @@ namespace ELFT
 		std::string
 		splice(
 		    const std::vector<Minutia> &v,
-		    const std::string &sep = "-")
+		    const std::string &sep = "|")
 		{
 			std::string ret{};
 			for (const auto &m : v)
@@ -166,7 +166,7 @@ namespace ELFT
 		std::string
 		splice(
 		    const std::vector<Core> &v,
-		    const std::string &sep = "-")
+		    const std::string &sep = "|")
 		{
 			std::string ret{};
 			for (const auto &c : v)
@@ -193,7 +193,7 @@ namespace ELFT
 		std::string
 		splice(
 		    const std::vector<Delta> &v,
-		    const std::string &sep = "-")
+		    const std::string &sep = "|")
 		{
 			std::string ret{};
 			for (const auto &d : v) {
@@ -223,7 +223,7 @@ namespace ELFT
 		 * @param v
 		 * Vector of string to output.
 		 * @param sep
-		 * Token to separate multiple Minutia.
+		 * Token to separate multiple strings.
 		 *
 		 * @return
 		 * Log-able string version of `v`.
@@ -257,7 +257,7 @@ namespace ELFT
 		std::string
 		splice(
 		    const std::vector<T> &v,
-		    const std::string &sep = "-")
+		    const std::string &sep = "|")
 		{
 			std::string ret{};
 			for (const auto &e : v)
