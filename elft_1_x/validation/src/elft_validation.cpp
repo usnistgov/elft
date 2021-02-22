@@ -872,12 +872,13 @@ ELFT::Validation::performSingleExtractData(
     const std::filesystem::path &p)
 {
 	const CreateTemplateResult ctr{{}, readFile(p)};
-	std::optional<std::vector<TemplateData>> data{};
+	std::optional<std::tuple<ReturnStatus, std::vector<TemplateData>>>
+	    ret{};
 
 	std::chrono::steady_clock::time_point start{}, stop{};
 	try {
 		start = std::chrono::steady_clock::now();
-		data = impl->extractTemplateData(templateType, ctr);
+		ret = impl->extractTemplateData(templateType, ctr);
 		stop = std::chrono::steady_clock::now();
 	} catch (const std::exception &e) {
 		throw std::runtime_error("Exception while extracting data from "
@@ -890,18 +891,20 @@ ELFT::Validation::performSingleExtractData(
 	const std::string logLinePrefix{'"' + p.filename().string() + "\"," +
 	    duration(start, stop) + ',' + e2i2s(templateType) + ','};
 
-	if (!data) {
+	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
 		static const uint8_t numElements{18};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
 	}
 
-	std::string logLine{};
-	for (decltype(data)::value_type::size_type i{}; i < data->size(); ++i) {
-		const auto &td = data->at(i);
+	const auto &data = std::get<std::vector<TemplateData>>(ret.value());
 
-		logLine += logLinePrefix + ts(i) + ',' + ts(data->size()) +
+	std::string logLine{};
+	for (std::vector<TemplateData>::size_type i{}; i < data.size(); ++i) {
+		const auto &td = data.at(i);
+
+		logLine += logLinePrefix + ts(i) + ',' + ts(data.size()) +
 		    ',' + ts(td.inputIdentifier) + ',';
 		logLine += (td.imageQuality ? ts(*td.imageQuality) : NA) + ',';
 
@@ -1087,11 +1090,12 @@ ELFT::Validation::performSingleSearchExtract(
 // 		return ('"' + identifier + "\"," + NAFull);
 // 	}
 
-	std::optional<std::vector<std::vector<Correspondence>>> corrs{};
+	std::optional<std::tuple<ReturnStatus,
+	    std::vector<std::vector<Correspondence>>>> ret{};
 	std::chrono::steady_clock::time_point start{}, stop{};
 	try {
 		start = std::chrono::steady_clock::now();
-		corrs = impl->extractCorrespondence(probeTemplate,
+		ret = impl->extractCorrespondence(probeTemplate,
 		    searchResult);
 		stop = std::chrono::steady_clock::now();
 	} catch (const std::exception &e) {
@@ -1106,21 +1110,23 @@ ELFT::Validation::performSingleSearchExtract(
 	    ts(searchResult.candidateList.size()) + ',' +
 	    duration(start, stop) + ','};
 
-	if (!corrs.has_value()) {
+	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
 		static const uint8_t numElements{12};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
 	}
 
-	if (searchResult.candidateList.size() != corrs->size())
+	const auto &corrs =
+	    std::get<std::vector<std::vector<Correspondence>>>(*ret);
+	if (searchResult.candidateList.size() != corrs.size())
 		throw std::runtime_error{"Number of entries in returned vector "
 		    "of Correspondences must be the same as the number of "
 		    "Candidates."};
 
 	std::string logLine{};
 	std::vector<std::vector<Correspondence>>::size_type rank{};
-	for (const auto &candidate : *corrs) {
+	for (const auto &candidate : corrs) {
 		++rank;
 		std::vector<Correspondence>::size_type corrIndex{};
 		for (const auto &corr : candidate) {

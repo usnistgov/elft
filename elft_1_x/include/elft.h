@@ -873,12 +873,14 @@ namespace ELFT
 		 * Object returned from createTemplate() or mergeTemplates().
 		 *
 		 * @return
-		 * One or more TemplateData describing the contents of
-		 * CreateTemplateResult#data from `templateResult`. If
-		 * CreateTemplateResult#data contains information separated by
-		 * position (e.g., when provided a multi-position image) or
-		 * multiple views of the same image (e.g., a compact and verbose
-		 * template), there can be multiple TemplateData returned.
+		 * A optional with no value if not implemented, or a
+		 * ReturnStatus and one or more TemplateData describing the
+		 * contents of CreateTemplateResult#data from `templateResult`
+		 * otherwise. If CreateTemplateResult#data contains information
+		 * separated by position (e.g., when provided a multi-position
+		 * image) or multiple views of the same image (e.g., a compact
+		 * and verbose template), there may be multiple TemplateData
+		 * returned.
 		 *
 		 * @note
 		 * You must implement this method to compile, but providing the
@@ -897,7 +899,8 @@ namespace ELFT
 		 * should not be consulted.
 		 */
 		virtual
-		std::optional<std::vector<TemplateData>>
+		std::optional<std::tuple<ReturnStatus,
+		    std::vector<TemplateData>>>
 		extractTemplateData(
 		    const TemplateType templateType,
 		    const CreateTemplateResult &templateResult)
@@ -1194,11 +1197,13 @@ namespace ELFT
 		 * Object returned from searchReferences().
 		 *
 		 * @return
-		 * A vector the length of `searchResult.candidateList.size()`,
-		 * where each entry is the collection of corresponding minutiae
-		 * points between `probeTemplate` and the reference template of
-		 * the Candidate at the same position as `searchResult`'s
-		 * SearchResult.candidateList.
+		 * An optional with no value if not implement, or a ReturnStatus
+		 * and a vector the length of
+		 * `searchResult.candidateList.size()`, where each entry is the
+		 * collection of corresponding minutiae points between
+		 * `probeTemplate` and the reference template of the
+		 * Candidate at the same position as `searchResult`'s
+		 * SearchResult.candidateList otherwise.
 		 *
 		 * @note
 		 * ELFT::Minutia must align with minutiae returned from
@@ -1219,7 +1224,8 @@ namespace ELFT
 		 * not guaranteed to populated with ReturnStatus#message.
 		 */
 		virtual
-		std::optional<std::vector<std::vector<Correspondence>>>
+		std::optional<std::tuple<ReturnStatus,
+		    std::vector<std::vector<Correspondence>>>>
 		extractCorrespondence(
 		    const std::vector<std::byte> &probeTemplate,
 		    const SearchResult &searchResult)

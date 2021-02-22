@@ -63,7 +63,7 @@ ELFT::NullExtractionImplementation::createTemplate(
 	return {};
 }
 
-std::optional<std::vector<ELFT::TemplateData>>
+std::optional<std::tuple<ELFT::ReturnStatus, std::vector<ELFT::TemplateData>>>
 ELFT::NullExtractionImplementation::extractTemplateData(
     const ELFT::TemplateType templateType,
     const ELFT::CreateTemplateResult &templateResult)
@@ -175,7 +175,8 @@ ELFT::NullSearchImplementation::search(
 	return (result);
 }
 
-std::optional<std::vector<std::vector<ELFT::Correspondence>>>
+std::optional<std::tuple<ELFT::ReturnStatus,
+    std::vector<std::vector<ELFT::Correspondence>>>>
 ELFT::NullSearchImplementation::extractCorrespondence(
     const std::vector<std::byte> &probeTemplate,
     const SearchResult &searchResult)

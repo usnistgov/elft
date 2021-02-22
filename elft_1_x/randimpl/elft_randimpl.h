@@ -158,7 +158,8 @@ namespace ELFT
 			    const
 			    override;
 
-			std::optional<std::vector<TemplateData>>
+			std::optional<std::tuple<ReturnStatus,
+			    std::vector<TemplateData>>>
 			extractTemplateData(
 			    const TemplateType templateType,
 			    const CreateTemplateResult &templateResult)
@@ -221,7 +222,8 @@ namespace ELFT
 			    const
 			    override;
 
-			std::optional<std::vector<std::vector<Correspondence>>>
+			std::optional<std::tuple<ReturnStatus,
+			    std::vector<std::vector<Correspondence>>>>
 			extractCorrespondence(
 			    const std::vector<std::byte> &probeTemplate,
 			    const SearchResult &searchResult)

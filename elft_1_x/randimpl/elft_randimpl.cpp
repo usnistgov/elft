@@ -225,7 +225,7 @@ ELFT::RandomImplementation::ExtractionImplementation::createTemplate(
 	return {{}, combinedTemplate};
 }
 
-std::optional<std::vector<ELFT::TemplateData>>
+std::optional<std::tuple<ELFT::ReturnStatus, std::vector<ELFT::TemplateData>>>
 ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
     const ELFT::TemplateType templateType,
     const ELFT::CreateTemplateResult &templateResult)
@@ -270,7 +270,7 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 		tds.push_back(td);
 	}
 
-	return (tds);
+	return (std::make_tuple(ReturnStatus{}, tds));
 }
 
 ELFT::CreateTemplateResult
@@ -292,8 +292,8 @@ ELFT::RandomImplementation::ExtractionImplementation::mergeTemplates(
 		tmplCopy.erase(tmplCopy.begin(),
 		    std::next(tmplCopy.begin(),
 		    static_cast<int>(id.length()) + 1));
-		combinedTemplate.insert(combinedTemplate.end(), tmplCopy.begin(),
-		    tmplCopy.end());
+		combinedTemplate.insert(combinedTemplate.end(),
+		    tmplCopy.begin(), tmplCopy.end());
 	}
 
 	/* Then add the subject identifier to the beginning. */
@@ -480,7 +480,8 @@ ELFT::RandomImplementation::SearchImplementation::search(
 	return (result);
 }
 
-std::optional<std::vector<std::vector<ELFT::Correspondence>>>
+std::optional<std::tuple<ELFT::ReturnStatus,
+    std::vector<std::vector<ELFT::Correspondence>>>>
 ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
     const std::vector<std::byte> &probeTemplate,
     const SearchResult &searchResult)
@@ -571,7 +572,7 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 		}
 	}
 
-	return (allCorrespondence);
+	return (std::make_tuple(ReturnStatus{}, allCorrespondence));
 }
 
 std::shared_ptr<ELFT::SearchInterface>
