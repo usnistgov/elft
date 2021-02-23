@@ -70,6 +70,25 @@ namespace ELFT
 
 			/**
 			 * @brief
+			 * Merge templates together.
+			 * @description
+			 * Assumes same candidate identifier for all templates,
+			 * since the ELFT API does too.
+			 *
+			 * @param templates
+			 * One ore more templates to merge.
+			 *
+			 * @return
+			 * A single template that incorporates all of the
+			 * information from `templates`.
+			 */
+			CreateTemplateResult
+			mergeTemplates(
+			    const std::vector<std::vector<std::byte>>
+			        &templates);
+
+			/**
+			 * @brief
 			 * Extract individual "native" templates from single
 			 * "ELFT" template on disk.
 			 *
@@ -97,6 +116,24 @@ namespace ELFT
 			std::vector<Tmpl>
 			parseTemplate(
 			    const std::vector<std::byte> &templateData);
+
+			/**
+			 * @brief
+			 * Read a template from disk.
+			 *
+			 * @param directory
+			 * Enrollment database directory.
+			 * @param identifier
+			 * Identifier to read from disk.
+			 *
+			 * @return
+			 * Tuple of ReturnStatus (indicating status of reading
+			 * the template) and the template itself.
+			 */
+			std::tuple<ReturnStatus, std::vector<std::byte>>
+			readTemplate(
+			    const std::filesystem::path &directory,
+			    const std::string &identifier);
 
 			/**
 			 * @brief

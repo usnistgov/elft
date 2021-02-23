@@ -39,6 +39,54 @@ ELFT::RandomImplementation::Util::loadConfiguration(
 	return (params);
 }
 
+ELFT::CreateTemplateResult
+ELFT::RandomImplementation::Util::mergeTemplates(
+    const std::vector<std::vector<std::byte>> &templates)
+{
+	/*
+	 * Our templates work by having the identifier first, followed
+	 * by N pieces of data. Start by appending all templates without
+	 * the subject identifier.
+	 */
+	std::vector<std::byte> combinedTemplate{};
+	for (const auto &tmpl : templates) {
+		const std::string id{Util::parseTemplate(tmpl).front().
+		    candidateIdentifier};
+
+		auto tmplCopy = tmpl;
+		tmplCopy.erase(tmplCopy.begin(),
+		    std::next(tmplCopy.begin(),
+		    static_cast<int>(id.length()) + 1));
+		combinedTemplate.insert(combinedTemplate.end(),
+		    tmplCopy.begin(), tmplCopy.end());
+	}
+
+	/* Then add the subject identifier to the beginning. */
+	const std::string id{Util::parseTemplate(templates.front()).front().
+	    candidateIdentifier};
+	std::vector<std::byte> idBytes{};
+	for (const auto &c : id)
+		idBytes.push_back(static_cast<std::byte>(c));
+	idBytes.push_back(static_cast<std::byte>('\0'));
+	combinedTemplate.insert(combinedTemplate.begin(), idBytes.begin(),
+	    idBytes.end());
+
+#ifdef DEBUG
+	/* Output the merged */
+	using ELFT::RandomImplementation::Util::operator<<;
+	std::cout << "Started with " << templates.size() << " templates:\n";
+	for (const auto &t : templates)
+		std::cout << Util::parseTemplate(t).front() << '\n';
+
+	std::cout << "\nMerged to 1 template:\n";
+	const auto parsedCombined = Util::parseTemplate(combinedTemplate);
+	for (const auto &t : parsedCombined)
+		std::cout << t << '\n';
+#endif /* DEBUG */
+
+	return {{}, combinedTemplate};
+}
+
 std::vector<ELFT::RandomImplementation::Tmpl>
 ELFT::RandomImplementation::Util::parseTemplate(
     const std::filesystem::path &pathToTemplate)
@@ -86,6 +134,32 @@ ELFT::RandomImplementation::Util::parseTemplate(
 	} while (it != templateData.cend());
 
 	return (templates);
+}
+
+std::tuple<ELFT::ReturnStatus, std::vector<std::byte>>
+ELFT::RandomImplementation::Util::readTemplate(
+    const std::filesystem::path &directory,
+    const std::string &identifier)
+{
+	std::ifstream file{directory / identifier,
+	    std::ifstream::ate | std::ifstream::binary};
+	if (!file)
+		return {{ReturnStatus::Result::Failure, "Unable to open "
+		    "template identifier '" + identifier + "'"}, {}};
+
+	file.unsetf(std::ifstream::skipws);
+
+	const auto size = file.tellg();
+	if (size == -1)
+		return {{ReturnStatus::Result::Failure, "Unable to open "
+		    "template identifier '" + identifier + "'"}, {}};
+
+	std::vector<std::byte> buf{};
+	buf.resize(static_cast<std::vector<std::byte>::size_type>(size));
+	file.seekg(std::ifstream::beg);
+	file.read(reinterpret_cast<char*>(buf.data()), size);
+
+	return {{}, buf};
 }
 
 ELFT::ReturnStatus
@@ -278,48 +352,7 @@ ELFT::RandomImplementation::ExtractionImplementation::mergeTemplates(
     const std::vector<std::vector<std::byte>> &templates)
     const
 {
-	/*
-	 * Our templates work by having the identifier first, followed
-	 * by N pieces of data. Start by appending all templates without
-	 * the subject identifier.
-	 */
-	std::vector<std::byte> combinedTemplate{};
-	for (const auto &tmpl : templates) {
-		const std::string id{Util::parseTemplate(tmpl).front().
-		    candidateIdentifier};
-
-		auto tmplCopy = tmpl;
-		tmplCopy.erase(tmplCopy.begin(),
-		    std::next(tmplCopy.begin(),
-		    static_cast<int>(id.length()) + 1));
-		combinedTemplate.insert(combinedTemplate.end(),
-		    tmplCopy.begin(), tmplCopy.end());
-	}
-
-	/* Then add the subject identifier to the beginning. */
-	const std::string id{Util::parseTemplate(templates.front()).front().
-	    candidateIdentifier};
-	std::vector<std::byte> idBytes{};
-	for (const auto &c : id)
-		idBytes.push_back(static_cast<std::byte>(c));
-	idBytes.push_back(static_cast<std::byte>('\0'));
-	combinedTemplate.insert(combinedTemplate.begin(), idBytes.begin(),
-	    idBytes.end());
-
-#ifdef DEBUG
-	/* Output the merged */
-	using ELFT::RandomImplementation::Util::operator<<;
-	std::cout << "Started with " << templates.size() << " templates:\n";
-	for (const auto &t : templates)
-		std::cout << Util::parseTemplate(t).front() << '\n';
-
-	std::cout << "\nMerged to 1 template:\n";
-	const auto parsedCombined = Util::parseTemplate(combinedTemplate);
-	for (const auto &t : parsedCombined)
-		std::cout << t << '\n';
-#endif /* DEBUG */
-
-	return {{}, combinedTemplate};
+	return (Util::mergeTemplates(templates));
 }
 
 ELFT::ReturnStatus
@@ -401,15 +434,38 @@ ELFT::RandomImplementation::SearchImplementation::insert(
 {
 	const auto identifier = Util::parseTemplate(referenceTemplate).front().
 	    candidateIdentifier;
-	    	
-	auto [rs, truncate] = this->exists(identifier);
+
+	auto [rs, exists] = this->exists(identifier);
 	if (!rs)
 		return {ReturnStatus::Result::Failure, "Could not determine "
 		    "if '" + identifier + "' exists in database (message "
 		    "was: " + (rs.message ? *rs.message : "")};
 
-	return (Util::writeTemplate(databaseDirectory, referenceTemplate,
-	    truncate));
+	/* If identifier exists, merge with existing. Otherwise, add new. */
+	if (exists) {
+		const auto [readRS, existingTemplate] = Util::readTemplate(
+		    databaseDirectory, identifier);
+		if (!readRS)
+			return {ReturnStatus::Result::Failure, "Could not "
+			    "read known-existing template for identifier '" +
+			    identifier + "' from database directory (message "
+			    "was: " + (rs.message ? *rs.message : "")};
+
+		const auto [mergeRS, mergedTemplate] = Util::mergeTemplates({
+		    existingTemplate, referenceTemplate});
+		if (!mergeRS)
+			return {ReturnStatus::Result::Failure, "Could not "
+			    "merge with known-existing template with "
+			    "identifier  '" + identifier + "' from database "
+			    "directory (message was: " +
+			    (rs.message ? *rs.message : "")};
+
+		return (Util::writeTemplate(databaseDirectory,
+		    mergedTemplate, exists));
+	} else {
+		return (Util::writeTemplate(databaseDirectory,
+		    referenceTemplate, exists));
+	}
 }
 
 ELFT::ReturnStatus
