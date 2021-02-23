@@ -757,7 +757,7 @@ ELFT::Validation::runModifyReferenceDatabase(
 			std::chrono::steady_clock::time_point start{}, stop{};
 			try {
 				start = std::chrono::steady_clock::now();
-				rs = impl->insert(identifier, refTemplate);
+				rs = impl->insert(refTemplate);
 				stop = std::chrono::steady_clock::now();
 			} catch (const std::exception &e) {
 				throw std::runtime_error{"Exception while "

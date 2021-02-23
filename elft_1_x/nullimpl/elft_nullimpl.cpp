@@ -138,9 +138,10 @@ ELFT::NullSearchImplementation::exists(
 
 ELFT::ReturnStatus
 ELFT::NullSearchImplementation::insert(
-    const std::string &identifier,
     const std::vector<std::byte> &referenceTemplate)
 {
+	const std::string identifier = ""; /* Get identifier from template */
+
 	auto [rs, exists] = this->exists(identifier);
 	if (!rs)
 		return {ReturnStatus::Result::Failure, "Could not determine "

@@ -397,9 +397,11 @@ ELFT::RandomImplementation::SearchImplementation::exists(
 
 ELFT::ReturnStatus
 ELFT::RandomImplementation::SearchImplementation::insert(
-    const std::string &identifier,
     const std::vector<std::byte> &referenceTemplate)
 {
+	const auto identifier = Util::parseTemplate(referenceTemplate).front().
+	    candidateIdentifier;
+	    	
 	auto [rs, truncate] = this->exists(identifier);
 	if (!rs)
 		return {ReturnStatus::Result::Failure, "Could not determine "

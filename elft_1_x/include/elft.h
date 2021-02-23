@@ -1087,8 +1087,6 @@ namespace ELFT
 		 * necessary, as indicated by the runtime limitation noted
 		 * below.
 		 *
-		 * @param identifier
-		 * Identifier to add or update.
 		 * @param referenceTemplate
 		 * A template returned from
 		 * ExtractionInterface::createTemplate() with a `templateType`
@@ -1098,10 +1096,11 @@ namespace ELFT
 		 * Information about the result of executing the method.
 		 *
 		 * @note
-		 * If `identifier` already exists in the enrollment database,
-		 * this method should "merge" data that already exists in the
-		 * database with `referenceTemplate` before replacing the
-		 * entry in the database.
+		 * If the identifier encoded within the template already exists
+		 * in the enrollment database, this method should "merge" data
+		 * that already exists in the database with `referenceTemplate` 
+		 * (perhaps with ExtractionInterface::mergeTemplates()) before
+		 * replacing the entry in the database.
 		 *
 		 * @note
 		 * This method must return in <= 5 seconds.
@@ -1113,7 +1112,6 @@ namespace ELFT
 		virtual
 		ReturnStatus
 		insert(
-		    const std::string &identifier,
 		    const std::vector<std::byte> &referenceTemplate) = 0;
 
 		/**

@@ -206,7 +206,6 @@ namespace ELFT
 
 			ReturnStatus
 			insert(
-			    const std::string &identifier,
 			    const std::vector<std::byte> &referenceTemplate)
 			    override;
 
