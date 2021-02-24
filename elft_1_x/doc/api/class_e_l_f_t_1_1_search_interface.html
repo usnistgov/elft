@@ -95,9 +95,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="memItemLeft" align="right" valign="top">virtual std::tuple&lt; <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a58db8e5fc0f997f190de2cc77ea21ea3">exists</a> (const std::string &amp;identifier) const =0</td></tr>
 <tr class="memdesc:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if an identifier is in the reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#a58db8e5fc0f997f190de2cc77ea21ea3">More...</a><br /></td></tr>
 <tr class="separator:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add77ba7a6fee35e43d85f43bd566792c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#add77ba7a6fee35e43d85f43bd566792c">insert</a> (const std::string &amp;identifier, const std::vector&lt; std::byte &gt; &amp;referenceTemplate)=0</td></tr>
-<tr class="memdesc:add77ba7a6fee35e43d85f43bd566792c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert or update an identifier in a loaded reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#add77ba7a6fee35e43d85f43bd566792c">More...</a><br /></td></tr>
-<tr class="separator:add77ba7a6fee35e43d85f43bd566792c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc53b9e073c6f409cd70acd4361346b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#acfc53b9e073c6f409cd70acd4361346b">insert</a> (const std::vector&lt; std::byte &gt; &amp;referenceTemplate)=0</td></tr>
+<tr class="memdesc:acfc53b9e073c6f409cd70acd4361346b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert or update an identifier in a loaded reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#acfc53b9e073c6f409cd70acd4361346b">More...</a><br /></td></tr>
+<tr class="separator:acfc53b9e073c6f409cd70acd4361346b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd66bc247d9c89553608b6fe3cfe3982"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#abd66bc247d9c89553608b6fe3cfe3982">remove</a> (const std::string &amp;identifier)=0</td></tr>
 <tr class="memdesc:abd66bc247d9c89553608b6fe3cfe3982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an identifier from a loaded reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#abd66bc247d9c89553608b6fe3cfe3982">More...</a><br /></td></tr>
 <tr class="separator:abd66bc247d9c89553608b6fe3cfe3982"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,8 +241,8 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 
 </div>
 </div>
-<a id="add77ba7a6fee35e43d85f43bd566792c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add77ba7a6fee35e43d85f43bd566792c">&#9670;&nbsp;</a></span>insert()</h2>
+<a id="acfc53b9e073c6f409cd70acd4361346b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc53b9e073c6f409cd70acd4361346b">&#9670;&nbsp;</a></span>insert()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,19 +253,9 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
         <tr>
           <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a> ELFT::SearchInterface::insert </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>identifier</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const std::vector&lt; std::byte &gt; &amp;&#160;</td>
-          <td class="paramname"><em>referenceTemplate</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>referenceTemplate</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -279,13 +269,12 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 <p>This method should limit the amount of I/O and processing necessary, as indicated by the runtime limitation noted below.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">identifier</td><td>Identifier to add or update. </td></tr>
     <tr><td class="paramname">referenceTemplate</td><td>A template returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">ExtractionInterface::createTemplate()</a> with a <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a>.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If <code>identifier</code> already exists in the enrollment database, this method should "merge" data that already exists in the database with <code>referenceTemplate</code> before replacing the entry in the database.</dd>
+<dl class="section note"><dt>Note</dt><dd>If the identifier encoded within the template already exists in the enrollment database, this method should "merge" data that already exists in the database with <code>referenceTemplate</code> (perhaps with <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14" title="Merge multiple templates into a single template.">ExtractionInterface::mergeTemplates()</a>) before replacing the entry in the database.</dd>
 <dd>
 This method must return in &lt;= 5 seconds.</dd>
 <dd>
