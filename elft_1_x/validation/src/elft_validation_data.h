@@ -2874,7 +2874,18 @@ namespace ELFT::Validation::Data
 	            Impression::PlainContact,
 	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
 	            FrictionRidgeGeneralizedPosition::RightWritersPalm,
-	            {}, {}, ValueAssessment::Value}}}
+	            {}, {}, ValueAssessment::Value}},
+
+	        /* Latents can be references */
+	        {"00002357_5A_X_028_IN_D800_1000PPI_8BPC_1CH_LP02_1_857x598"
+	         ".gray", 857, 598, 1000, 8, 8, EFS{59, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser}}}
+	        }
 	    },
 
 	    {"00002610", {
