@@ -22,7 +22,7 @@ namespace ELFT::Validation::Data
 	/** Directory within output directory to contain templates */
 	const std::filesystem::path TemplateDir{"templates"};
 	/** Directory containing generated latent templates. */
-	const std::filesystem::path LatentTemplateDir{TemplateDir / "latent"};
+	const std::filesystem::path ProbeTemplateDir{TemplateDir / "probe"};
 	/** Directory containing generated reference templates. */
 	const std::filesystem::path ReferenceTemplateDir{TemplateDir /
 	    "reference"};
@@ -35,7 +35,7 @@ namespace ELFT::Validation::Data
 	{
 		switch (type) {
 		case TemplateType::Probe:
-			return (LatentTemplateDir);
+			return (ProbeTemplateDir);
 		case TemplateType::Reference:
 			return (ReferenceTemplateDir);
 		default:
@@ -66,8 +66,8 @@ namespace ELFT::Validation::Data
 	/** Convenience type definition for hard-coded image info. */
 	using ImageSet = std::pair<std::string, std::vector<ImageMetadata>>;
 
-	/** Latent images to be made into templates. */
-	const std::vector<ImageSet> Latents {
+	/** Images to be made into search templates. */
+	const std::vector<ImageSet> Probes {
 	    {"00002357_2B_X_L01_BP_S24_1200PPI_8BPC_1CH_LP02_1_1207x1131", {
 	        {"00002357_2B_X_L01_BP_S24_1200PPI_8BPC_1CH_LP02_1_1207x1131"
 	         ".gray", 1207, 1131, 1200, 8, 8, EFS{0, 1200,
@@ -1573,7 +1573,7 @@ namespace ELFT::Validation::Data
 	    }}}
 	};
 
-	/** Reference images to be made into templates. */
+	/** Images to be made into reference templates. */
 	const std::vector<ImageSet> References {
 	    {"00002644", {
 	        {"00002644_V_500_roll_01_800x750.gray", 800, 750, 500,

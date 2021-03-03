@@ -217,7 +217,7 @@ ELFT::Validation::getImageSet(
 {
 	switch(templateType) {
 	case TemplateType::Probe:
-		return Data::Latents.at(imageIndex);
+		return Data::Probes.at(imageIndex);
 	case TemplateType::Reference:
 		return Data::References.at(imageIndex);
 	default:
@@ -563,7 +563,7 @@ ELFT::Validation::runExtractionCreate(
 	std::filesystem::create_directory(args.outputDir / Data::TemplateDir,
 	    args.outputDir);
 	for (const auto &dir : std::vector<std::filesystem::path>{
-	    args.outputDir / Data::LatentTemplateDir,
+	    args.outputDir / Data::ProbeTemplateDir,
 	    args.outputDir / Data::ReferenceTemplateDir})
 		std::filesystem::create_directory(dir,
 		    args.outputDir / Data::TemplateDir);
@@ -846,9 +846,9 @@ ELFT::Validation::runSearch(
 	for (const auto &n : indicies) {
 		/* Load template */
 		std::string probeIdentifier{};
-		std::tie(probeIdentifier, std::ignore) = Data::Latents.at(n);
+		std::tie(probeIdentifier, std::ignore) = Data::Probes.at(n);
 		const auto probeTemplate = readFile(args.outputDir /
-		    Data::LatentTemplateDir /
+		    Data::ProbeTemplateDir /
 		    (probeIdentifier + Data::TemplateSuffix));
 
 		const auto &[searchResult, candidateLogLine] =
@@ -1235,7 +1235,7 @@ ELFT::Validation::testOperation(
 	case Operation::Extract:
 		switch (args.templateType.value()) {
 		case TemplateType::Probe:
-			containerSize = Data::Latents.size();
+			containerSize = Data::Probes.size();
 			break;
 		case TemplateType::Reference:
 			containerSize = Data::References.size();
@@ -1243,7 +1243,7 @@ ELFT::Validation::testOperation(
 		}
 		break;
 	case Operation::Search:
-		containerSize = Data::Latents.size();
+		containerSize = Data::Probes.size();
 		break;
 	default:
 		throw std::runtime_error("Unsupported operation was send to "
