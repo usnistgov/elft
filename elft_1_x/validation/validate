@@ -523,7 +523,7 @@ check_required_packages()
 
 	# Packages required to run this script
 	local pkgs="binutils centos-release coreutils dnf file gawk gcc-c++ "
-	local pkgs+="grep cmake make tar sed xz"
+	local pkgs+="grep cmake make tar sed xz curl"
 
 	if ! command -v dnf > /dev/null; then
 		fail "\`dnf' is required to be installed for validation."
