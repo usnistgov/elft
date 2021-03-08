@@ -897,6 +897,9 @@ namespace ELFT
 		 * The ReturnStatus member of CreateTemplateResult is not
 		 * guaranteed to be populated with ReturnStatus#message and
 		 * should not be consulted.
+		 *
+		 * @note
+		 * This method shall return in <= 500 milliseconds.
 		 */
 		virtual
 		std::optional<std::tuple<ReturnStatus,
@@ -1220,6 +1223,9 @@ namespace ELFT
 		 * `searchResult.candidateList` may have changed (e.g., sorted
 		 * by descending `similarity`) and the ReturnStatus member is
 		 * not guaranteed to populated with ReturnStatus#message.
+		 *
+		 * @note
+		 * This method shall return in <= 5 seconds.
 		 */
 		virtual
 		std::optional<std::tuple<ReturnStatus,
