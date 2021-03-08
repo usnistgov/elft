@@ -850,9 +850,9 @@ namespace ELFT
 		 * @note
 		 * The value of the returned CreateTemplateResult#data will only
 		 * be recorded if CreateTemplateResult's ReturnStatus#result is
-		 * ReturnStatus::Result::Success. On ReturnStatus::Result::
-		 * Failure, subsequent searches will automatically increase
-		 * false negative identification rate.
+		 * ReturnStatus::Result::Success. On
+		 * ReturnStatus::Result::Failure, subsequent searches will
+		 * automatically increase false negative identification rate.
 		 */
 		virtual
 		CreateTemplateResult
@@ -946,9 +946,9 @@ namespace ELFT
 		 * @note
 		 * The value of the returned CreateTemplateResult#data will only
 		 * be recorded if CreateTemplateResult's ReturnStatus#result is
-		 * ReturnStatus::Result::Success. On ReturnStatus::Result::
-		 * Failure, subsequent searches will automatically increase
-		 * false negative identification rate.
+		 * ReturnStatus::Result::Success. On
+		 * ReturnStatus::Result::Failure, subsequent searches will
+		 * automatically increase false negative identification rate.
 		 *
 		 * @see SearchInterface#insert.
 		 */
@@ -1098,7 +1098,7 @@ namespace ELFT
 		 * @note
 		 * If the identifier encoded within the template already exists
 		 * in the enrollment database, this method should "merge" data
-		 * that already exists in the database with `referenceTemplate` 
+		 * that already exists in the database with `referenceTemplate`
 		 * (perhaps with ExtractionInterface::mergeTemplates()) before
 		 * replacing the entry in the database.
 		 *
