@@ -121,7 +121,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for database search implemented by participant. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01036">1036</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01039">1039</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19a93795b6e04bca5f883ec9026ffd1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19a93795b6e04bca5f883ec9026ffd1a">&#9670;&nbsp;</a></span>SearchInterface()</h2>
@@ -421,7 +421,9 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
 <dd>
 You must implement this method to compile, but providing the requested information is optional. If provided, information may help in debugging, as well as informing future NIST analysis.</dd>
 <dd>
-<code>searchResult</code> is <b>not guaranteed</b> to be the identical object returned from <a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4" title="Search the reference database for the samples represented in probeTemplate.">search()</a>. Specifically, ordering of <code>searchResult.candidateList</code> may have changed (e.g., sorted by descending <code>similarity</code>) and the <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Information about the result of calling an ELFT API function.">ReturnStatus</a> member is not guaranteed to populated with <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a38bbcf6d63cb19c01c784911581e7743" title="Information about the result.">ReturnStatus::message</a>. </dd></dl>
+<code>searchResult</code> is <b>not guaranteed</b> to be the identical object returned from <a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4" title="Search the reference database for the samples represented in probeTemplate.">search()</a>. Specifically, ordering of <code>searchResult.candidateList</code> may have changed (e.g., sorted by descending <code>similarity</code>) and the <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Information about the result of calling an ELFT API function.">ReturnStatus</a> member is not guaranteed to populated with <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a38bbcf6d63cb19c01c784911581e7743" title="Information about the result.">ReturnStatus::message</a>.</dd>
+<dd>
+This method shall return in &lt;= 5 seconds. </dd></dl>
 
 </div>
 </div>
