@@ -1655,12 +1655,11 @@ check_search_candidates()
 	local fts=0
 	local no_candidates=0
 	local too_many=0
-	local bad_frgp=0
 	local neg_sim=0
 	local candidate_log="${driver_output_dir}/searchCandidates.log"
 	while read -r line; do
-		read -r max_candidates result num_candidates rank frgp \
-		    similarity <<< "$(cut -f 2,4,7,8,10,11 -d ',' \
+		read -r max_candidates result num_candidates rank \
+		    similarity <<< "$(cut -f 2,4,7,8,11 -d ',' \
 		    <<< "${line}" | tr ',' ' ')"
 
 		# Search failure
@@ -1679,11 +1678,6 @@ check_search_candidates()
 		if [ "${rank}" -gt "${max_candidates}" ] || \
 		    [ "${num_candidates}" -gt "${max_candidates}" ]; then
 			too_many=$(( too_many + 1 ))
-		fi
-
-		# Inappropriate FRGP (no extra fingers in validation set)
-		if [ "${frgp}" -lt 1 ] || [ "${frgp}" -gt 10 ]; then
-			bad_frgp=$(( bad_frgp + 1 ))
 		fi
 
 		# Negative similarity
@@ -1710,13 +1704,6 @@ check_search_candidates()
 	if [ "${too_many}" -gt 0 ]; then
 		local msg="There are some (${too_many}) searches that returned "
 		msg+=" more than the maximum number of candidates. Please "
-		msg+="review: "
-		fail "${msg}" "${candidate_log}"
-	fi
-
-	if [ "${bad_frgp}" -gt 0 ]; then
-		local msg="There are some (${bad_frgp}) searches that returned "
-		msg+="a combination finger position for a candidate. Please "
 		msg+="review: "
 		fail "${msg}" "${candidate_log}"
 	fi
