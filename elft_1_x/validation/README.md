@@ -80,14 +80,14 @@ $ cp /path/to/config.txt config/
 $ cp /path/to/elft_validation_images-*.tar.xz .
 $ ./validate
 ================================================================================
-|     ELFT Validation | Version 202103080920 | 08 Mar 2021 | 09:26:21 EST      |
+|     ELFT Validation | Version 202103121022 | 12 Mar 2021 | 10:53:28 EST      |
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
 Checking validation version... (no Internet connection) [SKIP]
 Checking OS and version... (CentOS 8.2.2004) [OKAY]
 Checking for validation images... [DEFER]
- -> Expanding "elft_validation_images-202101191638.tar.xz"... [OKAY]
+ -> Expanding "elft_validation_images-202103120958.tar.xz"... [OKAY]
 Checking for validation images... [OKAY]
 Looking for core library... (libelft_nullimpl_0001.so) [OKAY]
 Checking for known environment variables... [OKAY]
@@ -97,7 +97,7 @@ Testing ExtractionInterface (probe)... [OKAY]
 Checking probe extraction logs... [WARN]
 
 ================================================================================
-| There are some (107) zero-byte probe templates. Please review:               |
+| There are some (108) zero-byte probe templates. Please review:               |
 | output/driver/extractionCreate-0.log                                         |
 ================================================================================
 Still checking probe extraction logs... [OKAY]
@@ -115,7 +115,7 @@ Testing SearchInterface... [OKAY]
 Checking search logs (candidates)... [WARN]
 
 ================================================================================
-| There are some (428) searches that returned successfully, but did not        |
+| There are some (432) searches that returned successfully, but did not        |
 | produce any candidates. Please review:                                       |
 | /mnt/isiA01/users/gfiumara/git/elft_public/elft_1_x/validation/output/driver |
 | /searchCandidates.log                                                        |
@@ -144,7 +144,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 + This script could not check online to ensure there are no updates            +
 + available. NIST requires that ELFT submissions always use the latest         +
 + version. Retrieve the latest version number by visiting the URL below and    +
-+ be sure it matches this version: 202103080920.                               +
++ be sure it matches this version: 202103121022.                               +
 +                                                                              +
 + https://github.com/usnistgov/elft/tree/master/elft_1_x/validation/VERSION    +
 +                                                                              +
@@ -158,10 +158,11 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 |                                                                              |
 |                     elft_validation_nullimpl_0001.tar.xz                     |
 |                                                                              |
-| Please attach both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
-| key to an email addressed to elft@nist.gov.                                  |
+| elft_validation_nullimpl_0001.tar.xz.asc will likely too big for NIST's      |
+| email server, so please contact elft@nist.gov for an upload link for both    |
+| elft_validation_nullimpl_0001.tar.xz.asc and your public key.                |
 ================================================================================
-Completed: 08 Mar 2021 | 09:27:28 EST (Runtime: 67s)
+Completed: 12 Mar 2021 | 10:55:20 EST (Runtime: 112s)
 ```
 </details>
 
