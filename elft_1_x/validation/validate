@@ -421,8 +421,8 @@ print_encryption()
 	# Sign + encrypt example
 	echo "Example of signing and encrypting with GnuPG:"
 	echo "  gpg --output ${tar_file}.asc \\"
-	echo "      --default-key <#YOUR EMAIL ADDRESS#> \\"
-	echo "      --recipient <#YOUR EMAIL ADDRESS#> \\"
+	echo "      --default-key <!-- YOUR EMAIL ADDRESS --> \\"
+	echo "      --recipient <!-- YOUR EMAIL ADDRESS --> \\"
 	echo "      --recipient elft@nist.gov \\"
 	echo "      --armor --sign --encrypt ${tar_file}"
 	echo
@@ -435,12 +435,12 @@ print_encryption()
 	lib_name="$(basename "${lib_name}" .so)"
 	echo "Example of extracting public key with GnuPG:"
 	echo "  gpg --output ${lib_name}_public_key.asc \\"
-	echo "      --armor --export <# YOUR EMAIL ADDRESS #>"
+	echo "      --armor --export <!-- YOUR EMAIL ADDRESS -->"
 	echo
 
 	# Export key fingerprint example
 	echo "Example of extracting fingerprint from public key with GnuPG:"
-	echo "  gpg --fingerprint <# YOUR EMAIL ADDRESS #> | grep '^ '"
+	echo "  gpg --fingerprint <!-- YOUR EMAIL ADDRESS --> | grep '^ '"
 }
 
 # Print instructions to the console
