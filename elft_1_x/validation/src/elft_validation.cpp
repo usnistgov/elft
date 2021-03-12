@@ -971,6 +971,20 @@ ELFT::Validation::performSingleCreate(
 			samples.emplace_back(Image(static_cast<uint8_t>(i),
 			    *md.width, *md.height, *md.ppi, *md.bpc, *md.bpp,
 			    readFile(args.imageDir / *md.filename)), md.efs);
+			const uint64_t expectedSize{
+			    static_cast<uint64_t>(*md.bpc / 8) *
+			    (*md.width) * (*md.height)};
+			if (std::get<std::optional<ELFT::Image>>(
+			    samples.back()).value().pixels.size() !=
+			    expectedSize)
+				throw std::runtime_error{"Did not read image "
+				    "correctly for imageIndex = " +
+				    ts(imageIndex) + " (expected " +
+				    std::to_string(expectedSize) + ", read " +
+				    std::to_string(std::get<
+				    std::optional<ELFT::Image>>(
+				    samples.back()).value().pixels.size()) +
+				    ')'};
 		} else
 			samples.emplace_back(std::nullopt, md.efs);
 	}
