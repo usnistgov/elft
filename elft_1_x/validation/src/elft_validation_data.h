@@ -76,7 +76,8 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
-	            }
+	            },
+	            ValueAssessment::Value
 	        }
 	    }}},
 
@@ -88,7 +89,8 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
-	            }
+	            },
+	            ValueAssessment::Value
 	        }
 	    }}},
 
@@ -297,7 +299,12 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::StickysidePowder
-	            }
+	            },
+	            ValueAssessment::Value,
+	            Substrate::TapeAdhesiveSide,
+	            std::nullopt,
+	            false,
+	            true /* Examiner notes partial tonal reversal */
 	        }
 	    }}},
 
@@ -594,7 +601,8 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
-	            }
+	            },
+	            ValueAssessment::NoValue
 	        }
 	    }}},
 
@@ -804,7 +812,9 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
-	            }
+	            },
+	            std::nullopt,
+	            Substrate::Glass
 	        }
 	    }}},
 
@@ -817,7 +827,9 @@ namespace ELFT::Validation::Data
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::Indanedione,
 	                ProcessingMethod::Laser
-	            }
+	            },
+	            std::nullopt,
+	            Substrate::Paper
 	        }
 	    }}},
 
@@ -891,7 +903,8 @@ namespace ELFT::Validation::Data
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::Indanedione,
 	                ProcessingMethod::Laser
-	            }
+	            },
+	            ValueAssessment::Limited
 	        }
 	    }}},
 
@@ -1049,7 +1062,9 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::StickysidePowder
-	            }
+	            },
+	            std::nullopt,
+	            Substrate::TapeAdhesiveSide
 	        }
 	    }}},
 
