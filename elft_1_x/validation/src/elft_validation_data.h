@@ -404,7 +404,7 @@ namespace ELFT::Validation::Data
 	         ".gray", 615, 622, 1000, 8, 8, EFS{0, 1000,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentImpression,
-	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            FrictionRidgeGeneralizedPosition::UnknownFrictionRidge, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::Indanedione,
 	                ProcessingMethod::Laser
@@ -690,7 +690,7 @@ namespace ELFT::Validation::Data
 	         ".gray", 757, 1104, 1200, 8, 8, EFS{0, 1200,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
-	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            FrictionRidgeGeneralizedPosition::UnknownFrictionRidge, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
 	            }
@@ -1058,7 +1058,7 @@ namespace ELFT::Validation::Data
 	         ".gray", 673, 839, 1200, 8, 8, EFS{0, 1200,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
-	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            FrictionRidgeGeneralizedPosition::UnknownFrictionRidge, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::BlackPowder
 	            }
@@ -1195,7 +1195,7 @@ namespace ELFT::Validation::Data
 	         ".gray", 579, 839, 1430, 16, 16, EFS{0, 1430,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentImpression,
-	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
+	            FrictionRidgeGeneralizedPosition::UnknownFrictionRidge, {},
 	            std::vector<ProcessingMethod>{
 	                ProcessingMethod::StickysidePowder
 	            }
