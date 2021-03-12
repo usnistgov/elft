@@ -605,7 +605,7 @@ check_validation_version()
 check_image_versions()
 {
 	# Version of image dataset compatible with this script
-	local expected_image_version="202101191638"
+	local expected_image_version="202103120958"
 
 	echo -n "Checking validation image versions... "
 
@@ -1729,7 +1729,7 @@ check_counts()
 	local log_key="${1}"
 
 	declare -A counts
-	counts["extractionCreate-0"]=107
+	counts["extractionCreate-0"]=108
 	counts["extractionCreate-1"]=55
 
 	# Not all logs have an expected number of lines
