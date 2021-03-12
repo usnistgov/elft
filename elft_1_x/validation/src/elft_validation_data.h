@@ -1293,9 +1293,9 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
-	    {"00002357_3_X_0230_IN_D800_1044PPI_16BPC_1CH_LP02_1_406x671", {
-	        {"00002357_3_X_0230_IN_D800_1044PPI_16BPC_1CH_LP02_1_406x671"
-	         ".gray", 406, 671, 1044, 16, 16, EFS{0, 1044,
+	    {"00002357_3_X_0230_IN_D800_1044PPI_16BPC_1CH_LP02_1_406x675", {
+	        {"00002357_3_X_0230_IN_D800_1044PPI_16BPC_1CH_LP02_1_406x675"
+	         ".gray", 406, 675, 1044, 16, 16, EFS{0, 1044,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentImpression,
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},
