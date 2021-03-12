@@ -1329,6 +1329,19 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    {"00002357_3_X_0234_IN_D800_1044PPI_16BPC_1CH_LP06_3_1937x2321", {
+	        {"00002357_3_X_0234_IN_D800_1044PPI_16BPC_1CH_LP06_3_1937x2321"
+	         ".gray", 1937, 2321, 1044, 16, 16, EFS{0, 1044,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownPalm, {},
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            }
+	        }
+	    }}},
+
 	    {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836_EFS", {
 	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
 	            0,
