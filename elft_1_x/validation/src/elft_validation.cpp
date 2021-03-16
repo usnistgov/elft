@@ -1325,7 +1325,7 @@ ELFT::Validation::testOperation(
  						runSearch(std::get<
  						    std::shared_ptr<
  						    ELFT::SearchInterface>>(
- 						    impl), indicies, args);
+ 						    impl), set, args);
 						break;
 					default:
 						throw std::runtime_error(
