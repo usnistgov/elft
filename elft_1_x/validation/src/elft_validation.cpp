@@ -1078,7 +1078,7 @@ ELFT::Validation::performSingleSearch(
 		}
 	} else {
 		logLine += logLinePrefix + splice(
-		    std::vector<std::string>(5, NA), ",");
+		    std::vector<std::string>(6, NA), ",");
 	}
 
 	return {rv, logLine};
