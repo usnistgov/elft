@@ -72,5 +72,9 @@ set_target_properties(elft_validation PROPERTIES
 set_target_properties(elft_validation PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE)
 
+# Use RUNPATH over RPATH
+set_target_properties(elft_validation PROPERTIES
+    LINK_FLAGS -Wl,--enable-new-dtags)
+
 install(TARGETS elft_validation
     RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/../${CMAKE_INSTALL_BINDIR})
