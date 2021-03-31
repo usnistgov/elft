@@ -58,6 +58,40 @@ namespace ELFT
 		{
 			/**
 			 * @brief
+			 * Obtain parent directory for a template written in
+			 * the reference database.
+			 *
+			 * @param identifier
+			 * Identifier of the template in the reference database.
+			 *
+			 * @return
+			 * Path that is a subdirectory of the reference
+			 * database where `identifier` should be expected to be
+			 * found.
+			 */
+			std::filesystem::path
+			getDirectoryForIdentifier(
+			    const std::string &identifier);
+
+			/**
+			 * @brief
+			 * Obtain parent directory for a template written in
+			 * the reference database.
+			 *
+			 * @param templateData
+			 * Template data with an embedded identifier.
+			 *
+			 * @return
+			 * Path that is a subdirectory of the reference
+			 * database where templateData's identifier should be
+			 * expected to be found.
+			 */
+			std::filesystem::path
+			getDirectoryForTemplate(
+			    const std::vector<std::byte> &templateData);
+
+			/**
+			 * @brief
 			 * Read and parse the configuration file.
 			 *
 			 * @param configurationDirectory

@@ -18,6 +18,35 @@
 #include <libelft_output.h>
 #endif /* DEBUG */
 
+
+std::filesystem::path
+ELFT::RandomImplementation::Util::getDirectoryForIdentifier(
+    const std::string &identifier)
+{
+	/*
+	 * We will get bad file system performance if we store millions of
+	 * files in a single directory. To balance this out in this example, we
+	 * will make subdirectories based on the first characters of the
+	 * identifier. If you don't make a database file, you might do something
+	 * similar based on an MD5 checksum of the identifier string.
+	 */
+	static const uint8_t charactersToConsider{8};
+
+	if (identifier.length() <= charactersToConsider)
+		return (identifier);
+
+	return (identifier.substr(0, 2) + '/' + identifier.substr(2, 2) + '/' +
+	    identifier.substr(4, 2) + '/' + identifier.substr(6, 2));
+}
+
+std::filesystem::path
+ELFT::RandomImplementation::Util::getDirectoryForTemplate(
+    const std::vector<std::byte> &templateData)
+{
+	return (getDirectoryForIdentifier(Util::parseTemplate(templateData).
+	    front().candidateIdentifier));
+}
+
 ELFT::RandomImplementation::ConfigurationParameters
 ELFT::RandomImplementation::Util::loadConfiguration(
     const std::filesystem::path &configurationDirectory)
@@ -170,6 +199,19 @@ ELFT::RandomImplementation::Util::writeTemplate(
 {
 	const auto identifier = Util::parseTemplate(templateData).front().
 	    candidateIdentifier;
+
+	if (!std::filesystem::is_directory(directory)) {
+		if (std::filesystem::exists(directory)) {
+			return {ReturnStatus::Result::Failure,
+			    "Unexpected file at " + directory.string()};
+		}
+
+		if (!std::filesystem::create_directories(directory)) {
+			return {ReturnStatus::Result::Failure,
+			    "Could not create directory " +
+			    directory.string()};
+		}
+	}
 
 	std::ofstream::openmode mode = std::ofstream::out |
 	    std::ofstream::binary;
@@ -373,8 +415,13 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 		    std::to_string(estimatedNumImagesPerSubject) + ", " +
 		    std::to_string(maxSize) + "b does not seem to be enough."};
 
+	/*
+	 * NOTE: There will be millions of identifiers. Avoid putting everything
+	 * in a single directory. Preferably, use some sort of database file.
+	 */
 	for (const auto &combinedTemplate : referenceTemplates) {
-		const auto rs = Util::writeTemplate(databaseDirectory,
+		const auto rs = Util::writeTemplate(databaseDirectory /
+		    Util::getDirectoryForTemplate(combinedTemplate),
 		    combinedTemplate);
 		if (!rs)
 			return (rs);
@@ -425,7 +472,8 @@ ELFT::RandomImplementation::SearchImplementation::exists(
     const
 {
 	return {{},
-	    std::filesystem::exists(this->databaseDirectory / identifier)};
+	    std::filesystem::exists(this->databaseDirectory /
+	    Util::getDirectoryForIdentifier(identifier) / identifier)};
 }
 
 ELFT::ReturnStatus
@@ -443,8 +491,10 @@ ELFT::RandomImplementation::SearchImplementation::insert(
 
 	/* If identifier exists, merge with existing. Otherwise, add new. */
 	if (exists) {
+		const auto inOutDir = databaseDirectory /
+		    Util::getDirectoryForIdentifier(identifier);
 		const auto [readRS, existingTemplate] = Util::readTemplate(
-		    databaseDirectory, identifier);
+		    inOutDir, identifier);
 		if (!readRS)
 			return {ReturnStatus::Result::Failure, "Could not "
 			    "read known-existing template for identifier '" +
@@ -460,10 +510,10 @@ ELFT::RandomImplementation::SearchImplementation::insert(
 			    "directory (message was: " +
 			    (rs.message ? *rs.message : "")};
 
-		return (Util::writeTemplate(databaseDirectory,
-		    mergedTemplate, exists));
+		return (Util::writeTemplate(inOutDir, mergedTemplate, exists));
 	} else {
-		return (Util::writeTemplate(databaseDirectory,
+		return (Util::writeTemplate(databaseDirectory /
+		    Util::getDirectoryForTemplate(referenceTemplate),
 		    referenceTemplate, exists));
 	}
 }
@@ -482,7 +532,8 @@ ELFT::RandomImplementation::SearchImplementation::remove(
 		return {};
 
 	std::error_code error{};
-	std::filesystem::remove(this->databaseDirectory / identifier, error);
+	std::filesystem::remove(this->databaseDirectory /
+	    Util::getDirectoryForIdentifier(identifier) / identifier, error);
 	if (error)
 		return {ReturnStatus::Result::Failure, "Could not remove '" +
 		    identifier + "' from database (error was: "+
@@ -500,8 +551,11 @@ ELFT::RandomImplementation::SearchImplementation::search(
 	result.candidateList.reserve(maxCandidates);
 
 	/* Get some real candidate names */
-	for (const auto &f : std::filesystem::directory_iterator(
+	for (const auto &f : std::filesystem::recursive_directory_iterator(
 	    this->databaseDirectory)) {
+		if (!f.is_regular_file())
+			continue;
+
 		const auto &templates = Util::parseTemplate(f.path());
 		const auto &matchingTemplate = templates.at(
 		    this->rng() % templates.size());
@@ -551,7 +605,8 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 
 	for (const auto &c : searchResult.candidateList) {
 		const auto &referenceTemplates = Util::parseTemplate(
-		    this->databaseDirectory / c.identifier);
+		    this->databaseDirectory / Util::getDirectoryForIdentifier(
+		    c.identifier) / c.identifier);
 
 		/* NOTE: See NOTE below. This won't line up. */
 		bool onlySlaps{true};
