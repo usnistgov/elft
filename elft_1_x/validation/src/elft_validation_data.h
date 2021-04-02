@@ -1442,6 +1442,7 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    /* Same individual, same finger (image only + image only) */
 	    {"00002357_COMBO_IMAGE", {
 	        {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_1CH_LP02_1_882x1003"
 	         ".gray", 882, 1003, 1200, 8, 8, EFS{0, 1200,
@@ -1463,6 +1464,7 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    /* Same individual, same finger (image only + EFS only) */
 	    {"00002357_COMBO_IMAGE+FEATURES", {
 	        {"00002357_1D_R_L01_BP_S24_1200PPI_8BPC_1CH_LP03_1_891x1305"
 	         ".gray", 891, 1305, 1200, 8, 8, EFS{0, 1200,
@@ -1518,6 +1520,7 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    /* Same individual, same finger (EFS only + EFS only) */
 	    {"00002357_COMBO_FEATURES", {
 	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
 	            0,
@@ -1687,7 +1690,8 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
-	    {"00002357_1C_R_LP02+00002357_1D_R_LP03-I+E", {
+	    /* Same individual, same finger (image/EFS + image/EFS) */
+	    {"00002357_1C_R_LP02+00002357_1D_R_LP03-IE+IE", {
 	        {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836"
 	            ".gray", 735, 836, 1000, 8, 8, EFS{
 	            0,
@@ -1768,6 +1772,264 @@ namespace ELFT::Validation::Data
 	              {{273, 495}, 354, MinutiaType::RidgeEnding},
 	              {{215, 647}, 241, MinutiaType::RidgeEnding},
 	              {{219, 706},  75, MinutiaType::Bifurcation}}}
+	        }
+	    }}},
+
+	    {"00002357_5A_X_028_IN_D800_1000PPI_8BPC_1CH_LP03_1_994x652-I+E", {
+	        {"00002357_5A_X_028_IN_D800_1000PPI_8BPC_1CH_LP03_1_994x652"
+	         ".gray", 994, 652, 1000, 8, 8, EFS{0, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            102,
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            },
+	            ValueAssessment::Value,
+	            Substrate::PaperGlossy,
+	            std::nullopt,
+	            false,
+	            false,
+	            std::nullopt,
+	            std::nullopt,
+	            std::vector<Minutia>{
+	                {{567, 517}, 118, MinutiaType::RidgeEnding},
+	                {{549, 469}, 279, MinutiaType::RidgeEnding},
+	                {{543, 449},  84, MinutiaType::Bifurcation},
+	                {{569, 373}, 255, MinutiaType::RidgeEnding},
+	                {{584, 389},  70, MinutiaType::RidgeEnding},
+	                {{630, 286},  58, MinutiaType::Bifurcation},
+	                {{678, 278},  42, MinutiaType::RidgeEnding},
+	                {{693, 128},  54, MinutiaType::RidgeEnding},
+	                {{712, 371},  35, MinutiaType::Bifurcation},
+	                {{734, 425},  42, MinutiaType::Bifurcation},
+	                {{647, 382},  56, MinutiaType::Bifurcation},
+	                {{608, 439},  72, MinutiaType::RidgeEnding},
+	                {{517, 389},  79, MinutiaType::RidgeEnding},
+	                {{543, 219}, 247, MinutiaType::Bifurcation}
+	            }
+	        }
+	    }}},
+
+	    /* Same individual, different finger (image/EFS + image/EFS )*/
+	    {"00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IE+IE", {
+	        {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836"
+	            ".gray", 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            -40,
+	            {{ProcessingMethod::BlackPowder}},
+	            ValueAssessment::Value,
+	            Substrate::Glass,
+	            {},
+	            false,
+	            false,
+	            {{{{176, 633}, 260}}},
+	            {},
+	            {{{{319, 539}, 288, MinutiaType::RidgeEnding},
+	              {{295, 495}, 138, MinutiaType::RidgeEnding},
+	              {{197, 443}, 180, MinutiaType::Bifurcation},
+	              {{230, 419}, 171, MinutiaType::RidgeEnding},
+	              {{295, 458}, 311, MinutiaType::RidgeEnding},
+	              {{328, 530}, 110, MinutiaType::Bifurcation},
+	              {{149, 534}, 199, MinutiaType::RidgeEnding},
+	              {{106, 582},  30, MinutiaType::Bifurcation},
+	              {{123, 602}, 233, MinutiaType::Bifurcation},
+	              {{176, 645}, 257, MinutiaType::RidgeEnding},
+	              {{176, 619}, 206, MinutiaType::Bifurcation},
+	              {{210, 612}, 302, MinutiaType::RidgeEnding},
+	              {{223, 634}, 118, MinutiaType::RidgeEnding},
+	              {{236, 610}, 127, MinutiaType::RidgeEnding},
+	              {{210, 567}, 336, MinutiaType::RidgeEnding},
+	              {{228, 576}, 152, MinutiaType::RidgeEnding},
+	              {{193, 386}, 177, MinutiaType::RidgeEnding},
+	              {{134, 373}, 358, MinutiaType::Bifurcation},
+	              {{236, 306}, 163, MinutiaType::RidgeEnding},
+	              {{308, 310}, 159, MinutiaType::RidgeEnding},
+	              {{389, 319}, 135, MinutiaType::RidgeEnding},
+	              {{354, 273}, 319, MinutiaType::Bifurcation},
+	              {{349, 208}, 157, MinutiaType::RidgeEnding},
+	              {{410, 243}, 319, MinutiaType::RidgeEnding},
+	              {{206, 271}, 337, MinutiaType::Bifurcation},
+	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
+	        }},
+	        {"00002357_5A_X_028_IN_D800_1000PPI_8BPC_1CH_LP03_1_994x652"
+	         ".gray", 994, 652, 1000, 8, 8, EFS{1, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            102,
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            },
+	            ValueAssessment::Value,
+	            Substrate::PaperGlossy,
+	            std::nullopt,
+	            false,
+	            false,
+	            std::nullopt,
+	            std::nullopt,
+	            std::vector<Minutia>{
+	                {{567, 517}, 118, MinutiaType::RidgeEnding},
+	                {{549, 469}, 279, MinutiaType::RidgeEnding},
+	                {{543, 449},  84, MinutiaType::Bifurcation},
+	                {{569, 373}, 255, MinutiaType::RidgeEnding},
+	                {{584, 389},  70, MinutiaType::RidgeEnding},
+	                {{630, 286},  58, MinutiaType::Bifurcation},
+	                {{678, 278},  42, MinutiaType::RidgeEnding},
+	                {{693, 128},  54, MinutiaType::RidgeEnding},
+	                {{712, 371},  35, MinutiaType::Bifurcation},
+	                {{734, 425},  42, MinutiaType::Bifurcation},
+	                {{647, 382},  56, MinutiaType::Bifurcation},
+	                {{608, 439},  72, MinutiaType::RidgeEnding},
+	                {{517, 389},  79, MinutiaType::RidgeEnding},
+	                {{543, 219}, 247, MinutiaType::Bifurcation}
+	            }
+	        }
+	    }}},
+
+	    /* Same individual, different finger (image only + image only) */
+	    {"00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IO+IO", {
+	        {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836"
+	            ".gray", 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift
+	        }},
+	        {"00002357_5A_X_028_IN_D800_1000PPI_8BPC_1CH_LP03_1_994x652"
+	         ".gray", 994, 652, 1000, 8, 8, EFS{1, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression
+	        }},
+	    }},
+
+	    /* Same individual, different finger (image/EFS + EFS only) */
+	    {"00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IE+EO", {
+	        {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836"
+	            ".gray", 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            -40,
+	            {{ProcessingMethod::BlackPowder}},
+	            ValueAssessment::Value,
+	            Substrate::Glass,
+	            {},
+	            false,
+	            false,
+	            {{{{176, 633}, 260}}},
+	            {},
+	            {{{{319, 539}, 288, MinutiaType::RidgeEnding},
+	              {{295, 495}, 138, MinutiaType::RidgeEnding},
+	              {{197, 443}, 180, MinutiaType::Bifurcation},
+	              {{230, 419}, 171, MinutiaType::RidgeEnding},
+	              {{295, 458}, 311, MinutiaType::RidgeEnding},
+	              {{328, 530}, 110, MinutiaType::Bifurcation},
+	              {{149, 534}, 199, MinutiaType::RidgeEnding},
+	              {{106, 582},  30, MinutiaType::Bifurcation},
+	              {{123, 602}, 233, MinutiaType::Bifurcation},
+	              {{176, 645}, 257, MinutiaType::RidgeEnding},
+	              {{176, 619}, 206, MinutiaType::Bifurcation},
+	              {{210, 612}, 302, MinutiaType::RidgeEnding},
+	              {{223, 634}, 118, MinutiaType::RidgeEnding},
+	              {{236, 610}, 127, MinutiaType::RidgeEnding},
+	              {{210, 567}, 336, MinutiaType::RidgeEnding},
+	              {{228, 576}, 152, MinutiaType::RidgeEnding},
+	              {{193, 386}, 177, MinutiaType::RidgeEnding},
+	              {{134, 373}, 358, MinutiaType::Bifurcation},
+	              {{236, 306}, 163, MinutiaType::RidgeEnding},
+	              {{308, 310}, 159, MinutiaType::RidgeEnding},
+	              {{389, 319}, 135, MinutiaType::RidgeEnding},
+	              {{354, 273}, 319, MinutiaType::Bifurcation},
+	              {{349, 208}, 157, MinutiaType::RidgeEnding},
+	              {{410, 243}, 319, MinutiaType::RidgeEnding},
+	              {{206, 271}, 337, MinutiaType::Bifurcation},
+	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
+	        }},
+	        {std::nullopt, 994, 652, 1000, 8, 8, EFS{1, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            102,
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            },
+	            ValueAssessment::Value,
+	            Substrate::PaperGlossy,
+	            std::nullopt,
+	            false,
+	            false,
+	            std::nullopt,
+	            std::nullopt,
+	            std::vector<Minutia>{
+	                {{567, 517}, 118, MinutiaType::RidgeEnding},
+	                {{549, 469}, 279, MinutiaType::RidgeEnding},
+	                {{543, 449},  84, MinutiaType::Bifurcation},
+	                {{569, 373}, 255, MinutiaType::RidgeEnding},
+	                {{584, 389},  70, MinutiaType::RidgeEnding},
+	                {{630, 286},  58, MinutiaType::Bifurcation},
+	                {{678, 278},  42, MinutiaType::RidgeEnding},
+	                {{693, 128},  54, MinutiaType::RidgeEnding},
+	                {{712, 371},  35, MinutiaType::Bifurcation},
+	                {{734, 425},  42, MinutiaType::Bifurcation},
+	                {{647, 382},  56, MinutiaType::Bifurcation},
+	                {{608, 439},  72, MinutiaType::RidgeEnding},
+	                {{517, 389},  79, MinutiaType::RidgeEnding},
+	                {{543, 219}, 247, MinutiaType::Bifurcation}
+	            }
+	        }
+	    }}},
+
+	    /* Same individual, different finger (image only + EFS only) */
+	    {"00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IO+EO", {
+	        {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836"
+	            ".gray", 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift
+	        }},
+	        {std::nullopt, 994, 652, 1000, 8, 8, EFS{1, 1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentImpression,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            102,
+	            std::vector<ProcessingMethod>{
+	                ProcessingMethod::Indanedione,
+	                ProcessingMethod::Laser
+	            },
+	            ValueAssessment::Value,
+	            Substrate::PaperGlossy,
+	            std::nullopt,
+	            false,
+	            false,
+	            std::nullopt,
+	            std::nullopt,
+	            std::vector<Minutia>{
+	                {{567, 517}, 118, MinutiaType::RidgeEnding},
+	                {{549, 469}, 279, MinutiaType::RidgeEnding},
+	                {{543, 449},  84, MinutiaType::Bifurcation},
+	                {{569, 373}, 255, MinutiaType::RidgeEnding},
+	                {{584, 389},  70, MinutiaType::RidgeEnding},
+	                {{630, 286},  58, MinutiaType::Bifurcation},
+	                {{678, 278},  42, MinutiaType::RidgeEnding},
+	                {{693, 128},  54, MinutiaType::RidgeEnding},
+	                {{712, 371},  35, MinutiaType::Bifurcation},
+	                {{734, 425},  42, MinutiaType::Bifurcation},
+	                {{647, 382},  56, MinutiaType::Bifurcation},
+	                {{608, 439},  72, MinutiaType::RidgeEnding},
+	                {{517, 389},  79, MinutiaType::RidgeEnding},
+	                {{543, 219}, 247, MinutiaType::Bifurcation}
+	            }
 	        }
 	    }}},
 

@@ -989,7 +989,7 @@ compile()
 	md5s["../include/elft.h"]="4739d4918e36a1b4e0cf069fe574c4f9"
 	md5s["src/elft_validation.cpp"]="3f302fd84bed5fb21e949aa7ae10b228"
 	md5s["src/elft_validation.h"]="3fb8805ccb586dc33f93a3b38b24988d"
-	md5s["src/elft_validation_data.h"]="93e758753d42b9d95c4d34d7b7e5cd39"
+	md5s["src/elft_validation_data.h"]="b34a4b6897e6c06ed312492df529e830"
 	md5s["src/elft_validation_utils.h"]="c15e6eb6c1505a81721364e65a9ac46d"
 
 	# Check checksums
@@ -1729,7 +1729,7 @@ check_counts()
 	local log_key="${1}"
 
 	declare -A counts
-	counts["extractionCreate-0"]=111
+	counts["extractionCreate-0"]=116
 	counts["extractionCreate-1"]=55
 
 	# Not all logs have an expected number of lines
