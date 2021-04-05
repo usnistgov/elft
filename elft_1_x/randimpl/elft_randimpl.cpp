@@ -8,8 +8,10 @@
  * about its quality, reliability, or any other characteristic.
  */
 
+#include <algorithm>
 #include <exception>
 #include <fstream>
+#include <future>
 
 #include <elft_randimpl.h>
 
@@ -418,16 +420,85 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 	/*
 	 * NOTE: There will be millions of identifiers. Avoid putting everything
 	 * in a single directory. Preferably, use some sort of database file.
+	 *
+	 * NOTE: This method should take advantage of available hardware.
+	 * A single thread writing to disk will likely not complete in the
+	 * required amount of time.
 	 */
-	for (const auto &combinedTemplate : referenceTemplates) {
-		const auto rs = Util::writeTemplate(databaseDirectory /
-		    Util::getDirectoryForTemplate(combinedTemplate),
-		    combinedTemplate);
-		if (!rs)
+
+	auto threadWrite = [](
+	    const std::string &dbDir,
+	    const std::vector<std::vector<std::byte>>::const_iterator &begin,
+	    const std::vector<std::vector<std::byte>>::const_iterator &end) ->
+	    ReturnStatus{
+		try {
+			std::for_each(begin, end, [&dbDir](
+			    const auto &combinedTemplate) {
+				const auto rs = Util::writeTemplate(
+				    dbDir / Util::getDirectoryForTemplate(
+				    combinedTemplate), combinedTemplate);
+				if (!rs)
+					throw rs;
+			});
+		} catch (const ReturnStatus &rs) {
 			return (rs);
+		}
+
+		return {};
+	};
+
+	/*
+	 * For small databases (e.g., validation), you might not need to
+	 * multithread.
+	 */
+	bool shouldMultithread{true};
+	if (referenceTemplates.size() < 1000)
+		shouldMultithread = false;
+	if (!shouldMultithread)
+		return (threadWrite(databaseDirectory,
+		    referenceTemplates.cbegin(), referenceTemplates.cend()));
+
+	const auto numCores = std::thread::hardware_concurrency() - 1;
+	std::vector<std::future<ReturnStatus>> futures{};
+	futures.reserve(numCores);
+
+	const uint64_t tmplPerThread{static_cast<uint64_t>(std::floor(
+	    referenceTemplates.size() / numCores))};
+	for (unsigned int i{0}; i < numCores; ++i) {
+		if ((((i + 1) * tmplPerThread)) > PTRDIFF_MAX)
+			return {ReturnStatus::Result::Failure,
+			    "Iterator size too large for ptrdiff_t"};
+
+		futures.emplace_back(std::async(std::launch::async,
+		    threadWrite, databaseDirectory,
+		    std::next(referenceTemplates.cbegin(),
+		        static_cast<std::ptrdiff_t>(i * tmplPerThread)),
+		    ((i == numCores - 1) ?
+		        referenceTemplates.cend() :
+		        std::next(referenceTemplates.cbegin(),
+		        static_cast<std::ptrdiff_t>(
+		            ((i + 1) * tmplPerThread))))));
 	}
 
-	return {};
+	ReturnStatus rs{};
+	for (unsigned int i{0}; i < futures.size(); ++i) {
+		const auto futureRS = futures.at(i).get();
+
+		if (futureRS.message) {
+			if (!rs.message)
+				rs.message = std::string{};
+
+			*rs.message = "Thread " + std::to_string(i) + ": " +
+			    *futureRS.message + ' ';
+		}
+
+		if (!futureRS)
+			rs.result = ReturnStatus::Result::Failure;
+	}
+	if (rs.message && !rs.message->empty())
+		rs.message->pop_back();
+
+	return (rs);
 }
 
 std::shared_ptr<ELFT::ExtractionInterface>
