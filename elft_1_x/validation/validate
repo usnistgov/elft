@@ -1121,11 +1121,11 @@ compile()
 	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
 	if [ "${num_libs}" -gt 2 ]; then
 		if ! readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RPATH | grep -q "\$ORIGIN"
+		    grep RUNPATH | grep -q "\$ORIGIN"
 		then
 			local msg="You have supplied multiple libraries, but "
-			msg+="${core_lib} does not have an RPATH of \$ORIGIN. "
-			msg+="This may cause runtime issues, because the "
+			msg+="${core_lib} does not have an RUNPATH of \$ORIGIN."
+			msg+=" This may cause runtime issues, because the "
 			msg+="location of libraries on NIST's systems will not "
 			msg+="be laid out the same as in this validation "
 			msg+="package and the only library explicitly linked "
