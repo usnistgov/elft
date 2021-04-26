@@ -1321,7 +1321,7 @@ namespace ELFT::Validation::Data
 
 	    {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_3CH_LP02_1_882x1003", {
 	        {"00002357_1C_R_L01_BP_S24_1200PPI_8BPC_3CH_LP02_1_882x1003"
-	         ".rgb", 882, 1003, 1200, 24, 8, EFS{0, 1200,
+	         ".rgb", 882, 1003, 1200, 8, 24, EFS{0, 1200,
 	            Impression::Latent,
 	            FrictionRidgeCaptureTechnology::LatentLift,
 	            FrictionRidgeGeneralizedPosition::UnknownFinger, {},

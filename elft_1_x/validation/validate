@@ -987,9 +987,9 @@ compile()
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="4c12a3065a0ac853f6ca1c5c88f5acd1"
 	md5s["../include/elft.h"]="4739d4918e36a1b4e0cf069fe574c4f9"
-	md5s["src/elft_validation.cpp"]="3f302fd84bed5fb21e949aa7ae10b228"
+	md5s["src/elft_validation.cpp"]="a38b61d72fb8fa969c147905a4c87fcd"
 	md5s["src/elft_validation.h"]="3fb8805ccb586dc33f93a3b38b24988d"
-	md5s["src/elft_validation_data.h"]="4aa09059da205332c9aeed645ea87ad5"
+	md5s["src/elft_validation_data.h"]="209b78299a07b167b6c9a96a999e0531"
 	md5s["src/elft_validation_utils.h"]="c15e6eb6c1505a81721364e65a9ac46d"
 
 	# Check checksums

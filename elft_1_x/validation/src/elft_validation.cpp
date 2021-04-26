@@ -972,7 +972,7 @@ ELFT::Validation::performSingleCreate(
 			    *md.width, *md.height, *md.ppi, *md.bpc, *md.bpp,
 			    readFile(args.imageDir / *md.filename)), md.efs);
 			const uint64_t expectedSize{
-			    static_cast<uint64_t>(*md.bpc / 8) *
+			    static_cast<uint64_t>(*md.bpp / 8) *
 			    (*md.width) * (*md.height)};
 			if (std::get<std::optional<ELFT::Image>>(
 			    samples.back()).value().pixels.size() !=
