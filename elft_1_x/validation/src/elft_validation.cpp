@@ -1065,7 +1065,7 @@ ELFT::Validation::performSingleSearch(
 	if (rv.status && (rv.candidateList.size() > 0)) {
 		/* API says driver will stable sort by similarity */
 		std::stable_sort(rv.candidateList.begin(),
-		    rv.candidateList.end());
+		    rv.candidateList.end(), std::greater<Candidate>());
 
 		std::vector<Candidate>::size_type rank{};
 		for (const auto &c : rv.candidateList) {
