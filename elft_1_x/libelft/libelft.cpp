@@ -81,11 +81,59 @@ ELFT::Candidate::operator==(
 }
 
 bool
+ELFT::Candidate::operator!=(
+    const Candidate &rhs)
+    const
+{
+	return (!(*this == rhs));
+}
+
+bool
 ELFT::Candidate::operator<(
     const Candidate &rhs)
     const
 {
-	return (this->similarity < rhs.similarity);
+	if (this->similarity < rhs.similarity)
+		return (true);
+	if (this->similarity > rhs.similarity)
+		return (false);
+
+	if (this->identifier < rhs.identifier)
+		return (true);
+	if (this->identifier > rhs.identifier)
+		return (false);
+
+	if (this->frgp < rhs.frgp)
+		return (true);
+	if (this->frgp > rhs.frgp)
+		return (false);
+
+	return (false);
+
+}
+
+bool
+ELFT::Candidate::operator<=(
+    const Candidate &rhs)
+    const
+{
+	return ((*this < rhs) || (*this == rhs));
+}
+
+bool
+ELFT::Candidate::operator>(
+    const Candidate &rhs)
+    const
+{
+	return (!(*this <= rhs));
+}
+
+bool
+ELFT::Candidate::operator>=(
+    const Candidate &rhs)
+    const
+{
+	return ((*this > rhs) || (*this == rhs));
 }
 
 ELFT::Coordinate::Coordinate(
@@ -103,6 +151,14 @@ ELFT::Coordinate::operator==(
     const
 {
 	return ((this->x == rhs.x) && (this->y == rhs.y));
+}
+
+bool
+ELFT::Coordinate::operator!=(
+    const Coordinate &rhs)
+    const
+{
+	return (!(*this == rhs));
 }
 
 bool
@@ -124,7 +180,30 @@ ELFT::Coordinate::operator<(
 
 	/* Equivalent */
 	return (false);
+}
 
+bool
+ELFT::Coordinate::operator<=(
+    const Coordinate &rhs)
+    const
+{
+	return ((*this < rhs) || (*this == rhs));
+}
+
+bool
+ELFT::Coordinate::operator>(
+    const Coordinate &rhs)
+    const
+{
+	return (!(*this <= rhs));
+}
+
+bool
+ELFT::Coordinate::operator>=(
+    const Coordinate &rhs)
+    const
+{
+	return ((*this > rhs) || (*this == rhs));
 }
 
 ELFT::Correspondence::Correspondence(

@@ -327,7 +327,27 @@ namespace ELFT
 		    const;
 
 		bool
+		operator!=(
+		    const Coordinate &rhs)
+		    const;
+
+		bool
 		operator<(
+		    const Coordinate &rhs)
+		    const;
+
+		bool
+		operator<=(
+		    const Coordinate &rhs)
+		    const;
+
+		bool
+		operator>(
+		    const Coordinate &rhs)
+		    const;
+
+		bool
+		operator>=(
 		    const Coordinate &rhs)
 		    const;
 	};
@@ -668,7 +688,27 @@ namespace ELFT
 		    const;
 
 		bool
+		operator!=(
+		    const Candidate &rhs)
+		    const;
+
+		bool
 		operator<(
+		    const Candidate &rhs)
+		    const;
+
+		bool
+		operator<=(
+		    const Candidate &rhs)
+		    const;
+
+		bool
+		operator>(
+		    const Candidate &rhs)
+		    const;
+
+		bool
+		operator>=(
 		    const Candidate &rhs)
 		    const;
 	};
@@ -1295,7 +1335,7 @@ namespace ELFT
 	/** API major version number. */
 	uint16_t API_MAJOR_VERSION{1};
 	/** API minor version number. */
-	uint16_t API_MINOR_VERSION{0};
+	uint16_t API_MINOR_VERSION{1};
 	/** API patch version number. */
 	uint16_t API_PATCH_VERSION{0};
 	#endif /* NIST_EXTERN_API_VERSION */
