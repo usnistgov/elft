@@ -1118,6 +1118,11 @@ namespace ELFT
 		 * the search algorithm in reports.
 		 *
 		 * @note
+		 * The reference database may be stored on a read-only file
+		 * system when this method is called. Do not attempt to modify
+		 * the reference database here.
+		 *
+		 * @note
 		 * This method shall return instantly.
 		 */
 		virtual
@@ -1139,6 +1144,11 @@ namespace ELFT
 		 *
 		 * @note
 		 * This method must return in <= 5 seconds.
+		 *
+		 * @note
+		 * The reference database may be stored on a read-only file
+		 * system when this method is called. Do not attempt to modify
+		 * the reference database here.
 		 *
 		 * @note
 		 * This method need not be threadsafe. It may use more than one
@@ -1178,6 +1188,9 @@ namespace ELFT
 		 * This method must return in <= 5 seconds.
 		 *
 		 * @note
+		 * This change shall persist in the reference database on disk.
+		 *
+		 * @note
 		 * This method need not be threadsafe. It may use more than one
 		 * thread.
 		 */
@@ -1202,6 +1215,9 @@ namespace ELFT
 		 *
 		 * @note
 		 * This method must return in <= 5 seconds.
+		 *
+		 * @note
+		 * This change shall persist in the reference database on disk.
 		 *
 		 * @note
 		 * This method need not be threadsafe. It may use more than one
@@ -1243,6 +1259,11 @@ namespace ELFT
 		 * Candidate.frgp shall be the most localized region where the
 		 * match was made to be considered as correct as possible. See
 		 * the test plan for more information.
+		 *
+		 * @note
+		 * The reference database may be stored on a read-only file
+		 * system when this method is called. Do not attempt to modify
+		 * the reference database here.
 		 *
 		 * @note
 		 * This method must return in <= 10 * `number of database
@@ -1294,6 +1315,11 @@ namespace ELFT
 		 * not guaranteed to populated with ReturnStatus#message.
 		 *
 		 * @note
+		 * The reference database may be stored on a read-only file
+		 * system when this method is called. Do not attempt to modify
+		 * the reference database here.
+		 *
+		 * @note
 		 * This method shall return in <= 5 seconds.
 		 */
 		virtual
@@ -1315,12 +1341,24 @@ namespace ELFT
 		 * Read-only directory populated with configuration files
 		 * provided in validation.
 		 * @param databaseDirectory
-		 * Read-only directory populated with files written in
-		 * ExtractionInterface::createReferenceDatabase().
+		 * Directory populated with files written in
+		 * ExtractionInterface::createReferenceDatabase(), which may
+		 * have been subsequently modified by
+		 * SearchImplementation::insert() and
+		 * SearchImplementation::remove().
 		 *
 		 * @return
 		 * Shared pointer to an instance of SearchInterface containing
 		 * the participant's code to perform search operations.
+		 *
+		 * @note
+		 * The path pointed to by `databaseDirectory` will be stored on
+		 * a writable file system during calls to
+		 * SearchImplementation::insert() and
+		 * SearchImplementation::remove(), but on a read-only filesystem
+		 * during all other SearchImplementation methods. This means you
+		 * should not attempt to modify the reference database unless
+		 * explicitly asked to.
 		 *
 		 * @note
 		 * A possible implementation might be:
