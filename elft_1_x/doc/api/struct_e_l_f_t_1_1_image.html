@@ -113,7 +113,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a836beeeb46852249e24349c4ead5c1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits used by each color component (8 or 16).  <a href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8">More...</a><br /></td></tr>
 <tr class="separator:a836beeeb46852249e24349c4ead5c1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76074e49a19faa00399cd3d3b20aee84"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84">bpp</a> {}</td></tr>
-<tr class="memdesc:a76074e49a19faa00399cd3d3b20aee84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits comprising a single pixel.  <a href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84">More...</a><br /></td></tr>
+<tr class="memdesc:a76074e49a19faa00399cd3d3b20aee84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits comprising a single pixel (8, 16, 24, or 48).  <a href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84">More...</a><br /></td></tr>
 <tr class="separator:a76074e49a19faa00399cd3d3b20aee84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebe841b68734b3dbc00d1c9c5c20adb7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_image.html#aebe841b68734b3dbc00d1c9c5c20adb7">pixels</a> {}</td></tr>
 <tr class="memdesc:aebe841b68734b3dbc00d1c9c5c20adb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw pixel data of image.  <a href="struct_e_l_f_t_1_1_image.html#aebe841b68734b3dbc00d1c9c5c20adb7">More...</a><br /></td></tr>
@@ -213,12 +213,12 @@ Public Attributes</h2></td></tr>
     <tr><td class="paramname">height</td><td>Height of the image in pixels. </td></tr>
     <tr><td class="paramname">ppi</td><td>Resolution of the image in pixels per inch. </td></tr>
     <tr><td class="paramname">bpc</td><td>Number of bits used by each color component (8 or 16). </td></tr>
-    <tr><td class="paramname">bpp</td><td>Number of bits comprising a single pixel. </td></tr>
-    <tr><td class="paramname">pixels</td><td><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel.">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed little endian image data, canonically coded as defined in ISO/IEC 19794-4:2005, section 6.2.</td></tr>
+    <tr><td class="paramname">bpp</td><td>Number of bits comprising a single pixel (8, 16, 24, or 48). </td></tr>
+    <tr><td class="paramname">pixels</td><td><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel (8, 16, 24, or 48).">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed big endian image data, canonically coded as defined in ISO/IEC 19794-4:2005, section 6.2. For example, 0xFF00 is closer to white than it is to black.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Number of color components is <a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel.">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a> and shall be either 1 (grayscale) or 3 (RGB). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Number of color components is <a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel (8, 16, 24, or 48).">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a> and shall be either 1 (grayscale) or 3 (RGB). </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00035">35</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
 
@@ -240,7 +240,7 @@ Public Attributes</h2></td></tr>
 <p>An identifier for this image. </p>
 <p>Used to link <a class="el" href="struct_e_l_f_t_1_1_image.html" title="Data and metadata for an image.">Image</a> to <a class="el" href="struct_e_l_f_t_1_1_e_f_s.html" title="Collection of ANSI/NIST-ITL 1-2011 (Update: 2015) Extended Feature Set fields understood by ELFT.">EFS</a>, <a class="el" href="struct_e_l_f_t_1_1_template_data.html" title="Information possibly stored in a template.">TemplateData</a>, and <a class="el" href="struct_e_l_f_t_1_1_correspondence.html" title="Location of identical features from two images.">Correspondence</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00265">265</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00266">266</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -258,7 +258,7 @@ Public Attributes</h2></td></tr>
 
 <p>Width of the image. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00267">267</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00268">268</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -276,7 +276,7 @@ Public Attributes</h2></td></tr>
 
 <p>Height of the image. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00269">269</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00270">270</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@ Public Attributes</h2></td></tr>
 
 <p>Resolution of the image in pixels per inch. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00271">271</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00272">272</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -312,7 +312,7 @@ Public Attributes</h2></td></tr>
 
 <p>Number of bits used by each color component (8 or 16). </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00273">273</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00274">274</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -328,9 +328,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of bits comprising a single pixel. </p>
+<p>Number of bits comprising a single pixel (8, 16, 24, or 48). </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00275">275</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00279">279</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -347,10 +347,10 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Raw pixel data of image. </p>
-<p><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel.">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed little endian image data, canonically coded as defined in ISO/IEC 19794-4:2005,</p>
+<p><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel (8, 16, 24, or 48).">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed little endian image data, canonically coded as defined in ISO/IEC 19794-4:2005,</p>
 <dl class="section note"><dt>Note</dt><dd>To pass pixels to a C-style array, invoke pixel's <code>data()</code> method (<code>pixels.data()</code>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00291">291</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00295">295</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

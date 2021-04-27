@@ -94,8 +94,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad8deb4076e3301f6722bb48b54511cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a63fd9ab1a1a466d4a451d584034164"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a4a63fd9ab1a1a466d4a451d584034164">operator==</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
 <tr class="separator:a4a63fd9ab1a1a466d4a451d584034164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f074f79f7a1ec5da826964a22b4d577"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a0f074f79f7a1ec5da826964a22b4d577">operator!=</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
+<tr class="separator:a0f074f79f7a1ec5da826964a22b4d577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a235fb55987347254c6a5138bec99541a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a235fb55987347254c6a5138bec99541a">operator&lt;</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
 <tr class="separator:a235fb55987347254c6a5138bec99541a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e183889ef11d81fc0ad70857d21a770"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a9e183889ef11d81fc0ad70857d21a770">operator&lt;=</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
+<tr class="separator:a9e183889ef11d81fc0ad70857d21a770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3989224ca7fe328c27180c162e752ca9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a3989224ca7fe328c27180c162e752ca9">operator&gt;</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
+<tr class="separator:a3989224ca7fe328c27180c162e752ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a25385bf01c62af09a1dc9fa05715af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_candidate.html#a3a25385bf01c62af09a1dc9fa05715af">operator&gt;=</a> (const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;rhs) const</td></tr>
+<tr class="separator:a3a25385bf01c62af09a1dc9fa05715af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -112,7 +120,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Elements of a candidate list. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00640">640</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00689">689</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad8deb4076e3301f6722bb48b54511cdd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8deb4076e3301f6722bb48b54511cdd">&#9670;&nbsp;</a></span>Candidate()</h2>
@@ -181,6 +189,26 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f074f79f7a1ec5da826964a22b4d577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f074f79f7a1ec5da826964a22b4d577">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ELFT::Candidate::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00084">84</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a235fb55987347254c6a5138bec99541a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a235fb55987347254c6a5138bec99541a">&#9670;&nbsp;</a></span>operator&lt;()</h2>
 
@@ -197,7 +225,67 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00083">83</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00091">91</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9e183889ef11d81fc0ad70857d21a770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e183889ef11d81fc0ad70857d21a770">&#9670;&nbsp;</a></span>operator&lt;=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ELFT::Candidate::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00115">115</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3989224ca7fe328c27180c162e752ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3989224ca7fe328c27180c162e752ca9">&#9670;&nbsp;</a></span>operator&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ELFT::Candidate::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00124">124</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a25385bf01c62af09a1dc9fa05715af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a25385bf01c62af09a1dc9fa05715af">&#9670;&nbsp;</a></span>operator&gt;=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ELFT::Candidate::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="libelft_8cpp_source.html#l00132">132</a> of file <a class="el" href="libelft_8cpp_source.html">libelft.cpp</a>.</p>
 
 </div>
 </div>
@@ -216,7 +304,7 @@ Public Attributes</h2></td></tr>
 
 <p>Identifier of the sample in the reference database. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00643">643</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00692">692</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -234,7 +322,7 @@ Public Attributes</h2></td></tr>
 
 <p>Most localized position in the identifier. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00645">645</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00694">694</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +340,7 @@ Public Attributes</h2></td></tr>
 
 <p>Quantification of probe's similarity to reference sample. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00647">647</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00696">696</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

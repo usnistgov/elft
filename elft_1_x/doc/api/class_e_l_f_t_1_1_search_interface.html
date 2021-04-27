@@ -121,7 +121,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for database search implemented by participant. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01039">1039</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01108">1108</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19a93795b6e04bca5f883ec9026ffd1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19a93795b6e04bca5f883ec9026ffd1a">&#9670;&nbsp;</a></span>SearchInterface()</h2>
@@ -199,7 +199,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Obtain identification and version information for the search portion of this submission. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="struct_e_l_f_t_1_1_product_identifier.html" title="Identifying details about algorithm components for documentation.">ProductIdentifier</a> populated with information used to identify the search algorithm in reports.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method shall return instantly. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
+<dd>
+This method shall return instantly. </dd></dl>
 
 </div>
 </div>
@@ -236,6 +238,8 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A tuple whose first member is the result of executing the operation, and whose second member is <code>true</code> if identifier is represented in the reference database, and <code>false</code> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 5 seconds.</dd>
+<dd>
+The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
 <dd>
 This method need not be threadsafe. It may use more than one thread. </dd></dl>
 
@@ -278,6 +282,8 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 <dd>
 This method must return in &lt;= 5 seconds.</dd>
 <dd>
+This change shall persist in the reference database on disk.</dd>
+<dd>
 This method need not be threadsafe. It may use more than one thread. </dd></dl>
 
 </div>
@@ -316,6 +322,8 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 5 seconds.</dd>
+<dd>
+This change shall persist in the reference database on disk.</dd>
 <dd>
 This method need not be threadsafe. It may use more than one thread. </dd></dl>
 
@@ -370,6 +378,8 @@ If provided a probe template that contains comes from multiple regions, <a class
 <dd>
 <a class="el" href="struct_e_l_f_t_1_1_candidate.html#a1eaa95f9a96ce819ec9e68fdbf2ce9e2" title="Most localized position in the identifier.">Candidate.frgp</a> shall be the most localized region where the match was made to be considered as correct as possible. See the test plan for more information.</dd>
 <dd>
+The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
+<dd>
 This method must return in &lt;= 10 * <code>number of database identifiers</code> milliseconds, on average, as measured on a fixed subset of data. </dd></dl>
 
 </div>
@@ -423,6 +433,8 @@ You must implement this method to compile, but providing the requested informati
 <dd>
 <code>searchResult</code> is <b>not guaranteed</b> to be the identical object returned from <a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4" title="Search the reference database for the samples represented in probeTemplate.">search()</a>. Specifically, ordering of <code>searchResult.candidateList</code> may have changed (e.g., sorted by descending <code>similarity</code>) and the <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Information about the result of calling an ELFT API function.">ReturnStatus</a> member is not guaranteed to populated with <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a38bbcf6d63cb19c01c784911581e7743" title="Information about the result.">ReturnStatus::message</a>.</dd>
 <dd>
+The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
+<dd>
 This method shall return in &lt;= 5 seconds. </dd></dl>
 
 </div>
@@ -465,12 +477,14 @@ This method shall return in &lt;= 5 seconds. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">configurationDirectory</td><td>Read-only directory populated with configuration files provided in validation. </td></tr>
-    <tr><td class="paramname">databaseDirectory</td><td>Read-only directory populated with files written in <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a84dbd65556a20c8bb7d7bfbd0db7bf45" title="Create a reference database on the filesystem.">ExtractionInterface::createReferenceDatabase()</a>.</td></tr>
+    <tr><td class="paramname">databaseDirectory</td><td>Directory populated with files written in <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a84dbd65556a20c8bb7d7bfbd0db7bf45" title="Create a reference database on the filesystem.">ExtractionInterface::createReferenceDatabase()</a>, which may have been subsequently modified by SearchImplementation::insert() and SearchImplementation::remove().</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Shared pointer to an instance of <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a> containing the participant's code to perform search operations.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>A possible implementation might be: <code>return (std::make_shared&lt;SearchImplementation&gt;( configurationDirectory, databaseDirectory));</code></dd>
+<dl class="section note"><dt>Note</dt><dd>The path pointed to by <code>databaseDirectory</code> will be stored on a writable file system during calls to SearchImplementation::insert() and SearchImplementation::remove(), but on a read-only filesystem during all other SearchImplementation methods. This means you should not attempt to modify the reference database unless explicitly asked to.</dd>
+<dd>
+A possible implementation might be: <code>return (std::make_shared&lt;SearchImplementation&gt;( configurationDirectory, databaseDirectory));</code></dd>
 <dd>
 This method shall return in &lt;= 5 seconds. </dd></dl>
 
