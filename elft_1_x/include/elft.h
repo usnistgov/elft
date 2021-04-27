@@ -591,7 +591,9 @@ namespace ELFT
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created
 		 * by #roi, if supplied. Otherwise, they are relative to the
-		 * source image.
+		 * source image. Add the minimum X and Y values from #roi
+		 * to convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
 		 */
 		std::optional<std::vector<Core>> cores{};
 		/**
@@ -600,7 +602,9 @@ namespace ELFT
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created
 		 * by #roi, if supplied. Otherwise, they are relative to the
-		 * source image.
+		 * source image. Add the minimum X and Y values from #roi
+		 * to convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
 		 */
 		std::optional<std::vector<Delta>> deltas{};
 		/**
@@ -609,7 +613,9 @@ namespace ELFT
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created
 		 * by #roi, if supplied. Otherwise, they are relative to the
-		 * source image.
+		 * source image. Add the minimum X and Y values from #roi
+		 * to convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
 		 *
 		 * @note
 		 * NIST **strongly** discourages more than one Minutia at
@@ -617,11 +623,28 @@ namespace ELFT
 		 * Correspondence.
 		 */
 		std::optional<std::vector<Minutia>> minutiae{};
-		/** Closed convex polygon forming region of interest. */
+		/**
+		 * Closed convex polygon forming region of interest.
+		 *
+		 * @details
+		 * When specified, Coordinate in EFS are relative to the
+		 * bounding rectangle created here. Otherwise, they are relative
+		 * to the source image. Add the minimum X and Y values here to
+		 * convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
+		 *
+		 */
 		std::optional<std::vector<Coordinate>> roi{};
 
 		/**
 		 * Assessment of ridge quality within local areas of an image.
+		 *
+		 * @details
+		 * Coordinate are relative to the bounding rectangle created
+		 * by #roi, if supplied. Otherwise, they are relative to the
+		 * source image. Add the minimum X and Y values from #roi
+		 * to convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
 		 *
 		 * @note
 		 * If populated, regions not explicitly defined will default to

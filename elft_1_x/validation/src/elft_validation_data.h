@@ -1402,6 +1402,80 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    /*
+	     * Roughly the same minutia and core as above, but relative to ROI.
+	     * Minutia/core may be off by one due to rounding error when
+	     * converting from EFS coordinate system (10 micrometer units) to
+	     * pixels.
+	     */
+	    {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836_EFS+ROI",
+	    {
+	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	            0,
+	            1000,
+	            Impression::Latent,
+	            FrictionRidgeCaptureTechnology::LatentLift,
+	            FrictionRidgeGeneralizedPosition::UnknownFinger,
+	            -40,
+	            {{ProcessingMethod::BlackPowder}},
+	            ValueAssessment::Value,
+	            Substrate::Glass,
+	            {},
+	            false,
+	            false,
+	            /* ROI present: coordinates relative to ROI */
+	            {{{{104, 549}, 260}}},
+	            {},
+	            /* ROI present: coordinates relative to ROI */
+	            {{{{247, 456}, 288, MinutiaType::RidgeEnding},
+	              {{223, 410}, 138, MinutiaType::RidgeEnding},
+	              {{125, 360}, 180, MinutiaType::Bifurcation},
+	              {{158, 334}, 171, MinutiaType::RidgeEnding},
+	              {{223, 375}, 311, MinutiaType::RidgeEnding},
+	              {{256, 445}, 110, MinutiaType::Bifurcation},
+	              {{ 76, 449}, 199, MinutiaType::RidgeEnding},
+	              {{ 34, 499},  30, MinutiaType::Bifurcation},
+	              {{ 52, 519}, 233, MinutiaType::Bifurcation},
+	              {{104, 562}, 257, MinutiaType::RidgeEnding},
+	              {{104, 534}, 206, MinutiaType::Bifurcation},
+	              {{139, 528}, 302, MinutiaType::RidgeEnding},
+	              {{150, 550}, 118, MinutiaType::RidgeEnding},
+	              {{165, 526}, 127, MinutiaType::RidgeEnding},
+	              {{138, 482}, 336, MinutiaType::RidgeEnding},
+	              {{156, 491}, 152, MinutiaType::RidgeEnding},
+	              {{121, 302}, 177, MinutiaType::RidgeEnding},
+	              {{ 62, 289}, 358, MinutiaType::Bifurcation},
+	              {{165, 221}, 163, MinutiaType::RidgeEnding},
+	              {{236, 226}, 159, MinutiaType::RidgeEnding},
+	              {{317, 236}, 135, MinutiaType::RidgeEnding},
+	              {{282, 189}, 319, MinutiaType::Bifurcation},
+	              {{278, 125}, 157, MinutiaType::RidgeEnding},
+	              {{339, 160}, 319, MinutiaType::RidgeEnding},
+	              {{134, 188}, 337, MinutiaType::Bifurcation},
+	              {{325, 389}, 118, MinutiaType::Bifurcation}}},
+
+	        /*
+	         * ROI minimum X = 73, minimum Y = 84. Converting ROI-relative
+	         * coordinates to image coordinates can be accomplished by
+	         * adding ROI minimum X and Y to coordinates.
+	         */
+	        {{
+	              {373,  84},
+	              {512, 112},
+	              {565, 212},
+	              {560, 358},
+	              {543, 593},
+	              {380, 762},
+	              {126, 696},
+	              { 73, 584},
+	              { 82, 429},
+	              {113, 304},
+	              {280, 133},
+	              {339,  89}
+	        }}
+	        }
+	    }}},
+
 	    {"00002357_1D_R_L01_BP_S24_1000PPI_8BPC_1CH_LP03_1_742x1087_EFS", {
 	        {std::optional<std::string>(), 742, 1087, 1000, 8, 8, EFS{
 	            0,
