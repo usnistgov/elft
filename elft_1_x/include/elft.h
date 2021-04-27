@@ -236,14 +236,15 @@ namespace ELFT
 		 * @param bpc
 		 * Number of bits used by each color component (8 or 16).
 		 * @param bpp
-		 * Number of bits comprising a single pixel.
+		 * Number of bits comprising a single pixel (8, 16, 24, or 48).
 		 * @param pixels
 		 * #width * #height * (#bpp / #bpc) bytes of image data, with
 		 * `pixels.front()` representing the first byte of the top-left
 		 * pixel, and `pixels.back()` representing the last byte of
-		 * bottom-right pixel. It is decompressed little endian image
+		 * bottom-right pixel. It is decompressed big endian image
 		 * data, canonically coded as defined in ISO/IEC 19794-4:2005,
-		 * section 6.2.
+		 * section 6.2. For example, 0xFF00 is closer to white than it
+		 * is to black.
 		 *
 		 * @note
 		 * Number of color components is #bpp / #bpc and shall be either
@@ -271,7 +272,10 @@ namespace ELFT
 		uint16_t ppi{};
 		/** Number of bits used by each color component (8 or 16). */
 		uint8_t bpc{};
-		/** Number of bits comprising a single pixel. */
+		/**
+		 * Number of bits comprising a single pixel (8, 16, 24, or
+		 * 48).
+		 */
 		uint8_t bpp{};
 		/**
 		 * @brief
@@ -523,7 +527,9 @@ namespace ELFT
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created by
 		 * EFS::roi, if supplied. Otherwise, they are relative to the
-		 * the source image.
+		 * the source image. Add the minimum X and Y values from #roi
+		 * to convert ROI-relative Coordinate to image-relative
+		 * Coordinate.
 		 */
 		std::vector<Coordinate> region{};
 		/** Clarity of ridge features enclosed within #region. */
