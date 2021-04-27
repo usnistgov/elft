@@ -600,7 +600,7 @@ ELFT::Validation::runExtractionExtractData(
 	static const std::string header{"\"template_filename\",elapsed,"
 	    "type,index,num_templates_in_buffer,image_identifier,quality,"
 	    "imp,frct,frgp,orientation,lpm,value_assessment,lsb,pat,plr,trv,"
-	    "cores,deltas,minutia,roi"};
+	    "\"cores\",\"deltas\",\"minutia\",\"roi\""};
 
 	const std::string logName{"extractionData-" +
 	    e2i2s(*args.templateType) + '-' + ts(getpid()) + ".log"};
@@ -928,10 +928,13 @@ ELFT::Validation::performSingleExtractData(
 		logLine += (efs.pat ? e2i2s(*efs.pat) : NA) + ',';
 		logLine += (efs.plr ? ts(*efs.plr) : NA) + ',';
 		logLine += (efs.trv ? ts(*efs.trv) : NA) + ',';
-		logLine += (efs.cores ? splice(*efs.cores) : NA) + ',';
-		logLine += (efs.deltas ? splice(*efs.deltas) : NA) + ',';
-		logLine += (efs.minutiae ? splice(*efs.minutiae) : NA) + ',';
-		logLine += (efs.roi ? splice(*efs.roi) : NA);
+		logLine += (efs.cores ? '"' + splice(*efs.cores) + '"' : NA) +
+		    ',';
+		logLine += (efs.deltas ? '"' + splice(*efs.deltas)  + '"': NA) +
+		    ',';
+		logLine += (efs.minutiae ?
+		    '"' + splice(*efs.minutiae) + '"' : NA) + ',';
+		logLine += (efs.roi ? '"' + splice(*efs.roi)  + '"': NA);
 
 		logLine += '\n';
 	}
@@ -1071,7 +1074,7 @@ ELFT::Validation::performSingleSearch(
 		for (const auto &c : rv.candidateList) {
 			logLine += logLinePrefix + ts(rv.decision) + ',' +
 			    ts(rv.candidateList.size()) + ',' + ts(++rank) +
-			    ',' + c.identifier + ',' + e2i2s(c.frgp) + ',' +
+			    ",\"" + c.identifier + "\"," + e2i2s(c.frgp) + ',' +
 			    ts(c.similarity);
 			if (rank < rv.candidateList.size())
 				logLine += '\n';
