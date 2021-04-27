@@ -527,8 +527,8 @@ namespace ELFT
 		 * @details
 		 * Coordinate are relative to the bounding rectangle created by
 		 * EFS::roi, if supplied. Otherwise, they are relative to the
-		 * the source image. Add the minimum X and Y values from #roi
-		 * to convert ROI-relative Coordinate to image-relative
+		 * the source image. Add the minimum X and Y values from
+		 * EFS::roi to convert ROI-relative Coordinate to image-relative
 		 * Coordinate.
 		 */
 		std::vector<Coordinate> region{};
