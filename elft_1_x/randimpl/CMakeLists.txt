@@ -82,6 +82,10 @@ if(DEBUG)
 	target_compile_options(${LIB_NAME} PRIVATE -g -O0)
 endif()
 
+# We use threads and the driver might not link the required thread library
+find_package(Threads REQUIRED)
+target_link_libraries(${LIB_NAME} PUBLIC Threads::Threads)
+
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../validation CACHE PATH "..." FORCE)
 endif()
