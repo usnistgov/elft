@@ -775,6 +775,33 @@ namespace ELFT
 		 * and Candidate#frgp are identical will result in a miss.
 		 */
 		std::vector<Candidate> candidateList{};
+
+		/**
+		 * @brief
+		 * Pairs of corresponding Minutia between TemplateType::Probe
+		 * and TemplateType::Reference templates.
+		 *
+		 * @details
+		 * Some participants may find they have already performed the
+		 * calculations needed for
+		 * SearchInterface::extractCorrespondence within
+		 * SearchInterface::search. If that is the case, Correspondence
+		 * may be returned here instead.
+		 *
+		 * @attention
+		 * If this value is populated,
+		 * SearchInterface::extractCorrespondence will not be called, as
+		 * the information returned is expected to be redundant.
+		 *
+		 * @note
+		 * Reported and enforced search times will include the time it
+		 * takes to populate this variable.
+		 *
+		 * @see
+		 * SearchInterface::extractCorrespondence.
+		 */
+		std::optional<std::vector<std::vector<Correspondence>>>
+		    correspondence{};
 	};
 
 	/** Types of templates created by this interface. */
@@ -1229,8 +1256,8 @@ namespace ELFT
 
 		/**
 		 * @brief
-		 * Extract pairs of corresponding minutiae between probe
-		 * template and reference template.
+		 * Extract pairs of corresponding Minutia between
+		 * TemplateType::Probe and TemplateType::Reference templates.
 		 *
 		 * @param probeTemplate
 		 * Probe template sent to searchReferences().
@@ -1238,8 +1265,8 @@ namespace ELFT
 		 * Object returned from searchReferences().
 		 *
 		 * @return
-		 * An optional with no value if not implement, or a ReturnStatus
-		 * and a vector the length of
+		 * An optional with no value if not implemented, or a
+		 * ReturnStatus and a vector the length of
 		 * `searchResult.candidateList.size()`, where each entry is the
 		 * collection of corresponding minutiae points between
 		 * `probeTemplate` and the reference template of the
@@ -1264,7 +1291,7 @@ namespace ELFT
 		 * not guaranteed to populated with ReturnStatus#message.
 		 *
 		 * @note
-		 * The reference database may be stored on a read-only file
+		 * The reference database will be stored on a read-only file
 		 * system when this method is called. Do not attempt to modify
 		 * the reference database here.
 		 *
