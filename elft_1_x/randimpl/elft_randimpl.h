@@ -104,25 +104,6 @@ namespace ELFT
 
 			/**
 			 * @brief
-			 * Merge templates together.
-			 * @description
-			 * Assumes same candidate identifier for all templates,
-			 * since the ELFT API does too.
-			 *
-			 * @param templates
-			 * One ore more templates to merge.
-			 *
-			 * @return
-			 * A single template that incorporates all of the
-			 * information from `templates`.
-			 */
-			CreateTemplateResult
-			mergeTemplates(
-			    const std::vector<std::vector<std::byte>>
-			        &templates);
-
-			/**
-			 * @brief
 			 * Extract individual "native" templates from single
 			 * "ELFT" template on disk.
 			 *
@@ -237,17 +218,9 @@ namespace ELFT
 			    const
 			    override;
 
-			CreateTemplateResult
-			mergeTemplates(
-			    const std::vector<std::vector<std::byte>>
-			        &templates)
-			    const
-			    override;
-
 			ReturnStatus
 			createReferenceDatabase(
-			    const std::vector<std::vector<std::byte>>
-				&referenceTemplates,
+			    const TemplateArchive &referenceTemplates,
 			    const std::filesystem::path &databaseDirectory,
 			    const uint64_t maxSize)
 			    const
@@ -269,20 +242,9 @@ namespace ELFT
 			    const
 			    override;
 
-			std::tuple<ReturnStatus, bool>
-			exists(
-			    const std::string &identifier)
-			    const
-			    override;
-
 			ReturnStatus
-			insert(
-			    const std::vector<std::byte> &referenceTemplate)
-			    override;
-
-			ReturnStatus
-			remove(
-			    const std::string &identifier)
+			load(
+			    const uint64_t maxSize)
 			    override;
 
 			SearchResult

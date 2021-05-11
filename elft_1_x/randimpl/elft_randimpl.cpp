@@ -12,6 +12,7 @@
 #include <exception>
 #include <fstream>
 #include <future>
+#include <unordered_map>
 
 #include <elft_randimpl.h>
 
@@ -68,54 +69,6 @@ ELFT::RandomImplementation::Util::loadConfiguration(
 		throw std::runtime_error{"Couldn't read from configuration"};
 
 	return (params);
-}
-
-ELFT::CreateTemplateResult
-ELFT::RandomImplementation::Util::mergeTemplates(
-    const std::vector<std::vector<std::byte>> &templates)
-{
-	/*
-	 * Our templates work by having the identifier first, followed
-	 * by N pieces of data. Start by appending all templates without
-	 * the subject identifier.
-	 */
-	std::vector<std::byte> combinedTemplate{};
-	for (const auto &tmpl : templates) {
-		const std::string id{Util::parseTemplate(tmpl).front().
-		    candidateIdentifier};
-
-		auto tmplCopy = tmpl;
-		tmplCopy.erase(tmplCopy.begin(),
-		    std::next(tmplCopy.begin(),
-		    static_cast<int>(id.length()) + 1));
-		combinedTemplate.insert(combinedTemplate.end(),
-		    tmplCopy.begin(), tmplCopy.end());
-	}
-
-	/* Then add the subject identifier to the beginning. */
-	const std::string id{Util::parseTemplate(templates.front()).front().
-	    candidateIdentifier};
-	std::vector<std::byte> idBytes{};
-	for (const auto &c : id)
-		idBytes.push_back(static_cast<std::byte>(c));
-	idBytes.push_back(static_cast<std::byte>('\0'));
-	combinedTemplate.insert(combinedTemplate.begin(), idBytes.begin(),
-	    idBytes.end());
-
-#ifdef DEBUG
-	/* Output the merged */
-	using ELFT::RandomImplementation::Util::operator<<;
-	std::cout << "Started with " << templates.size() << " templates:\n";
-	for (const auto &t : templates)
-		std::cout << Util::parseTemplate(t).front() << '\n';
-
-	std::cout << "\nMerged to 1 template:\n";
-	const auto parsedCombined = Util::parseTemplate(combinedTemplate);
-	for (const auto &t : parsedCombined)
-		std::cout << t << '\n';
-#endif /* DEBUG */
-
-	return {{}, combinedTemplate};
 }
 
 std::vector<ELFT::RandomImplementation::Tmpl>
@@ -340,7 +293,19 @@ ELFT::RandomImplementation::ExtractionImplementation::createTemplate(
 		    templateSize, {});
 	}
 
-	return {{}, combinedTemplate};
+	CreateTemplateResult result = {{}, combinedTemplate};
+
+	/*
+	 * We can set TemplateData here, or wait to have extractTemplateData
+	 * called later.
+	 */
+	const auto templateData = this->extractTemplateData(templateType,
+	    result);
+	if (templateData && std::get<ReturnStatus>(*templateData))
+		result.extractedData = std::get<std::vector<
+		    TemplateData>>(*templateData);
+
+	return (result);
 }
 
 std::optional<std::tuple<ELFT::ReturnStatus, std::vector<ELFT::TemplateData>>>
@@ -391,35 +356,62 @@ ELFT::RandomImplementation::ExtractionImplementation::extractTemplateData(
 	return (std::make_tuple(ReturnStatus{}, tds));
 }
 
-ELFT::CreateTemplateResult
-ELFT::RandomImplementation::ExtractionImplementation::mergeTemplates(
-    const std::vector<std::vector<std::byte>> &templates)
-    const
-{
-	return (Util::mergeTemplates(templates));
-}
-
 ELFT::ReturnStatus
 ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
-    const std::vector<std::vector<std::byte>> &referenceTemplates,
+    const TemplateArchive &referenceTemplates,
     const std::filesystem::path &databaseDirectory,
     const uint64_t maxSize)
     const
 {
 	/* First, do a rough check that we have enough space */
-	static const uint8_t maxFingerSize{UINT8_MAX};
-	static const uint8_t estimatedNumImagesPerSubject{20};
-	if ((maxFingerSize * estimatedNumImagesPerSubject *
-	    referenceTemplates.size()) > maxSize)
-		return {ReturnStatus::Result::Failure, "Given a maximum "
-		    "template size of " + std::to_string(maxFingerSize) + "b "
-		    "and an estimated number of fingers per subject of " +
-		    std::to_string(estimatedNumImagesPerSubject) + ", " +
-		    std::to_string(maxSize) + "b does not seem to be enough."};
+	std::ifstream archive{referenceTemplates.archive,
+	    std::ios_base::in | std::ios_base::ate | std::ios_base::binary};
+	if (!archive.is_open())
+		return {ReturnStatus::Result::Failure, "Could not open "
+		    "TemplateArchive.archive: " +
+		    referenceTemplates.archive.string()};
+	const auto templateBytes = archive.tellg();
+	archive.close();
+
+	if (templateBytes == std::ifstream::pos_type(-1))
+		return {ReturnStatus::Result::Failure, "Size of " +
+		    referenceTemplates.archive.string() + " could not be "
+		    "determined"};
+	if (maxSize < static_cast<uint64_t>(
+	    static_cast<double>(templateBytes) * 1.1))
+		return {ReturnStatus::Result::Failure, "Given " +
+		    std::to_string(templateBytes) + " bytes of templates, " +
+		    std::to_string(maxSize) + " is not enough storage space "
+		    "for the reference database. Estimated size required is "
+		    "1.1x the size of templates."};
+
+	struct ManifestEntryPosition
+	{
+		std::streamsize length{};
+		std::ifstream::pos_type offset{};
+	};
+	std::unordered_map<std::string, ManifestEntryPosition> templates{};
+
+	/*
+	 * Read manifest into a map. Note that this may contain many millions of
+	 * entries.
+	 */
+	std::ifstream manifest{referenceTemplates.manifest};
+	std::string id{}, length{}, offset{};
+	while (true) {
+		manifest >> id >> length >> offset;
+		if (!manifest)
+			break;
+
+		templates[id] = ManifestEntryPosition{
+		    static_cast<std::streamsize>(std::stoll(length)),
+		    static_cast<std::ifstream::pos_type>(std::stoll(offset))};
+	}
 
 	/*
 	 * NOTE: There will be millions of identifiers. Avoid putting everything
 	 * in a single directory. Preferably, use some sort of database file.
+	 * One such database file, TemplateArchive, is provided to you! Use it!
 	 *
 	 * NOTE: This method should take advantage of available hardware.
 	 * A single thread writing to disk will likely not complete in the
@@ -427,13 +419,30 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 	 */
 
 	auto threadWrite = [](
+	    const std::filesystem::path &archivePath,
 	    const std::string &dbDir,
-	    const std::vector<std::vector<std::byte>>::const_iterator &begin,
-	    const std::vector<std::vector<std::byte>>::const_iterator &end) ->
+	    const std::unordered_map<std::string, ManifestEntryPosition>::
+	        const_iterator &begin,
+	    const std::unordered_map<std::string, ManifestEntryPosition>::
+	        const_iterator &end) ->
 	    ReturnStatus{
 		try {
-			std::for_each(begin, end, [&dbDir](
-			    const auto &combinedTemplate) {
+			std::ifstream archive{archivePath,
+			    std::ios_base::in | std::ios_base::binary};
+
+			std::for_each(begin, end, [&dbDir, &archive](
+			    const auto &manifestEntry) {
+				/* Read the template from the archive */
+				std::vector<std::byte> combinedTemplate{};
+				combinedTemplate.resize(static_cast<
+				    std::vector<std::byte>::size_type>(
+				    manifestEntry.second.length));
+				archive.seekg(manifestEntry.second.offset);
+				archive.read(reinterpret_cast<char*>(
+				    combinedTemplate.data()),
+				    manifestEntry.second.length);
+
+			    	/* Write it back out as an individual file */
 				const auto rs = Util::writeTemplate(
 				    dbDir / Util::getDirectoryForTemplate(
 				    combinedTemplate), combinedTemplate);
@@ -452,30 +461,30 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 	 * multithread.
 	 */
 	bool shouldMultithread{true};
-	if (referenceTemplates.size() < 1000)
+	if (templateBytes < 10000)
 		shouldMultithread = false;
 	if (!shouldMultithread)
-		return (threadWrite(databaseDirectory,
-		    referenceTemplates.cbegin(), referenceTemplates.cend()));
+		return (threadWrite(referenceTemplates.archive,
+		    databaseDirectory, templates.cbegin(), templates.cend()));
 
 	const auto numCores = std::thread::hardware_concurrency() - 1;
 	std::vector<std::future<ReturnStatus>> futures{};
 	futures.reserve(numCores);
 
 	const uint64_t tmplPerThread{static_cast<uint64_t>(std::floor(
-	    referenceTemplates.size() / numCores))};
+	    templates.size() / numCores))};
 	for (unsigned int i{0}; i < numCores; ++i) {
 		if ((((i + 1) * tmplPerThread)) > PTRDIFF_MAX)
 			return {ReturnStatus::Result::Failure,
 			    "Iterator size too large for ptrdiff_t"};
 
 		futures.emplace_back(std::async(std::launch::async,
-		    threadWrite, databaseDirectory,
-		    std::next(referenceTemplates.cbegin(),
+		    threadWrite, referenceTemplates.archive, databaseDirectory,
+		    std::next(templates.cbegin(),
 		        static_cast<std::ptrdiff_t>(i * tmplPerThread)),
 		    ((i == numCores - 1) ?
-		        referenceTemplates.cend() :
-		        std::next(referenceTemplates.cbegin(),
+		        templates.cend() :
+		        std::next(templates.cbegin(),
 		        static_cast<std::ptrdiff_t>(
 		            ((i + 1) * tmplPerThread))))));
 	}
@@ -523,6 +532,31 @@ ELFT::RandomImplementation::SearchImplementation::SearchImplementation(
 
 }
 
+ELFT::ReturnStatus
+ELFT::RandomImplementation::SearchImplementation::load(
+    const uint64_t maxSize)
+{
+	/*
+	 * XXX: This method is not implemented, because this trivial algorithm
+	 *      only reads from disk. You shouldn't be this simple, so we
+	 *      suggest implementing something like the below.
+	 */
+
+	/* Can we load *everything* into RAM? */
+	const uint64_t templateBytes = /* how much space do you need */ 1;
+
+	if (maxSize < templateBytes) {
+		/* We could load the entire database into RAM. */
+	} else {
+		/*
+		 * We could load some of the database, but the rest would
+		 * required reading from disk.
+		 */
+	}
+
+	return {};
+}
+
 std::optional<ELFT::ProductIdentifier>
 ELFT::RandomImplementation::SearchImplementation::getIdentification()
     const
@@ -535,81 +569,6 @@ ELFT::RandomImplementation::SearchImplementation::getIdentification()
 	id.cbeff = cbeff;
 
 	return (id);
-}
-
-std::tuple<ELFT::ReturnStatus, bool>
-ELFT::RandomImplementation::SearchImplementation::exists(
-    const std::string &identifier)
-    const
-{
-	return {{},
-	    std::filesystem::exists(this->databaseDirectory /
-	    Util::getDirectoryForIdentifier(identifier) / identifier)};
-}
-
-ELFT::ReturnStatus
-ELFT::RandomImplementation::SearchImplementation::insert(
-    const std::vector<std::byte> &referenceTemplate)
-{
-	const auto identifier = Util::parseTemplate(referenceTemplate).front().
-	    candidateIdentifier;
-
-	auto [rs, exists] = this->exists(identifier);
-	if (!rs)
-		return {ReturnStatus::Result::Failure, "Could not determine "
-		    "if '" + identifier + "' exists in database (message "
-		    "was: " + (rs.message ? *rs.message : "")};
-
-	/* If identifier exists, merge with existing. Otherwise, add new. */
-	if (exists) {
-		const auto inOutDir = databaseDirectory /
-		    Util::getDirectoryForIdentifier(identifier);
-		const auto [readRS, existingTemplate] = Util::readTemplate(
-		    inOutDir, identifier);
-		if (!readRS)
-			return {ReturnStatus::Result::Failure, "Could not "
-			    "read known-existing template for identifier '" +
-			    identifier + "' from database directory (message "
-			    "was: " + (rs.message ? *rs.message : "")};
-
-		const auto [mergeRS, mergedTemplate] = Util::mergeTemplates({
-		    existingTemplate, referenceTemplate});
-		if (!mergeRS)
-			return {ReturnStatus::Result::Failure, "Could not "
-			    "merge with known-existing template with "
-			    "identifier  '" + identifier + "' from database "
-			    "directory (message was: " +
-			    (rs.message ? *rs.message : "")};
-
-		return (Util::writeTemplate(inOutDir, mergedTemplate, exists));
-	} else {
-		return (Util::writeTemplate(databaseDirectory /
-		    Util::getDirectoryForTemplate(referenceTemplate),
-		    referenceTemplate, exists));
-	}
-}
-
-ELFT::ReturnStatus
-ELFT::RandomImplementation::SearchImplementation::remove(
-    const std::string &identifier)
-{
-	auto [rs, exists] = this->exists(identifier);
-	if (!rs)
-		return {ReturnStatus::Result::Failure, "Could not determine "
-		    "if '" + identifier + "' exists in database (message "
-		    "was: " + (rs.message ? *rs.message : "") + ')'};
-
-	if (!exists)
-		return {};
-
-	std::error_code error{};
-	std::filesystem::remove(this->databaseDirectory /
-	    Util::getDirectoryForIdentifier(identifier) / identifier, error);
-	if (error)
-		return {ReturnStatus::Result::Failure, "Could not remove '" +
-		    identifier + "' from database (error was: "+
-		    error.message() + ')'};
-	return {};
 }
 
 ELFT::SearchResult
@@ -659,6 +618,16 @@ ELFT::RandomImplementation::SearchImplementation::search(
 	}
 
 	result.decision = ((this->rng() % 2) == 0);
+
+	/*
+	 * We can set correspondence here or wait to have extractCorrespondence
+	 * called later.
+	 */
+	const auto correspondence = this->extractCorrespondence(
+	    probeTemplate, result);
+	if (correspondence && std::get<ReturnStatus>(*correspondence))
+		result.correspondence = std::get<std::vector<std::vector<
+		    ELFT::Correspondence>>>(*correspondence);
 
 	return (result);
 }
