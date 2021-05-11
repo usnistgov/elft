@@ -767,6 +767,27 @@ namespace ELFT
 		Reference
 	};
 
+	/** Collection of templates on disk. */
+	struct TemplateArchive
+	{
+		/** File containing concatenated CreateTemplateResult#data. */
+		std::filesystem::path archive{};
+		/**
+		 * @brief
+		 * Manifest for parsing #archive.
+		 *
+		 * @details
+		 * Each line of #manifest is in the form
+		 * `identifier length offset`, where `identifier` matches
+		 * `identifier` from ExtractionInterface::createTemplate,
+		 * length` is the result of calling `size()` on
+		 * CreateTemplateResult#data, and `offset` is the number of
+		 * bytes from the beginning of #archive to the first byte of
+		 * CreateTemplateResult#data.
+		 */
+		std::filesystem::path manifest{};
+	};
+
 	/** Identifying details about algorithm components for documentation. */
 	struct ProductIdentifier
 	{
@@ -921,7 +942,9 @@ namespace ELFT
 		 * be recorded if CreateTemplateResult's ReturnStatus#result is
 		 * ReturnStatus::Result::Success. On
 		 * ReturnStatus::Result::Failure, subsequent searches will
-		 * automatically increase false negative identification rate.
+		 * automatically increase false negative identification rate and
+		 * a zero-byte template will be provided to
+		 * ExtractionInterface::createReferenceDatabase.
 		 */
 		virtual
 		CreateTemplateResult
@@ -994,6 +1017,12 @@ namespace ELFT
 		 * @return
 		 * Information about the result of executing the method.
 		 *
+		 * @attention
+		 * Implementations must, **at a minimum**, *copy* the files
+		 * pointed to by `referenceTemplates` to use SearchInterface.
+		 * The files pointed to by `referenceTemplates` **will not
+		 * exist** when SearchInterface is instantiated.
+		 *
 		 * @note
 		 * This method may use more than one thread.
 		 *
@@ -1002,14 +1031,13 @@ namespace ELFT
 		 * available to SearchInterface.
 		 *
 		 * @note
-		 * This method must return in <= 10 *
-		 * `referenceTemplates.size()` milliseconds.
+		 * This method must return in <= 10 milliseconds *
+		 * the number of lines in TemplateArchive#manifest.
 		 */
 		virtual
 		ReturnStatus
 		createReferenceDatabase(
-		    const std::vector<std::vector<std::byte>>
-		        &referenceTemplates,
+		    const TemplateArchive &referenceTemplates,
 		    const std::filesystem::path &databaseDirectory,
 		    const uint64_t maxSize)
 		    const = 0;
