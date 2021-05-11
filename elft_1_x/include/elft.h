@@ -1051,6 +1051,10 @@ namespace ELFT
 		 * This method may use more than one thread.
 		 *
 		 * @note
+		 * `maxSize` is not necessarily the amount of RAM that will be
+		 * available to SearchInterface.
+		 *
+		 * @note
 		 * This method must return in <= 10 *
 		 * `referenceTemplates.size()` milliseconds.
 		 */
@@ -1129,6 +1133,56 @@ namespace ELFT
 		std::optional<ProductIdentifier>
 		getIdentification()
 		    const = 0;
+
+		/**
+		 * @brief
+		 * Load reference database into memory.
+		 *
+ 		 * @param maxSize
+		 * Suggested maximum number of bytes of memory to consume in
+		 * support of searching the reference database faster.
+		 *
+		 * @return
+		 * Information about the result of executing the method.
+		 *
+		 * @warning
+		 * This method will be called after construction and should
+		 * **not** be called from an implementation's constructor. This
+		 * allows calling SearchInterface::getIdentification() without
+		 * wasting resources.
+		 *
+		 * @note
+		 * `maxSize` will not be the full amount of memory available on
+		 * the system, but it is the maximum amount of memory the
+		 * reference database *should* consume. The test application may
+		 * `fork()` after calls to this method, during which, this
+		 * implementation and the test application are free to perform
+		 * dynamic memory allocations. While there is no penalty
+		 * for exceeding this memory limit with the reference database,
+		 * it is likely implementations will run out of memory if they
+		 * do.
+		 *
+		 * @note
+		 * This method is guaranteed to be called at least once before
+		 * calls to any SearchInterface method, except for calls to
+		 * SearchInterface::getIdentification().
+		 *
+		 * @note
+		 * If the reference database is already loaded when this method
+		 * is called, this method shall return immediately.
+		 *
+ 		 * @note
+		 * This method need not be threadsafe. It may use more than one
+		 * thread.
+		 *
+		 * @note
+		 * This method shall return in <= 1 millisecond * the number of
+		 * identifiers in the reference database.
+		 */
+		virtual
+		ReturnStatus
+		load(
+		    const uint64_t maxSize) = 0;
 
 		/**
 		 * @brief
@@ -1350,6 +1404,11 @@ namespace ELFT
 		 * @return
 		 * Shared pointer to an instance of SearchInterface containing
 		 * the participant's code to perform search operations.
+		 *
+		 * @warning
+		 * Do **not** load your reference database into memory on
+		 * construction. Instead, wait for a call to
+		 * SearchImplementation::load().
 		 *
 		 * @note
 		 * The path pointed to by `databaseDirectory` will be stored on
