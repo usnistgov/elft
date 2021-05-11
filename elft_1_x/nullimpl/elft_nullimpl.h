@@ -47,16 +47,9 @@ namespace ELFT
 		    const
 		    override;
 
-		CreateTemplateResult
-		mergeTemplates(
-		    const std::vector<std::vector<std::byte>> &templates)
-		    const
-		    override;
-
 		ReturnStatus
 		createReferenceDatabase(
-		    const std::vector<std::vector<std::byte>>
-		        &referenceTemplates,
+		    const TemplateArchive &referenceTemplates,
 		    const std::filesystem::path &databaseDirectory,
 		    const uint64_t maxSize)
 		    const
@@ -77,20 +70,9 @@ namespace ELFT
 		    const
 		    override;
 
-		std::tuple<ReturnStatus, bool>
-		exists(
-		    const std::string &identifier)
-		    const
-		    override;
-
 		ReturnStatus
-		insert(
-		    const std::vector<std::byte> &referenceTemplate)
-		    override;
-
-		ReturnStatus
-		remove(
-		    const std::string &identifier)
+		load(
+		    const uint64_t maxSize)
 		    override;
 
 		SearchResult

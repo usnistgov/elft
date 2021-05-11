@@ -72,17 +72,9 @@ ELFT::NullExtractionImplementation::extractTemplateData(
 	return {};
 }
 
-ELFT::CreateTemplateResult
-ELFT::NullExtractionImplementation::mergeTemplates(
-    const std::vector<std::vector<std::byte>> &templates)
-    const
-{
-	return {};
-}
-
 ELFT::ReturnStatus
 ELFT::NullExtractionImplementation::createReferenceDatabase(
-    const std::vector<std::vector<std::byte>> &referenceTemplates,
+    const TemplateArchive &referenceTemplates,
     const std::filesystem::path &databaseDirectory,
     const uint64_t maxSize)
     const
@@ -107,7 +99,14 @@ ELFT::NullSearchImplementation::NullSearchImplementation(
     configurationDirectory{configurationDirectory},
     databaseDirectory{databaseDirectory}
 {
-	/* Perform actions to be ready for a search after construction. */
+	/* Do NOT load templates into RAM here */
+}
+
+ELFT::ReturnStatus
+ELFT::NullSearchImplementation::load(
+    const uint64_t maxSize)
+{
+	return {};
 }
 
 std::optional<ELFT::ProductIdentifier>
@@ -126,41 +125,6 @@ ELFT::NullSearchImplementation::getIdentification()
 	id.cbeff = cbeff;
 
 	return (id);
-}
-
-std::tuple<ELFT::ReturnStatus, bool>
-ELFT::NullSearchImplementation::exists(
-    const std::string &identifier)
-    const
-{
-	return {};
-}
-
-ELFT::ReturnStatus
-ELFT::NullSearchImplementation::insert(
-    const std::vector<std::byte> &referenceTemplate)
-{
-	const std::string identifier = ""; /* Get identifier from template */
-
-	auto [rs, exists] = this->exists(identifier);
-	if (!rs)
-		return {ReturnStatus::Result::Failure, "Could not determine "
-		    "if '" + identifier + "' exists in database."};
-
-	if (exists) {
-		/* Update... */
-	} else {
-		/* Insert... */
-	}
-
-	return {};
-}
-
-ELFT::ReturnStatus
-ELFT::NullSearchImplementation::remove(
-    const std::string &identifier)
-{
-	return {};
 }
 
 ELFT::SearchResult
