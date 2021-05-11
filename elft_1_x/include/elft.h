@@ -295,39 +295,6 @@ namespace ELFT
 		std::vector<std::byte> pixels{};
 	};
 
-	/** Output from extracting features into a template .*/
-	struct CreateTemplateResult
-	{
-		/** Result of extracting features and creating a template. */
-		ReturnStatus status{};
-		/** Contents of the template. */
-		std::vector<std::byte> data{};
-		/**
-		 * @brief
-		 * Information contained within #data.
-		 *
-		 * @details
-		 * Some participants may find they have already performed the
-		 * calculations needed for
-		 * ExtractionInterface::extractTemplateData within
-		 * ExtractionInterface::createTemplateData. If that is the case,
-		 * TemplateData may be returned here instead.
-		 *
-		 * @attention
-		 * If this value is populated,
-		 * ExtractionInterface::extractTemplateData will not be called,
-		 * as the information returned is expected to be redundant.
-		 *
-		 * @note
-		 * Reported and enforced template creation times will include
-		 * the time it takes to populate this variable.
-		 *
-		 * @see
-		 * ExtractionInterface::extractTemplateData.
-		 */
-		std::vector<TemplateData> extractedData{};
-	};
-
 	/** Pixel location in an image. */
 	struct Coordinate
 	{
@@ -719,6 +686,39 @@ namespace ELFT
 
 		/** Quality of the image, [0-100]. */
 		std::optional<uint8_t> imageQuality{};
+	};
+
+	/** Output from extracting features into a template .*/
+	struct CreateTemplateResult
+	{
+		/** Result of extracting features and creating a template. */
+		ReturnStatus status{};
+		/** Contents of the template. */
+		std::vector<std::byte> data{};
+		/**
+		 * @brief
+		 * Information contained within #data.
+		 *
+		 * @details
+		 * Some participants may find they have already performed the
+		 * calculations needed for
+		 * ExtractionInterface::extractTemplateData within
+		 * ExtractionInterface::createTemplateData. If that is the case,
+		 * TemplateData may be returned here instead.
+		 *
+		 * @attention
+		 * If this value is populated,
+		 * ExtractionInterface::extractTemplateData will not be called,
+		 * as the information returned is expected to be redundant.
+		 *
+		 * @note
+		 * Reported and enforced template creation times will include
+		 * the time it takes to populate this variable.
+		 *
+		 * @see
+		 * ExtractionInterface::extractTemplateData.
+		 */
+		std::vector<TemplateData> extractedData{};
 	};
 
 	/** Elements of a candidate list. */
