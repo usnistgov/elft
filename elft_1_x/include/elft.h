@@ -939,7 +939,7 @@ namespace ELFT
 		 * @param templateType
 		 * templateType passed to createTemplate().
 		 * @param templateResult
-		 * Object returned from createTemplate() or mergeTemplates().
+		 * Object returned from createTemplate().
 		 *
 		 * @return
 		 * A optional with no value if not implemented, or a
@@ -980,64 +980,11 @@ namespace ELFT
 
 		/**
 		 * @brief
-		 * Merge multiple templates into a single template.
-		 * @details
-		 * This method is necessary because more than one set of samples
-		 * for a given identifier may have been provided to
-		 * createTemplate().
-		 *
-		 * @param templates
-		 * One or more template returned from createTemplate() that
-		 * should be merged into a single template.
-		 *
-		 * @return
-		 * A single CreateTemplateResult that can accurately represent
-		 * `identifier` in future operations.
-		 *
-		 * @note
-		 * The merged template does not need to include all information.
-		 * For instance, if two reference templates are provided, each
-		 * derived from an identification flat capture, and an internal
-		 * heuristic deems one set of samples to be of significanly
-		 * lower quality, a reasonable result would be for this method
-		 * to return the template from the higher quality set of samples
-		 * without modification.
-		 *
-		 * @note
-		 * The contents of `templates` may be the result of previous
-		 * calls to mergeTemplates().
-		 *
-		 * @note
-		 * Identifiers and template types should be stored within the
-		 * template data itself and so are not provided as input.
-		 *
-		 * @note
-		 * This method shall return in <= 10 * `templates.size()`
-		 * milliseconds.
-		 *
-		 * @note
-		 * The value of the returned CreateTemplateResult#data will only
-		 * be recorded if CreateTemplateResult's ReturnStatus#result is
-		 * ReturnStatus::Result::Success. On
-		 * ReturnStatus::Result::Failure, subsequent searches will
-		 * automatically increase false negative identification rate.
-		 *
-		 * @see SearchInterface#insert.
-		 */
-		virtual
-		CreateTemplateResult
-		mergeTemplates(
-		    const std::vector<std::vector<std::byte>> &templates)
-		    const = 0;
-
-		/**
-		 * @brief
 		 * Create a reference database on the filesystem.
 		 *
 		 * @param referenceTemplates
-		 * One or more templates returned from createTemplate() or
-		 * mergeTemplates() with a `templateType` of
-		 * TemplateType::Reference.
+		 * One or more templates returned from createTemplate() with a
+		 * `templateType` of TemplateType::Reference.
 		 * @param databaseDirectory
 		 * Entry to a read/write directory where the reference database
 		 * shall be written.
@@ -1184,104 +1131,6 @@ namespace ELFT
 		load(
 		    const uint64_t maxSize) = 0;
 
-		/**
-		 * @brief
-		 * Determine if an identifier is in the reference database.
-		 *
-		 * @param identifier
-		 * Identifier to check.
-		 *
-		 * @return
-		 * A tuple whose first member is the result of executing the
-		 * operation, and whose second member is `true` if identifier is
-		 * represented in the reference database, and `false` otherwise.
-		 *
-		 * @note
-		 * This method must return in <= 5 seconds.
-		 *
-		 * @note
-		 * The reference database may be stored on a read-only file
-		 * system when this method is called. Do not attempt to modify
-		 * the reference database here.
-		 *
-		 * @note
-		 * This method need not be threadsafe. It may use more than one
-		 * thread.
-		 */
-		virtual
-		std::tuple<ReturnStatus, bool>
-		exists(
-		    const std::string &identifier)
-		    const = 0;
-
-		/**
-		 * @brief
-		 * Insert or update an identifier in a loaded reference
-		 * database.
-		 * @details
-		 * This method should limit the amount of I/O and processing
-		 * necessary, as indicated by the runtime limitation noted
-		 * below.
-		 *
-		 * @param referenceTemplate
-		 * A template returned from
-		 * ExtractionInterface::createTemplate() with a `templateType`
-		 * of TemplateType::Reference.
-		 *
-		 * @return
-		 * Information about the result of executing the method.
-		 *
-		 * @note
-		 * If the identifier encoded within the template already exists
-		 * in the enrollment database, this method should "merge" data
-		 * that already exists in the database with `referenceTemplate`
-		 * (perhaps with ExtractionInterface::mergeTemplates()) before
-		 * replacing the entry in the database.
-		 *
-		 * @note
-		 * This method must return in <= 5 seconds.
-		 *
-		 * @note
-		 * This change shall persist in the reference database on disk.
-		 *
-		 * @note
-		 * This method need not be threadsafe. It may use more than one
-		 * thread.
-		 */
-		virtual
-		ReturnStatus
-		insert(
-		    const std::vector<std::byte> &referenceTemplate) = 0;
-
-		/**
-		 * @brief
-		 * Remove an identifier from a loaded reference database.
-		 * @details
-		 * This method should limit the amount of I/O and processing
-		 * necessary, as indicated by the runtime limitation noted
-		 * below.
-		 *
-		 * @param identifier
-		 * Identifier to remove.
-		 *
-		 * @return
-		 * Information about the result of executing the method.
-		 *
-		 * @note
-		 * This method must return in <= 5 seconds.
-		 *
-		 * @note
-		 * This change shall persist in the reference database on disk.
-		 *
-		 * @note
-		 * This method need not be threadsafe. It may use more than one
-		 * thread.
-		 */
-		virtual
-		ReturnStatus
-		remove(
-		    const std::string &identifier) = 0;
-
 		/**************************************************************/
 
 		/**
@@ -1290,8 +1139,8 @@ namespace ELFT
 		 * `probeTemplate`.
 		 *
 		 * @param probeTemplate
-		 * Object returned from createTemplate() or mergeTemplates()
-		 * with `templateType` of TemplateType::Probe.
+		 * Object returned from createTemplate() with `templateType` of
+		 * TemplateType::Probe.
 		 * @param maxCandidates
 		 * The maximum number of Candidate to return.
 		 *
@@ -1395,11 +1244,8 @@ namespace ELFT
 		 * Read-only directory populated with configuration files
 		 * provided in validation.
 		 * @param databaseDirectory
-		 * Directory populated with files written in
-		 * ExtractionInterface::createReferenceDatabase(), which may
-		 * have been subsequently modified by
-		 * SearchImplementation::insert() and
-		 * SearchImplementation::remove().
+		 * Read-only directory populated with files written in
+		 * ExtractionInterface::createReferenceDatabase().
 		 *
 		 * @return
 		 * Shared pointer to an instance of SearchInterface containing
@@ -1409,15 +1255,6 @@ namespace ELFT
 		 * Do **not** load your reference database into memory on
 		 * construction. Instead, wait for a call to
 		 * SearchImplementation::load().
-		 *
-		 * @note
-		 * The path pointed to by `databaseDirectory` will be stored on
-		 * a writable file system during calls to
-		 * SearchImplementation::insert() and
-		 * SearchImplementation::remove(), but on a read-only filesystem
-		 * during all other SearchImplementation methods. This means you
-		 * should not attempt to modify the reference database unless
-		 * explicitly asked to.
 		 *
 		 * @note
 		 * A possible implementation might be:
