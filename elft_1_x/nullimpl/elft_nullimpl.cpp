@@ -79,6 +79,22 @@ ELFT::NullExtractionImplementation::createReferenceDatabase(
     const uint64_t maxSize)
     const
 {
+	try {
+		std::filesystem::copy_file(referenceTemplates.archive,
+		    databaseDirectory / "archive");
+	} catch (const std::filesystem::filesystem_error &e) {
+		return {ReturnStatus::Result::Failure, "Error when copying " +
+		    referenceTemplates.archive.string() + ": " + e.what()};
+	}
+
+	try {
+		std::filesystem::copy_file(referenceTemplates.manifest,
+		    databaseDirectory / "manifest");
+	} catch (const std::filesystem::filesystem_error &e) {
+		return {ReturnStatus::Result::Failure, "Error when copying " +
+		    referenceTemplates.manifest.string() + ": " + e.what()};
+	}
+
 	return {};
 }
 
