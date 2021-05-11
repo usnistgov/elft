@@ -30,8 +30,6 @@ namespace ELFT::Validation
 		Extract,
 		/** Create reference database from templates. */
 		CreateReferenceDatabase,
-		/** Read, insert, remove, and update reference database. */
-		ModifyReferenceDatabase,
 		/** Search the reference database. */
 		Search,
 		/** Print identification provided by ExtractionInterface. */
@@ -347,20 +345,6 @@ namespace ELFT::Validation
 	runExtractionExtractData(
 	    std::shared_ptr<ExtractionInterface> impl,
 	    const std::vector<uint64_t> &indicies,
-	    const Arguments &args);
-
-	/**
-	 * @brief
-	 * Run a few commands to modify the already-created reference database.
-	 *
-	 * @param impl
-	 * Pointer to ELFT API implementation for search.
-	 * @param args
-	 * Arguments parsed from command line.
-	 */
-	void
-	runModifyReferenceDatabase(
-	    std::shared_ptr<SearchInterface> impl,
 	    const Arguments &args);
 
 	/**

@@ -1397,33 +1397,6 @@ run_create_database()
 	okay
 }
 
-# Run database modification steps
-run_modify_database()
-{
-	echo -n "Testing reference database modification... "
-
-	local log="${output_dir}/run-modifyReferenceDatabase.log"
-	local cmd="${binary} -c -d ${db_dir} -z ${config_dir} "
-	cmd+="-o ${driver_output_dir}"
-	echo "${cmd}" >> "${log}"
-
-	if ! "${binary}" -t -d "${db_dir}" -z "${config_dir}" \
-	    -o "${driver_output_dir}" >> "${log}" 2>&1
-	then
-		local msg="An error occurred while running. Please review:"
-		fail "${msg}" "$(rp "${log}")"
-		return 1
-	fi
-
-	# Check for runtime error messages
-	if [ "$(wc -l < "${log}")" -ne 1 ]; then
-		local msg="Unexpected output was logged. Please review: "
-		fail "${msg}" "$(rp "${log}")"
-	fi
-
-	okay
-}
-
 # Run searches and extract correspondence
 # @param random seed
 run_search()
@@ -1808,7 +1781,6 @@ check_extract "probe"
 run_extract "reference" "${seed}"
 check_extract "reference"
 run_create_database
-run_modify_database
 log_search_identification_information
 run_search "${seed}"
 check_search

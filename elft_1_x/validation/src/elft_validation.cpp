@@ -92,20 +92,6 @@ ELFT::Validation::dispatchOperation(
 			    "exception\n";
 		}
 		break;
-	case Operation::ModifyReferenceDatabase:
-		try {
-			const auto impl = ELFT::SearchInterface::
-			    getImplementation(args.configDir, args.dbDir);
-			runModifyReferenceDatabase(impl, args);
-			rv = EXIT_SUCCESS;
-		} catch (const std::exception &e) {
-			std::cerr << "ModifyReferenceDatabase: " << e.what() <<
-			    '\n';
-		} catch (...) {
-			std::cerr << "ModifyReferenceDatabase: Non-standard "
-			    "exception\n";
-		}
-		break;
 	case Operation::Search:
 		try {
 			testOperation(args);
@@ -313,7 +299,7 @@ ELFT::Validation::parseArguments(
     const int argc,
     char * const argv[])
 {
-	static const char options[] {"a:cd:e:f:ijm:o:r:stz:"};
+	static const char options[] {"a:cd:e:f:ijm:o:r:sz:"};
 	Validation::Arguments args{};
 
 	int c{};
@@ -411,12 +397,6 @@ ELFT::Validation::parseArguments(
 				    "specified"};
 			args.operation = Operation::Search;
 			break;
-		case 't':	/* Database operations */
-			if (args.operation)
-				throw std::logic_error{"Multiple operations "
-				    "specified"};
-			args.operation = Operation::ModifyReferenceDatabase;
-			break;
 		case 'z':	/* Config dir */
 			args.configDir = optarg;
 			break;
@@ -433,7 +413,6 @@ ELFT::Validation::parseArguments(
 	if (args.dbDir.empty() && (
 	    (args.operation == Operation::IdentifySearch) ||
 	    (args.operation == Operation::CreateReferenceDatabase) ||
-	    (args.operation == Operation::ModifyReferenceDatabase) ||
 	    (args.operation == Operation::Search)))
 		throw std::invalid_argument{"Must provide path to reference "
 		    "database"};
@@ -625,185 +604,6 @@ ELFT::Validation::runExtractionExtractData(
 		    '\n';
 	}
 }
-
-void
-ELFT::Validation::runModifyReferenceDatabase(
-    std::shared_ptr<SearchInterface> impl,
-    const Arguments &args)
-{
-	const std::string logName{"modifyReferenceDatabase.log"};
-	std::ofstream file{args.outputDir / logName};
-	if (!file)
-		throw std::runtime_error{"Error creating modify reference "
-		    "database log file"};
-	static const std::string header{"\"identifier\",\"operation\",elapsed,"
-	    "result,\"message\",operation_succeeded"};
-	file << header << '\n';
-	if (!file)
-		throw std::runtime_error{"Error writing to log"};
-
-	/* Find the first reference template that exists */
-	std::string identifier{};
-	std::vector<std::byte> refTemplate{};
-	for (const auto &ref : Data::References) {
-		std::tie(identifier, std::ignore) = ref;
-		file << "\"" << identifier << "\",\"read_from_disk\"," << NA <<
-		    ',';
-		if (!file)
-			throw std::runtime_error{"Error writing to log"};
-
-		/* Read template from disk */
-		try {
-			refTemplate = readFile(args.outputDir /
-			    Data::ReferenceTemplateDir /
-			    (identifier + Data::TemplateSuffix));
-			file << "0," << NA << ",1\n";
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-		} catch (...) {
-			file << "1," << NA << ",0\n";
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-			continue;
-		}
-
-		/* Make sure it's also in the reference database */
-		bool exists{};
-		ReturnStatus rs{};
-		std::chrono::steady_clock::time_point start{}, stop{};
-		try {
-			start = std::chrono::steady_clock::now();
-			std::tie(rs, exists) = impl->exists(identifier);
-			stop = std::chrono::steady_clock::now();
-		} catch (const std::exception &e) {
-			throw std::runtime_error{"Exception while checking "
-			    "existence of \"" + identifier + "\" (" +
-			    std::string(e.what()) + ")"};
-		} catch (...) {
-			throw std::runtime_error{"Unknown exception while "
-			    "checking existence of \"" + identifier + '"'};
-		}
-
-		file << "\"" << identifier << "\",\"exists\"," <<
-		    duration(start, stop) << ',' << e2i2s(rs.result) << ',' <<
-		    sanitizeMessage(rs.message ? *rs.message : "") << ',' <<
-		    ts(exists && rs.result == ReturnStatus::Result::Success) <<
-		    '\n';
-		if (!file)
-			throw std::runtime_error{"Error writing to log"};
-		if (exists)
-			break;
-	}
-
-	/* Remove it */
-	for (auto trials{0}; trials < 5; ++trials) {
-		for (auto i{0}; i < 5; ++i) {
-			ReturnStatus rs{};
-			std::chrono::steady_clock::time_point start{}, stop{};
-			try {
-				start = std::chrono::steady_clock::now();
-				rs = impl->remove(identifier);
-				stop = std::chrono::steady_clock::now();
-			} catch (const std::exception &e) {
-				throw std::runtime_error{"Exception while "
-				    "removing \"" + identifier + "\" (" +
-				    std::string(e.what()) + ")"};
-			} catch (...) {
-				throw std::runtime_error{"Unknown exception "
-				    "while removing \"" + identifier + '"'};
-			}
-			file << "\"" << identifier << "\",\"remove\"," <<
-			    duration(start, stop) << ',' << e2i2s(rs.result) <<
-			    ',' <<
-			    sanitizeMessage(rs.message ? *rs.message : "") <<
-			    ',' << (i == 0 ?
-			    /* It's okay to return Failure if does not exist */
-			    ts(rs.result == ReturnStatus::Result::Success) :
-			    "1") << '\n';
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-
-			bool exists{};
-			try {
-				start = std::chrono::steady_clock::now();
-				std::tie(rs, exists) = impl->exists(identifier);
-				stop = std::chrono::steady_clock::now();
-			} catch (const std::exception &e) {
-				throw std::runtime_error{"Exception while "
-				    "checking existence of \"" + identifier +
-				    "\" (" + std::string(e.what()) + ")"};
-			} catch (...) {
-				throw std::runtime_error{"Unknown exception "
-				    "while checking existence of \"" +
-				    identifier + '"'};
-			}
-			file << "\"" << identifier << "\",\"exists\"," <<
-			    duration(start, stop) << ',' << e2i2s(rs.result) <<
-			    ',' <<
-			    sanitizeMessage(rs.message ? *rs.message : "") <<
-			    ',' << ts(!exists &&
-			    rs.result == ReturnStatus::Result::Success) << '\n';
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-		}
-
-		/* Insert it */
-		for (auto i{0}; i < 5; ++i) {
-			ReturnStatus rs{};
-			std::chrono::steady_clock::time_point start{}, stop{};
-			try {
-				start = std::chrono::steady_clock::now();
-				rs = impl->insert(refTemplate);
-				stop = std::chrono::steady_clock::now();
-			} catch (const std::exception &e) {
-				throw std::runtime_error{"Exception while "
-				    "inserting \"" + identifier + "\" (" +
-				    std::string(e.what()) + ")"};
-			} catch (...) {
-				throw std::runtime_error{"Unknown exception "
-				    "while inserting \"" + identifier + '"'};
-			}
-			file << "\"" << identifier << "\",\"insert\"," <<
-			    duration(start, stop) << ',' << e2i2s(rs.result) <<
-			    ',' <<
-			    sanitizeMessage(rs.message ? *rs.message : "") <<
-			    ',' << ts(rs.result ==
-			    ReturnStatus::Result::Success) << '\n';
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-
-			bool exists{};
-			try {
-				start = std::chrono::steady_clock::now();
-				std::tie(rs, exists) = impl->exists(identifier);
-				stop = std::chrono::steady_clock::now();
-			} catch (const std::exception &e) {
-				throw std::runtime_error{"Exception while "
-				    "checking existence of \"" + identifier +
-				    "\" (" + std::string(e.what()) + ")"};
-			} catch (...) {
-				throw std::runtime_error{"Unknown exception "
-				    "while checking existence of \"" +
-				    identifier + '"'};
-			}
-			file << "\"" << identifier << "\",\"exists\"," <<
-			    duration(start, stop) << ',' << e2i2s(rs.result) <<
-			    ',' <<
-			    sanitizeMessage(rs.message ? *rs.message : "") <<
-			    ',' << ts(exists &&
-			    rs.result == ReturnStatus::Result::Success) << '\n';
-			if (!file)
-				throw std::runtime_error{"Error writing to "
-				    "log"};
-		}
-	}
-}
-
 void
 ELFT::Validation::runSearch(
     std::shared_ptr<SearchInterface> impl,
