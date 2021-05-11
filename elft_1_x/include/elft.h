@@ -461,6 +461,15 @@ namespace ELFT
 	struct Correspondence
 	{
 		/**
+		 * @brief
+		 * Identifier from the reference template.
+		 *
+		 * @note
+		 * This is `identifier` from
+		 * ExtractionInterface::createReferenceTemplate.
+		 */
+		std::string referenceIdentifier{};
+		/**
 		 * Link to Image#identifier and/or EFS#identifier for
 		 * reference.
 		 */
@@ -476,6 +485,8 @@ namespace ELFT
 		 * @brief
 		 * Correspondence constructor
 		 *
+		 * @param referenceIdentifier
+		 * Identifier from the reference template.
 		 * @param referenceInputIdentifier
 		 * Link to Image#identifier and/or EFS#identifier for reference.
 		 * @param referenceMinutia
@@ -486,6 +497,7 @@ namespace ELFT
 		 * Location in the probe image of a reference image feature.
 		 */
 		Correspondence(
+		    const std::string &referenceIdentifier = {},
 		    const uint8_t referenceInputIdentifier = {},
 		    const Minutia &referenceMinutia = {},
 		    const uint8_t probeInputIdentifier = {},
@@ -754,7 +766,14 @@ namespace ELFT
 		 * Best guess on if #candidateList contains an identification.
 		 */
 		bool decision{};
-		/** List of Candidate most similar to the probe. */
+		/**
+		 * @brief
+		 * List of Candidate most similar to the probe.
+		 *
+		 * @warning
+		 * Returning more than one Candidate where Candidate#identifier
+		 * and Candidate#frgp are identical will result in a miss.
+		 */
 		std::vector<Candidate> candidateList{};
 	};
 
@@ -1224,8 +1243,7 @@ namespace ELFT
 		 * `searchResult.candidateList.size()`, where each entry is the
 		 * collection of corresponding minutiae points between
 		 * `probeTemplate` and the reference template of the
-		 * Candidate at the same position as `searchResult`'s
-		 * SearchResult.candidateList otherwise.
+		 * Candidate otherwise.
 		 *
 		 * @note
 		 * ELFT::Minutia must align with minutiae returned from
