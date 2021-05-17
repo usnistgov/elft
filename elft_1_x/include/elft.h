@@ -850,10 +850,15 @@ namespace ELFT
 		 * Each line of #manifest is in the form
 		 * `identifier length offset`, where `identifier` matches
 		 * `identifier` from ExtractionInterface::createTemplate,
-		 * length` is the result of calling `size()` on
+		 * `length` is the result of calling `size()` on
 		 * CreateTemplateResult#data, and `offset` is the number of
 		 * bytes from the beginning of #archive to the first byte of
 		 * CreateTemplateResult#data.
+		 *
+		 * @note
+		 * Identifiers are guaranteed to never contain spaces. That is,
+		 * each line of the manifest is guaranteed to have exactly two
+		 * spaces, used to delimit the three fields in each line.
 		 */
 		std::filesystem::path manifest{};
 	};
