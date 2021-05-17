@@ -294,6 +294,86 @@ ELFT::Validation::getUsageString(
 	return (ss.str());
 }
 
+void
+ELFT::Validation::makeReferenceTemplateArchive(
+    const ELFT::Validation::Arguments &args)
+{
+	const auto dir = args.outputDir / Data::getTemplateDir(
+	    TemplateType::Reference);
+
+	if (std::filesystem::exists(dir / Data::TemplateArchiveArchiveName))
+		throw std::runtime_error{
+		    (dir / Data::TemplateArchiveArchiveName).string() + " "
+		        "already exists"};
+	std::ofstream archive{dir / Data::TemplateArchiveArchiveName,
+	    std::ios_base::out | std::ios_base::binary |
+	    std::ios_base::app};
+	if (!archive)
+		throw std::runtime_error{"Could not open " +
+		    (dir / Data::TemplateArchiveArchiveName).string()};
+
+	if (std::filesystem::exists(dir / Data::TemplateArchiveManifestName))
+		throw std::runtime_error{
+		    (dir / Data::TemplateArchiveManifestName).string() + " "
+		        "already exists"};
+	std::ofstream manifest{dir / Data::TemplateArchiveManifestName,
+	    std::ios_base::out | std::ios_base::binary |
+	    std::ios_base::app};
+	if (!manifest)
+		throw std::runtime_error{"Could not open " +
+		    (dir / Data::TemplateArchiveManifestName).string()};
+
+	for (const auto &entry : std::filesystem::recursive_directory_iterator(
+	    dir)) {
+		if ((entry.path().extension() != Data::TemplateSuffix) ||
+		    !entry.is_regular_file())
+			continue;
+
+		std::ifstream tmpl{entry.path(), std::ios_base::in |
+		    std::ios_base::binary | std::ios_base::ate};
+		if (!tmpl)
+			throw std::runtime_error{"Could not open " +
+			    entry.path().string()};
+
+		const auto tmplDataSize = tmpl.tellg();
+		if (!tmpl)
+			throw std::runtime_error{"Could not get size of " +
+			    entry.path().string()};
+
+		tmpl.seekg(0);
+		if (!tmpl)
+			throw std::runtime_error{"Could not rewind " +
+			    entry.path().string()};
+
+		std::vector<std::byte> tmplData(
+		    static_cast<std::vector<std::byte>::size_type>(
+		    tmplDataSize));
+		tmpl.read(reinterpret_cast<char*>(tmplData.data()),
+		    tmplDataSize);
+		if (!tmpl)
+			throw std::runtime_error{"Could not read " +
+			    entry.path().string()};
+
+		const auto currentOffset = archive.tellp();
+		if (!archive)
+			throw std::runtime_error{"Could not get current "
+			    "offset from " +
+			    (dir / Data::TemplateArchiveArchiveName).string()};
+
+		archive.write(reinterpret_cast<char*>(tmplData.data()),
+		    tmplDataSize);
+		if (!archive)
+			throw std::runtime_error{"Could not write " +
+			    (dir / Data::TemplateArchiveArchiveName).string()};
+
+		manifest << entry.path().filename().string() << ' ' <<
+		    tmplDataSize << ' ' << currentOffset << '\n';
+		if (!manifest)
+			throw std::runtime_error{"Could not write " +
+			    (dir / Data::TemplateArchiveManifestName).string()};
+	}
+}
+
 ELFT::Validation::Arguments
 ELFT::Validation::parseArguments(
     const int argc,
@@ -476,26 +556,20 @@ ELFT::Validation::runCreateReferenceDatabase(
     std::shared_ptr<ExtractionInterface> impl,
     const Arguments &args)
 {
-	/*
-	 * NOTE: In the real test, this will be a RAM disk, but we don't want
-	 *       to require root privileges for validation.
-	 */
 	std::filesystem::create_directories(args.dbDir);
 	std::filesystem::permissions(args.dbDir,
 	    std::filesystem::perms::owner_all |
 	    std::filesystem::perms::group_all);
 
-	/* Read in all templates */
-	std::vector<std::vector<std::byte>> referenceTemplates{};
-	referenceTemplates.reserve(Data::References.size());
-	for (const auto &tmpl : std::filesystem::recursive_directory_iterator(
-	    args.outputDir / Data::ReferenceTemplateDir)) {
-		if ((tmpl.path().extension() != Data::TemplateSuffix) ||
-		    !tmpl.is_regular_file())
-			continue;
-
-		referenceTemplates.push_back(readFile(tmpl.path()));
-	}
+	const auto archivePath = args.outputDir / Data::getTemplateDir(
+	    TemplateType::Reference) / Data::TemplateArchiveArchiveName;
+	const auto manifestPath = args.outputDir / Data::getTemplateDir(
+	    TemplateType::Reference) / Data::TemplateArchiveManifestName;
+	if (!std::filesystem::exists(archivePath) ||
+	    !std::filesystem::exists(manifestPath))
+		throw std::runtime_error{"Member of TemplateArchive does not"
+		    "exist"};
+	TemplateArchive referenceTemplates{archivePath, manifestPath};
 
 	ReturnStatus rs{};
 	std::chrono::steady_clock::time_point start{}, stop{};
@@ -518,15 +592,14 @@ ELFT::Validation::runCreateReferenceDatabase(
 		throw std::runtime_error(ts(getpid()) + ": Error creating log "
 		    "file");
 
-	static const std::string header{"elapsed,result,\"message\",max_size,"
-	    "num_templates"};
+	static const std::string header{"elapsed,result,\"message\",max_size"};
 	file << header << '\n';
 	if (!file)
 		throw std::runtime_error("Error writing to log");
 
 	file << duration(start, stop) << ',' << e2i2s(rs.result) << ",\"" <<
 	    (rs.message ? *rs.message : "") << "\"," << ts(args.maximum) <<
-	    ',' << ts(referenceTemplates.size()) << '\n';
+	    '\n';
 	if (!file)
 		throw std::runtime_error("Error writing to log");
 
@@ -1158,6 +1231,9 @@ ELFT::Validation::testOperation(
 
 		waitForExit(args.numProcs);
 	}
+
+	if (args.operation.value() == Operation::Extract)
+		makeReferenceTemplateArchive(args);
 }
 
 void

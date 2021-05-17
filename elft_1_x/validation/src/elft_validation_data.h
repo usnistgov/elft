@@ -28,6 +28,10 @@ namespace ELFT::Validation::Data
 	    "reference"};
 	/** Suffix added to template files. */
 	const std::string TemplateSuffix{".tmpl"};
+	/** Name of TemplateArchive archive. */
+	const std::string TemplateArchiveArchiveName{"archive"};
+	/** Name of TemplateArchive manifest. */
+	const std::string TemplateArchiveManifestName{"manifest"};
 
 	const std::filesystem::path&
 	getTemplateDir(

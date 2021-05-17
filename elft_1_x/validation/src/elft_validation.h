@@ -147,6 +147,20 @@ namespace ELFT::Validation
 
 	/**
 	 * @brief
+	 * Generate single-file archive of templates with manifest.
+	 *
+	 * @param args
+	 * Arguments parsed from command line.
+	 *
+	 * @throw std::runtime_exception
+	 * Error reading or writing to disk.
+	 */
+	void
+	makeReferenceTemplateArchive(
+	    const Arguments &args);
+
+	/**
+	 * @brief
 	 * Create a template from one or more images.
 	 *
 	 * @param impl

@@ -1374,7 +1374,7 @@ run_create_database()
 {
 	echo -n "Testing reference database creation... "
 
-	local max_size=125829120
+	local max_size=1073741824
 	local log="${output_dir}/run-createReferenceDatabase.log"
 	local cmd="${binary} -c -d ${db_dir} -z ${config_dir} "
 	cmd+="-o ${driver_output_dir} -m ${max_size}"
