@@ -1232,7 +1232,8 @@ ELFT::Validation::testOperation(
 		waitForExit(args.numProcs);
 	}
 
-	if (args.operation.value() == Operation::Extract)
+	if ((args.operation.value() == Operation::Extract) &&
+	    (args.templateType.value() == TemplateType::Reference))
 		makeReferenceTemplateArchive(args);
 }
 
