@@ -689,16 +689,18 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 			const uint8_t numMinutiae{static_cast<uint8_t>(
 			    this->rng() % UINT8_MAX)};
 
-			/*
-			 * NOTE: ELFT requires that corresponding minutiae be
-			 *       from the set of minutiae returned in
-			 *       extractTemplateData() for both templates.
-			 *       There's no easy way to do so in this example.
-			 */
 			std::vector<Correspondence> candidateCorr{};
 			candidateCorr.reserve(numMinutiae);
 			for (uint8_t i{}; i < numMinutiae; ++i) {
 				Correspondence singleCorr{};
+
+				singleCorr.type = CorrespondenceType::Definite;
+
+				singleCorr.probeIdentifier =
+				    probe.candidateIdentifier;
+				singleCorr.referenceIdentifier =
+				    tmpl.candidateIdentifier;
+
 				singleCorr.probeInputIdentifier =
 				    probe.inputIdentifier;
 				singleCorr.referenceInputIdentifier =
