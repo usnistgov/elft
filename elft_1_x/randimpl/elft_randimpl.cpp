@@ -432,6 +432,9 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 
 			std::for_each(begin, end, [&dbDir, &archive](
 			    const auto &manifestEntry) {
+				if (manifestEntry.second.length == 0)
+					return;
+
 				/* Read the template from the archive */
 				std::vector<std::byte> combinedTemplate{};
 				combinedTemplate.resize(static_cast<
@@ -442,7 +445,7 @@ ELFT::RandomImplementation::ExtractionImplementation::createReferenceDatabase(
 				    combinedTemplate.data()),
 				    manifestEntry.second.length);
 
-			    	/* Write it back out as an individual file */
+				/* Write it back out as an individual file */
 				const auto rs = Util::writeTemplate(
 				    dbDir / Util::getDirectoryForTemplate(
 				    combinedTemplate), combinedTemplate);
