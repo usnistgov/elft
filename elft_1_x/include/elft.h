@@ -556,6 +556,35 @@ namespace ELFT
 		    const Minutia &referenceMinutia = {});
 	};
 
+	/** Output from extracting data from a search. */
+	struct CorrespondenceResult
+	{
+		/** Information about a probe/reference relationship. */
+		struct Data
+		{
+			/** Relationships between features. */
+			std::vector<std::vector<Correspondence>>
+			    correspondence{};
+
+			/**
+			 * @brief
+			 * Whether or not the comparison was complex.
+			 *
+			 * @details
+			 * Complexity should be determined as specified by the
+			 * documentation for the "complex comparison flag (CCF)"
+			 * of ANSI/NIST-ITL 1-2011 (2015) Field 9.362.
+			 */
+			std::optional<bool> complex{};
+
+		};
+
+		/** Result of extracting correspondence. */
+		ReturnStatus status{};
+		/** Extracted correspondence. */
+		Data data{};
+	};
+
 	/** Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015). */
 	enum class RidgeQuality
 	{
@@ -875,16 +904,6 @@ namespace ELFT
 
 		/**
 		 * @brief
-		 * Whether or not the search was complex.
-		 *
-		 * @details
-		 * Complexity should be determined as specified by the
-		 * documentation for the "complex comparison flag (CCF)" of
-		 * ANSI/NIST-ITL 1-2011 (2015) Field 9.362.
-		 */
-		std::optional<bool> complex{};
-		/**
-		 * @brief
 		 * Pairs of corresponding Minutia between TemplateType::Probe
 		 * and TemplateType::Reference templates.
 		 *
@@ -907,8 +926,7 @@ namespace ELFT
 		 * @see
 		 * SearchInterface::extractCorrespondence.
 		 */
-		std::optional<std::vector<std::vector<Correspondence>>>
-		    correspondence{};
+		std::optional<CorrespondenceResult::Data> correspondence{};
 	};
 
 	/** Types of templates created by this interface. */
@@ -1377,12 +1395,8 @@ namespace ELFT
 		 * Object returned from searchReferences().
 		 *
 		 * @return
-		 * An optional with no value if not implemented, or a
-		 * ReturnStatus and a vector the length of
-		 * `searchResult.candidateList.size()`, where each entry is the
-		 * collection of corresponding minutiae points between
-		 * `probeTemplate` and the reference template of the
-		 * Candidate otherwise.
+		 * An optional with no value if not implemented, or a collection
+		 * of information containing corresponding features otherwise.
 		 *
 		 * @note
 		 * ELFT::Minutia must align with minutiae returned from
@@ -1411,8 +1425,7 @@ namespace ELFT
 		 * This method shall return in <= 5 seconds.
 		 */
 		virtual
-		std::optional<std::tuple<ReturnStatus,
-		    std::vector<std::vector<Correspondence>>>>
+		std::optional<CorrespondenceResult>
 		extractCorrespondence(
 		    const std::vector<std::byte> &probeTemplate,
 		    const SearchResult &searchResult)

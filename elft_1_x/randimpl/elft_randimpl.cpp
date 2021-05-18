@@ -625,15 +625,13 @@ ELFT::RandomImplementation::SearchImplementation::search(
 	 */
 	const auto correspondence = this->extractCorrespondence(
 	    probeTemplate, result);
-	if (correspondence && std::get<ReturnStatus>(*correspondence))
-		result.correspondence = std::get<std::vector<std::vector<
-		    ELFT::Correspondence>>>(*correspondence);
+	if (correspondence && correspondence->status)
+		result.correspondence = correspondence->data;
 
 	return (result);
 }
 
-std::optional<std::tuple<ELFT::ReturnStatus,
-    std::vector<std::vector<ELFT::Correspondence>>>>
+std::optional<ELFT::CorrespondenceResult>
 ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
     const std::vector<std::byte> &probeTemplate,
     const SearchResult &searchResult)
@@ -727,7 +725,9 @@ ELFT::RandomImplementation::SearchImplementation::extractCorrespondence(
 		}
 	}
 
-	return (std::make_tuple(ReturnStatus{}, allCorrespondence));
+	return (CorrespondenceResult{ReturnStatus{},
+	    {allCorrespondence, false}});
+
 }
 
 std::shared_ptr<ELFT::SearchInterface>

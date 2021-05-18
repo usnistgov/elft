@@ -254,8 +254,7 @@ namespace ELFT
 			    const
 			    override;
 
-			std::optional<std::tuple<ReturnStatus,
-			    std::vector<std::vector<Correspondence>>>>
+			std::optional<CorrespondenceResult>
 			extractCorrespondence(
 			    const std::vector<std::byte> &probeTemplate,
 			    const SearchResult &searchResult)

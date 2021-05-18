@@ -156,8 +156,7 @@ ELFT::NullSearchImplementation::search(
 	return (result);
 }
 
-std::optional<std::tuple<ELFT::ReturnStatus,
-    std::vector<std::vector<ELFT::Correspondence>>>>
+std::optional<ELFT::CorrespondenceResult>
 ELFT::NullSearchImplementation::extractCorrespondence(
     const std::vector<std::byte> &probeTemplate,
     const SearchResult &searchResult)
