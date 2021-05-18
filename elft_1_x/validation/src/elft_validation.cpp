@@ -628,7 +628,7 @@ ELFT::Validation::runExtractionCreate(
 		    "file");
 
 	static const std::string header{"\"identifier\",elapsed,result,"
-	    "\"message\",type,num_images,size"};
+	    "\"message\",complex,type,num_images,size"};
 	file << header << '\n';
 	if (!file)
 		throw std::runtime_error(ts(getpid()) + ": Error writing to "
@@ -652,7 +652,7 @@ ELFT::Validation::runExtractionExtractData(
 	static const std::string header{"\"template_filename\",elapsed,"
 	    "type,index,num_templates_in_buffer,image_identifier,quality,"
 	    "imp,frct,frgp,orientation,lpm,value_assessment,lsb,pat,plr,trv,"
-	    "\"cores\",\"deltas\",\"minutia\",\"roi\""};
+	    "\"cores\",\"deltas\",\"minutia\",\"roi\",complex"};
 
 	const std::string logName{"extractionData-" +
 	    e2i2s(*args.templateType) + '-' + ts(getpid()) + ".log"};
@@ -782,7 +782,7 @@ ELFT::Validation::performSingleExtractData(
 		    ',' + ts(td.inputIdentifier) + ',';
 		logLine += (td.imageQuality ? ts(*td.imageQuality) : NA) + ',';
 
-		static const uint8_t efsElements{14};
+		static const uint8_t efsElements{15};
 		static const std::string NAEFS = splice(
 		    std::vector<std::string>(efsElements, NA), ",");
 		if (!td.efs) {
@@ -809,6 +809,7 @@ ELFT::Validation::performSingleExtractData(
 		logLine += (efs.minutiae ?
 		    '"' + splice(*efs.minutiae) + '"' : NA) + ',';
 		logLine += (efs.roi ? '"' + splice(*efs.roi)  + '"': NA);
+		logLine += (efs.complex ? ts(*efs.complex) : NA);
 
 		logLine += '\n';
 	}
@@ -914,7 +915,7 @@ ELFT::Validation::performSingleSearch(
 	 *       encourage you to validate templates first.
 	 */
 // 	if (probeTemplate.size() == 0) {
-// 		static const uint8_t numElements{9};
+// 		static const uint8_t numElements{10};
 // 		static const std::string NAFull = splice(
 // 		    std::vector<std::string>(numElements, NA), ",");
 // 		return ('"' + identifier + "\"," + ts(maxCandidates) + NAFull);
@@ -937,7 +938,8 @@ ELFT::Validation::performSingleSearch(
 	const std::string logLinePrefix{'"' + identifier + "\"," +
 	    ts(maxCandidates) + ',' + duration(start, stop) + ',' +
 	    e2i2s(rv.status.result) + ',' +
-	    sanitizeMessage(rv.status.message ? *rv.status.message : "") + ','};
+	    sanitizeMessage(rv.status.message ? *rv.status.message : "") + ',' +
+	    (rv.complex ? ts(*rv.complex) : NA) + ','};
 	std::string logLine{};
 	if (rv.status && (rv.candidateList.size() > 0)) {
 		/* API says driver will stable sort by similarity */
@@ -955,7 +957,7 @@ ELFT::Validation::performSingleSearch(
 		}
 	} else {
 		logLine += logLinePrefix + splice(
-		    std::vector<std::string>(6, NA), ",");
+		    std::vector<std::string>(7, NA), ",");
 	}
 
 	return {rv, logLine};

@@ -660,6 +660,17 @@ namespace ELFT
 		 * RidgeQuality::Background.
 		 */
 		std::optional<std::vector<RidgeQualityRegion>> rqm{};
+
+		/**
+		 * @brief
+		 * Whether or not feature extraction was complex.
+		 *
+		 * @details
+		 * Complexity should be determined as specified by the
+		 * documentation for the "analysis complexity flag (CXF)" of
+		 * ANSI/NIST-ITL 1-2011 (2015) Field 9.353.
+		 */
+		std::optional<bool> complex{};
 	};
 
 	/**
@@ -801,6 +812,16 @@ namespace ELFT
 		 */
 		std::vector<Candidate> candidateList{};
 
+		/**
+		 * @brief
+		 * Whether or not the search was complex.
+		 *
+		 * @details
+		 * Complexity should be determined as specified by the
+		 * documentation for the "complex comparison flag (CCF)" of
+		 * ANSI/NIST-ITL 1-2011 (2015) Field 9.362.
+		 */
+		std::optional<bool> complex{};
 		/**
 		 * @brief
 		 * Pairs of corresponding Minutia between TemplateType::Probe
