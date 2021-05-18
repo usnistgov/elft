@@ -709,7 +709,7 @@ ELFT::Validation::runSearch(
 		    "correspondence log file");
 
 	static const std::string corrLogHeader{"\"probe_identifier\","
-	    "num_candidates,elapsed,rank,correspondence_index,"
+	    "num_candidates,elapsed,rank,correspondence_index,complex,"
 	    "correspondence_type,\"corr_probe_id\",probe_input_id,"
 	    "probe_x,probe_y,probe_theta,probe_type,\"ref_id\","
 	    "ref_input_id,ref_x,ref_y,ref_theta,ref_type"};
@@ -940,8 +940,7 @@ ELFT::Validation::performSingleSearch(
 	const std::string logLinePrefix{'"' + identifier + "\"," +
 	    ts(maxCandidates) + ',' + duration(start, stop) + ',' +
 	    e2i2s(rv.status.result) + ',' +
-	    sanitizeMessage(rv.status.message ? *rv.status.message : "") + ',' +
-	    (rv.complex ? ts(*rv.complex) : NA) + ','};
+	    sanitizeMessage(rv.status.message ? *rv.status.message : "") + ','};
 	std::string logLine{};
 	if (rv.status && (rv.candidateList.size() > 0)) {
 		/* API says driver will stable sort by similarity */
@@ -959,7 +958,7 @@ ELFT::Validation::performSingleSearch(
 		}
 	} else {
 		logLine += logLinePrefix + splice(
-		    std::vector<std::string>(7, NA), ",");
+		    std::vector<std::string>(6, NA), ",");
 	}
 
 	return {rv, logLine};
@@ -985,8 +984,7 @@ ELFT::Validation::performSingleSearchExtract(
 // 		return ('"' + identifier + "\"," + NAFull);
 // 	}
 
-	std::optional<std::tuple<ReturnStatus,
-	    std::vector<std::vector<Correspondence>>>> ret{};
+	std::optional<CorrespondenceResult> ret{};
 	std::chrono::steady_clock::time_point start{}, stop{};
 	try {
 		start = std::chrono::steady_clock::now();
@@ -1005,15 +1003,14 @@ ELFT::Validation::performSingleSearchExtract(
 	    ts(searchResult.candidateList.size()) + ',' +
 	    duration(start, stop) + ','};
 
-	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
-		static const uint8_t numElements{15};
+	if (!ret.has_value() || !ret->status) {
+		static const uint8_t numElements{16};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
 	}
 
-	const auto &corrs =
-	    std::get<std::vector<std::vector<Correspondence>>>(*ret);
+	const auto &corrs = ret->data.correspondence;
 	if (searchResult.candidateList.size() != corrs.size())
 		throw std::runtime_error{"Number of entries in returned vector "
 		    "of Correspondences must be the same as the number of "
@@ -1027,7 +1024,8 @@ ELFT::Validation::performSingleSearchExtract(
 		for (const auto &corr : candidate) {
 			logLine += logLinePrefix +
 			    ts(rank) + ',' + ts(++corrIndex) + ',' +
-			    e2i2s(corr.type) + ',' +
+			    (ret->data.complex ? ts(*ret->data.complex) : NA) +
+			    ',' + e2i2s(corr.type) + ',' +
 			    '"' + corr.probeIdentifier + "\"," +
 			    ts(corr.probeInputIdentifier) + ',' +
 			    ts(corr.probeMinutia.coordinate.x) + ',' +
