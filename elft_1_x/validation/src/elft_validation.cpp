@@ -709,9 +709,10 @@ ELFT::Validation::runSearch(
 		    "correspondence log file");
 
 	static const std::string corrLogHeader{"\"probe_identifier\","
-	    "num_candidates,elapsed,rank,correspondence_index,\"ref_id\","
-	    "ref_input_id,ref_x,ref_y,ref_theta,ref_type,probe_input_id,"
-	    "probe_x,probe_y,probe_theta,probe_type"};
+	    "num_candidates,elapsed,rank,correspondence_index,"
+	    "correspondence_type,\"corr_probe_id\",probe_input_id,"
+	    "probe_x,probe_y,probe_theta,probe_type,\"ref_id\","
+	    "ref_input_id,ref_x,ref_y,ref_theta,ref_type"};
 	corrLog << corrLogHeader << '\n';
 	if (!corrLog)
 		throw std::runtime_error(ts(getpid()) + ": Error writing to "
@@ -978,7 +979,7 @@ ELFT::Validation::performSingleSearchExtract(
 	 *       encourage you to validate templates first.
 	 */
 // 	if (probeTemplate.size() == 0) {
-// 		static const uint8_t numElements{16};
+// 		static const uint8_t numElements{18};
 // 		static const std::string NAFull = splice(
 // 		    std::vector<std::string>(numElements, NA), ",");
 // 		return ('"' + identifier + "\"," + NAFull);
@@ -1005,7 +1006,7 @@ ELFT::Validation::performSingleSearchExtract(
 	    duration(start, stop) + ','};
 
 	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
-		static const uint8_t numElements{13};
+		static const uint8_t numElements{15};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
@@ -1026,17 +1027,26 @@ ELFT::Validation::performSingleSearchExtract(
 		for (const auto &corr : candidate) {
 			logLine += logLinePrefix +
 			    ts(rank) + ',' + ts(++corrIndex) + ',' +
-			    '"' + corr.referenceIdentifier + "\"," +
-			    ts(corr.referenceInputIdentifier) + ',' +
-			    ts(corr.referenceMinutia.coordinate.x) + ',' +
-			    ts(corr.referenceMinutia.coordinate.y) + ',' +
-			    ts(corr.referenceMinutia.theta) + ',' +
-			    e2i2s(corr.referenceMinutia.type) + ',' +
+			    e2i2s(corr.type) + ',' +
+			    '"' + corr.probeIdentifier + "\"," +
 			    ts(corr.probeInputIdentifier) + ',' +
 			    ts(corr.probeMinutia.coordinate.x) + ',' +
 			    ts(corr.probeMinutia.coordinate.y) + ',' +
 			    ts(corr.probeMinutia.theta) + ',' +
-			    e2i2s(corr.probeMinutia.type) + '\n';
+			    e2i2s(corr.probeMinutia.type) + ',' +
+			    '"' + corr.referenceIdentifier + "\"," +
+			    ts(corr.referenceInputIdentifier) + ',';
+			if ((corr.type == CorrespondenceType::Definite) ||
+			    (corr.type == CorrespondenceType::Possible))
+				logLine +=
+				    ts(corr.referenceMinutia.coordinate.x) +
+				    ',' +
+				    ts(corr.referenceMinutia.coordinate.y) +
+				    ',' +
+				    ts(corr.referenceMinutia.theta) + ',' +
+				    e2i2s(corr.referenceMinutia.type) + '\n';
+			else
+				logLine += "NA,NA,NA,NA\n";
 		}
 	}
 

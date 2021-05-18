@@ -207,16 +207,20 @@ ELFT::Coordinate::operator>=(
 }
 
 ELFT::Correspondence::Correspondence(
+    CorrespondenceType type,
+    const std::string &probeIdentifier,
+    const uint8_t probeInputIdentifier,
+    const Minutia &probeMinutia,
     const std::string &referenceIdentifier,
     const uint8_t referenceInputIdentifier,
-    const Minutia &referenceMinutia,
-    const uint8_t probeInputIdentifier,
-    const Minutia &probeMinutia) :
+    const Minutia &referenceMinutia) :
+    type{type},
+    probeIdentifier{probeIdentifier},
+    probeInputIdentifier{probeInputIdentifier},
+    probeMinutia{probeMinutia},
     referenceIdentifier{referenceIdentifier},
     referenceInputIdentifier{referenceInputIdentifier},
-    referenceMinutia{referenceMinutia},
-    probeInputIdentifier{probeInputIdentifier},
-    probeMinutia{probeMinutia}
+    referenceMinutia{referenceMinutia}
 {
 
 }

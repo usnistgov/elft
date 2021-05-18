@@ -448,9 +448,63 @@ namespace ELFT
 		        &direction = {});
 	};
 
-	/** Location of identical features from two images. */
+	/**
+	 * Types of correspondence.
+	 *
+	 * @details
+	 * Following ANSI/NIST-ITL 1-2011 (2015) Field 9.361, "types of
+	 * correspondence (TOC)"
+	 */
+	enum class CorrespondenceType
+	{
+		/** Probe feature definitely corresponds. */
+		Definite,
+		/** Probe feature possibly/debatably corresponds. */
+		Possible,
+		/**
+		 * Probe feature definitely does not exist.
+		 *
+		 * @note
+		 * Correspondence#referenceMinutia will be ignored.
+		 */
+		DoesNotExist,
+		/**
+		 * Probe feature lies outside the reference.
+		 *
+		 * @note
+		 * Correspondence#referenceMinutia will be ignored.
+		 */
+		OutOfRegion,
+		/**
+		 * Probe feature lies in an area experiencing quality issues in
+		 * the reference.
+		 *
+		 * @note
+		 * Correspondence#referenceMinutia will be ignored.
+		 */
+		UnclearArea
+	};
+
+	/** Relationship between probe and reference features. */
 	struct Correspondence
 	{
+		/** Type of correspondence seen at these points. */
+		CorrespondenceType type{};
+
+		/**
+		 * @brief
+		 * Identifier from the probe template.
+		 *
+		 * @note
+		 * This is `identifier` from
+		 * ExtractionInterface::createReferenceTemplate.
+		 */
+		std::string probeIdentifier{};
+		/** Link to Image#identifier and/or EFS#identifier for probe. */
+		uint8_t probeInputIdentifier{};
+		/** Location in the probe image of a reference image feature. */
+		Minutia probeMinutia{};
+
 		/**
 		 * @brief
 		 * Identifier from the reference template.
@@ -465,34 +519,41 @@ namespace ELFT
 		 * reference.
 		 */
 		uint8_t referenceInputIdentifier{};
-		/** Location in the reference image of a probe image feature. */
+		/**
+		 * Location in the reference image of a probe image feature.
+		 * @note
+		 * This Minutia may be omitted if the #type indicates it.
+		 */
 		Minutia referenceMinutia{};
-		/** Link to Image#identifier and/or EFS#identifier for probe. */
-		uint8_t probeInputIdentifier{};
-		/** Location in the probe image of a reference image feature. */
-		Minutia probeMinutia{};
 
 		/**
 		 * @brief
 		 * Correspondence constructor
 		 *
+		 * @param type
+		 * Type of correspondence seen at these points.
+		 * @param probeIdentifier
+		 * Identifier from the probe template.
+		 * @param probeInputIdentifier
+		 * Link to Image#identifier and/or EFS#identifier for probe.
+		 * @param probeMinutia
+		 * Location in the probe image of a reference image feature.
 		 * @param referenceIdentifier
 		 * Identifier from the reference template.
 		 * @param referenceInputIdentifier
 		 * Link to Image#identifier and/or EFS#identifier for reference.
 		 * @param referenceMinutia
 		 * Location in the reference image of a probe image feature.
-		 * @param probeInputIdentifier
-		 * Link to Image#identifier and/or EFS#identifier for probe.
-		 * @param probeMinutia
-		 * Location in the probe image of a reference image feature.
+		 * This Minutia may be omitted only if the #type indicates it.
 		 */
 		Correspondence(
+		    const CorrespondenceType type = {},
+		    const std::string &probeIdentifier = {},
+		    const uint8_t probeInputIdentifier = {},
+		    const Minutia &probeMinutia = {},
 		    const std::string &referenceIdentifier = {},
 		    const uint8_t referenceInputIdentifier = {},
-		    const Minutia &referenceMinutia = {},
-		    const uint8_t probeInputIdentifier = {},
-		    const Minutia &probeMinutia = {});
+		    const Minutia &referenceMinutia = {});
 	};
 
 	/** Local ridge quality codes from ANSI/NIST-ITL 1-2011 (2015). */
