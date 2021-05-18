@@ -97,11 +97,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad34ab71e1a016e0ab921bd79c13bac2b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_e_l_f_t_1_1_candidate.html">Candidate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b">candidateList</a> {}</td></tr>
 <tr class="memdesc:ad34ab71e1a016e0ab921bd79c13bac2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> most similar to the probe.  <a href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b">More...</a><br /></td></tr>
 <tr class="separator:ad34ab71e1a016e0ab921bd79c13bac2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb79872470a6a88609068bd50cef7969"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="struct_e_l_f_t_1_1_correspondence_result_1_1_data.html">CorrespondenceResult::Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_search_result.html#adb79872470a6a88609068bd50cef7969">correspondence</a> {}</td></tr>
+<tr class="memdesc:adb79872470a6a88609068bd50cef7969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pairs of corresponding <a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> between <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a> and <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a> templates.  <a href="struct_e_l_f_t_1_1_search_result.html#adb79872470a6a88609068bd50cef7969">More...</a><br /></td></tr>
+<tr class="separator:adb79872470a6a88609068bd50cef7969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The results of a searching a database. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00746">746</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00884">884</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a9a6c7a9fb8e7e44a456e9628bffc97ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9a6c7a9fb8e7e44a456e9628bffc97ec">&#9670;&nbsp;</a></span>status</h2>
@@ -117,7 +120,7 @@ Public Attributes</h2></td></tr>
 
 <p>Status of searching reference database and assembling candidate list. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00752">752</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00890">890</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -135,7 +138,7 @@ Public Attributes</h2></td></tr>
 
 <p>Best guess on if <a class="el" href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b" title="List of Candidate most similar to the probe.">candidateList</a> contains an identification. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00756">756</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00894">894</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -152,8 +155,31 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>List of <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> most similar to the probe. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Returning more than one <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> where <a class="el" href="struct_e_l_f_t_1_1_candidate.html#a18d14e24ed10de786a607b1622136e33" title="Identifier of the sample in the reference database.">Candidate::identifier</a> and <a class="el" href="struct_e_l_f_t_1_1_candidate.html#a1eaa95f9a96ce819ec9e68fdbf2ce9e2" title="Most localized position in the identifier.">Candidate::frgp</a> are identical will result in a miss. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00758">758</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00903">903</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+
+</div>
+</div>
+<a id="adb79872470a6a88609068bd50cef7969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb79872470a6a88609068bd50cef7969">&#9670;&nbsp;</a></span>correspondence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="struct_e_l_f_t_1_1_correspondence_result_1_1_data.html">CorrespondenceResult::Data</a>&gt; ELFT::SearchResult::correspondence {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pairs of corresponding <a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> between <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a> and <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a> templates. </p>
+<p>Some participants may find they have already performed the calculations needed for <a class="el" href="class_e_l_f_t_1_1_search_interface.html#af537bc078cd8f058009dde458eefbdcb" title="Extract pairs of corresponding Minutia between TemplateType::Probe and TemplateType::Reference templa...">SearchInterface::extractCorrespondence</a> within <a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4" title="Search the reference database for the samples represented in probeTemplate.">SearchInterface::search</a>. If that is the case, <a class="el" href="struct_e_l_f_t_1_1_correspondence.html" title="Relationship between probe and reference features.">Correspondence</a> may be returned here instead.</p>
+<dl class="section attention"><dt>Attention</dt><dd>If this value is populated, <a class="el" href="class_e_l_f_t_1_1_search_interface.html#af537bc078cd8f058009dde458eefbdcb" title="Extract pairs of corresponding Minutia between TemplateType::Probe and TemplateType::Reference templa...">SearchInterface::extractCorrespondence</a> will not be called, as the information returned is expected to be redundant.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Reported and enforced search times will include the time it takes to populate this variable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_l_f_t_1_1_search_interface.html#af537bc078cd8f058009dde458eefbdcb" title="Extract pairs of corresponding Minutia between TemplateType::Probe and TemplateType::Reference templa...">SearchInterface::extractCorrespondence</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00929">929</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

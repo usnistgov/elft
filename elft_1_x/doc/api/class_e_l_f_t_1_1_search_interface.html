@@ -92,21 +92,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1dcfa6e2f3c9a75d357b33f78a01d563"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; <a class="el" href="struct_e_l_f_t_1_1_product_identifier.html">ProductIdentifier</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a1dcfa6e2f3c9a75d357b33f78a01d563">getIdentification</a> () const =0</td></tr>
 <tr class="memdesc:a1dcfa6e2f3c9a75d357b33f78a01d563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain identification and version information for the search portion of this submission.  <a href="class_e_l_f_t_1_1_search_interface.html#a1dcfa6e2f3c9a75d357b33f78a01d563">More...</a><br /></td></tr>
 <tr class="separator:a1dcfa6e2f3c9a75d357b33f78a01d563"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="memItemLeft" align="right" valign="top">virtual std::tuple&lt; <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a58db8e5fc0f997f190de2cc77ea21ea3">exists</a> (const std::string &amp;identifier) const =0</td></tr>
-<tr class="memdesc:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if an identifier is in the reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#a58db8e5fc0f997f190de2cc77ea21ea3">More...</a><br /></td></tr>
-<tr class="separator:a58db8e5fc0f997f190de2cc77ea21ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfc53b9e073c6f409cd70acd4361346b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#acfc53b9e073c6f409cd70acd4361346b">insert</a> (const std::vector&lt; std::byte &gt; &amp;referenceTemplate)=0</td></tr>
-<tr class="memdesc:acfc53b9e073c6f409cd70acd4361346b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert or update an identifier in a loaded reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#acfc53b9e073c6f409cd70acd4361346b">More...</a><br /></td></tr>
-<tr class="separator:acfc53b9e073c6f409cd70acd4361346b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd66bc247d9c89553608b6fe3cfe3982"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#abd66bc247d9c89553608b6fe3cfe3982">remove</a> (const std::string &amp;identifier)=0</td></tr>
-<tr class="memdesc:abd66bc247d9c89553608b6fe3cfe3982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an identifier from a loaded reference database.  <a href="class_e_l_f_t_1_1_search_interface.html#abd66bc247d9c89553608b6fe3cfe3982">More...</a><br /></td></tr>
-<tr class="separator:abd66bc247d9c89553608b6fe3cfe3982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa93bb0111165f0aa22a514632f1ba387"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#aa93bb0111165f0aa22a514632f1ba387">load</a> (const uint64_t maxSize)=0</td></tr>
+<tr class="memdesc:aa93bb0111165f0aa22a514632f1ba387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load reference database into memory.  <a href="class_e_l_f_t_1_1_search_interface.html#aa93bb0111165f0aa22a514632f1ba387">More...</a><br /></td></tr>
+<tr class="separator:aa93bb0111165f0aa22a514632f1ba387"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2078c4832d626e50b335e2c44b875a4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_search_result.html">SearchResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4">search</a> (const std::vector&lt; std::byte &gt; &amp;probeTemplate, const uint16_t maxCandidates) const =0</td></tr>
 <tr class="memdesc:ae2078c4832d626e50b335e2c44b875a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the reference database for the samples represented in <code>probeTemplate</code>.  <a href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4">More...</a><br /></td></tr>
 <tr class="separator:ae2078c4832d626e50b335e2c44b875a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1a58a446089dc78b0c4338d8b434a45"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; std::tuple&lt; <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, std::vector&lt; std::vector&lt; <a class="el" href="struct_e_l_f_t_1_1_correspondence.html">Correspondence</a> &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#af1a58a446089dc78b0c4338d8b434a45">extractCorrespondence</a> (const std::vector&lt; std::byte &gt; &amp;probeTemplate, const <a class="el" href="struct_e_l_f_t_1_1_search_result.html">SearchResult</a> &amp;searchResult) const =0</td></tr>
-<tr class="memdesc:af1a58a446089dc78b0c4338d8b434a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract pairs of corresponding minutiae between probe template and reference template.  <a href="class_e_l_f_t_1_1_search_interface.html#af1a58a446089dc78b0c4338d8b434a45">More...</a><br /></td></tr>
-<tr class="separator:af1a58a446089dc78b0c4338d8b434a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af537bc078cd8f058009dde458eefbdcb"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; <a class="el" href="struct_e_l_f_t_1_1_correspondence_result.html">CorrespondenceResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#af537bc078cd8f058009dde458eefbdcb">extractCorrespondence</a> (const std::vector&lt; std::byte &gt; &amp;probeTemplate, const <a class="el" href="struct_e_l_f_t_1_1_search_result.html">SearchResult</a> &amp;searchResult) const =0</td></tr>
+<tr class="memdesc:af537bc078cd8f058009dde458eefbdcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract pairs of corresponding <a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> between <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a> and <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a> templates.  <a href="class_e_l_f_t_1_1_search_interface.html#af537bc078cd8f058009dde458eefbdcb">More...</a><br /></td></tr>
+<tr class="separator:af537bc078cd8f058009dde458eefbdcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19a93795b6e04bca5f883ec9026ffd1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a19a93795b6e04bca5f883ec9026ffd1a">SearchInterface</a> ()</td></tr>
 <tr class="separator:a19a93795b6e04bca5f883ec9026ffd1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ffa456fd05584d0159a45c3b4b9ccd7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_search_interface.html#a9ffa456fd05584d0159a45c3b4b9ccd7">~SearchInterface</a> ()</td></tr>
@@ -121,7 +115,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for database search implemented by participant. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01108">1108</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l01263">1263</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19a93795b6e04bca5f883ec9026ffd1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19a93795b6e04bca5f883ec9026ffd1a">&#9670;&nbsp;</a></span>SearchInterface()</h2>
@@ -205,8 +199,8 @@ This method shall return instantly. </dd></dl>
 
 </div>
 </div>
-<a id="a58db8e5fc0f997f190de2cc77ea21ea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58db8e5fc0f997f190de2cc77ea21ea3">&#9670;&nbsp;</a></span>exists()</h2>
+<a id="aa93bb0111165f0aa22a514632f1ba387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93bb0111165f0aa22a514632f1ba387">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,50 +209,10 @@ This method shall return instantly. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::tuple&lt;<a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, bool&gt; ELFT::SearchInterface::exists </td>
+          <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a> ELFT::SearchInterface::load </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>identifier</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determine if an identifier is in the reference database. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">identifier</td><td>Identifier to check.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A tuple whose first member is the result of executing the operation, and whose second member is <code>true</code> if identifier is represented in the reference database, and <code>false</code> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 5 seconds.</dd>
-<dd>
-The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
-<dd>
-This method need not be threadsafe. It may use more than one thread. </dd></dl>
-
-</div>
-</div>
-<a id="acfc53b9e073c6f409cd70acd4361346b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfc53b9e073c6f409cd70acd4361346b">&#9670;&nbsp;</a></span>insert()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a> ELFT::SearchInterface::insert </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::byte &gt; &amp;&#160;</td>
-          <td class="paramname"><em>referenceTemplate</em></td><td>)</td>
+          <td class="paramtype">const uint64_t&#160;</td>
+          <td class="paramname"><em>maxSize</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -269,63 +223,24 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Insert or update an identifier in a loaded reference database. </p>
-<p>This method should limit the amount of I/O and processing necessary, as indicated by the runtime limitation noted below.</p>
+<p>Load reference database into memory. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">referenceTemplate</td><td>A template returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">ExtractionInterface::createTemplate()</a> with a <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a>.</td></tr>
+    <tr><td class="paramname">maxSize</td><td>Suggested maximum number of bytes of memory to consume in support of searching the reference database faster.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If the identifier encoded within the template already exists in the enrollment database, this method should "merge" data that already exists in the database with <code>referenceTemplate</code> (perhaps with <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14" title="Merge multiple templates into a single template.">ExtractionInterface::mergeTemplates()</a>) before replacing the entry in the database.</dd>
+<dl class="section warning"><dt>Warning</dt><dd>This method will be called after construction and should <b>not</b> be called from an implementation's constructor. This allows calling <a class="el" href="class_e_l_f_t_1_1_search_interface.html#a1dcfa6e2f3c9a75d357b33f78a01d563" title="Obtain identification and version information for the search portion of this submission.">SearchInterface::getIdentification()</a> without wasting resources.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>maxSize</code> will not be the full amount of memory available on the system, but it is the maximum amount of memory the reference database <em>should</em> consume. The test application may <code>fork()</code> after calls to this method, during which, this implementation and the test application are free to perform dynamic memory allocations. While there is no penalty for exceeding this memory limit with the reference database, it is likely implementations will run out of memory if they do.</dd>
 <dd>
-This method must return in &lt;= 5 seconds.</dd>
+This method is guaranteed to be called at least once before calls to any <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a> method, except for calls to <a class="el" href="class_e_l_f_t_1_1_search_interface.html#a1dcfa6e2f3c9a75d357b33f78a01d563" title="Obtain identification and version information for the search portion of this submission.">SearchInterface::getIdentification()</a>.</dd>
 <dd>
-This change shall persist in the reference database on disk.</dd>
+If the reference database is already loaded when this method is called, this method shall return immediately.</dd>
 <dd>
-This method need not be threadsafe. It may use more than one thread. </dd></dl>
-
-</div>
-</div>
-<a id="abd66bc247d9c89553608b6fe3cfe3982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd66bc247d9c89553608b6fe3cfe3982">&#9670;&nbsp;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a> ELFT::SearchInterface::remove </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>identifier</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Remove an identifier from a loaded reference database. </p>
-<p>This method should limit the amount of I/O and processing necessary, as indicated by the runtime limitation noted below.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">identifier</td><td>Identifier to remove.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method must return in &lt;= 5 seconds.</dd>
+This method need not be threadsafe. It may use more than one thread.</dd>
 <dd>
-This change shall persist in the reference database on disk.</dd>
-<dd>
-This method need not be threadsafe. It may use more than one thread. </dd></dl>
+This method shall return in &lt;= 1 millisecond * the number of identifiers in the reference database. </dd></dl>
 
 </div>
 </div>
@@ -366,7 +281,7 @@ This method need not be threadsafe. It may use more than one thread. </dd></dl>
 <p>Search the reference database for the samples represented in <code>probeTemplate</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">probeTemplate</td><td>Object returned from createTemplate() or mergeTemplates() with <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a>. </td></tr>
+    <tr><td class="paramname">probeTemplate</td><td>Object returned from createTemplate() with <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a>. </td></tr>
     <tr><td class="paramname">maxCandidates</td><td>The maximum number of <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> to return.</td></tr>
   </table>
   </dd>
@@ -384,8 +299,8 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
 
 </div>
 </div>
-<a id="af1a58a446089dc78b0c4338d8b434a45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1a58a446089dc78b0c4338d8b434a45">&#9670;&nbsp;</a></span>extractCorrespondence()</h2>
+<a id="af537bc078cd8f058009dde458eefbdcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af537bc078cd8f058009dde458eefbdcb">&#9670;&nbsp;</a></span>extractCorrespondence()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,7 +309,7 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::optional&lt;std::tuple&lt;<a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, std::vector&lt;std::vector&lt;<a class="el" href="struct_e_l_f_t_1_1_correspondence.html">Correspondence</a>&gt; &gt; &gt; &gt; ELFT::SearchInterface::extractCorrespondence </td>
+          <td class="memname">virtual std::optional&lt;<a class="el" href="struct_e_l_f_t_1_1_correspondence_result.html">CorrespondenceResult</a>&gt; ELFT::SearchInterface::extractCorrespondence </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; std::byte &gt; &amp;&#160;</td>
           <td class="paramname"><em>probeTemplate</em>, </td>
@@ -418,7 +333,7 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
 </table>
 </div><div class="memdoc">
 
-<p>Extract pairs of corresponding minutiae between probe template and reference template. </p>
+<p>Extract pairs of corresponding <a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">Minutia</a> between <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da76d16796b5fada9968ee2530ea43ddc3" title="Template to be used as probe in a search.">TemplateType::Probe</a> and <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a> templates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">probeTemplate</td><td>Probe template sent to searchReferences(). </td></tr>
@@ -426,14 +341,14 @@ This method must return in &lt;= 10 * <code>number of database identifiers</code
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An optional with no value if not implement, or a <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Information about the result of calling an ELFT API function.">ReturnStatus</a> and a vector the length of <code>searchResult.candidateList.size()</code>, where each entry is the collection of corresponding minutiae points between <code>probeTemplate</code> and the reference template of the <a class="el" href="struct_e_l_f_t_1_1_candidate.html" title="Elements of a candidate list.">Candidate</a> at the same position as <code>searchResult</code>'s <a class="el" href="struct_e_l_f_t_1_1_search_result.html#ad34ab71e1a016e0ab921bd79c13bac2b" title="List of Candidate most similar to the probe.">SearchResult.candidateList</a> otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An optional with no value if not implemented, or a collection of information containing corresponding features otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd><a class="el" href="struct_e_l_f_t_1_1_minutia.html" title="Friction ridge feature details.">ELFT::Minutia</a> must align with minutiae returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData()</a> for the given identifier + position pair.</dd>
 <dd>
 You must implement this method to compile, but providing the requested information is optional. If provided, information may help in debugging, as well as informing future NIST analysis.</dd>
 <dd>
 <code>searchResult</code> is <b>not guaranteed</b> to be the identical object returned from <a class="el" href="class_e_l_f_t_1_1_search_interface.html#ae2078c4832d626e50b335e2c44b875a4" title="Search the reference database for the samples represented in probeTemplate.">search()</a>. Specifically, ordering of <code>searchResult.candidateList</code> may have changed (e.g., sorted by descending <code>similarity</code>) and the <a class="el" href="struct_e_l_f_t_1_1_return_status.html" title="Information about the result of calling an ELFT API function.">ReturnStatus</a> member is not guaranteed to populated with <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a38bbcf6d63cb19c01c784911581e7743" title="Information about the result.">ReturnStatus::message</a>.</dd>
 <dd>
-The reference database may be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
+The reference database will be stored on a read-only file system when this method is called. Do not attempt to modify the reference database here.</dd>
 <dd>
 This method shall return in &lt;= 5 seconds. </dd></dl>
 
@@ -477,14 +392,13 @@ This method shall return in &lt;= 5 seconds. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">configurationDirectory</td><td>Read-only directory populated with configuration files provided in validation. </td></tr>
-    <tr><td class="paramname">databaseDirectory</td><td>Directory populated with files written in <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a84dbd65556a20c8bb7d7bfbd0db7bf45" title="Create a reference database on the filesystem.">ExtractionInterface::createReferenceDatabase()</a>, which may have been subsequently modified by SearchImplementation::insert() and SearchImplementation::remove().</td></tr>
+    <tr><td class="paramname">databaseDirectory</td><td>Read-only directory populated with files written in <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a985bb618f84fd5722da5ffef34ed074f" title="Create a reference database on the filesystem.">ExtractionInterface::createReferenceDatabase()</a>.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Shared pointer to an instance of <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a> containing the participant's code to perform search operations.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The path pointed to by <code>databaseDirectory</code> will be stored on a writable file system during calls to SearchImplementation::insert() and SearchImplementation::remove(), but on a read-only filesystem during all other SearchImplementation methods. This means you should not attempt to modify the reference database unless explicitly asked to.</dd>
-<dd>
-A possible implementation might be: <code>return (std::make_shared&lt;SearchImplementation&gt;( configurationDirectory, databaseDirectory));</code></dd>
+<dl class="section warning"><dt>Warning</dt><dd>Do <b>not</b> load your reference database into memory on construction. Instead, wait for a call to SearchImplementation::load().</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A possible implementation might be: <code>return (std::make_shared&lt;SearchImplementation&gt;( configurationDirectory, databaseDirectory));</code></dd>
 <dd>
 This method shall return in &lt;= 5 seconds. </dd></dl>
 

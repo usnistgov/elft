@@ -5,5 +5,6 @@ var searchData=
   ['api_5fmajor_5fversion_2',['API_MAJOR_VERSION',['../namespace_e_l_f_t.html#aa7c1ccb3bf948c345a500777db762520',1,'ELFT']]],
   ['api_5fminor_5fversion_3',['API_MINOR_VERSION',['../namespace_e_l_f_t.html#a90bf4db1e35234fc4c080ee94650175c',1,'ELFT']]],
   ['api_5fpatch_5fversion_4',['API_PATCH_VERSION',['../namespace_e_l_f_t.html#a7ed13cfc28b09f075e9b8f1e179dc014',1,'ELFT']]],
-  ['arch_5',['Arch',['../namespace_e_l_f_t.html#aaeaafba2ddd23db5cbfc5f7dfd316ecfaefd717440ab790091beef4a125935a73',1,'ELFT']]]
+  ['arch_5',['Arch',['../namespace_e_l_f_t.html#aaeaafba2ddd23db5cbfc5f7dfd316ecfaefd717440ab790091beef4a125935a73',1,'ELFT']]],
+  ['archive_6',['archive',['../struct_e_l_f_t_1_1_template_archive.html#a2400b6e3052c099ede1bd29112579399',1,'ELFT::TemplateArchive']]]
 ];

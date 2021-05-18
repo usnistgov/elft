@@ -105,12 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a196623d6241d8d770a173bee73a04e09"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; std::tuple&lt; <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>, std::vector&lt; <a class="el" href="struct_e_l_f_t_1_1_template_data.html">TemplateData</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09">extractTemplateData</a> (const <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99d">TemplateType</a> templateType, const <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html">CreateTemplateResult</a> &amp;templateResult) const =0</td></tr>
 <tr class="memdesc:a196623d6241d8d770a173bee73a04e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract information contained within a template.  <a href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09">More...</a><br /></td></tr>
 <tr class="separator:a196623d6241d8d770a173bee73a04e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26b95ce5c5fc4162afc7b6e415b55f14"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html">CreateTemplateResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14">mergeTemplates</a> (const std::vector&lt; std::vector&lt; std::byte &gt;&gt; &amp;templates) const =0</td></tr>
-<tr class="memdesc:a26b95ce5c5fc4162afc7b6e415b55f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge multiple templates into a single template.  <a href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14">More...</a><br /></td></tr>
-<tr class="separator:a26b95ce5c5fc4162afc7b6e415b55f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84dbd65556a20c8bb7d7bfbd0db7bf45"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a84dbd65556a20c8bb7d7bfbd0db7bf45">createReferenceDatabase</a> (const std::vector&lt; std::vector&lt; std::byte &gt;&gt; &amp;referenceTemplates, const std::filesystem::path &amp;databaseDirectory, const uint64_t maxSize) const =0</td></tr>
-<tr class="memdesc:a84dbd65556a20c8bb7d7bfbd0db7bf45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a reference database on the filesystem.  <a href="class_e_l_f_t_1_1_extraction_interface.html#a84dbd65556a20c8bb7d7bfbd0db7bf45">More...</a><br /></td></tr>
-<tr class="separator:a84dbd65556a20c8bb7d7bfbd0db7bf45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a985bb618f84fd5722da5ffef34ed074f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a985bb618f84fd5722da5ffef34ed074f">createReferenceDatabase</a> (const <a class="el" href="struct_e_l_f_t_1_1_template_archive.html">TemplateArchive</a> &amp;referenceTemplates, const std::filesystem::path &amp;databaseDirectory, const uint64_t maxSize) const =0</td></tr>
+<tr class="memdesc:a985bb618f84fd5722da5ffef34ed074f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a reference database on the filesystem.  <a href="class_e_l_f_t_1_1_extraction_interface.html#a985bb618f84fd5722da5ffef34ed074f">More...</a><br /></td></tr>
+<tr class="separator:a985bb618f84fd5722da5ffef34ed074f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46412b977709d82af4713260bd254762"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a46412b977709d82af4713260bd254762">ExtractionInterface</a> ()</td></tr>
 <tr class="separator:a46412b977709d82af4713260bd254762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d8bb21f9e8e1a94882ca4a99d1c7f4e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a6d8bb21f9e8e1a94882ca4a99d1c7f4e">~ExtractionInterface</a> ()</td></tr>
@@ -125,7 +122,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for feature extraction implemented by participant. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00792">792</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00989">989</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a46412b977709d82af4713260bd254762"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46412b977709d82af4713260bd254762">&#9670;&nbsp;</a></span>ExtractionInterface()</h2>
@@ -277,7 +274,7 @@ Static Public Member Functions</h2></td></tr>
 <dd>
 If <code>samples</code> contained <code>RightThumb</code>, <code>LeftFour</code>, and <code>EJIOrTip</code>, the time requirement would be &lt;= ((5 * 1) + (5 * 4) + (5 * 8)) seconds.</dd>
 <dd>
-The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">CreateTemplateResult::data</a> will only be recorded if <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>'s <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6" title="The result of the operation.">ReturnStatus::result</a> is <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeba505a83f220c02df2f85c3810cd9ceb38" title="Successfully performed operation.">ReturnStatus::Result::Success</a>. On <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eebae139a585510a502bbf1841cf589f5086" title="Failed to perform operation.">ReturnStatus::Result::Failure</a>, subsequent searches will automatically increase false negative identification rate. </dd></dl>
+The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">CreateTemplateResult::data</a> will only be recorded if <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>'s <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6" title="The result of the operation.">ReturnStatus::result</a> is <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeba505a83f220c02df2f85c3810cd9ceb38" title="Successfully performed operation.">ReturnStatus::Result::Success</a>. On <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eebae139a585510a502bbf1841cf589f5086" title="Failed to perform operation.">ReturnStatus::Result::Failure</a>, subsequent searches will automatically increase false negative identification rate and a zero-byte template will be provided to <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a985bb618f84fd5722da5ffef34ed074f" title="Create a reference database on the filesystem.">ExtractionInterface::createReferenceDatabase</a>. </dd></dl>
 
 </div>
 </div>
@@ -319,7 +316,7 @@ The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">templateType</td><td>templateType passed to <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a>. </td></tr>
-    <tr><td class="paramname">templateResult</td><td>Object returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a> or <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14" title="Merge multiple templates into a single template.">mergeTemplates()</a>.</td></tr>
+    <tr><td class="paramname">templateResult</td><td>Object returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -334,54 +331,8 @@ This method shall return in &lt;= 500 milliseconds. </dd></dl>
 
 </div>
 </div>
-<a id="a26b95ce5c5fc4162afc7b6e415b55f14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26b95ce5c5fc4162afc7b6e415b55f14">&#9670;&nbsp;</a></span>mergeTemplates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html">CreateTemplateResult</a> ELFT::ExtractionInterface::mergeTemplates </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::vector&lt; std::byte &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>templates</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Merge multiple templates into a single template. </p>
-<p>This method is necessary because more than one set of samples for a given identifier may have been provided to <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">templates</td><td>One or more template returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a> that should be merged into a single template.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A single <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a> that can accurately represent <code>identifier</code> in future operations.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The merged template does not need to include all information. For instance, if two reference templates are provided, each derived from an identification flat capture, and an internal heuristic deems one set of samples to be of significanly lower quality, a reasonable result would be for this method to return the template from the higher quality set of samples without modification.</dd>
-<dd>
-The contents of <code>templates</code> may be the result of previous calls to <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14" title="Merge multiple templates into a single template.">mergeTemplates()</a>.</dd>
-<dd>
-Identifiers and template types should be stored within the template data itself and so are not provided as input.</dd>
-<dd>
-This method shall return in &lt;= 10 * <code>templates.size()</code> milliseconds.</dd>
-<dd>
-The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">CreateTemplateResult::data</a> will only be recorded if <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html" title="Output from extracting features into a template .">CreateTemplateResult</a>'s <a class="el" href="struct_e_l_f_t_1_1_return_status.html#a58252641c208b564a594192dbd8a55b6" title="The result of the operation.">ReturnStatus::result</a> is <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eeba505a83f220c02df2f85c3810cd9ceb38" title="Successfully performed operation.">ReturnStatus::Result::Success</a>. On <a class="el" href="struct_e_l_f_t_1_1_return_status.html#ad94c875bde88bc582e3ee38699ea5eebae139a585510a502bbf1841cf589f5086" title="Failed to perform operation.">ReturnStatus::Result::Failure</a>, subsequent searches will automatically increase false negative identification rate.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_l_f_t_1_1_search_interface.html#acfc53b9e073c6f409cd70acd4361346b" title="Insert or update an identifier in a loaded reference database.">SearchInterface::insert</a>. </dd></dl>
-
-</div>
-</div>
-<a id="a84dbd65556a20c8bb7d7bfbd0db7bf45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84dbd65556a20c8bb7d7bfbd0db7bf45">&#9670;&nbsp;</a></span>createReferenceDatabase()</h2>
+<a id="a985bb618f84fd5722da5ffef34ed074f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a985bb618f84fd5722da5ffef34ed074f">&#9670;&nbsp;</a></span>createReferenceDatabase()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,7 +343,7 @@ The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template
         <tr>
           <td class="memname">virtual <a class="el" href="struct_e_l_f_t_1_1_return_status.html">ReturnStatus</a> ELFT::ExtractionInterface::createReferenceDatabase </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::vector&lt; std::byte &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_e_l_f_t_1_1_template_archive.html">TemplateArchive</a> &amp;&#160;</td>
           <td class="paramname"><em>referenceTemplates</em>, </td>
         </tr>
         <tr>
@@ -423,16 +374,19 @@ The value of the returned <a class="el" href="struct_e_l_f_t_1_1_create_template
 <p>Create a reference database on the filesystem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">referenceTemplates</td><td>One or more templates returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a> or <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a26b95ce5c5fc4162afc7b6e415b55f14" title="Merge multiple templates into a single template.">mergeTemplates()</a> with a <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a>. </td></tr>
+    <tr><td class="paramname">referenceTemplates</td><td>One or more templates returned from <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a76458d9f48c440d5aa3d095b583b4cf2" title="Extract features from one or more images and encode them into a template.">createTemplate()</a> with a <code>templateType</code> of <a class="el" href="namespace_e_l_f_t.html#aa83ab86791fa0b1f5c682039664ff99da63d5049791d9d79d86e9a108b0a999ca" title="Template to be added to a reference database.">TemplateType::Reference</a>. </td></tr>
     <tr><td class="paramname">databaseDirectory</td><td>Entry to a read/write directory where the reference database shall be written. </td></tr>
     <tr><td class="paramname">maxSize</td><td>The maximum number of bytes of storage available to write.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Information about the result of executing the method.</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Implementations must, <b>at a minimum</b>, <em>copy</em> the files pointed to by <code>referenceTemplates</code> to use <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a>. The files pointed to by <code>referenceTemplates</code> <b>will not exist</b> when <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a> is instantiated.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method may use more than one thread.</dd>
 <dd>
-This method must return in &lt;= 10 * <code>referenceTemplates.size()</code> milliseconds. </dd></dl>
+<code>maxSize</code> is not necessarily the amount of RAM that will be available to <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a>.</dd>
+<dd>
+This method must return in &lt;= 10 milliseconds * the number of lines in <a class="el" href="struct_e_l_f_t_1_1_template_archive.html#a6b200f5f9d87fb96996ff95851b39911" title="Manifest for parsing archive.">TemplateArchive::manifest</a>. </dd></dl>
 
 </div>
 </div>

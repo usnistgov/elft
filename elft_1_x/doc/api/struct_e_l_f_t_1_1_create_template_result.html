@@ -94,11 +94,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af02f0902c5f6973ca45dc6be56cef630"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630">data</a> {}</td></tr>
 <tr class="memdesc:af02f0902c5f6973ca45dc6be56cef630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contents of the template.  <a href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630">More...</a><br /></td></tr>
 <tr class="separator:af02f0902c5f6973ca45dc6be56cef630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a252dc654f8bdbb2f50ef60364c93ab58"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::vector&lt; <a class="el" href="struct_e_l_f_t_1_1_template_data.html">TemplateData</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#a252dc654f8bdbb2f50ef60364c93ab58">extractedData</a> {}</td></tr>
+<tr class="memdesc:a252dc654f8bdbb2f50ef60364c93ab58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information contained within <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">data</a>.  <a href="struct_e_l_f_t_1_1_create_template_result.html#a252dc654f8bdbb2f50ef60364c93ab58">More...</a><br /></td></tr>
+<tr class="separator:a252dc654f8bdbb2f50ef60364c93ab58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Output from extracting features into a template . </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00299">299</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00793">793</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a4804b850e681ff277894ade38fe11af3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4804b850e681ff277894ade38fe11af3">&#9670;&nbsp;</a></span>status</h2>
@@ -114,7 +117,7 @@ Public Attributes</h2></td></tr>
 
 <p>Result of extracting features and creating a template. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00302">302</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00796">796</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
@@ -132,7 +135,29 @@ Public Attributes</h2></td></tr>
 
 <p>Contents of the template. </p>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00304">304</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00798">798</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+
+</div>
+</div>
+<a id="a252dc654f8bdbb2f50ef60364c93ab58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a252dc654f8bdbb2f50ef60364c93ab58">&#9670;&nbsp;</a></span>extractedData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::vector&lt;<a class="el" href="struct_e_l_f_t_1_1_template_data.html">TemplateData</a>&gt; &gt; ELFT::CreateTemplateResult::extractedData {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Information contained within <a class="el" href="struct_e_l_f_t_1_1_create_template_result.html#af02f0902c5f6973ca45dc6be56cef630" title="Contents of the template.">data</a>. </p>
+<p>Some participants may find they have already performed the calculations needed for <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData</a> within ExtractionInterface::createTemplateData. If that is the case, <a class="el" href="struct_e_l_f_t_1_1_template_data.html" title="Information possibly stored in a template.">TemplateData</a> may be returned here instead.</p>
+<dl class="section attention"><dt>Attention</dt><dd>If this value is populated, <a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData</a> will not be called, as the information returned is expected to be redundant.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Reported and enforced template creation times will include the time it takes to populate this variable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_e_l_f_t_1_1_extraction_interface.html#a196623d6241d8d770a173bee73a04e09" title="Extract information contained within a template.">ExtractionInterface::extractTemplateData</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00823">823</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>

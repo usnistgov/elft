@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['impression_319',['Impression',['../namespace_e_l_f_t.html#a586cfa4e8dfaea89699e57eec474a6ba',1,'ELFT']]]
+  ['frictionridgecapturetechnology_338',['FrictionRidgeCaptureTechnology',['../namespace_e_l_f_t.html#a585bee59c2eaa47e6cf74e4cc65c6cbe',1,'ELFT']]],
+  ['frictionridgegeneralizedposition_339',['FrictionRidgeGeneralizedPosition',['../namespace_e_l_f_t.html#a64c3606a139b43ade4d715991c52707f',1,'ELFT']]]
 ];
