@@ -695,6 +695,7 @@ namespace ELFT
 		ReturnStatus status{};
 		/** Contents of the template. */
 		std::vector<std::byte> data{};
+
 		/**
 		 * @brief
 		 * Information contained within #data.
@@ -718,7 +719,7 @@ namespace ELFT
 		 * @see
 		 * ExtractionInterface::extractTemplateData.
 		 */
-		std::vector<TemplateData> extractedData{};
+		std::optional<std::vector<TemplateData>> extractedData{};
 	};
 
 	/** Elements of a candidate list. */
