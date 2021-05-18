@@ -628,7 +628,7 @@ ELFT::Validation::runExtractionCreate(
 		    "file");
 
 	static const std::string header{"\"identifier\",elapsed,result,"
-	    "\"message\",complex,type,num_images,size"};
+	    "\"message\",type,num_images,size"};
 	file << header << '\n';
 	if (!file)
 		throw std::runtime_error(ts(getpid()) + ": Error writing to "
@@ -767,7 +767,7 @@ ELFT::Validation::performSingleExtractData(
 	    duration(start, stop) + ',' + e2i2s(templateType) + ','};
 
 	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
-		static const uint8_t numElements{19};
+		static const uint8_t numElements{20};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
@@ -809,8 +809,8 @@ ELFT::Validation::performSingleExtractData(
 		    ',';
 		logLine += (efs.minutiae ?
 		    '"' + splice(*efs.minutiae) + '"' : NA) + ',';
-		logLine += (efs.roi ? '"' + splice(*efs.roi)  + '"': NA);
-		logLine += (efs.rqm ? '"' + splice(*efs.rqm)  + '"': NA);
+		logLine += (efs.roi ? '"' + splice(*efs.roi)  + '"': NA) + ',';
+		logLine += (efs.rqm ? '"' + splice(*efs.rqm)  + '"': NA) + ',';
 		logLine += (efs.complex ? ts(*efs.complex) : NA);
 
 		logLine += '\n';
