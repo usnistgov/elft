@@ -652,7 +652,7 @@ ELFT::Validation::runExtractionExtractData(
 	static const std::string header{"\"template_filename\",elapsed,"
 	    "type,index,num_templates_in_buffer,image_identifier,quality,"
 	    "imp,frct,frgp,orientation,lpm,value_assessment,lsb,pat,plr,trv,"
-	    "\"cores\",\"deltas\",\"minutia\",\"roi\",complex"};
+	    "\"cores\",\"deltas\",\"minutia\",\"roi\",\"rqm\",complex"};
 
 	const std::string logName{"extractionData-" +
 	    e2i2s(*args.templateType) + '-' + ts(getpid()) + ".log"};
@@ -766,7 +766,7 @@ ELFT::Validation::performSingleExtractData(
 	    duration(start, stop) + ',' + e2i2s(templateType) + ','};
 
 	if (!ret.has_value() || !std::get<ReturnStatus>(*ret)) {
-		static const uint8_t numElements{18};
+		static const uint8_t numElements{19};
 		static const std::string NAFull = splice(
 		    std::vector<std::string>(numElements, NA), ",");
 		return (logLinePrefix + NAFull);
@@ -782,7 +782,7 @@ ELFT::Validation::performSingleExtractData(
 		    ',' + ts(td.inputIdentifier) + ',';
 		logLine += (td.imageQuality ? ts(*td.imageQuality) : NA) + ',';
 
-		static const uint8_t efsElements{15};
+		static const uint8_t efsElements{16};
 		static const std::string NAEFS = splice(
 		    std::vector<std::string>(efsElements, NA), ",");
 		if (!td.efs) {
@@ -809,6 +809,7 @@ ELFT::Validation::performSingleExtractData(
 		logLine += (efs.minutiae ?
 		    '"' + splice(*efs.minutiae) + '"' : NA) + ',';
 		logLine += (efs.roi ? '"' + splice(*efs.roi)  + '"': NA);
+		logLine += (efs.rqm ? '"' + splice(*efs.rqm)  + '"': NA);
 		logLine += (efs.complex ? ts(*efs.complex) : NA);
 
 		logLine += '\n';

@@ -218,6 +218,31 @@ namespace ELFT
 
 		/**
 		 * @brief
+		 * Make a log-able string out of a vector of RidgeQualityRegion.
+		 *
+		 * @param v
+		 * Vector of RidgeQualityRegion to output.
+		 * @param sep
+		 * Token to separate multiple RidgeQualityRegion.
+		 *
+		 * @return
+		 * Log-able string version of `v`.
+		 */
+		std::string
+		splice(
+		    const std::vector<RidgeQualityRegion> &v,
+		    const std::string &sep = "|")
+		{
+			std::string ret{};
+			for (const auto &r : v)
+				ret += e2i2s(r.quality) + ':' +
+				    splice(r.region) + sep;
+			ret.erase(ret.find_last_of(sep), sep.length());
+			return (ret);
+		}
+
+		/**
+		 * @brief
 		 * Make a log-able string out of a vector of string.
 		 *
 		 * @param v
