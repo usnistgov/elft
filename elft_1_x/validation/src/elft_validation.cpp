@@ -1163,9 +1163,21 @@ ELFT::Validation::testOperation(
 		    args.configDir);
 		break;
 	case Operation::Search:
+	{
 		impl = ELFT::SearchInterface::getImplementation(
 		    args.configDir, args.dbDir);
+
+		/* 10 MB: don't load the entire database to RAM. */
+		const auto status = std::get<std::shared_ptr<
+		    ELFT::SearchInterface>>(impl)->load(10000000);
+		if (!status) {
+			std::string err{"Error on SearchInterface::load()"};
+			if (status.message)
+				err += ": " + *status.message;
+			throw std::runtime_error(err);
+		}
 		break;
+	}
 	default:
 		throw std::runtime_error("Unsupported operation was sent to "
 		    "testOperation()");
