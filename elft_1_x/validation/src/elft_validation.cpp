@@ -366,8 +366,9 @@ ELFT::Validation::makeReferenceTemplateArchive(
 			throw std::runtime_error{"Could not write " +
 			    (dir / Data::TemplateArchiveArchiveName).string()};
 
-		manifest << entry.path().filename().string() << ' ' <<
-		    tmplDataSize << ' ' << currentOffset << '\n';
+		manifest << entry.path().filename().replace_extension().
+		    string() << ' ' << tmplDataSize << ' ' << currentOffset <<
+		    '\n';
 		if (!manifest)
 			throw std::runtime_error{"Could not write " +
 			    (dir / Data::TemplateArchiveManifestName).string()};
