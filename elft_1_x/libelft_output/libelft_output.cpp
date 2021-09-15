@@ -620,6 +620,7 @@ ELFT::to_string(
 	} else {
 		s += to_string(std::optional<Coordinate>{});
 	}
+	s += '\n';
 
 	s += " * Ridge Quality Map: ";
 	if (efs.rqm) {
