@@ -58,6 +58,11 @@ machines, in order to avoid validation delays. Timing statistics are reported
 when run on a **Intel Xeon Gold 6140** CPU, but all Intel CPU types shall be
 supported. Use of unavailable intrinsics shall degrade gracefully.
 
+Be prepared to explain differences in templates and similarity scores. If at all
+possible, please prevent differences due to hardware, lossy math and other
+optimizations, and the like. Understand that NIST has a _right to reject_
+submissions that cannot explain or correct differences.
+
 How to Run
 ----------
  1. Put your compiled core library and any other required libraries in [lib64/].
