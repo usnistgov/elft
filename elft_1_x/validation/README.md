@@ -185,8 +185,6 @@ Submission Contents
    * **extractionCreate-1.log:** Output from generating reference templates.
    * **extractionData-0.log:** Features extracted from probe templates.
    * **extractionData-1.log:** Features extracted from reference templates.
-   * **modifyReferenceDatabase.log:** Output from modifying the reference
-     database.
    * **reference_database/:** Reference database created, as logged in
     `driver/createReferenceDatabase`.
    * **searchCandidates.log:**
@@ -205,8 +203,6 @@ Submission Contents
    executable when generating `driver/extraction{Create,Data}-0.log`.
  * **run-extract-reference.log:** The command used to launch the validation
    executable when generating `driver/extraction{Create,Data}-1.log`.
- * **run-modifyReferenceDatabase.log:** The command used to launch the
-   validation executable when generating `driver/modifyReferenceDatabase.log`.
  * **run-search.log:** The command used to launch the
    validation executable when generating `driver/searchCandidates.log` and
    `driver/correspondence.log`.
@@ -221,7 +217,6 @@ of the file content the same.
  * run-createReferenceDatabase.log
  * run-extract-probe.log
  * run-extract-reference.log
- * run-modifyReferenceDatabase.log
  * run-search.log
 
 Checks Performed
