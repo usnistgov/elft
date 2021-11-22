@@ -5,7 +5,7 @@
 # Instructions                                                                 #
 # ------------                                                                 #
 #  1. Copy required files:                                                     #
-#     a. Place all needed libraries in 'lib64/', including your properly named #
+#     a. Place all needed libraries in 'lib/', including your properly named   #
 #        ELFT core library.                                                    #
 #     b. Place any needed runtime configuration files in 'config/'.            #
 #  2. Run './validate'.                                                        #
@@ -50,7 +50,7 @@ wd="$(cd "$(dirname "${0}")" && pwd)"
 # Directory containing validation images
 validation_image_dir="images"
 # Directory where libraries go
-lib_dir="${wd}/lib64"
+lib_dir="${wd}/lib"
 local_lib_dir="${lib_dir}"
 # Directory where validation driver sourcecode lives
 src_dir="${wd}/src"
@@ -399,7 +399,7 @@ print_final_success()
 	file_size="$(du -m "${tar_file}" | cut -f 1)"
 	# Likely will be too big for email
 	if [ "${file_size}" -ge 20 ]; then
-		msg="${tar_file}.asc will likely too big for NIST's email "
+		msg="${tar_file}.asc may be too big for NIST's email "
 		msg+="server, so please contact elft@nist.gov for an upload "
 		msg+="link for both ${tar_file}.asc and your public key."
 	else
@@ -457,7 +457,7 @@ print_instructions()
 	echo "Instructions"
 	echo "============"
 	echo " 1. Copy required files:"
-	echo -n "    a. Place all needed libraries in 'lib64/', including your "
+	echo -n "    a. Place all needed libraries in 'lib/', including your "
 	echo "properly named "
 	echo "          ELFT core library."
 	echo "    b. Place any needed runtime configuration files in 'config/'."
@@ -502,9 +502,9 @@ check_wd()
 {
 	if [ "${wd}" == "" ]; then
 		local msg="The directory containing \"validate\" could not be "
-		msg+="found, possibly because you are not using GNU realpath "
-		msg+="under CentOS. If you are, please report an issue on the "
-		msg+="ELFT GitHub repository."
+		msg+="found, possibly because you are not using GNU realpath. "
+		msg+="If you are, please report an issue on the ELFT GitHub "
+		msg+="repository."
 		fail "${msg}"
 	fi
 }
@@ -516,23 +516,25 @@ check_environment()
 	okay
 }
 
-# Check that CentOS packages used in this file have been installed.
+# Check that Ubuntu packages used in this file have been installed.
 check_required_packages()
 {
 	echo -n "Checking for required packages... "
 
 	# Packages required to run this script
-	local pkgs="binutils centos-release coreutils dnf file gawk gcc-c++ "
-	local pkgs+="grep cmake make tar sed xz curl"
+	local pkgs="base-files binutils cmake coreutils curl file findutils "
+	pkgs+="g++ gawk grep libc-bin make sed tar xz-utils"
 
-	if ! command -v dnf > /dev/null; then
-		fail "\`dnf' is required to be installed for validation."
+	if ! command -v dpkg-query > /dev/null; then
+		local msg="\`dpkg-query' is required to be installed for "
+		msg+="validation. Try \`apt install dpkg' to install."
+		fail "${msg}"
 	fi
 
 	for pkg in ${pkgs}; do
-		if ! dnf -q list installed "${pkg}" > /dev/null 2>&1; then
+		if ! dpkg-query -l "${pkg}" > /dev/null 2>&1; then
 			msg="The required package \"${pkg}\" was not "
-			msg+="installed. Try \`dnf install ${pkg}' to install "
+			msg+="installed. Try \`apt install ${pkg}' to install "
 			msg+="\"${pkg}.\""
 			fail "${msg}"
 		fi
@@ -655,23 +657,23 @@ check_for_previous_attempts()
 	okay
 }
 
-# Check that the version of CentOS is the correct version.
+# Check that the version of Ubuntu is the correct version.
 check_os()
 {
-	local expected="8.2.2004"
+	local expected="20.04.3 LTS (Focal Fossa)"
 	echo -n "Checking OS and version... "
-	if [ ! -e /etc/redhat-release ]; then
+	if [ ! -e /etc/os-release ]; then
 		local msg="You do not appear to be using the appropriate "
-		msg+="operating system. Please use CentOS ${expected}."
+		msg+="operating system. Please use Ubuntu Server ${expected}."
 		fail "${msg}"
 	fi
-	if [ "$(tr -C -d '[:digit:].' < /etc/redhat-release)" != \
-	    "${expected}" ]; then
+	if [ "$(grep "VERSION=" /etc/os-release | cut -f 2 -d '=' | \
+	    tr -d '"')" != "${expected}" ]; then
 		local msg="You do not appear to be using the appropriate "
-		msg+="version of CentOS. Please use ${expected}."
+		msg+="version of Ubuntu Server. Please use ${expected}."
 		fail "${msg}"
 	fi
-	okay "CentOS ${expected}"
+	okay "Ubuntu Server ${expected}"
 }
 
 # Check that images have been downloaded, placed in the correct spot, etc.
@@ -1041,13 +1043,13 @@ compile()
 		fail "${msg}"
 	fi
 
-	# Catch the case of hardcoding "../lib64", etc. into library by always
+	# Catch the case of hardcoding "../lib", etc. into library by always
 	# linking against libs in a different directory
 	local tmp_dir
 	tmp_dir="$(mktemp -u -t elft_libs.XXXXXXXXXX)"
 	mkdir -p "${tmp_dir}"
-	cp -r "${lib_dir}" "${tmp_dir}/lib64"
-	lib_dir="${tmp_dir}/lib64"
+	cp -r "${lib_dir}" "${tmp_dir}/lib"
+	lib_dir="${tmp_dir}/lib"
 	if [ -d "${local_lib_dir}${move_suffix}" ]; then
 		local msg="You have a directory named ${local_lib_dir}"
 		msg+="${move_suffix}. Please remove or rename it."
@@ -1081,10 +1083,14 @@ compile()
 
 	# Compile
 	echo "Compilation:" >> "${log}"
-	build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
+	local build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
+	if [ "${build_dir}" == "" ]; then
+		fail "Could not create build directory."
+	fi
 	cd "${build_dir}" || fail "Could not change to build directory"
-	if ! cmake "${src_dir}" \
-	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" >> "${log}" 2>&1
+	if ! cmake \
+	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" \
+	    -S "${src_dir}" -B "${build_dir}" >> "${log}" 2>&1
 	then
 		local msg="Could not change back to previous directory"
 		cd "${wd}" > /dev/null || fail "${msg}"
@@ -1172,8 +1178,8 @@ compile()
 		find "${config_dir}" -type f \! -name README -exec md5sum {} \;
 		echo
 
-		echo "CentOS Version:"
-		cat /etc/redhat-release
+		echo "Ubuntu Version:"
+		grep "VERSION=" /etc/os-release | cut -f 2 -d '=' | tr -d '"'
 		echo
 
 		echo "ldd output of binary:"
@@ -1797,3 +1803,4 @@ if [ "${validation_version_checked}" -ne 1 ]; then
 fi
 print_final_success
 print_footer "${start_sec}"
+
