@@ -69,6 +69,8 @@ db_dir="${driver_output_dir}/reference_database"
 binary="${bin_dir}/elft_validation"
 # Suffix given to files set aside by this script
 move_suffix=".moved"
+# Name of log that stores compilation information
+compile_log="compile.log"
 
 # Prefix for downloaded validation imagery tarballs
 validation_image_download_prefix=elft_validation_images
@@ -984,7 +986,7 @@ compile()
 		fail "Usage: ${FUNCNAME[0]} <random_seed>"
 	fi
 
-	local log="${output_dir}/compile.log"
+	local log="${output_dir}/${compile_log}"
 
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
@@ -1475,6 +1477,10 @@ make_tarball()
 		fail "There was an issue creating the validation tar file."
 	fi
 
+	# Update globals
+	output_dir="$(dirname "${output_dir}")/$(get_final_output_name)"
+	driver_output_dir="${output_dir}/driver"
+
 	okay "${tar_file}"
 }
 
@@ -1728,6 +1734,89 @@ check_counts()
 	fi
 }
 
+# Detect if extractTemplateData ever returned data for probes
+supports_open_template_data_probes()
+{
+	local no_info=",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/extractionData-0.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+# Detect if extractTemplateData ever returned data for exemplars
+supports_open_template_data_references()
+{
+	local no_info=",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/extractionData-1.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+# Detect if extractCorrespondence ever returned data
+supports_correspondence()
+{
+	local no_info="NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/correspondence.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+record_optional_support()
+{
+	local log="${output_dir}/${compile_log}"
+	local value
+
+	value="FALSE"
+	if supports_open_template_data_probes; then value="TRUE"; fi
+	echo "Supports extractTemplateData Probes = ${value}" >> "${log}"
+
+	value="FALSE"
+	if supports_open_template_data_references; then value="TRUE"; fi
+	echo "Supports extractTemplateData References = ${value}" >> "${log}"
+
+	value="FALSE"
+	if supports_correspondence; then value="TRUE"; fi
+	echo "Supports extractCorrespondence = ${value}" >> "${log}"
+}
+
+print_optional_support()
+{
+	local not_implemented="NOT implemented"
+
+	local probes="${not_implemented}"
+	if supports_open_template_data_probes; then probes="Implemented"; fi
+
+	local refs="${not_implemented}"
+	if supports_open_template_data_references; then refs="Implemented"; fi
+
+	local corr="${not_implemented}"
+	if supports_correspondence; then corr="Implemented"; fi
+
+	if [ "${probes}" == "${not_implemented}" ] || \
+	    [ "${refs}" == "${not_implemented}" ]  || \
+	    [ "${corr}" == "${not_implemented}" ]; then
+		local msg="It appears you did not implement one or more of the "
+		msg+="methods that provides insight into your algorithm's "
+		msg+="decision making. While these methods are optional, they "
+		msg+="will greatly assist in forensic research activies at "
+		msg+="NIST. If this is unexpected, please review the log "
+		msg+="output."
+
+		font_lightred
+		echo
+		box "${msg}" 80 '=' '|' 'l' 1 0
+		boxline
+		boxline " * extractTemplateData (probes): ${probes}"
+		boxline " * extractTemplateData (references): ${refs}"
+		boxline " * extractCorrespondence: ${corr}"
+		printline '=' 80 && echo
+		font_reset
+	fi
+}
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -1787,12 +1876,14 @@ run_create_database
 log_search_identification_information
 run_search "${seed}"
 check_search
+record_optional_support
 
 # Cleanup
 move_back_dirs
 make_tarball
 
 # Notifications
+print_optional_support
 print_cbeff
 if [ "${validation_version_checked}" -ne 1 ]; then
 	echo
