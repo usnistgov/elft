@@ -1265,10 +1265,6 @@ clean_previous_attempts()
 	    -exec rm -rf {} \;
 
 	okay
-
-	if ! core_library_present; then
-		return 0
-	fi
 }
 
 ################################################################################
