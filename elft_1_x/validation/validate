@@ -1083,7 +1083,8 @@ compile()
 
 	# Compile
 	echo "Compilation:" >> "${log}"
-	local build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
+	local build_dir
+	build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
 	if [ "${build_dir}" == "" ]; then
 		fail "Could not create build directory."
 	fi
