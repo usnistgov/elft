@@ -1114,7 +1114,7 @@ compile()
 	if ! core_lib="$(get_core_library_name)"; then
 		fail "Could not get core library name"
 	fi
-	if ! ldd "${binary}" | grep -q "${lib_dir}/${core_lib}"; then
+	if ! grep -q "${lib_dir}/${core_lib}" < <(ldd "${binary}"); then
 		local msg="${core_lib} is not a dependency of the compiled "
 		msg+="binary. The library was either renamed after being "
 		msg+="built, or the binary is linking against a version of "
@@ -1128,7 +1128,7 @@ compile()
 	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
 	if [ "${num_libs}" -gt 2 ]; then
 		if ! readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep -q "\$ORIGIN"
+		    grep RUNPATH | grep "\$ORIGIN" > /dev/null
 		then
 			local msg="You have supplied multiple libraries, but "
 			msg+="${core_lib} does not have an RUNPATH of \$ORIGIN."
@@ -1145,7 +1145,7 @@ compile()
 
 	# Don't rely on libelft_output
 	while read -r i; do
-		if readelf -d "${i}" 2>&1 | grep -q "libelft_output"; then
+		if grep -q "libelft_output" < <(readelf -d "${i}" 2>&1); then
 			local msg="The library 'libelft_output.so' is required "
 			msg+="by $(basename "${i}"). You may not link to "
 			msg+="'libelft_output.so' in your ELFT submission. It "
