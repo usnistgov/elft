@@ -78,9 +78,6 @@ validation_image_download_prefix=elft_validation_images
 # Regular expression that must match core library name
 lib_regex="libelft_[A-Za-z0-9]+_[0-9A-F]{4}.so"
 
-# Make failing return codes persist across pipes
-set -o pipefail
-
 ################################################################################
 # Output                                                                       #
 ################################################################################
