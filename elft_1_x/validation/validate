@@ -1243,6 +1243,13 @@ clean_previous_attempts()
 
 	rm -rf "${lib_dir}/libelft.so"
 
+	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
+	    -exec chmod +w {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
+	    -exec rm -rf {} \;
+
 	local org_name
 	if ! org_name="$(get_organization_name)"; then
 		fail "Could not get organization name."
@@ -1255,13 +1262,6 @@ clean_previous_attempts()
 		fail "Failed to remove some output. Please delete it manually."
 		return 1
 	fi
-
-	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
-	    -exec chmod +w {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
-	    -exec rm -rf {} \;
 
 	okay
 }
