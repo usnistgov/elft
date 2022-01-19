@@ -1050,6 +1050,8 @@ compile()
 	cp -r "${lib_dir}" "${tmp_dir}/lib"
 	lib_dir="${tmp_dir}/lib"
 	if [ -d "${local_lib_dir}${move_suffix}" ]; then
+		move_back_dirs
+
 		local msg="You have a directory named ${local_lib_dir}"
 		msg+="${move_suffix}. Please remove or rename it."
 		fail "${msg}"
