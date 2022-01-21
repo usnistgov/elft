@@ -987,7 +987,7 @@ compile()
 
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
-	md5s["../include/elft.h"]="45e68e2810cfc6d631f45463616e8517"
+	md5s["../include/elft.h"]="4dde727d01df9497862374e5c6e3cb3e"
 	md5s["src/elft_validation.cpp"]="ecf20e7e7d2c6ae4236cd2f277062efb"
 	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
 	md5s["src/elft_validation_data.h"]="41874b00e60d59a95fc44fc448373037"
