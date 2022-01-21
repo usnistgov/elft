@@ -679,7 +679,7 @@ check_os()
 check_for_images()
 {
 	# Check for data
-	echo -n "Checking for validation images... "
+	echo -n "Checking for unexpanded validation image tarballs... "
 	if ! [ -d "${wd}/${validation_image_dir}" ]; then
 		# If directory doesn't exist, maybe user didn't expand archive
 		local image_archive
@@ -728,16 +728,17 @@ check_for_images()
 				echo -n "$(basename "${i}")\"... "
 				if tar xf "${i}" > /dev/null 2>&1; then
 					okay
-					return
 				else
 					fail "Failed to expand ${i}"
-					return
 				fi
 			fi
 		done < <(find "${wd}" -maxdepth 1 -name \
 		    "${validation_image_download_prefix}*")
 	fi
 
+	if [ "${has_deferred}" -ne 0 ]; then
+		echo -n "Checking for unexpanded validation image tarballs... "
+	fi
 	okay
 }
 
