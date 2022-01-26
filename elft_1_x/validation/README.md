@@ -69,6 +69,21 @@ How to Run
  2. Put any required configuration files in [config/].
  3. Put ELFT fingerprint imagery received from NIST in this directory (i.e.,
     the directory containing this file, [README.md]).
+ 4. Set the required environment variables to indicate if previously-generated
+    templates may be reused to help speed up evaluation runtime on
+    resubmission. *If this is your first submission, set these values to `NO`.*
+    * `ELFT_REUSE_PROBE_TEMPLATES=[YES | NO]`
+      - `YES` if previously-generated **probe** templates may be reused with
+        this version of the search algorithm. `NO` to regenerate new probe
+        templates (for any reason).
+    * `ELFT_REUSE_REFERENCE_TEMPLATES=[YES | NO]`
+      - `YES` if previously-generated **reference** templates may be reused with
+        this version of the search algorithm. `NO` to regenerate new reference
+        templates (for any reason).
+    * `ELFT_REUSE_ENROLLMENT_DATABASES=[YES | NO]`
+      - `YES` if previously-generated enrollment databases may be reused with
+        this version of the search algorithm. `NO` to regenerate new enrollment
+        databases (for any reason).
  4. Execute [validate] (`./validate`).
  5. **If successful**, sign *and* encrypt the resulting output archive in a
     single step, and e-mail it, along with the encrypting identity's public key,
