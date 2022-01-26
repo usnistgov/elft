@@ -92,24 +92,32 @@ How to Run
     again.
 
 <details>
-  <summary><em>Expand to view the output from an example run.</em></summary>
+  <summary><em>Expand to view an example run.</em></summary>
 
 ```
+$ bash
 $ cp /path/to/libelft_nullimpl_0001.so lib/
 $ cp /path/to/config.txt config/
 $ cp /path/to/elft_validation_images-*.tar.xz .
+$ export ELFT_REUSE_PROBE_TEMPLATES=NO
+$ export ELFT_REUSE_REFERENCE_TEMPLATES=NO
+$ export ELFT_REUSE_ENROLLMENT_DATABASES=NO
 $ ./validate
 ================================================================================
-|     ELFT Validation | Version 202111221239 | 22 Nov 2021 | 12:41:48 EST      |
+|     ELFT Validation | Version 202201261021 | 26 Jan 2022 | 15:22:59 UTC      |
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
-Checking validation version... (no Internet connection) [SKIP]
+Checking validation version... (connection failure) [SKIP]
 Checking OS and version... (Ubuntu Server 20.04.3 LTS (Focal Fossa)) [OKAY]
-Checking for validation images... [DEFER]
+Checking for unexpanded validation image tarballs... [DEFER]
  -> Expanding "elft_validation_images-202103120958.tar.xz"... [OKAY]
-Checking for validation images... [OKAY]
+Checking for unexpanded validation image tarballs... [OKAY]
 Looking for core library... (libelft_nullimpl_0001.so) [OKAY]
+Checking for known environment variables... [SHOW]
+ -> Reuse Probe Templates? (ELFT_REUSE_PROBE_TEMPLATES) = NO
+ -> Reuse Reference Templates? (ELFT_REUSE_REFERENCE_TEMPLATES) = NO
+ -> Reuse Enrollment Databases? (ELFT_REUSE_ENROLLMENT_DATABASES) = NO
 Checking for known environment variables... [OKAY]
 Building... [OKAY]
 Checking API version... [OKAY]
@@ -136,11 +144,22 @@ Checking search logs (candidates)... [WARN]
 ================================================================================
 | There are some (117) searches that returned successfully, but did not        |
 | produce any candidates. Please review:                                       |
-| /mnt/isiA01/users/gfiumara/git/elft_public/elft_1_x/validation/output/driver |
-| /searchCandidates.log                                                        |
+| /mnt/hgfs/git/elft_public/elft_1_x/validation/output/driver/searchCandidates |
+| .log                                                                         |
 ================================================================================
 Still checking search logs... [OKAY]
 Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
+
+================================================================================
+| It appears you did not implement one or more of the methods that provides    |
+| insight into your algorithm's decision making. While these methods are       |
+| optional, they will greatly assist in forensic research activies at NIST.    |
+| If this is unexpected, please review the log output.                         |
+|                                                                              |
+| * extractTemplateData (probes): NOT implemented                              |
+| * extractTemplateData (references): NOT implemented                          |
+| * extractCorrespondence: NOT implemented                                     |
+================================================================================
 
 ================================================================================
 | Please review the marketing and CBEFF information compiled into your         |
@@ -163,7 +182,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 + This script could not check online to ensure there are no updates            +
 + available. NIST requires that ELFT submissions always use the latest         +
 + version. Retrieve the latest version number by visiting the URL below and    +
-+ be sure it matches this version: 202111221239.                               +
++ be sure it matches this version: 202201261021.                               +
 +                                                                              +
 + https://github.com/usnistgov/elft/tree/master/elft_1_x/validation/VERSION    +
 +                                                                              +
@@ -180,7 +199,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 | Please attach both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
 | key to an email addressed to elft@nist.gov.                                  |
 ================================================================================
-Completed: 22 Nov 2021 | 12:43:25 EST (Runtime: 97s)
+Completed: 26 Jan 2022 | 15:23:44 UTC (Runtime: 45s)
 ```
 </details>
 
