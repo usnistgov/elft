@@ -359,7 +359,7 @@ print_couldnt_check_version()
 {
 	font_lightred
 
-	local vers_url="https://github.com/usnistgov/elft/tree/master/elft_1_x/"
+	local vers_url="https://github.com/usnistgov/elft/tree/ubuntu/elft_1_x/"
 	vers_url+="validation/VERSION"
 
 	local msg="This script could not check online to ensure there are no "
@@ -675,7 +675,7 @@ check_validation_version()
 
 	# URL with the most recent version number of the validation package
 	local version_url="https://raw.githubusercontent.com/usnistgov/elft/"
-	local version_url+="master/elft_1_x/validation/VERSION"
+	local version_url+="ubuntu/elft_1_x/validation/VERSION"
 
 	echo -n "Checking validation version... "
 	# d.root-servers.net -> 199.7.91.13
