@@ -64,11 +64,10 @@ target_compile_options(${LIB_NAME} PRIVATE
 if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14")
 	set_target_properties(${LIB_NAME} PROPERTIES
 	    BUILD_RPATH_USE_ORIGIN TRUE)
-else()
-	if(UNIX)
-		set_target_properties(${LIB_NAME} PROPERTIES
-		    INSTALL_RPATH $ORIGIN)
-	endif()
+endif()
+if(UNIX)
+	set_target_properties(${LIB_NAME} PROPERTIES
+	    INSTALL_RPATH $ORIGIN)
 endif()
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
