@@ -70,6 +70,12 @@ if(UNIX)
 	    INSTALL_RPATH $ORIGIN)
 endif()
 
+# Use RUNPATH over RPATH
+if(NOT APPLE)
+	set_target_properties(${LIB_NAME} PROPERTIES
+	    LINK_FLAGS -Wl,--enable-new-dtags)
+endif()
+
 # Add debug option
 option(DEBUG "Print debugging information during runtime" OFF)
 if(DEBUG)

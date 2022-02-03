@@ -70,6 +70,12 @@ if(UNIX)
 	    INSTALL_RPATH $ORIGIN)
 endif()
 
+# Use RUNPATH over RPATH
+if(NOT APPLE)
+	set_target_properties(${LIB_NAME} PROPERTIES
+	    LINK_FLAGS -Wl,--enable-new-dtags)
+endif()
+
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/../validation CACHE PATH "..." FORCE)
 endif()
