@@ -18,9 +18,9 @@ is simply called _ELFT_. Differentiations of the test will be referred to by
 changing the version number of the application programming interface (API).
 Participation in the evaluation is ongoing.
 
-The current version of the API is **1.0**. Previous tests with unversioned APIs
-and time-limited participation were entitled ELFT07 (2006-2007) and [ELFT-EFS]
-Evaluations #1 (2008-2011) and #2 (2010-2012).
+Previous tests with unversioned APIs and time-limited participation were
+entitled ELFT07 (2006-2007) and [ELFT-EFS] Evaluations #1 (2008-2011) and #2
+(2010-2012).
 
 Communication
 -------------
