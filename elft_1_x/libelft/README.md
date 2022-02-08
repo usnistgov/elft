@@ -24,9 +24,9 @@ make
 Linking
 -------
 When building a core ELFT library, use these example compiler flags (from
-`g++`) to properly link against this library.
+`g++`/`ld`) to properly link against this library.
 
-> `-L/path/containing/libelft -lelft -Wl,-rpath,/path/containing/libelft`
+> `-L/path/containing/libelft -lelft -Wl,-rpath,/path/containing/libelft -Wl,--enable-new-dtags`
 
 Communication
 -------------

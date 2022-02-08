@@ -25,10 +25,10 @@ make
 
 Linking
 -------
-When building another program, use these example compiler flags (from `g++`)
-to properly link against this library.
+When building another program, use these example compiler flags (from
+`g++`/`ld`) to properly link against this library.
 
-> `-L/path/containing/lib -lelft_output -Wl,-rpath,/path/containing/lib`
+> `-L/path/containing/lib -lelft_output -Wl,-rpath,/path/containing/lib -Wl,--enable-new-dtags`
 
 Communication
 -------------
