@@ -36,8 +36,7 @@ to the [NIST ELFT team].
 
 The ELFT team sends updates about the ELFT tests to their mailing list. Enter
 your e-mail address on the [mailing list site], or send a blank e-mail to
-ELFT+subscribe@list.nist.gov to be automatically subscribed. Posts to the list
-are mirrored on an [RSS feed].
+ELFT+subscribe@list.nist.gov to be automatically subscribed.
 
 License
 -------
@@ -48,5 +47,4 @@ The items in this repository are released in the public domain. See the
 [NIST ELFT team]: mailto:elft@nist.gov
 [open an issue]: https://github.com/usnistgov/elft/issues
 [mailing list site]: https://groups.google.com/a/list.nist.gov/forum/#!forum/elft/join
-[RSS feed]: https://groups.google.com/a/list.nist.gov/forum/feed/elft/msgs/rss.xml
 [LICENSE]: https://github.com/usnistgov/elft/blob/master/LICENSE.md
