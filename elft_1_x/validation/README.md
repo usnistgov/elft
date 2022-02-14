@@ -19,7 +19,7 @@ Contents
    - **[config/]:** Directory in which all configuration files required by your
      libraries reside. This directory will be read-only at runtime. Use of
      configurations is optional.
-   - **[lib64/]:** Directory in which all required libraries reside. There must
+   - **[lib/]:** Directory in which all required libraries reside. There must
      be at least library, the **core** library, and that library **must** follow
      the ELFT naming convention.
    - **[../libelft/]:** Code for the shared library implementing methods
@@ -39,31 +39,50 @@ Requirements
    - Because organizations must agree to NIST Special Database terms and
      conditions, the required fingerprint imagery is not included in this GitHub
      repository. Request and download the data from our [requests website].
- * CentOS 8.2.2004
-   - Even if this is not the latest version of CentOS, it will be the version
-     used to run the evaluation. Direct downloads are available from the [CentOS
-     Vault] ([🇺🇸 USA], [🇪🇺 Europe]). We will be using the base CentOS
-     Linux distribution (frozen) **not CentOS Stream**.
-   - We **highly suggest** installing this version of CentOS Linux directly from
-     the ISO without a network connection so that versions of all packages
-     are consistent with our operating environment.
-   - The [validate] script  requires these base CentOS packages:
-      - `binutils`, `centos-release`, `coreutils`, `cmake`, `curl`, `dnf`,
-        `file`, `gawk`, `gcc-c++`, `grep`, `iputils`, `make`, `sed`, `tar`,
-        `which`, `xz`
+ * Ubuntu Server 20.04.03 LTS
+   - Even if this is not the latest version of Ubuntu Server, it will be the
+     version used to run the evaluation. Direct downloads are available from the
+     [Ubuntu Mirrors] ([🇺🇸 USA], [🇪🇺 Europe]) and directly from the [NIST
+     Image Group].
+   - We **highly suggest** matching the exact versions of packages installed in
+     our environment. A link to the names and versions of these pacakages is
+     available.
+   - The [validate] script  requires these base Ubuntu Server packages:
+      - `base-files`, `binutils`, `cmake`, `coreutils`, `curl`, `dpkg`, `file`,
+        `findutils`, `g++`, `gawk`, `grep`, `libc-bin`, `make`, `sed`, `tar`,
+        `xz-utils`
 
 It is **highly suggested** that you make sure your submission will build and run
 as expected on environments as close as possible to the NIST evaluation
-machines, in order to avoid validation delays. Timing statistics are reported
-when run on a **Intel Xeon Gold 6140** CPU, but all Intel CPU types shall be
+machines, in order to avoid validation delays. All Intel CPU types shall be
 supported. Use of unavailable intrinsics shall degrade gracefully.
+
+Be prepared to explain differences in templates and similarity scores. If at all
+possible, please prevent differences due to hardware, lossy math and other
+optimizations, and the like. Understand that NIST has a _right to reject_
+submissions that cannot explain or correct differences.
 
 How to Run
 ----------
- 1. Put your compiled core library and any other required libraries in [lib64/].
+ 1. Put your compiled core library and any other required libraries in [lib/].
  2. Put any required configuration files in [config/].
  3. Put ELFT fingerprint imagery received from NIST in this directory (i.e.,
     the directory containing this file, [README.md]).
+ 4. Set the required environment variables to indicate if previously-generated
+    templates may be reused to help speed up evaluation runtime on
+    resubmission. *If this is your first submission, set these values to `NO`.*
+    * `ELFT_REUSE_PROBE_TEMPLATES=[YES | NO]`
+      - `YES` if previously-generated **probe** templates may be reused with
+        this version of the search algorithm. `NO` to regenerate new probe
+        templates (for any reason).
+    * `ELFT_REUSE_REFERENCE_TEMPLATES=[YES | NO]`
+      - `YES` if previously-generated **reference** templates may be reused with
+        this version of the search algorithm. `NO` to regenerate new reference
+        templates (for any reason).
+    * `ELFT_REUSE_ENROLLMENT_DATABASES=[YES | NO]`
+      - `YES` if previously-generated enrollment databases may be reused with
+        this version of the search algorithm. `NO` to regenerate new enrollment
+        databases (for any reason).
  4. Execute [validate] (`./validate`).
  5. **If successful**, sign *and* encrypt the resulting output archive in a
     single step, and e-mail it, along with the encrypting identity's public key,
@@ -72,24 +91,32 @@ How to Run
     again.
 
 <details>
-  <summary><em>Expand to view the output from an example run.</em></summary>
+  <summary><em>Expand to view an example run.</em></summary>
 
 ```
-$ cp /path/to/libelft_nullimpl_0001.so lib64/
+$ bash
+$ cp /path/to/libelft_nullimpl_0001.so lib/
 $ cp /path/to/config.txt config/
 $ cp /path/to/elft_validation_images-*.tar.xz .
+$ export ELFT_REUSE_PROBE_TEMPLATES=NO
+$ export ELFT_REUSE_REFERENCE_TEMPLATES=NO
+$ export ELFT_REUSE_ENROLLMENT_DATABASES=NO
 $ ./validate
 ================================================================================
-|     ELFT Validation | Version 202103121022 | 12 Mar 2021 | 10:53:28 EST      |
+|     ELFT Validation | Version 202201261021 | 26 Jan 2022 | 15:22:59 UTC      |
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
-Checking validation version... (no Internet connection) [SKIP]
-Checking OS and version... (CentOS 8.2.2004) [OKAY]
-Checking for validation images... [DEFER]
+Checking validation version... (connection failure) [SKIP]
+Checking OS and version... (Ubuntu Server 20.04.3 LTS (Focal Fossa)) [OKAY]
+Checking for unexpanded validation image tarballs... [DEFER]
  -> Expanding "elft_validation_images-202103120958.tar.xz"... [OKAY]
-Checking for validation images... [OKAY]
+Checking for unexpanded validation image tarballs... [OKAY]
 Looking for core library... (libelft_nullimpl_0001.so) [OKAY]
+Checking for known environment variables... [SHOW]
+ -> Reuse Probe Templates? (ELFT_REUSE_PROBE_TEMPLATES) = NO
+ -> Reuse Reference Templates? (ELFT_REUSE_REFERENCE_TEMPLATES) = NO
+ -> Reuse Enrollment Databases? (ELFT_REUSE_ENROLLMENT_DATABASES) = NO
 Checking for known environment variables... [OKAY]
 Building... [OKAY]
 Checking API version... [OKAY]
@@ -97,7 +124,7 @@ Testing ExtractionInterface (probe)... [OKAY]
 Checking probe extraction logs... [WARN]
 
 ================================================================================
-| There are some (108) zero-byte probe templates. Please review:               |
+| There are some (117) zero-byte probe templates. Please review:               |
 | output/driver/extractionCreate-0.log                                         |
 ================================================================================
 Still checking probe extraction logs... [OKAY]
@@ -110,18 +137,28 @@ Checking reference extraction logs... [WARN]
 ================================================================================
 Still checking reference extraction logs... [OKAY]
 Testing reference database creation... [OKAY]
-Testing reference database modification... [OKAY]
 Testing SearchInterface... [OKAY]
 Checking search logs (candidates)... [WARN]
 
 ================================================================================
-| There are some (432) searches that returned successfully, but did not        |
+| There are some (117) searches that returned successfully, but did not        |
 | produce any candidates. Please review:                                       |
-| /mnt/isiA01/users/gfiumara/git/elft_public/elft_1_x/validation/output/driver |
-| /searchCandidates.log                                                        |
+| /mnt/hgfs/git/elft_public/elft_1_x/validation/output/driver/searchCandidates |
+| .log                                                                         |
 ================================================================================
 Still checking search logs... [OKAY]
 Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
+
+================================================================================
+| It appears you did not implement one or more of the methods that provides    |
+| insight into your algorithm's decision making. While these methods are       |
+| optional, they will greatly assist in forensic research activies at NIST.    |
+| If this is unexpected, please review the log output.                         |
+|                                                                              |
+| * extractTemplateData (probes): NOT implemented                              |
+| * extractTemplateData (references): NOT implemented                          |
+| * extractCorrespondence: NOT implemented                                     |
+================================================================================
 
 ================================================================================
 | Please review the marketing and CBEFF information compiled into your         |
@@ -144,7 +181,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 + This script could not check online to ensure there are no updates            +
 + available. NIST requires that ELFT submissions always use the latest         +
 + version. Retrieve the latest version number by visiting the URL below and    +
-+ be sure it matches this version: 202103121022.                               +
++ be sure it matches this version: 202201261021.                               +
 +                                                                              +
 + https://github.com/usnistgov/elft/tree/master/elft_1_x/validation/VERSION    +
 +                                                                              +
@@ -158,11 +195,10 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 |                                                                              |
 |                     elft_validation_nullimpl_0001.tar.xz                     |
 |                                                                              |
-| elft_validation_nullimpl_0001.tar.xz.asc will likely too big for NIST's      |
-| email server, so please contact elft@nist.gov for an upload link for both    |
-| elft_validation_nullimpl_0001.tar.xz.asc and your public key.                |
+| Please attach both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
+| key to an email addressed to elft@nist.gov.                                  |
 ================================================================================
-Completed: 12 Mar 2021 | 10:55:20 EST (Runtime: 112s)
+Completed: 26 Jan 2022 | 15:23:44 UTC (Runtime: 45s)
 ```
 </details>
 
@@ -185,8 +221,6 @@ Submission Contents
    * **extractionCreate-1.log:** Output from generating reference templates.
    * **extractionData-0.log:** Features extracted from probe templates.
    * **extractionData-1.log:** Features extracted from reference templates.
-   * **modifyReferenceDatabase.log:** Output from modifying the reference
-     database.
    * **reference_database/:** Reference database created, as logged in
     `driver/createReferenceDatabase`.
    * **searchCandidates.log:**
@@ -198,15 +232,13 @@ Submission Contents
  * **id_search.log:** Information about the linked core library's
    `SearchInterface`. This is information derived from values compiled into
    the core library.
- * **lib64/:** A copy of [lib64/].
+ * **lib/:** A copy of [lib/].
  * **run-createReferenceDatabase.log:** The command used to launch the
    validation executable when generating `driver/createReferenceDatabase.log`.
  * **run-extract-probe.log:** The command used to launch the validation
    executable when generating `driver/extraction{Create,Data}-0.log`.
  * **run-extract-reference.log:** The command used to launch the validation
    executable when generating `driver/extraction{Create,Data}-1.log`.
- * **run-modifyReferenceDatabase.log:** The command used to launch the
-   validation executable when generating `driver/modifyReferenceDatabase.log`.
  * **run-search.log:** The command used to launch the
    validation executable when generating `driver/searchCandidates.log` and
    `driver/correspondence.log`.
@@ -221,7 +253,6 @@ of the file content the same.
  * run-createReferenceDatabase.log
  * run-extract-probe.log
  * run-extract-reference.log
- * run-modifyReferenceDatabase.log
  * run-search.log
 
 Checks Performed
@@ -252,8 +283,7 @@ to the [NIST ELFT team].
 
 The ELFT team sends updates about the ELFT tests to their mailing list. Enter
 your e-mail address on the [mailing list site], or send a blank e-mail to
-ELFT+subscribe@list.nist.gov to be automatically subscribed. Posts to the list
-are mirrored on an [RSS feed].
+ELFT+subscribe@list.nist.gov to be automatically subscribed.
 
 License
 -------
@@ -261,10 +291,11 @@ The items in this repository are released in the public domain. See the
 [LICENSE] for details.
 
 [API]: https://pages.nist.gov/elft/elft_1_x/doc/api/
-[CentOS Vault]: https://vault.centos.org/
-[🇺🇸 USA]: https://mirrors.oit.uci.edu/centos/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-dvd1.iso
-[🇪🇺 Europe]: http://mirror.nsc.liu.se/centos-store/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-dvd1.iso
-[lib64/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/lib64
+[Ubuntu Mirrors]: https://launchpad.net/ubuntu/+cdmirrors
+[🇺🇸 USA]: https://mirror.math.princeton.edu/pub/ubuntu-iso/focal/ubuntu-20.04.3-live-server-amd64.iso
+[🇪🇺 Europe]: http://mirror.init7.net/ubuntu-releases/focal/ubuntu-20.04.3-live-server-amd64.iso
+[NIST Image Group]: https://nigos.nist.gov/evaluations/ubuntu-20.04.3-live-server-amd64.iso
+[lib/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/lib
 [../libelft/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/libelft
 [../include/elft.h]: https://github.com/usnistgov/elft/blob/master/elft_1_x/include/elft.h
 [bin/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/bin
@@ -275,8 +306,7 @@ The items in this repository are released in the public domain. See the
 [validate]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/validate
 [NIST ELFT team]: mailto:elft@nist.gov
 [open an issue]: https://github.com/usnistgov/elft/issues
-[mailing list site]: https://groups.google.com/a/list.nist.gov/forum/#!forum/elft/join
-[RSS feed]: https://groups.google.com/a/list.nist.gov/forum/feed/elft/msgs/rss.xml
+[mailing list site]: https://groups.google.com/a/list.nist.gov/g/elft
 [LICENSE]: https://github.com/usnistgov/elft/blob/master/LICENSE.md
 [test plan]: https://pages.nist.gov/elft/doc/elft_1_x/testplan.pdf
 [requests website]: https://nigos.nist.gov/datasets/elft_validation/request

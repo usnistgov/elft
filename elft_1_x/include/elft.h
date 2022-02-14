@@ -11,11 +11,11 @@
  * methods of both classes in subclasses and submit the implementations in a
  * shared library. The name of the library must follow the requirements
  * outlined in the test plan and be identical to the required information
- * returned from ELFT::ExtractionInterface::getIdentification(). NIST's testing
+ * returned from ELFT::ExtractionInterface::getIdentification. NIST's testing
  * application will link against the submitted library and instantiate instances
- * of the implementations with their respective getImplementation() functions
- * (ELFT::ExtractionInterface::getImplementation() and
- * ELFT::SearchInterface::getImplementation()).
+ * of the implementations with their respective `getImplementation` functions
+ * (ELFT::ExtractionInterface::getImplementation and
+ * ELFT::SearchInterface::getImplementation).
  *
  * @section Contact
  * Additional information regarding ELFT can be received by emailing questions
@@ -1299,8 +1299,20 @@ namespace ELFT
 		 * @warning
 		 * This method will be called after construction and should
 		 * **not** be called from an implementation's constructor. This
-		 * allows calling SearchInterface::getIdentification() without
-		 * wasting resources.
+		 * allows calling getIdentification() without wasting resources.
+		 *
+		 * @warning
+		 * **DO NOT MODIFY** the contents of your database in memory
+		 * *after* this method returns! After calling this method, the
+		 * test application may `fork()`, allowing calls to search() to
+		 * share the contents of memory using copy-on-write semantics.
+
+		 *
+		 * @warning
+		 * **DO NOT MODIFY** the contents of the database on disk at any
+		 * time! The `databaseDirectory` provided to
+		 * getImplementation() may be stored on a read-only file system
+		 * and may be destroyed and restored before calls to search().
 		 *
 		 * @note
 		 * `maxSize` will not be the full amount of memory available on
@@ -1310,13 +1322,13 @@ namespace ELFT
 		 * implementation and the test application are free to perform
 		 * dynamic memory allocations. While there is no penalty
 		 * for exceeding this memory limit with the reference database,
-		 * it is likely implementations will run out of memory if they
-		 * do.
+		 * it is a near certainty that implementations will run out of
+		 * memory if they do.
 		 *
 		 * @note
 		 * This method is guaranteed to be called at least once before
 		 * calls to any SearchInterface method, except for calls to
-		 * SearchInterface::getIdentification().
+		 * getIdentification().
 		 *
 		 * @note
 		 * If the reference database is already loaded when this method
@@ -1353,24 +1365,30 @@ namespace ELFT
 		 * was able to be completed and a list of less than or equal to
 		 * `maxCandidates` Candidate.
 		 *
-		 * @note
-		 * SearchResult.candidateList will be sorted by descending
-		 * `similarity` upon return from this method using
-		 * std::stable_sort().
+		 * @warning
+		 * **DO NOT MODIFY** the database loaded with load() either in
+		 * memory or on disk. This method will be called after calling
+		 * load() and most likely from a `fork()`ed process, allowing
+		 * the read-only database in memory to be shared using
+		 * `fork()`'s copy-on-write semantics while not requiring this
+		 * method to be threadsafe. Modifying the database will at best
+		 * cause an out of memory error and at worst cause undefined
+		 * behavior for the many running search processes.
 		 *
 		 * @note
-		 * If provided a probe template that contains comes from
-		 * multiple regions, Candidate.frgp will be ignored.
+		 * SearchResult.candidateList will be sorted by descending
+		 * Candidate.similarity upon return from this method using
+		 * `std::stable_sort()`.
+		 *
+		 * @note
+		 * If provided a probe template that contains images from
+		 * multiple regions of the same candidate, Candidate.frgp will
+		 * be ignored in analysis.
 		 *
 		 * @note
 		 * Candidate.frgp shall be the most localized region where the
-		 * match was made to be considered as correct as possible. See
-		 * the test plan for more information.
-		 *
-		 * @note
-		 * The reference database may be stored on a read-only file
-		 * system when this method is called. Do not attempt to modify
-		 * the reference database here.
+		 * correspondence was noted to be considered as correct as
+		 * possible. See the test plan for more information.
 		 *
 		 * @note
 		 * This method must return in <= 10 * `number of database
@@ -1412,7 +1430,7 @@ namespace ELFT
 		 * @note
 		 * `searchResult` is **not guaranteed** to be the identical
 		 * object returned from search(). Specifically, ordering of
-		 * `searchResult.candidateList` may have changed (e.g., sorted
+		 * SearchResult.candidateList may have changed (e.g., sorted
 		 * by descending `similarity`) and the ReturnStatus member is
 		 * not guaranteed to populated with ReturnStatus#message.
 		 *
@@ -1451,8 +1469,7 @@ namespace ELFT
 		 *
 		 * @warning
 		 * Do **not** load your reference database into memory on
-		 * construction. Instead, wait for a call to
-		 * SearchImplementation::load().
+		 * construction. Instead, wait for a call to load().
 		 *
 		 * @note
 		 * A possible implementation might be:
@@ -1498,8 +1515,15 @@ namespace ELFT
 	/** API minor version number. */
 	uint16_t API_MINOR_VERSION{2};
 	/** API patch version number. */
-	uint16_t API_PATCH_VERSION{0};
+	uint16_t API_PATCH_VERSION{1};
 	#endif /* NIST_EXTERN_API_VERSION */
+
+	/*
+	 * Ensure that std::byte is exactly 8 bits, such that reinterpret_casts
+	 * may be safely used.
+	 */
+	static_assert(std::is_same_v<std::underlying_type_t<std::byte>,
+	    uint8_t>, "std::byte not represented as unsigned 8 bit type");
 }
 
 #endif /* ELFT_H_ */

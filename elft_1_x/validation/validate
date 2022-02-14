@@ -5,14 +5,18 @@
 # Instructions                                                                 #
 # ------------                                                                 #
 #  1. Copy required files:                                                     #
-#     a. Place all needed libraries in 'lib64/', including your properly named #
+#     a. Place all needed libraries in 'lib/', including your properly named   #
 #        ELFT core library.                                                    #
 #     b. Place any needed runtime configuration files in 'config/'.            #
-#  2. Run './validate'.                                                        #
+#  2. Set required shell variables:                                            #
+#     * ELFT_REUSE_PROBE_TEMPLATES=[YES | NO]                                  #
+#     * ELFT_REUSE_REFERENCE_TEMPLATES=[YES | NO]                              #
+#     * ELFT_REUSE_ENROLLMENT_DATABASES=[YES | NO]                             #
+#  3. Run './validate'.                                                        #
 #     a. Successful? Sign and encrypt the generated archive.                   #
 #     b. Unsuccessful? Work to resolve the listed errors, run                  #
 #        './validate clean', and repeat these steps.                           #
-#  3. Email the encrypted file along with your public key to elft@nist.gov     #
+#  4. Email the encrypted file along with your public key to elft@nist.gov     #
 ################################################################################
 #     E-mail: elft@nist.gov                                                    #
 #        URL: https://github.com/usnistgov/elft                                #
@@ -50,7 +54,7 @@ wd="$(cd "$(dirname "${0}")" && pwd)"
 # Directory containing validation images
 validation_image_dir="images"
 # Directory where libraries go
-lib_dir="${wd}/lib64"
+lib_dir="${wd}/lib"
 local_lib_dir="${lib_dir}"
 # Directory where validation driver sourcecode lives
 src_dir="${wd}/src"
@@ -69,15 +73,14 @@ db_dir="${driver_output_dir}/reference_database"
 binary="${bin_dir}/elft_validation"
 # Suffix given to files set aside by this script
 move_suffix=".moved"
+# Name of log that stores compilation information
+compile_log="compile.log"
 
 # Prefix for downloaded validation imagery tarballs
 validation_image_download_prefix=elft_validation_images
 
 # Regular expression that must match core library name
 lib_regex="libelft_[A-Za-z0-9]+_[0-9A-F]{4}.so"
-
-# Make failing return codes persist across pipes
-set -o pipefail
 
 ################################################################################
 # Output                                                                       #
@@ -356,7 +359,7 @@ print_couldnt_check_version()
 {
 	font_lightred
 
-	local vers_url="https://github.com/usnistgov/elft/tree/master/elft_1_x/"
+	local vers_url="https://github.com/usnistgov/elft/tree/ubuntu/elft_1_x/"
 	vers_url+="validation/VERSION"
 
 	local msg="This script could not check online to ensure there are no "
@@ -399,7 +402,7 @@ print_final_success()
 	file_size="$(du -m "${tar_file}" | cut -f 1)"
 	# Likely will be too big for email
 	if [ "${file_size}" -ge 20 ]; then
-		msg="${tar_file}.asc will likely too big for NIST's email "
+		msg="${tar_file}.asc may be too big for NIST's email "
 		msg+="server, so please contact elft@nist.gov for an upload "
 		msg+="link for both ${tar_file}.asc and your public key."
 	else
@@ -457,15 +460,22 @@ print_instructions()
 	echo "Instructions"
 	echo "============"
 	echo " 1. Copy required files:"
-	echo -n "    a. Place all needed libraries in 'lib64/', including your "
+	echo -n "    a. Place all needed libraries in 'lib/', including your "
 	echo "properly named "
-	echo "          ELFT core library."
+	echo "       ELFT core library."
 	echo "    b. Place any needed runtime configuration files in 'config/'."
-	echo " 2. Run './validate'."
+	echo -n "2. Set the variables ELFT_REUSE_PROBE_TEMPLATES, "
+	echo "ELFT_REUSE_REFERENCE_TEMPLATES,"
+	echo -n "   and ELFT_REUSE_ENROLLMENT_DATABASES to either YES or NO to "
+	echo "indicate if "
+	echo -n "   previously-generated data may be reused. If this is your "
+	echo "first submission,"
+	echo "   set all values to NO."
+	echo " 3. Run './validate'."
 	echo "    a. Successful? Sign and encrypt the generated archive."
 	echo "    b. Unsuccessful? Work to resolve the listed errors, run"
 	echo "       './validate clean', and repeat these steps."
-	echo -n " 3. Email the signed and encrypted file along with your "
+	echo -n " 4. Email the signed and encrypted file along with your "
 	echo "public key to"
 	echo "    elft@nist.gov."
 }
@@ -502,9 +512,9 @@ check_wd()
 {
 	if [ "${wd}" == "" ]; then
 		local msg="The directory containing \"validate\" could not be "
-		msg+="found, possibly because you are not using GNU realpath "
-		msg+="under CentOS. If you are, please report an issue on the "
-		msg+="ELFT GitHub repository."
+		msg+="found, possibly because you are not using GNU realpath. "
+		msg+="If you are, please report an issue on the ELFT GitHub "
+		msg+="repository."
 		fail "${msg}"
 	fi
 }
@@ -513,26 +523,131 @@ check_wd()
 check_environment()
 {
 	echo -n "Checking for known environment variables... "
+
+	local tmpl_explain="If YES, NIST will attempt to reuse such previously-"
+	tmpl_explain+="generated templates. If NO, NIST will destroy "
+	tmpl_explain+="previously-generated templates and re-generate new "
+	tmpl_explain+="templates. You should also set this value to NO if "
+	tmpl_explain+="there have been ANY changes in the template format you "
+	tmpl_explain+="wish to have reflected in analysis."
+
+	local msg
+	if [ -z "${ELFT_REUSE_PROBE_TEMPLATES}" ]; then
+		msg="Please set the variable ELFT_REUSE_PROBE_TEMPLATES to YES "
+		msg+="or NO before continuing. This value lets NIST know if "
+		msg+="PROBE templates generated by previous versions of "
+		msg+="this algorithm may be used with the search algorithm in "
+		msg+="this version."
+		fail "${msg}" "" "${tmpl_explain}"
+	fi
+	ELFT_REUSE_PROBE_TEMPLATES="$(tr '[:lower:]' '[:upper:]' <<< \
+	    "${ELFT_REUSE_PROBE_TEMPLATES}")"
+	if [ "${ELFT_REUSE_PROBE_TEMPLATES}" != "YES" ] && \
+	    [ "${ELFT_REUSE_PROBE_TEMPLATES}" != "NO" ]; then
+		fail "Value of ELFT_REUSE_PROBE_TEMPLATES must be YES or NO"
+	fi
+
+	font_yellow
+	echo "[SHOW]"
+	font_reset
+	font_dim
+	echo -n " -> Reuse Probe Templates? (ELFT_REUSE_PROBE_TEMPLATES) = "
+	if [ "${ELFT_REUSE_PROBE_TEMPLATES}" == "YES" ]; then
+		font_green
+	else
+		font_red
+	fi
+	echo "${ELFT_REUSE_PROBE_TEMPLATES}"
+	font_reset
+
+	if [ -z "${ELFT_REUSE_REFERENCE_TEMPLATES}" ]; then
+		msg="Please set the variable ELFT_REUSE_REFERENCE_TEMPLATES to "
+		msg+="YES or NO before continuing. This value lets NIST know "
+		msg+="if REFERENCE templates generated by previous versions of "
+		msg+="this algorithm may be used with the search algorithm in "
+		msg+="this version."
+		echo -n "Checking for known environment variables... "
+		fail "${msg}" "" "${tmpl_explain}"
+	fi
+	ELFT_REUSE_REFERENCE_TEMPLATES="$(tr '[:lower:]' '[:upper:]' <<< \
+	    "${ELFT_REUSE_REFERENCE_TEMPLATES}")"
+	if [ "${ELFT_REUSE_REFERENCE_TEMPLATES}" != "YES" ] && \
+	    [ "${ELFT_REUSE_REFERENCE_TEMPLATES}" != "NO" ]; then
+		echo -n "Checking for known environment variables... "
+		fail "Value of ELFT_REUSE_REFERENCE_TEMPLATES must be YES or NO"
+	fi
+	font_dim
+	echo -n " -> Reuse Reference Templates? "
+	echo -n "(ELFT_REUSE_REFERENCE_TEMPLATES) = "
+	if [ "${ELFT_REUSE_REFERENCE_TEMPLATES}" == "YES" ]; then
+		font_green
+	else
+		font_red
+	fi
+	echo "${ELFT_REUSE_REFERENCE_TEMPLATES}"
+	font_reset
+
+	if [ -z "${ELFT_REUSE_ENROLLMENT_DATABASES}" ]; then
+		msg="Please set the variable ELFT_REUSE_ENROLLMENT_DATABASES "
+		msg+="to YES or NO before continuing. This value lets NIST "
+		msg+="know if enrollment databases generated by previous "
+		msg+="versions of this algorithm may be used with the "
+		msg+="search algorithm in this version. If REFERENCE templates "
+		msg+="have changed, this should be set to NO."
+		echo -n "Checking for known environment variables... "
+		fail "${msg}"
+	fi
+	ELFT_REUSE_ENROLLMENT_DATABASES="$(tr '[:lower:]' '[:upper:]' <<< \
+	    "${ELFT_REUSE_ENROLLMENT_DATABASES}")"
+	if [ "${ELFT_REUSE_ENROLLMENT_DATABASES}" != "YES" ] && \
+	    [ "${ELFT_REUSE_ENROLLMENT_DATABASES}" != "NO" ]; then
+		echo -n "Checking for known environment variables... "
+		msg="Value of ELFT_REUSE_ENROLLMENT_DATABASES must be YES or NO"
+		fail "${msg}"
+	fi
+	font_dim
+	echo -n " -> Reuse Enrollment Databases? "
+	echo -n "(ELFT_REUSE_ENROLLMENT_DATABASES) = "
+	if [ "${ELFT_REUSE_ENROLLMENT_DATABASES}" == "YES" ]; then
+		font_green
+	else
+		font_red
+	fi
+	echo "${ELFT_REUSE_ENROLLMENT_DATABASES}"
+	font_reset
+
+	# Sanity check against reference templates
+	if [ "${ELFT_REUSE_ENROLLMENT_DATABASES}" == "YES" ] && \
+	    [ "${ELFT_REUSE_REFERENCE_TEMPLATES}" == "NO" ]; then
+		echo -n "Checking for known environment variables... "
+		msg="Inconsistencey between ELFT_REUSE_ENROLLMENT_DATABASES "
+		msg+="and ELFT_REUSE_REFERENCE_TEMPLATES"
+		fail "${msg}"
+	fi
+
+	echo -n "Checking for known environment variables... "
 	okay
 }
 
-# Check that CentOS packages used in this file have been installed.
+# Check that Ubuntu packages used in this file have been installed.
 check_required_packages()
 {
 	echo -n "Checking for required packages... "
 
 	# Packages required to run this script
-	local pkgs="binutils centos-release coreutils dnf file gawk gcc-c++ "
-	local pkgs+="grep cmake make tar sed xz curl"
+	local pkgs="base-files binutils cmake coreutils curl file findutils "
+	pkgs+="g++ gawk grep libc-bin make sed tar xz-utils"
 
-	if ! command -v dnf > /dev/null; then
-		fail "\`dnf' is required to be installed for validation."
+	if ! command -v dpkg-query > /dev/null; then
+		local msg="\`dpkg-query' is required to be installed for "
+		msg+="validation. Try \`apt install dpkg' to install."
+		fail "${msg}"
 	fi
 
 	for pkg in ${pkgs}; do
-		if ! dnf -q list installed "${pkg}" > /dev/null 2>&1; then
+		if ! dpkg-query -l "${pkg}" > /dev/null 2>&1; then
 			msg="The required package \"${pkg}\" was not "
-			msg+="installed. Try \`dnf install ${pkg}' to install "
+			msg+="installed. Try \`apt install ${pkg}' to install "
 			msg+="\"${pkg}.\""
 			fail "${msg}"
 		fi
@@ -560,7 +675,7 @@ check_validation_version()
 
 	# URL with the most recent version number of the validation package
 	local version_url="https://raw.githubusercontent.com/usnistgov/elft/"
-	local version_url+="master/elft_1_x/validation/VERSION"
+	local version_url+="ubuntu/elft_1_x/validation/VERSION"
 
 	echo -n "Checking validation version... "
 	# d.root-servers.net -> 199.7.91.13
@@ -655,30 +770,30 @@ check_for_previous_attempts()
 	okay
 }
 
-# Check that the version of CentOS is the correct version.
+# Check that the version of Ubuntu is the correct version.
 check_os()
 {
-	local expected="8.2.2004"
+	local expected="20.04.3 LTS (Focal Fossa)"
 	echo -n "Checking OS and version... "
-	if [ ! -e /etc/redhat-release ]; then
+	if [ ! -e /etc/os-release ]; then
 		local msg="You do not appear to be using the appropriate "
-		msg+="operating system. Please use CentOS ${expected}."
+		msg+="operating system. Please use Ubuntu Server ${expected}."
 		fail "${msg}"
 	fi
-	if [ "$(tr -C -d '[:digit:].' < /etc/redhat-release)" != \
-	    "${expected}" ]; then
+	if [ "$(grep "VERSION=" /etc/os-release | cut -f 2 -d '=' | \
+	    tr -d '"')" != "${expected}" ]; then
 		local msg="You do not appear to be using the appropriate "
-		msg+="version of CentOS. Please use ${expected}."
+		msg+="version of Ubuntu Server. Please use ${expected}."
 		fail "${msg}"
 	fi
-	okay "CentOS ${expected}"
+	okay "Ubuntu Server ${expected}"
 }
 
 # Check that images have been downloaded, placed in the correct spot, etc.
 check_for_images()
 {
 	# Check for data
-	echo -n "Checking for validation images... "
+	echo -n "Checking for unexpanded validation image tarballs... "
 	if ! [ -d "${wd}/${validation_image_dir}" ]; then
 		# If directory doesn't exist, maybe user didn't expand archive
 		local image_archive
@@ -727,16 +842,17 @@ check_for_images()
 				echo -n "$(basename "${i}")\"... "
 				if tar xf "${i}" > /dev/null 2>&1; then
 					okay
-					return
 				else
 					fail "Failed to expand ${i}"
-					return
 				fi
 			fi
 		done < <(find "${wd}" -maxdepth 1 -name \
 		    "${validation_image_download_prefix}*")
 	fi
 
+	if [ "${has_deferred}" -ne 0 ]; then
+		echo -n "Checking for unexpanded validation image tarballs... "
+	fi
 	okay
 }
 
@@ -982,14 +1098,14 @@ compile()
 		fail "Usage: ${FUNCNAME[0]} <random_seed>"
 	fi
 
-	local log="${output_dir}/compile.log"
+	local log="${output_dir}/${compile_log}"
 
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
-	md5s["../include/elft.h"]="45e68e2810cfc6d631f45463616e8517"
+	md5s["../include/elft.h"]="95289613b084808449eb4da6a13f7913"
 	md5s["src/elft_validation.cpp"]="ecf20e7e7d2c6ae4236cd2f277062efb"
 	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
-	md5s["src/elft_validation_data.h"]="41874b00e60d59a95fc44fc448373037"
+	md5s["src/elft_validation_data.h"]="e2d931dc343a149f0f6ab409b83f611f"
 	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
 
 	# Check checksums
@@ -1041,14 +1157,16 @@ compile()
 		fail "${msg}"
 	fi
 
-	# Catch the case of hardcoding "../lib64", etc. into library by always
+	# Catch the case of hardcoding "../lib", etc. into library by always
 	# linking against libs in a different directory
 	local tmp_dir
 	tmp_dir="$(mktemp -u -t elft_libs.XXXXXXXXXX)"
 	mkdir -p "${tmp_dir}"
-	cp -r "${lib_dir}" "${tmp_dir}/lib64"
-	lib_dir="${tmp_dir}/lib64"
+	cp -r "${lib_dir}" "${tmp_dir}/lib"
+	lib_dir="${tmp_dir}/lib"
 	if [ -d "${local_lib_dir}${move_suffix}" ]; then
+		move_back_dirs
+
 		local msg="You have a directory named ${local_lib_dir}"
 		msg+="${move_suffix}. Please remove or rename it."
 		fail "${msg}"
@@ -1081,10 +1199,15 @@ compile()
 
 	# Compile
 	echo "Compilation:" >> "${log}"
+	local build_dir
 	build_dir="$(mktemp -d -t elft_validation_build.XXXXXXXXXX)"
+	if [ "${build_dir}" == "" ]; then
+		fail "Could not create build directory."
+	fi
 	cd "${build_dir}" || fail "Could not change to build directory"
-	if ! cmake "${src_dir}" \
-	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" >> "${log}" 2>&1
+	if ! cmake \
+	    -DCMAKE_INSTALL_PREFIX="$(dirname "${lib_dir}")" \
+	    -S "${src_dir}" -B "${build_dir}" >> "${log}" 2>&1
 	then
 		local msg="Could not change back to previous directory"
 		cd "${wd}" > /dev/null || fail "${msg}"
@@ -1107,7 +1230,7 @@ compile()
 	if ! core_lib="$(get_core_library_name)"; then
 		fail "Could not get core library name"
 	fi
-	if ! ldd "${binary}" | grep -q "${lib_dir}/${core_lib}"; then
+	if ! grep -q "${lib_dir}/${core_lib}" < <(ldd "${binary}"); then
 		local msg="${core_lib} is not a dependency of the compiled "
 		msg+="binary. The library was either renamed after being "
 		msg+="built, or the binary is linking against a version of "
@@ -1121,7 +1244,7 @@ compile()
 	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
 	if [ "${num_libs}" -gt 2 ]; then
 		if ! readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep -q "\$ORIGIN"
+		    grep RUNPATH | grep "\$ORIGIN" > /dev/null
 		then
 			local msg="You have supplied multiple libraries, but "
 			msg+="${core_lib} does not have an RUNPATH of \$ORIGIN."
@@ -1138,7 +1261,7 @@ compile()
 
 	# Don't rely on libelft_output
 	while read -r i; do
-		if readelf -d "${i}" 2>&1 | grep -q "libelft_output"; then
+		if grep -q "libelft_output" < <(readelf -d "${i}" 2>&1); then
 			local msg="The library 'libelft_output.so' is required "
 			msg+="by $(basename "${i}"). You may not link to "
 			msg+="'libelft_output.so' in your ELFT submission. It "
@@ -1172,8 +1295,8 @@ compile()
 		find "${config_dir}" -type f \! -name README -exec md5sum {} \;
 		echo
 
-		echo "CentOS Version:"
-		cat /etc/redhat-release
+		echo "Ubuntu Version:"
+		grep "VERSION=" /etc/os-release | cut -f 2 -d '=' | tr -d '"'
 		echo
 
 		echo "ldd output of binary:"
@@ -1194,6 +1317,12 @@ compile()
 		echo "Validation properties:"
 		echo "Validation Version = ${validation_version}"
 		echo "Random Seed = $1"
+
+		echo "Reuse Probe Templates = ${ELFT_REUSE_PROBE_TEMPLATES}"
+		echo -n "Reuse Reference Templates = "
+		echo "${ELFT_REUSE_REFERENCE_TEMPLATES}"
+		echo -n "Reuse Enrollment Databases = "
+		echo "${ELFT_REUSE_ENROLLMENT_DATABASES}"
 	} >> "${log}"
 
 	okay
@@ -1237,6 +1366,13 @@ clean_previous_attempts()
 
 	rm -rf "${lib_dir}/libelft.so"
 
+	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
+	    -exec chmod +w {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
+	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
+	    -exec rm -rf {} \;
+
 	local org_name
 	if ! org_name="$(get_organization_name)"; then
 		fail "Could not get organization name."
@@ -1250,18 +1386,7 @@ clean_previous_attempts()
 		return 1
 	fi
 
-	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
-	    -exec chmod +w {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
-	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
-	    -exec rm -rf {} \;
-
 	okay
-
-	if ! core_library_present; then
-		return 0
-	fi
 }
 
 ################################################################################
@@ -1471,6 +1596,10 @@ make_tarball()
 	    /dev/null 2>&1; then
 		fail "There was an issue creating the validation tar file."
 	fi
+
+	# Update globals
+	output_dir="$(dirname "${output_dir}")/$(get_final_output_name)"
+	driver_output_dir="${output_dir}/driver"
 
 	okay "${tar_file}"
 }
@@ -1725,6 +1854,89 @@ check_counts()
 	fi
 }
 
+# Detect if extractTemplateData ever returned data for probes
+supports_open_template_data_probes()
+{
+	local no_info=",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/extractionData-0.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+# Detect if extractTemplateData ever returned data for exemplars
+supports_open_template_data_references()
+{
+	local no_info=",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/extractionData-1.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+# Detect if extractCorrespondence ever returned data
+supports_correspondence()
+{
+	local no_info="NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA"
+	local log="${driver_output_dir}/correspondence.log"
+	local num_non_matching_lines
+	num_non_matching_lines=$(grep -c -v "${no_info}" "${log}")
+	test "1" != "${num_non_matching_lines}"
+}
+
+record_optional_support()
+{
+	local log="${output_dir}/${compile_log}"
+	local value
+
+	value="FALSE"
+	if supports_open_template_data_probes; then value="TRUE"; fi
+	echo "Supports extractTemplateData Probes = ${value}" >> "${log}"
+
+	value="FALSE"
+	if supports_open_template_data_references; then value="TRUE"; fi
+	echo "Supports extractTemplateData References = ${value}" >> "${log}"
+
+	value="FALSE"
+	if supports_correspondence; then value="TRUE"; fi
+	echo "Supports extractCorrespondence = ${value}" >> "${log}"
+}
+
+print_optional_support()
+{
+	local not_implemented="NOT implemented"
+
+	local probes="${not_implemented}"
+	if supports_open_template_data_probes; then probes="Implemented"; fi
+
+	local refs="${not_implemented}"
+	if supports_open_template_data_references; then refs="Implemented"; fi
+
+	local corr="${not_implemented}"
+	if supports_correspondence; then corr="Implemented"; fi
+
+	if [ "${probes}" == "${not_implemented}" ] || \
+	    [ "${refs}" == "${not_implemented}" ]  || \
+	    [ "${corr}" == "${not_implemented}" ]; then
+		local msg="It appears you did not implement one or more of the "
+		msg+="methods that provides insight into your algorithm's "
+		msg+="decision making. While these methods are optional, they "
+		msg+="will greatly assist in forensic research activies at "
+		msg+="NIST. If this is unexpected, please review the log "
+		msg+="output."
+
+		font_lightred
+		echo
+		box "${msg}" 80 '=' '|' 'l' 1 0
+		boxline
+		boxline " * extractTemplateData (probes): ${probes}"
+		boxline " * extractTemplateData (references): ${refs}"
+		boxline " * extractCorrespondence: ${corr}"
+		printline '=' 80 && echo
+		font_reset
+	fi
+}
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -1784,12 +1996,14 @@ run_create_database
 log_search_identification_information
 run_search "${seed}"
 check_search
+record_optional_support
 
 # Cleanup
 move_back_dirs
 make_tarball
 
 # Notifications
+print_optional_support
 print_cbeff
 if [ "${validation_version_checked}" -ne 1 ]; then
 	echo
@@ -1797,3 +2011,4 @@ if [ "${validation_version_checked}" -ne 1 ]; then
 fi
 print_final_success
 print_footer "${start_sec}"
+

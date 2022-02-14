@@ -1362,7 +1362,8 @@ namespace ELFT::Validation::Data
 	    }}},
 
 	    {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836_EFS", {
-	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	        {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	         std::nullopt, std::nullopt, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1414,7 +1415,8 @@ namespace ELFT::Validation::Data
 	     */
 	    {"00002357_1C_R_L01_BP_S24_1000PPI_8BPC_1CH_LP02_1_735x836_EFS+ROI",
 	    {
-	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	        {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	         std::nullopt, std::nullopt, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1481,7 +1483,8 @@ namespace ELFT::Validation::Data
 	    }}},
 
 	    {"00002357_1D_R_L01_BP_S24_1000PPI_8BPC_1CH_LP03_1_742x1087_EFS", {
-	        {std::optional<std::string>(), 742, 1087, 1000, 8, 8, EFS{
+	        {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	         std::nullopt, std::nullopt, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1554,7 +1557,8 @@ namespace ELFT::Validation::Data
 	            }
 	        }
 	    },
-	    {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	    {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	     std::nullopt, std::nullopt, EFS{
 	            1,
 	            1000,
 	            Impression::Latent,
@@ -1600,7 +1604,8 @@ namespace ELFT::Validation::Data
 
 	    /* Same individual, same finger (EFS only + EFS only) */
 	    {"00002357_COMBO_FEATURES", {
-	        {std::optional<std::string>(), 735, 836, 1000, 8, 8, EFS{
+	        {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	         std::nullopt, std::nullopt, EFS{
 	            0,
 	            1000,
 	            Impression::Latent,
@@ -1642,7 +1647,8 @@ namespace ELFT::Validation::Data
 	              {{206, 271}, 337, MinutiaType::Bifurcation},
 	              {{397, 473}, 118, MinutiaType::Bifurcation}}}
 	        }},
-	        {std::optional<std::string>(), 742, 1087, 1000, 8, 8, EFS{
+	        {std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+	         std::nullopt, std::nullopt, EFS{
 	            1,
 	            1000,
 	            Impression::Latent,
