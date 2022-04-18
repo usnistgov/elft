@@ -1016,7 +1016,7 @@ get_final_output_name()
 	fi
 	name+="_"
 	if ! name+="$(get_lib_version)"; then
-		fail "Could not get library versio."
+		fail "Could not get library version."
 	fi
 
 	echo "${name}"
