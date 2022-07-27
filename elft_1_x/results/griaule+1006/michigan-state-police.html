@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Michigan State Police | griaule+1006</title>
+  <meta name="description" content="7 Michigan State Police | griaule+1006" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Michigan State Police | griaule+1006" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Michigan State Police | griaule+1006" />
+  
+  
+  
+
+<meta name="author" content="Evaluation of Latent Friction Ridge Technology (ELFT)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fbi-provided-solved-dataset-1.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+<script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+<script async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="participation-information.html"><a href="participation-information.html"><i class="fa fa-check"></i><b>1</b> Participation Information</a><ul>
+<li class="chapter" data-level="1.1" data-path="participation-information.html"><a href="participation-information.html#names"><i class="fa fa-check"></i><b>1.1</b> Names</a></li>
+<li class="chapter" data-level="1.2" data-path="participation-information.html"><a href="participation-information.html#dates"><i class="fa fa-check"></i><b>1.2</b> Dates</a></li>
+<li class="chapter" data-level="1.3" data-path="participation-information.html"><a href="participation-information.html#supplied-libraries-and-configurations"><i class="fa fa-check"></i><b>1.3</b> Supplied Libraries and Configurations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="timing-sample.html"><a href="timing-sample.html"><i class="fa fa-check"></i><b>2</b> Timing Sample</a><ul>
+<li class="chapter" data-level="2.1" data-path="timing-sample.html"><a href="timing-sample.html#processor-details"><i class="fa fa-check"></i><b>2.1</b> Processor Details</a></li>
+<li class="chapter" data-level="2.2" data-path="timing-sample.html"><a href="timing-sample.html#composition"><i class="fa fa-check"></i><b>2.2</b> Composition</a></li>
+<li class="chapter" data-level="2.3" data-path="timing-sample.html"><a href="timing-sample.html#feature-extraction"><i class="fa fa-check"></i><b>2.3</b> Feature Extraction</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="timing-sample.html"><a href="timing-sample.html#template-size"><i class="fa fa-check"></i><b>2.3.1</b> Template Size</a></li>
+<li class="chapter" data-level="2.3.2" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-duration"><i class="fa fa-check"></i><b>2.3.2</b> Template Creation Duration</a></li>
+<li class="chapter" data-level="2.3.3" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-memory-consumption"><i class="fa fa-check"></i><b>2.3.3</b> Template Creation Memory Consumption</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="timing-sample.html"><a href="timing-sample.html#enrollment-database"><i class="fa fa-check"></i><b>2.4</b> Enrollment Database</a></li>
+<li class="chapter" data-level="2.5" data-path="timing-sample.html"><a href="timing-sample.html#search"><i class="fa fa-check"></i><b>2.5</b> Search</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="timing-sample.html"><a href="timing-sample.html#search-duration"><i class="fa fa-check"></i><b>2.5.1</b> Search Duration</a></li>
+<li class="chapter" data-level="2.5.2" data-path="timing-sample.html"><a href="timing-sample.html#search-memory-consumption"><i class="fa fa-check"></i><b>2.5.2</b> Search Memory Consumption</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metrics.html"><a href="metrics.html"><i class="fa fa-check"></i><b>3</b> Metrics</a><ul>
+<li class="chapter" data-level="3.1" data-path="metrics.html"><a href="metrics.html#location"><i class="fa fa-check"></i><b>3.1</b> Location</a></li>
+<li class="chapter" data-level="3.2" data-path="metrics.html"><a href="metrics.html#cumulative-match-characteristic-cmc"><i class="fa fa-check"></i><b>3.2</b> Cumulative Match Characteristic (CMC)</a></li>
+<li class="chapter" data-level="3.3" data-path="metrics.html"><a href="metrics.html#detection-error-tradeoff-det"><i class="fa fa-check"></i><b>3.3</b> Detection Error Tradeoff (DET)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html"><i class="fa fa-check"></i><b>4</b> Non-mated Distractor Subjects</a><ul>
+<li class="chapter" data-level="4.1" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html#failures"><i class="fa fa-check"></i><b>4.1</b> Failures</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html"><i class="fa fa-check"></i><b>5</b> FBI Laboratory</a><ul>
+<li class="chapter" data-level="5.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#failures-1"><i class="fa fa-check"></i><b>5.1</b> Failures</a></li>
+<li class="chapter" data-level="5.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#cmc-plots"><i class="fa fa-check"></i><b>5.2</b> CMC Plots</a></li>
+<li class="chapter" data-level="5.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#cmc-table"><i class="fa fa-check"></i><b>5.3</b> CMC Table</a></li>
+<li class="chapter" data-level="5.4" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#det-plots"><i class="fa fa-check"></i><b>5.4</b> DET Plots</a></li>
+<li class="chapter" data-level="5.5" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#det-table"><i class="fa fa-check"></i><b>5.5</b> DET Table</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html"><i class="fa fa-check"></i><b>6</b> FBI-Provided Solved Dataset #1</a><ul>
+<li class="chapter" data-level="6.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#failures-2"><i class="fa fa-check"></i><b>6.1</b> Failures</a></li>
+<li class="chapter" data-level="6.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#cmc-plots-1"><i class="fa fa-check"></i><b>6.2</b> CMC Plots</a></li>
+<li class="chapter" data-level="6.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#cmc-table-1"><i class="fa fa-check"></i><b>6.3</b> CMC Table</a></li>
+<li class="chapter" data-level="6.4" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#det-plots-1"><i class="fa fa-check"></i><b>6.4</b> DET Plots</a></li>
+<li class="chapter" data-level="6.5" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#det-table-1"><i class="fa fa-check"></i><b>6.5</b> DET Table</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="michigan-state-police.html"><a href="michigan-state-police.html"><i class="fa fa-check"></i><b>7</b> Michigan State Police</a><ul>
+<li class="chapter" data-level="7.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#failures-3"><i class="fa fa-check"></i><b>7.1</b> Failures</a></li>
+<li class="chapter" data-level="7.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#cmc-plots-2"><i class="fa fa-check"></i><b>7.2</b> CMC Plots</a></li>
+<li class="chapter" data-level="7.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#cmc-table-2"><i class="fa fa-check"></i><b>7.3</b> CMC Table</a></li>
+<li class="chapter" data-level="7.4" data-path="michigan-state-police.html"><a href="michigan-state-police.html#effect-of-distal-region-on-cmc"><i class="fa fa-check"></i><b>7.4</b> Effect of Distal Region on CMC</a></li>
+<li class="chapter" data-level="7.5" data-path="michigan-state-police.html"><a href="michigan-state-police.html#effect-of-palm-region-on-cmc"><i class="fa fa-check"></i><b>7.5</b> Effect of Palm Region on CMC</a></li>
+<li class="chapter" data-level="7.6" data-path="michigan-state-police.html"><a href="michigan-state-police.html#det-plots-2"><i class="fa fa-check"></i><b>7.6</b> DET Plots</a></li>
+<li class="chapter" data-level="7.7" data-path="michigan-state-police.html"><a href="michigan-state-police.html#det-table-2"><i class="fa fa-check"></i><b>7.7</b> DET Table</a></li>
+<li class="chapter" data-level="7.8" data-path="michigan-state-police.html"><a href="michigan-state-police.html#effect-of-distal-region-on-det"><i class="fa fa-check"></i><b>7.8</b> Effect of Distal Region on DET</a></li>
+<li class="chapter" data-level="7.9" data-path="michigan-state-police.html"><a href="michigan-state-police.html#effect-of-palm-region-on-det"><i class="fa fa-check"></i><b>7.9</b> Effect of Palm Region on DET</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><code>griaule+1006</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="michigan-state-police" class="section level1">
+<h1><span class="header-section-number">7</span> Michigan State Police</h1>
+<p>The results of <a href="michigan-state-police.html#michigan-state-police">Section <a href="michigan-state-police.html#michigan-state-police">7</a></a> are based on searches of the sequestered dataset <em>Michigan State Police</em>. This dataset consist of of <span class="math inline">2 239</span> operational latent probes. No EFS data was provided for probes or mated exemplars. All probes searched were a single friction ridge sample from somewhere on the hand.</p>
+<p><strong>Note</strong>: While NIST biometric technology evaluations typically use sequestered law enforcement data, a literature search indicates that this collection of data may have been supplied to other research organizations that are not subject to the same strict sequestration policies as NIST.</p>
+<div id="failures-3" class="section level2">
+<h2><span class="header-section-number">7.1</span> Failures</h2>
+<p><a href="michigan-state-police.html#tab:fte-msp">Table <a href="michigan-state-police.html#tab:fte-msp">7.1</a></a> shows the number of failures to create templates. <a href="michigan-state-police.html#tab:fts-msp">Table <a href="michigan-state-police.html#tab:fts-msp">7.2</a></a> shows the number of failures to produce a candidate list.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:fte-msp">Table 7.1: </span>Number of failures to create templates.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Image Type
+</th>
+<th style="text-align:left;">
+Content
+</th>
+<th style="text-align:right;">
+Distal Failures
+</th>
+<th style="text-align:right;">
+Palm Failures
+</th>
+<th style="text-align:right;">
+Attempts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Exemplar
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1 367
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Probe
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2 239
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:fts-msp">Table 7.2: </span>Number of failures to produce a candidate list. This number includes any failures to create a probe template from Table <a href="michigan-state-police.html#tab:fte-msp">7.1</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Distal Failures
+</th>
+<th style="text-align:right;">
+Palm Failures
+</th>
+<th style="text-align:right;">
+Attempts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2 239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2 239
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cmc-plots-2" class="section level2">
+<h2><span class="header-section-number">7.2</span> CMC Plots</h2>
+<p>The CMC plots in <a href="michigan-state-police.html#fig:cmc-msp-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-facet">7.1</a></a> show the FNIR of <code>griaule+1006</code> when searching Michigan State Police against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the distractor impression type. Tabular versions of FNIR at select ranks can be viewed in <a href="michigan-state-police.html#tab:cmc-msp">Table <a href="michigan-state-police.html#tab:cmc-msp">7.3</a></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:cmc-msp-facet"></span>
+<img src="plots/griaule+1006-full-cmc-msp-fpvte_C-1600K.png" alt="CMC when searching Michigan State Police probes, faceted by distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.1: CMC when searching Michigan State Police probes, faceted by distractor impression type.
+</p>
+</div>
+</div>
+<div id="cmc-table-2" class="section level2">
+<h2><span class="header-section-number">7.3</span> CMC Table</h2>
+<p>The values in <a href="michigan-state-police.html#tab:cmc-msp">Table <a href="michigan-state-police.html#tab:cmc-msp">7.3</a></a> correspond to <a href="michigan-state-police.html#fig:cmc-msp-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-facet">7.1</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cmc-msp">Table 7.3: </span>Region FNIR values from CMC plotted in Figure <a href="michigan-state-police.html#fig:cmc-msp-facet">7.1</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Rank 1
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 50</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 100</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.7159
+</td>
+<td style="text-align:right;">
+0.5971
+</td>
+<td style="text-align:right;">
+0.5815
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.7003
+</td>
+<td style="text-align:right;">
+0.6079
+</td>
+<td style="text-align:right;">
+0.5922
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="effect-of-distal-region-on-cmc" class="section level2">
+<h2><span class="header-section-number">7.4</span> Effect of Distal Region on CMC</h2>
+<p>The CMC in <a href="michigan-state-police.html#fig:cmc-msp-distal-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-distal-facet">7.2</a></a> shows results from <em>only</em> the distal phalanx probes from Michigan State Police.</p>
+<div class="figure" style="text-align: center"><span id="fig:cmc-msp-distal-facet"></span>
+<img src="plots/griaule+1006-full-cmc-msp-distal-fpvte_C-1600K.png" alt="CMC when searching Michigan State Police distal phalanx probes, faceted by distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.2: CMC when searching Michigan State Police distal phalanx probes, faceted by distractor impression type.
+</p>
+</div>
+<p>The values in <a href="michigan-state-police.html#tab:cmc-msp-distal">Table <a href="michigan-state-police.html#tab:cmc-msp-distal">7.4</a></a> correspond to <a href="michigan-state-police.html#fig:cmc-msp-distal-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-distal-facet">7.2</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cmc-msp-distal">Table 7.4: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="michigan-state-police.html#fig:cmc-msp-distal-facet">7.2</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Rank 1
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 50</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 100</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.7054
+</td>
+<td style="text-align:right;">
+0.5839
+</td>
+<td style="text-align:right;">
+0.5685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.6895
+</td>
+<td style="text-align:right;">
+0.5935
+</td>
+<td style="text-align:right;">
+0.5776
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="effect-of-palm-region-on-cmc" class="section level2">
+<h2><span class="header-section-number">7.5</span> Effect of Palm Region on CMC</h2>
+<p>The CMC in <a href="michigan-state-police.html#fig:cmc-msp-palm-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-palm-facet">7.3</a></a> shows results from <em>only</em> the palm probes from Michigan State Police.</p>
+<div class="figure" style="text-align: center"><span id="fig:cmc-msp-palm-facet"></span>
+<img src="plots/griaule+1006-full-cmc-msp-palm-fpvte_C-150K.png" alt="CMC when searching Michigan State Police palm probes, faceted by distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.3: CMC when searching Michigan State Police palm probes, faceted by distractor impression type.
+</p>
+</div>
+<p>The values in <a href="michigan-state-police.html#tab:cmc-msp-palm">Table <a href="michigan-state-police.html#tab:cmc-msp-palm">7.5</a></a> correspond to <a href="michigan-state-police.html#fig:cmc-msp-palm-facet">Figure <a href="michigan-state-police.html#fig:cmc-msp-palm-facet">7.3</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cmc-msp-palm">Table 7.5: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="michigan-state-police.html#fig:cmc-msp-palm-facet">7.3</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Rank 1
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 50</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 100</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.8485
+</td>
+<td style="text-align:right;">
+0.7636
+</td>
+<td style="text-align:right;">
+0.7455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.8364
+</td>
+<td style="text-align:right;">
+0.7879
+</td>
+<td style="text-align:right;">
+0.7758
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="det-plots-2" class="section level2">
+<h2><span class="header-section-number">7.6</span> DET Plots</h2>
+<p>The DET plots in <a href="michigan-state-police.html#fig:det-msp-facet">Figure <a href="michigan-state-police.html#fig:det-msp-facet">7.4</a></a> show the false positive and false negative identification rate tradeoffs of <code>griaule+1006</code> when searching Michigan State Police against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the distractor impression type. Tabular versions of FNIR at select FPIR can be viewed in <a href="#tab:det-smsp">Table <a href="michigan-state-police.html#tab:det-msp">7.6</a></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:det-msp-facet"></span>
+<img src="plots/griaule+1006-full-det-msp-fpvte_C-1600K.png" alt="DET when searching Michigan State Police probes, faceted by the distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.4: DET when searching Michigan State Police probes, faceted by the distractor impression type.
+</p>
+</div>
+</div>
+<div id="det-table-2" class="section level2">
+<h2><span class="header-section-number">7.7</span> DET Table</h2>
+<p>The values in <a href="michigan-state-police.html#tab:det-msp">Table <a href="michigan-state-police.html#tab:det-msp">7.6</a></a> correspond to <a href="michigan-state-police.html#fig:det-msp-facet">Figure <a href="michigan-state-police.html#fig:det-msp-facet">7.4</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:det-msp">Table 7.6: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="michigan-state-police.html#fig:det-msp-facet">7.4</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+FPIR = 0.01
+</th>
+<th style="text-align:right;">
+FPIR = 0.02
+</th>
+<th style="text-align:right;">
+FPIR = 0.1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.4963
+</td>
+<td style="text-align:right;">
+0.4557
+</td>
+<td style="text-align:right;">
+0.3383
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.4940
+</td>
+<td style="text-align:right;">
+0.4655
+</td>
+<td style="text-align:right;">
+0.3308
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="effect-of-distal-region-on-det" class="section level2">
+<h2><span class="header-section-number">7.8</span> Effect of Distal Region on DET</h2>
+<p>The DET in <a href="michigan-state-police.html#fig:det-msp-distal-facet">Figure <a href="michigan-state-police.html#fig:det-msp-distal-facet">7.5</a></a> shows results from <em>only</em> the distal phalanx probes from Michigan State Police.</p>
+<div class="figure" style="text-align: center"><span id="fig:det-msp-distal-facet"></span>
+<img src="plots/griaule+1006-full-det-msp-distal-fpvte_C-1600K.png" alt="DET when searching Michigan State Police distal phalanx probes, faceted by distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.5: DET when searching Michigan State Police distal phalanx probes, faceted by distractor impression type.
+</p>
+</div>
+<p>The values in <a href="michigan-state-police.html#tab:det-msp-distal">Table <a href="michigan-state-police.html#tab:det-msp-distal">7.7</a></a> correspond to <a href="michigan-state-police.html#fig:det-msp-distal-facet">Figure <a href="michigan-state-police.html#fig:det-msp-distal-facet">7.5</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:det-msp-distal">Table 7.7: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="michigan-state-police.html#fig:det-msp-distal-facet">7.5</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+FPIR = 0.01
+</th>
+<th style="text-align:right;">
+FPIR = 0.02
+</th>
+<th style="text-align:right;">
+FPIR = 0.1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.4883
+</td>
+<td style="text-align:right;">
+0.4536
+</td>
+<td style="text-align:right;">
+0.3374
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.4874
+</td>
+<td style="text-align:right;">
+0.4623
+</td>
+<td style="text-align:right;">
+0.3345
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="effect-of-palm-region-on-det" class="section level2">
+<h2><span class="header-section-number">7.9</span> Effect of Palm Region on DET</h2>
+<p>The DET in <a href="michigan-state-police.html#fig:det-msp-palm-facet">Figure <a href="michigan-state-police.html#fig:det-msp-palm-facet">7.6</a></a> shows results from <em>only</em> the palm probes from Michigan State Police.</p>
+<div class="figure" style="text-align: center"><span id="fig:det-msp-palm-facet"></span>
+<img src="plots/griaule+1006-full-det-msp-palm-fpvte_C-150K.png" alt="DET when searching Michigan State Police palm probes, faceted by distractor impression type." width="1050" />
+<p class="caption">
+Figure 7.6: DET when searching Michigan State Police palm probes, faceted by distractor impression type.
+</p>
+</div>
+<p>The values in <a href="michigan-state-police.html#tab:det-msp-palm">Table <a href="michigan-state-police.html#tab:det-msp-palm">7.8</a></a> correspond to <a href="michigan-state-police.html#fig:det-msp-palm-facet">Figure <a href="michigan-state-police.html#fig:det-msp-palm-facet">7.6</a></a>.</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:det-msp-palm">Table 7.8: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="michigan-state-police.html#fig:det-msp-palm-facet">7.6</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distractor Imp.
+</th>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+FPIR = 0.01
+</th>
+<th style="text-align:right;">
+FPIR = 0.02
+</th>
+<th style="text-align:right;">
+FPIR = 0.1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Plain
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.5238
+</td>
+<td style="text-align:right;">
+0.4762
+</td>
+<td style="text-align:right;">
+0.2619
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Roll
+</td>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.5135
+</td>
+<td style="text-align:right;">
+0.4595
+</td>
+<td style="text-align:right;">
+0.2162
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fbi-provided-solved-dataset-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["griaule+1006.pdf"],
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
