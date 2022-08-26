@@ -16,7 +16,8 @@
 #     a. Successful? Sign and encrypt the generated archive.                   #
 #     b. Unsuccessful? Work to resolve the listed errors, run                  #
 #        './validate clean', and repeat these steps.                           #
-#  4. Email the encrypted file along with your public key to elft@nist.gov     #
+#  4. Upload the encrypted file along with your public key via                 #
+#     https://pages.nist.gov/elft/upload                                       #
 ################################################################################
 #     E-mail: elft@nist.gov                                                    #
 #        URL: https://github.com/usnistgov/elft                                #
@@ -398,17 +399,9 @@ print_final_success()
 	box "${tar_file}" 80 '=' '|' 'c' 0 0
 	boxline
 
-	local file_size
-	file_size="$(du -m "${tar_file}" | cut -f 1)"
-	# Likely will be too big for email
-	if [ "${file_size}" -ge 20 ]; then
-		msg="${tar_file}.asc may be too big for NIST's email "
-		msg+="server, so please contact elft@nist.gov for an upload "
-		msg+="link for both ${tar_file}.asc and your public key."
-	else
-		msg="Please attach both ${tar_file}.asc and your public key to "
-		msg+="an email addressed to elft@nist.gov."
-	fi
+	msg="Please upload both ${tar_file}.asc and your public key via "
+	msg+="https://pages.nist.gov/elft/upload"
+
 	box "${msg}" 80 '=' '|' 'l' 0 1
 	font_reset
 }
@@ -475,9 +468,9 @@ print_instructions()
 	echo "    a. Successful? Sign and encrypt the generated archive."
 	echo "    b. Unsuccessful? Work to resolve the listed errors, run"
 	echo "       './validate clean', and repeat these steps."
-	echo -n " 4. Email the signed and encrypted file along with your "
-	echo "public key to"
-	echo "    elft@nist.gov."
+	echo -n " 4. Upload the signed and encrypted file along with your "
+	echo "public key via"
+	echo "    https://pages.nist.gov/elft/upload"
 }
 
 # Print CBEFF information recorded to the console

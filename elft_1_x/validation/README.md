@@ -85,10 +85,10 @@ How to Run
         databases (for any reason).
  4. Execute [validate] (`./validate`).
  5. **If successful**, sign *and* encrypt the resulting output archive in a
-    single step, and e-mail it, along with the encrypting identity's public key,
-    to elft@nist.gov. For an example of how to use GnuPG to encrypt, run
-    `validate encrypt`. If unsuccessful, correct any errors described and try
-    again.
+    single step, and upload it, along with the encrypting identity's public key,
+    and your original signed evaluation agreement via [the ELFT upload form].
+    For an example of how to use GnuPG to encrypt, run `validate encrypt`. If
+    unsuccessful, correct any errors described and try again.
 
 <details>
   <summary><em>Expand to view an example run.</em></summary>
@@ -310,3 +310,4 @@ The items in this repository are released in the public domain. See the
 [LICENSE]: https://github.com/usnistgov/elft/blob/master/LICENSE.md
 [test plan]: https://pages.nist.gov/elft/doc/elft_1_x/testplan.pdf
 [requests website]: https://nigos.nist.gov/datasets/elft_validation/request
+[the ELFT upload form]: https://pages.nist.gov/elft/upload
