@@ -347,10 +347,10 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Raw pixel data of image. </p>
-<p ><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel (8, 16, 24, or 48).">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed little endian image data, canonically coded as defined in ISO/IEC 19794-4:2005,</p>
+<p ><a class="el" href="struct_e_l_f_t_1_1_image.html#a649621d91dafe505c0eb5479094d27e1" title="Width of the image.">width</a> * <a class="el" href="struct_e_l_f_t_1_1_image.html#a34b4b613af5b86b099a34208758c364d" title="Height of the image.">height</a> * (<a class="el" href="struct_e_l_f_t_1_1_image.html#a76074e49a19faa00399cd3d3b20aee84" title="Number of bits comprising a single pixel (8, 16, 24, or 48).">bpp</a> / <a class="el" href="struct_e_l_f_t_1_1_image.html#a836beeeb46852249e24349c4ead5c1c8" title="Number of bits used by each color component (8 or 16).">bpc</a>) bytes of image data, with <code>pixels.front()</code> representing the first byte of the top-left pixel, and <code>pixels.back()</code> representing the last byte of bottom-right pixel. It is decompressed big endian image data, canonically coded as defined in ISO/IEC 19794-4:2005, section 6.2. For example, 0xFF00 is closer to white than it is to black.</p>
 <dl class="section note"><dt>Note</dt><dd>To pass pixels to a C-style array, invoke pixel's <code>data()</code> method (<code>pixels.data()</code>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00295">295</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="elft_8h_source.html#l00297">297</a> of file <a class="el" href="elft_8h_source.html">elft.h</a>.</p>
 
 </div>
 </div>
