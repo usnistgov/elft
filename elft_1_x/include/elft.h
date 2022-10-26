@@ -1470,6 +1470,14 @@ namespace ELFT
 		 * @warning
 		 * Do **not** load your reference database into memory on
 		 * construction. Instead, wait for a call to load().
+		 * @warning
+		 * It is possible that #databaseDirectory does not exist when
+		 * this function is called, but it will exist before load() is
+		 * called. Do **not** emit errors based on the contents of
+		 * #databaseDirectory from this function. This is necessary to
+		 * call getIdentification() prior to creating an enrollment
+		 * database.
+		 *
 		 *
 		 * @note
 		 * A possible implementation might be:
