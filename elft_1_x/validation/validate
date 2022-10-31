@@ -1429,11 +1429,37 @@ log_canaries()
 }
 
 # Log extraction identification information to a log file.
-log_extraction_identification_information()
+check_and_log_extraction_identification_information()
 {
+	echo -n "Checking library name... "
+
 	local log="${output_dir}/id_extract.log"
 	echo "Core Library = $(get_core_library_name)" >> "${log}"
 	"${binary}" -i -z "${config_dir}" >> "${log}"
+
+	local identifier
+	identifier=$(grep "^Identifier = " "${log}" | cut -f 2 -d '=' | \
+	    tr -d ' ')
+	if [ "${identifier}" != "$(get_organization_name)" ]; then
+		local msg="ExtractionInterface::getIdentification()."
+		msg+="libraryIdentifier is different than the identifier used "
+		msg+="in the core library (\"${identifier}\" vs. "
+		msg+="\"$(get_organization_name)\")."
+		fail "${msg}"
+	fi
+
+	local version
+	version=$(grep "^Version = " "${log}"| cut -f 2 -d '=' | tr -d ' ' | \
+	    cut -f 2 -d 'x')
+	if [ "${version}" != "$(get_lib_version)" ]; then
+		local msg="ExtractionInterface::getIdentification()."
+		msg+="versionNumber is different than the version number used "
+		msg+="in the core library (\"${version}\" vs. "
+		msg+="\"$(get_lib_version)\")."
+		fail "${msg}"
+	fi
+
+	okay
 }
 
 # Log search identification information to a log file.
@@ -1992,7 +2018,7 @@ log_canaries
 seed="$(get_random_number)" || exit 1
 compile "${seed}"
 check_api_level
-log_extraction_identification_information
+check_and_log_extraction_identification_information
 run_extract "probe" "${seed}"
 check_extract "probe"
 run_extract "reference" "${seed}"
