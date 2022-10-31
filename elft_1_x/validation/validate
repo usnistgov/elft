@@ -1442,6 +1442,18 @@ log_search_identification_information()
 	local log="${output_dir}/id_search.log"
 	echo "Core Library = $(get_core_library_name)" >> "${log}"
 	"${binary}" -j -d "${db_dir}" -z "${config_dir}" >> "${log}"
+
+	# Try to print this info with a non-existent dir
+	if ! "${binary}" -j -d "$(mktemp --dry-run)" -z "${config_dir}" > \
+	    /dev/null; then
+		local msg="Failed to call SearchInterface::getIdentificaiton() "
+		msg+="when the database directory does not exist. "
+		msg+="Implementations should not consult the existence or "
+		msg+="contents of the database directory until "
+		msg+="SearchInterface::load()."
+
+		fail "${msg}"
+	fi
 }
 
 # Run template generation and feature extraction.
