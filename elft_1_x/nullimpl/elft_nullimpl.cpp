@@ -122,6 +122,18 @@ ELFT::ReturnStatus
 ELFT::NullSearchImplementation::load(
     const uint64_t maxSize)
 {
+	if (!std::filesystem::is_directory(this->databaseDirectory))
+		throw std::runtime_error{this->databaseDirectory.string() + " "
+		    "does not exist"};
+	if (!std::filesystem::exists(this->databaseDirectory / "archive"))
+		throw std::runtime_error{(this->databaseDirectory /
+		    "archive").string() + " does not exist"};
+	if (!std::filesystem::exists(this->databaseDirectory / "manifest"))
+		throw std::runtime_error{(this->databaseDirectory /
+		    "manifest").string() + " does not exist"};
+
+	/* XXX: Load maxSize bytes of data into RAM. */
+
 	return {};
 }
 
