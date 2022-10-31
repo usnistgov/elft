@@ -1320,9 +1320,11 @@ main(
     char *argv[])
 {
 	if (!((ELFT::API_MAJOR_VERSION == 1) &&
-	    (ELFT::API_MINOR_VERSION == 2))) {
+	    (ELFT::API_MINOR_VERSION == 2) &&
+	    /* While not required, we want to make sure you're up to date. */
+	    (ELFT::API_PATCH_VERSION == 1))) {
 		std::cerr << "Incompatible API version encountered.\n "
-		    "- Validation: 1.2.X\n - Participant: " <<
+		    "- Validation: 1.2.1\n - Participant: " <<
 		    ELFT::API_MAJOR_VERSION << '.' <<
 		    ELFT::API_MINOR_VERSION << '.' <<
 		    ELFT::API_PATCH_VERSION << '\n';
