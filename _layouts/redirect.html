@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head/basic.html %}
+{% include head/usg_analytics.html %}
+	<meta http-equiv="refresh" content="0;URL='{{ redirect_url }}'" />
+</head>
+<body>
+	<p>This page has moved to a <a href="{{ redirect_url }}">{{ redirect_url }}</a>.</p>
+	{{ content }}
+</body>
+</html>
