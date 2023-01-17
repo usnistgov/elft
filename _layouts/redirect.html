@@ -3,10 +3,9 @@
 <head>
 {% include head/basic.html %}
 {% include head/usg_analytics.html %}
-	<meta http-equiv="refresh" content="0;URL='{{ redirect_url }}'" />
+	<meta http-equiv="refresh" content="0;URL='{{ page.redirect_url }}'" />
 </head>
 <body>
-	<p>This page has moved to a <a href="{{ redirect_url }}">{{ redirect_url }}</a>.</p>
-	{{ content }}
+	<p>This page has moved to a <a href="{{ page.redirect_url }}">{{ page.redirect_url }}</a>.</p>
 </body>
 </html>
