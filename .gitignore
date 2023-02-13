@@ -1,3 +1,9 @@
+._*
+*.swp
+*~
+*.tar.xz
+*.tar.gz
+*.zip
 .DS_Store
 # Source: https://github.com/github/gitignore/blob/main/Jekyll.gitignore
 _site/
