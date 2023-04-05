@@ -323,12 +323,19 @@ ELFT::Validation::makeReferenceTemplateArchive(
 		throw std::runtime_error{"Could not open " +
 		    (dir / Data::TemplateArchiveManifestName).string()};
 
+	/* Sort to ensure archive is always generated in the same order */
+	std::vector<std::filesystem::directory_entry> entries{};
+	entries.reserve(Data::References.size());
 	for (const auto &entry : std::filesystem::recursive_directory_iterator(
 	    dir)) {
 		if ((entry.path().extension() != Data::TemplateSuffix) ||
 		    !entry.is_regular_file())
 			continue;
+		entries.push_back(entry);
+	}
+	std::sort(entries.begin(), entries.end());
 
+	for (const auto &entry : entries) {
 		std::ifstream tmpl{entry.path(), std::ios_base::in |
 		    std::ios_base::binary | std::ios_base::ate};
 		if (!tmpl)
