@@ -1307,6 +1307,21 @@ compile()
 			echo
 		done < <(find "${lib_dir}" -type f -name "lib*")
 
+		echo -n "CPU Model = "
+		if [ -e /proc/cpuinfo ]; then
+			grep "model name" /proc/cpuinfo | sort | uniq | \
+			    cut -f2 -d ':' | xargs
+		else
+			echo "NA"
+		fi
+
+		echo -n "MemTotal = "
+		if [ -e /proc/meminfo ]; then
+			grep "MemTotal" /proc/meminfo | cut -f2 -d ':' | xargs
+		else
+			echo "NA"
+		fi
+
 		echo "Validation properties:"
 		echo "Validation Version = ${validation_version}"
 		echo "Random Seed = $1"
