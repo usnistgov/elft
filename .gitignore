@@ -11,14 +11,15 @@ build*
 */validation/config
 !*/validation/config/README
 */validation/config.moved
-*/validation/lib64
-!*/validation/lib64/README
-*/validation/lib64.moved
+*/validation/lib
+!*/validation/lib/README
+*/validation/lib.moved
 */validation/output
 */validation/elft_validation_*_*/
 */validation/elft_validation_*_*.tar.xz
 */validation/images
 */validation/elft_validation_images-*.tar.xz
+*/validation/include
 
 # Temp files
 .DS_Store
