@@ -209,7 +209,21 @@ Image
 Probe
 </td>
 <td style="text-align:left;">
-Image + EFS
+EFS
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Probe
+</td>
+<td style="text-align:left;">
+Image
 </td>
 <td style="text-align:right;">
 0
@@ -223,7 +237,7 @@ Image + EFS
 Probe
 </td>
 <td style="text-align:left;">
-Image
+Image + EFS
 </td>
 <td style="text-align:right;">
 0
@@ -243,9 +257,6 @@ Image
 <thead>
 <tr>
 <th style="text-align:left;">
-Distractor Imp.
-</th>
-<th style="text-align:left;">
 Probe Content
 </th>
 <th style="text-align:right;">
@@ -259,8 +270,16 @@ Attempts
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
+EFS
 </td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48
+</td>
+</tr>
+<tr>
 <td style="text-align:left;">
 Image
 </td>
@@ -272,9 +291,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>
@@ -293,6 +309,8 @@ Image + EFS
 <h2><span class="header-section-number">5.2</span> CMC</h2>
 <div id="plots" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Plots</h3>
+<div id="all-probes" class="section level4">
+<h4><span class="header-section-number">5.2.1.1</span> All Probes</h4>
 <p>The CMC plots in <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">5.1</a></a> show the FNIR of <code>ThalesCogent+0006</code> when searching FBI Laboratory against enrollment database where a single mated identity for each search probe was present. The plots are faceted by whether probe EFS data was provided. Tabular versions of FNIR at select ranks can be viewed in <a href="fbi-laboratory.html#tab:cmc-fbi-lab">Table <a href="fbi-laboratory.html#tab:cmc-fbi-lab">5.3</a></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:cmc-fbi-lab-facet"></span>
 <img src="plots/ThalesCogent+0006-full-cmc-fbi_lab-fpvte_C-1600K.png" alt="CMC when searching FBI Laboratory probes, faceted by whether probe EFS data was provided." width="1050" />
@@ -301,8 +319,21 @@ Figure 5.1: CMC when searching FBI Laboratory probes, faceted by whether probe E
 </p>
 </div>
 </div>
+<div id="probes-with-efs-data" class="section level4">
+<h4><span class="header-section-number">5.2.1.2</span> Probes with EFS Data</h4>
+<p>Not all of the probes in the FBI Laboratory dataset contain EFS data. The plot in <a href="fbi-laboratory.html#fig:cmc-fbi-lab-region-probe-content">Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-region-probe-content">5.2</a></a> shows the CMC over <em>only</em> the probes that contained EFS data. This plot also differs from <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">5.1</a></a> with the inclusion of a line for probes where no image was provided when creating the probe template, meaning the only information available was EFS data. Only the <a href="metrics.html#location"><em>region</em> success location</a> is shown.</p>
+<div class="figure" style="text-align: center"><span id="fig:cmc-fbi-lab-region-probe-content"></span>
+<img src="plots/ThalesCogent+0006-full-cmc-fbi_lab-fpvte_C_10p10r_enroll-1600K-region-probes.png" alt="CMC of region location when searching only the FBI Laboratory probes that contained EFS data." width="1050" />
+<p class="caption">
+Figure 5.2: CMC of region location when searching only the FBI Laboratory probes that contained EFS data.
+</p>
+</div>
+</div>
+</div>
 <div id="fnir-at-select-rank" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> FNIR at Select Rank</h3>
+<div id="all-probes-1" class="section level4">
+<h4><span class="header-section-number">5.2.2.1</span> All Probes</h4>
 <p>The values in <a href="fbi-laboratory.html#tab:cmc-fbi-lab">Table <a href="fbi-laboratory.html#tab:cmc-fbi-lab">5.3</a></a> correspond to <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-facet">5.1</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
@@ -312,13 +343,19 @@ Figure 5.1: CMC when searching FBI Laboratory probes, faceted by whether probe E
 <thead>
 <tr>
 <th style="text-align:left;">
-Distractor Imp.
-</th>
-<th style="text-align:left;">
 Probe Content
 </th>
 <th style="text-align:right;">
-Rank 1
+Rank <span class="math inline">1</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 2</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 5</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 10</span>
 </th>
 <th style="text-align:right;">
 Rank <span class="math inline"> ≤ 50</span>
@@ -331,13 +368,19 @@ Rank <span class="math inline"> ≤ 100</span>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image
 </td>
 <td style="text-align:right;">
 0.2041
+</td>
+<td style="text-align:right;">
+0.1837
+</td>
+<td style="text-align:right;">
+0.1837
+</td>
+<td style="text-align:right;">
+0.1837
 </td>
 <td style="text-align:right;">
 0.1633
@@ -348,13 +391,19 @@ Image
 </tr>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image + EFS
 </td>
 <td style="text-align:right;">
 0.2041
+</td>
+<td style="text-align:right;">
+0.1837
+</td>
+<td style="text-align:right;">
+0.1429
+</td>
+<td style="text-align:right;">
+0.1429
 </td>
 <td style="text-align:right;">
 0.1429
@@ -367,32 +416,152 @@ Image + EFS
 </table>
 </div>
 </div>
+<div id="probes-with-efs-data-1" class="section level4">
+<h4><span class="header-section-number">5.2.2.2</span> Probes with EFS Data</h4>
+<p>The values in <a href="fbi-laboratory.html#tab:cmc-fbi-lab-probe-content">Table <a href="fbi-laboratory.html#tab:cmc-fbi-lab-probe-content">5.4</a></a> correspond to <a href="fbi-laboratory.html#fig:cmc-fbi-lab-region-probe-content">Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-region-probe-content">5.2</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cmc-fbi-lab-probe-content">Table 5.4: </span>Region FNIR values from CMC plotted in Figure <a href="fbi-laboratory.html#fig:cmc-fbi-lab-region-probe-content">5.2</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline">1</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 2</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 5</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 10</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 50</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 100</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+EFS
+</td>
+<td style="text-align:right;">
+0.4167
+</td>
+<td style="text-align:right;">
+0.3750
+</td>
+<td style="text-align:right;">
+0.3750
+</td>
+<td style="text-align:right;">
+0.3750
+</td>
+<td style="text-align:right;">
+0.3542
+</td>
+<td style="text-align:right;">
+0.3542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.2083
+</td>
+<td style="text-align:right;">
+0.1875
+</td>
+<td style="text-align:right;">
+0.1875
+</td>
+<td style="text-align:right;">
+0.1875
+</td>
+<td style="text-align:right;">
+0.1667
+</td>
+<td style="text-align:right;">
+0.1667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image + EFS
+</td>
+<td style="text-align:right;">
+0.2083
+</td>
+<td style="text-align:right;">
+0.1875
+</td>
+<td style="text-align:right;">
+0.1458
+</td>
+<td style="text-align:right;">
+0.1458
+</td>
+<td style="text-align:right;">
+0.1458
+</td>
+<td style="text-align:right;">
+0.1458
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="det" class="section level2">
 <h2><span class="header-section-number">5.3</span> DET</h2>
 <div id="plots-1" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Plots</h3>
-<p>The DET plots in <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.2</a></a> show the false positive and false negative identification rate tradeoffs of <code>ThalesCogent+0006</code> when searching FBI Laboratory against enrollment database where a single mated identity for each search probe was present. The plots are faceted by whether probe EFS data was provided. Tabular versions of FNIR at select FPIR can be viewed in <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.4</a></a>. Annotated values indicate similarity scores, which are tabulated in <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">5.5</a></a>.</p>
+<div id="all-probes-2" class="section level4">
+<h4><span class="header-section-number">5.3.1.1</span> All Probes</h4>
+<p>The DET plots in <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.3</a></a> show the false positive and false negative identification rate tradeoffs of <code>ThalesCogent+0006</code> when searching FBI Laboratory against enrollment database where a single mated identity for each search probe was present. The plots are faceted by whether probe EFS data was provided. Tabular versions of FNIR at select FPIR can be viewed in <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.5</a></a>. Annotated values indicate similarity scores, which are tabulated in <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">5.7</a></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:det-fbi-lab-facet"></span>
 <img src="plots/ThalesCogent+0006-full-det-fbi_lab-fpvte_C-1600K.png" alt="DET when searching FBI Laboratory probes, faceted by whether probe EFS data was provided. Annotated values indicate similarity scores." width="1050" />
 <p class="caption">
-Figure 5.2: DET when searching FBI Laboratory probes, faceted by whether probe EFS data was provided. Annotated values indicate similarity scores.
+Figure 5.3: DET when searching FBI Laboratory probes, faceted by whether probe EFS data was provided. Annotated values indicate similarity scores.
 </p>
+</div>
+</div>
+<div id="probes-with-efs-data-2" class="section level4">
+<h4><span class="header-section-number">5.3.1.2</span> Probes with EFS Data</h4>
+<p>Not all of the probes in the FBI Laboratory dataset contain EFS data. The plot in <a href="fbi-laboratory.html#fig:det-fbi-lab-region-probe-content">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-region-probe-content">5.4</a></a> shows the DET over <em>only</em> the probes that contained EFS data. This plot also differs from <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.3</a></a> with the inclusion of a line for probes where no image was provided when creating the probe template, meaning the only information available was EFS data. Only the <a href="metrics.html#location"><em>region</em> success location</a> is shown.</p>
+<div class="figure" style="text-align: center"><span id="fig:det-fbi-lab-region-probe-content"></span>
+<img src="plots/ThalesCogent+0006-full-det-fbi_lab-fpvte_C_10p10r_enroll-1600K-region-probes.png" alt="DET of region location when searching only the FBI Laboratory probes that contained EFS data." width="1050" />
+<p class="caption">
+Figure 5.4: DET of region location when searching only the FBI Laboratory probes that contained EFS data.
+</p>
+</div>
 </div>
 </div>
 <div id="fnir-at-select-fpir" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> FNIR at Select FPIR</h3>
-<p>The values in <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.4</a></a> correspond to <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.2</a></a>.</p>
+<div id="all-probes-3" class="section level4">
+<h4><span class="header-section-number">5.3.2.1</span> All Probes</h4>
+<p>The values in <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.5</a></a> correspond to <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.3</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:det-fbi-lab">Table 5.4: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.2</a>.
+<span id="tab:det-fbi-lab">Table 5.5: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-facet">5.3</a>.
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-Distractor Imp.
-</th>
 <th style="text-align:left;">
 Probe Content
 </th>
@@ -410,9 +579,6 @@ FPIR = 0.1
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image
 </td>
 <td style="text-align:right;">
@@ -426,9 +592,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>
@@ -446,19 +609,16 @@ Image + EFS
 </table>
 </div>
 </div>
-<div id="similarity-score-thresholds-at-select-fpir" class="section level3">
-<h3><span class="header-section-number">5.3.3</span> Similarity Score Thresholds at Select FPIR</h3>
-<p>The values in <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">5.5</a></a> correspond to similarity score thresholds observed at the select FPIR values from <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.4</a></a>.</p>
+<div id="probes-with-efs-data-3" class="section level4">
+<h4><span class="header-section-number">5.3.2.2</span> Probes with EFS Data</h4>
+<p>The values in <a href="fbi-laboratory.html#tab:det-fbi-lab-probe-content">Table <a href="fbi-laboratory.html#tab:det-fbi-lab-probe-content">5.6</a></a> correspond to <a href="fbi-laboratory.html#fig:det-fbi-lab-region-probe-content">Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-region-probe-content">5.4</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:det-threshold-fbi-lab">Table 5.5: </span>Similarity score thresholds corresponding to select FPIR values from Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.4</a>.
+<span id="tab:det-fbi-lab-probe-content">Table 5.6: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-laboratory.html#fig:det-fbi-lab-region-probe-content">5.4</a>.
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-Distractor Imp.
-</th>
 <th style="text-align:left;">
 Probe Content
 </th>
@@ -476,8 +636,77 @@ FPIR = 0.1
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
+EFS
 </td>
+<td style="text-align:right;">
+0.3226
+</td>
+<td style="text-align:right;">
+0.3226
+</td>
+<td style="text-align:right;">
+0.1935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.2439
+</td>
+<td style="text-align:right;">
+0.2439
+</td>
+<td style="text-align:right;">
+0.0976
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image + EFS
+</td>
+<td style="text-align:right;">
+0.2619
+</td>
+<td style="text-align:right;">
+0.2143
+</td>
+<td style="text-align:right;">
+0.1429
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="similarity-score-thresholds-at-select-fpir" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Similarity Score Thresholds at Select FPIR</h3>
+<p>The values in <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-threshold-fbi-lab">5.7</a></a> correspond to similarity score thresholds observed at the select FPIR values from <a href="fbi-laboratory.html#tab:det-fbi-lab">Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.5</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:det-threshold-fbi-lab">Table 5.7: </span>Similarity score thresholds corresponding to select FPIR values from Table <a href="fbi-laboratory.html#tab:det-fbi-lab">5.5</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+FPIR = 0.01
+</th>
+<th style="text-align:right;">
+FPIR = 0.02
+</th>
+<th style="text-align:right;">
+FPIR = 0.1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td style="text-align:left;">
 Image
 </td>
@@ -492,9 +721,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>

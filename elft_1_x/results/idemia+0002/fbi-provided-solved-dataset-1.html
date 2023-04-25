@@ -211,7 +211,21 @@ Image
 Probe
 </td>
 <td style="text-align:left;">
-Image + EFS
+EFS
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+285
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Probe
+</td>
+<td style="text-align:left;">
+Image
 </td>
 <td style="text-align:right;">
 0
@@ -225,7 +239,7 @@ Image + EFS
 Probe
 </td>
 <td style="text-align:left;">
-Image
+Image + EFS
 </td>
 <td style="text-align:right;">
 0
@@ -245,9 +259,6 @@ Image
 <thead>
 <tr>
 <th style="text-align:left;">
-Distractor Imp.
-</th>
-<th style="text-align:left;">
 Probe Content
 </th>
 <th style="text-align:right;">
@@ -261,8 +272,16 @@ Attempts
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
+EFS
 </td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+285
+</td>
+</tr>
+<tr>
 <td style="text-align:left;">
 Image
 </td>
@@ -274,9 +293,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>
@@ -295,16 +311,31 @@ Image + EFS
 <h2><span class="header-section-number">6.2</span> CMC</h2>
 <div id="plots-2" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Plots</h3>
-<p>The CMC plots in <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">6.1</a></a> show the FNIR of <code>idemia+0002</code> when searching FBI-Provided Solved Dataset 1 against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the mated impression type and whether probe EFS data was provided. Tabular versions of FNIR at select ranks can be viewed in <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1">6.3</a></a>.</p>
+<div id="all-probes-4" class="section level4">
+<h4><span class="header-section-number">6.2.1.1</span> All Probes</h4>
+<p>The CMC plots in <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">6.1</a></a> show the FNIR of <code>idemia+0002</code> when searching FBI-Provided Solved Dataset #1 against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the mated impression type and whether probe EFS data was provided. Tabular versions of FNIR at select ranks can be viewed in <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1">6.3</a></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:cmc-fbi-solved-1-facet"></span>
-<img src="plots/idemia+0002-full-cmc-fbi_solved_1-fpvte_C-1600K.png" alt="CMC when searching FBI-Provided Solved Dataset 1 probes, faceted by the mated impression type and whether probe EFS data was provided." width="1050" />
+<img src="plots/idemia+0002-full-cmc-fbi_solved_1-fpvte_C-1600K.png" alt="CMC when searching FBI-Provided Solved Dataset \#1 probes, faceted by the mated impression type and whether probe EFS data was provided." width="1050" />
 <p class="caption">
-Figure 6.1: CMC when searching FBI-Provided Solved Dataset 1 probes, faceted by the mated impression type and whether probe EFS data was provided.
+Figure 6.1: CMC when searching FBI-Provided Solved Dataset #1 probes, faceted by the mated impression type and whether probe EFS data was provided.
 </p>
+</div>
+</div>
+<div id="probes-with-efs-data-4" class="section level4">
+<h4><span class="header-section-number">6.2.1.2</span> Probes with EFS Data</h4>
+<p>Not all of the probes in the FBI-Provided Solved Dataset #1 dataset contain EFS data. The plot in <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-region-probe-content">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-region-probe-content">6.2</a></a> shows the CMC over <em>only</em> the probes that contained EFS data. This plot also differs from <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">6.1</a></a> with the inclusion of a line for probes where no image was provided when creating the probe template, meaning the only information available was EFS data. Only the <a href="metrics.html#location"><em>region</em> success location</a> is shown.</p>
+<div class="figure" style="text-align: center"><span id="fig:cmc-fbi-solved-1-region-probe-content"></span>
+<img src="plots/idemia+0002-full-cmc-fbi_solved_1-fpvte_C_10p10r_enroll-1600K-region-probes.png" alt="CMC of region location when searching only the FBI-Provided Solved Dataset \#1 probes that contained EFS data." width="1050" />
+<p class="caption">
+Figure 6.2: CMC of region location when searching only the FBI-Provided Solved Dataset #1 probes that contained EFS data.
+</p>
+</div>
 </div>
 </div>
 <div id="fnir-at-select-rank-1" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> FNIR at Select Rank</h3>
+<div id="all-probes-5" class="section level4">
+<h4><span class="header-section-number">6.2.2.1</span> All Probes</h4>
 <p>The values in <a href="#tab:cmc-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1">6.3</a></a> correspond to <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-facet">6.1</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
@@ -314,13 +345,19 @@ Figure 6.1: CMC when searching FBI-Provided Solved Dataset 1 probes, faceted by 
 <thead>
 <tr>
 <th style="text-align:left;">
-Distractor Imp.
-</th>
-<th style="text-align:left;">
 Probe Content
 </th>
 <th style="text-align:right;">
-Rank 1
+Rank <span class="math inline">1</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 2</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 5</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 10</span>
 </th>
 <th style="text-align:right;">
 Rank <span class="math inline"> ≤ 50</span>
@@ -333,13 +370,19 @@ Rank <span class="math inline"> ≤ 100</span>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image
 </td>
 <td style="text-align:right;">
 0.0795
+</td>
+<td style="text-align:right;">
+0.0756
+</td>
+<td style="text-align:right;">
+0.0659
+</td>
+<td style="text-align:right;">
+0.0601
 </td>
 <td style="text-align:right;">
 0.0504
@@ -350,13 +393,19 @@ Image
 </tr>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image + EFS
 </td>
 <td style="text-align:right;">
 0.0736
+</td>
+<td style="text-align:right;">
+0.0659
+</td>
+<td style="text-align:right;">
+0.0543
+</td>
+<td style="text-align:right;">
+0.0504
 </td>
 <td style="text-align:right;">
 0.0446
@@ -369,32 +418,152 @@ Image + EFS
 </table>
 </div>
 </div>
+<div id="probes-with-efs-data-5" class="section level4">
+<h4><span class="header-section-number">6.2.2.2</span> Probes with EFS Data</h4>
+<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1-probe-content">Table <a href="fbi-provided-solved-dataset-1.html#tab:cmc-fbi-solved-1-probe-content">6.4</a></a> correspond to <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-region-probe-content">Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-region-probe-content">6.2</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cmc-fbi-solved-1-probe-content">Table 6.4: </span>Region FNIR values from CMC plotted in Figure <a href="fbi-provided-solved-dataset-1.html#fig:cmc-fbi-solved-1-region-probe-content">6.2</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline">1</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 2</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 5</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 10</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 50</span>
+</th>
+<th style="text-align:right;">
+Rank <span class="math inline"> ≤ 100</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+EFS
+</td>
+<td style="text-align:right;">
+0.2772
+</td>
+<td style="text-align:right;">
+0.2386
+</td>
+<td style="text-align:right;">
+0.2070
+</td>
+<td style="text-align:right;">
+0.1965
+</td>
+<td style="text-align:right;">
+0.1579
+</td>
+<td style="text-align:right;">
+0.1439
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.0772
+</td>
+<td style="text-align:right;">
+0.0737
+</td>
+<td style="text-align:right;">
+0.0596
+</td>
+<td style="text-align:right;">
+0.0526
+</td>
+<td style="text-align:right;">
+0.0421
+</td>
+<td style="text-align:right;">
+0.0386
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image + EFS
+</td>
+<td style="text-align:right;">
+0.0667
+</td>
+<td style="text-align:right;">
+0.0561
+</td>
+<td style="text-align:right;">
+0.0386
+</td>
+<td style="text-align:right;">
+0.0351
+</td>
+<td style="text-align:right;">
+0.0316
+</td>
+<td style="text-align:right;">
+0.0316
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="det-1" class="section level2">
 <h2><span class="header-section-number">6.3</span> DET</h2>
 <div id="plots-3" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Plots</h3>
-<p>The DET plots in <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.2</a></a> show the false positive and false negative identification rate tradeoffs of <code>idemia+0002</code> when searching FBI-Provided Solved Dataset 1 against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the mated impression type and whether probe EFS data was provided. Tabular versions of FNIR at select FPIR can be viewed in <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.4</a></a>. Annotated values indicate similarity scores, which are tabulated in <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">6.5</a></a>.</p>
+<div id="all-probes-6" class="section level4">
+<h4><span class="header-section-number">6.3.1.1</span> All Probes</h4>
+<p>The DET plots in <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.3</a></a> show the false positive and false negative identification rate tradeoffs of <code>idemia+0002</code> when searching FBI-Provided Solved Dataset #1 against enrollment database where a single mated identity for each search probe was present. The plots are faceted by the mated impression type and whether probe EFS data was provided. Tabular versions of FNIR at select FPIR can be viewed in <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.5</a></a>. Annotated values indicate similarity scores, which are tabulated in <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">6.7</a></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:det-fbi-solved-1-facet"></span>
-<img src="plots/idemia+0002-full-det-fbi_solved_1-fpvte_C-1600K.png" alt="DET when searching FBI-Provided Solved Dataset 1 probes, faceted by the mated impression type and whether probe EFS data was provided. Annotated values indicate similarity scores." width="1050" />
+<img src="plots/idemia+0002-full-det-fbi_solved_1-fpvte_C-1600K.png" alt="DET when searching FBI-Provided Solved Dataset \#1 probes, faceted by the mated impression type and whether probe EFS data was provided. Annotated values indicate similarity scores." width="1050" />
 <p class="caption">
-Figure 6.2: DET when searching FBI-Provided Solved Dataset 1 probes, faceted by the mated impression type and whether probe EFS data was provided. Annotated values indicate similarity scores.
+Figure 6.3: DET when searching FBI-Provided Solved Dataset #1 probes, faceted by the mated impression type and whether probe EFS data was provided. Annotated values indicate similarity scores.
 </p>
+</div>
+</div>
+<div id="probes-with-efs-data-6" class="section level4">
+<h4><span class="header-section-number">6.3.1.2</span> Probes with EFS Data</h4>
+<p>Not all of the probes in the FBI-Provided Solved Dataset #1 dataset contain EFS data. The plot in <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-region-probe-content">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-region-probe-content">6.4</a></a> shows the DET over <em>only</em> the probes that contained EFS data. This plot also differs from <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.3</a></a> with the inclusion of a line for probes where no image was provided when creating the probe template, meaning the only information available was EFS data. Only the <a href="metrics.html#location"><em>region</em> success location</a> is shown.</p>
+<div class="figure" style="text-align: center"><span id="fig:det-fbi-solved-1-region-probe-content"></span>
+<img src="plots/idemia+0002-full-det-fbi_solved_1-fpvte_C_10p10r_enroll-1600K-region-probes.png" alt="DET of region location when searching only the FBI-Provided Solved Dataset \#1 probes that contained EFS data." width="1050" />
+<p class="caption">
+Figure 6.4: DET of region location when searching only the FBI-Provided Solved Dataset #1 probes that contained EFS data.
+</p>
+</div>
 </div>
 </div>
 <div id="fnir-at-select-fpir-1" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> FNIR at Select FPIR</h3>
-<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.4</a></a> correspond to <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.2</a></a>.</p>
+<div id="all-probes-7" class="section level4">
+<h4><span class="header-section-number">6.3.2.1</span> All Probes</h4>
+<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.5</a></a> correspond to <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.3</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:det-fbi-solved-1">Table 6.4: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.2</a>.
+<span id="tab:det-fbi-solved-1">Table 6.5: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-facet">6.3</a>.
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-Distractor Imp.
-</th>
 <th style="text-align:left;">
 Probe Content
 </th>
@@ -412,9 +581,6 @@ FPIR = 0.1
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
-<td style="text-align:left;">
 Image
 </td>
 <td style="text-align:right;">
@@ -428,9 +594,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>
@@ -448,19 +611,16 @@ Image + EFS
 </table>
 </div>
 </div>
-<div id="similarity-score-thresholds-at-select-fpir-1" class="section level3">
-<h3><span class="header-section-number">6.3.3</span> Similarity Score Thresholds at Select FPIR</h3>
-<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">6.5</a></a> correspond to similarity score thresholds observed at the select FPIR values from <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.4</a></a>.</p>
+<div id="probes-with-efs-data-7" class="section level4">
+<h4><span class="header-section-number">6.3.2.2</span> Probes with EFS Data</h4>
+<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1-probe-content">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1-probe-content">6.6</a></a> correspond to <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-region-probe-content">Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-region-probe-content">6.4</a></a>.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:det-threshold-fbi-solved-1">Table 6.5: </span>Similarity score thresholds corresponding to select FPIR values from Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.4</a>.
+<span id="tab:det-fbi-solved-1-probe-content">Table 6.6: </span>Region FNIR values corresponding to FPIR plotted in Figure <a href="fbi-provided-solved-dataset-1.html#fig:det-fbi-solved-1-region-probe-content">6.4</a>.
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-Distractor Imp.
-</th>
 <th style="text-align:left;">
 Probe Content
 </th>
@@ -478,8 +638,77 @@ FPIR = 0.1
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mixed (Plain/Roll)
+EFS
 </td>
+<td style="text-align:right;">
+0.1270
+</td>
+<td style="text-align:right;">
+0.1025
+</td>
+<td style="text-align:right;">
+0.0615
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image
+</td>
+<td style="text-align:right;">
+0.0346
+</td>
+<td style="text-align:right;">
+0.0326
+</td>
+<td style="text-align:right;">
+0.0204
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Image + EFS
+</td>
+<td style="text-align:right;">
+0.0365
+</td>
+<td style="text-align:right;">
+0.0325
+</td>
+<td style="text-align:right;">
+0.0183
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="similarity-score-thresholds-at-select-fpir-1" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Similarity Score Thresholds at Select FPIR</h3>
+<p>The values in <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-threshold-fbi-solved-1">6.7</a></a> correspond to similarity score thresholds observed at the select FPIR values from <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.5</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:det-threshold-fbi-solved-1">Table 6.7: </span>Similarity score thresholds corresponding to select FPIR values from Table <a href="fbi-provided-solved-dataset-1.html#tab:det-fbi-solved-1">6.5</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Probe Content
+</th>
+<th style="text-align:right;">
+FPIR = 0.01
+</th>
+<th style="text-align:right;">
+FPIR = 0.02
+</th>
+<th style="text-align:right;">
+FPIR = 0.1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td style="text-align:left;">
 Image
 </td>
@@ -494,9 +723,6 @@ Image
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-Mixed (Plain/Roll)
-</td>
 <td style="text-align:left;">
 Image + EFS
 </td>
