@@ -59,9 +59,6 @@ $(document).ready(function() {
 				type: notApplicableType
 			}
 		],
-		fixedColumns: {
-			left: 1,
-		},
 		responsive: {
 			details: {
 				display: $.fn.dataTable.Responsive.display.modal({
