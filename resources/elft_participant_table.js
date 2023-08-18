@@ -35,7 +35,7 @@ $(document).ready(function() {
 			 * Visibility
 			 */
 			{
-				targets: [0, 1, 5, 7, 10, 50],
+				targets: [0, 1, 5, 7, 8, 9, 11, 51],
 				visible: true
 			},
 			{
@@ -47,7 +47,7 @@ $(document).ready(function() {
 			 * Column types
 			 */
 			{
-				targets: [0, 1, 2, 3, 4, 6, 7],
+				targets: [0, 1, 2, 3, 4, 7, 8],
 				type: "string"
 			},
 			{
