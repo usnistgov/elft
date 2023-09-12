@@ -18,7 +18,9 @@ var notApplicableType = $.fn.dataTable.absoluteOrderNumber([
 
 $(document).ready(function() {
 	$('#elft-table').DataTable({
-		scrollX: false,
+		paging: false,
+		scrollCollapse: true,
+		scrollY: '300px',
 		dom: 'Bfrtip',
 		buttons: ['colvis', 'csvHtml5'],
 		order: [[5, "desc"]],
