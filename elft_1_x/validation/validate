@@ -1245,15 +1245,42 @@ compile()
 	local num_libs
 	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
 	if [ "${num_libs}" -gt 2 ]; then
-		if ! readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep "\$ORIGIN" > /dev/null
+		# RUNPATH preferred over RPATH
+		local uses_rpath=0
+		if readelf -d "${lib_dir}/${core_lib}" | grep -q RPATH; then
+			uses_rpath=1
+		fi
+		if [ "${uses_rpath}" == "1" ]; then
+			local msg="You are setting RPATH, but RUNPATH is "
+			msg+="preferred for new development. Please consider "
+			msg+="setting RUNPATH instead of RPATH."
+
+			warn "${msg}"
+			echo -n "Still building... "
+		fi
+
+		# Check for $ORIGIN in both RPATH and RUNPATH
+		local origin_in_rpath=0
+		if [ "${uses_rpath}" == "1" ]; then
+			if readelf -d "${lib_dir}/${core_lib}" | \
+			    grep RPATH | grep "\$ORIGIN" > /dev/null; then
+				origin_in_rpath=1
+			fi
+		fi
+		local origin_in_runpath=0
+		if readelf -d "${lib_dir}/${core_lib}" | \
+		    grep RUNPATH | grep "\$ORIGIN" > /dev/null; then
+			origin_in_runpath=1
+		fi
+		if [ "${origin_in_rpath}" == "0" ] && \
+		    [ "${origin_in_runpath}" == "0" ]
 		then
 			local msg="You have supplied multiple libraries, but "
-			msg+="${core_lib} does not have an RUNPATH of \$ORIGIN."
-			msg+=" This may cause runtime issues, because the "
+			msg+="${core_lib} does not have a RUNPATH of \$ORIGIN. "
+			msg+="This may cause runtime issues, because the "
 			msg+="location of libraries on NIST's systems will not "
 			msg+="be laid out the same as in this validation "
-			msg+="package and the only library explicitly linked "
+			msg+="package, and the only library explicitly linked "
 			msg+="will be ${core_lib}."
 
 			warn "${msg}"
