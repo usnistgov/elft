@@ -407,7 +407,9 @@ This method shall return in &lt;= 5 seconds. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Shared pointer to an instance of <a class="el" href="class_e_l_f_t_1_1_search_interface.html" title="Interface for database search implemented by participant.">SearchInterface</a> containing the participant's code to perform search operations.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Do <b>not</b> load your reference database into memory on construction. Instead, wait for a call to <a class="el" href="class_e_l_f_t_1_1_search_interface.html#aa93bb0111165f0aa22a514632f1ba387" title="Load reference database into memory.">load()</a>.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do <b>not</b> load your reference database into memory on construction. Instead, wait for a call to <a class="el" href="class_e_l_f_t_1_1_search_interface.html#aa93bb0111165f0aa22a514632f1ba387" title="Load reference database into memory.">load()</a>. </dd>
+<dd>
+It is possible that <code>databaseDirectory</code> does not exist when this function is called, but it will exist before <a class="el" href="class_e_l_f_t_1_1_search_interface.html#aa93bb0111165f0aa22a514632f1ba387" title="Load reference database into memory.">load()</a> is called. Do <b>not</b> emit errors based on the contents of <code>databaseDirectory</code> from this function. This is necessary to call <a class="el" href="class_e_l_f_t_1_1_search_interface.html#a21f1ca5054e200667a8694916a28fa5b" title="Obtain identification and version information for the search portion of this submission.">getIdentification()</a> prior to creating an enrollment database.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>A possible implementation might be: <code>return (std::make_shared&lt;SearchImplementation&gt;( configurationDirectory, databaseDirectory));</code></dd>
 <dd>
 This method shall return in &lt;= 5 seconds. </dd></dl>
