@@ -1146,6 +1146,19 @@ compile()
 		fail "${msg}"
 	fi
 
+	# Suspected non libraries in library directory
+	local non_libs
+	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
+	    -name README | wc -l)"
+	if [ "${non_libs}" -gt 0 ]; then
+		local msg="You have files in ${local_lib_dir} that don't "
+		msg+="appear to be libraries. That's fine, but are you sure "
+		msg+="they don't belong in \"${local_config_dir}\" instead?"
+
+		warn "${msg}"
+		echo -n "Still building... "
+	fi
+
 	# Catch the case of hardcoding "../lib", etc. into library by always
 	# linking against libs in a different directory
 	local tmp_dir
@@ -1259,19 +1272,6 @@ compile()
 			fail "${msg}"
 		fi
 	done < <(find "${lib_dir}" -type f -name "lib*")
-
-	# Suspected non libraries in library directory
-	local non_libs
-	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
-	    -name README | wc -l)"
-	if [ "${non_libs}" -gt 0 ]; then
-		local msg="You have files in ${local_lib_dir} that don't "
-		msg+="appear to be libraries. That's fine, but are you sure "
-		msg+="they don't belong in \"${local_config_dir}\" instead?"
-
-		warn "${msg}"
-		echo -n "Still building... "
-	fi
 
 	# Log some extra compilation information that may be useful in helping
 	# to debug future issues
