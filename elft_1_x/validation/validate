@@ -1840,13 +1840,20 @@ check_counts()
 	local log_key="${1}"
 
 	declare -A counts
+	declare -A comparators
 	counts["extractionCreate-0"]=117
+	comparators["extractionCreate-0"]="eq"
 	counts["extractionCreate-1"]=55
+	comparators["extractionCreate-1"]="eq"
 
 	# Not all logs have an expected number of lines
 	local expected="${counts["${log_key}"]}"
 	if [ "${expected}" == "" ]; then
 		return 0
+	fi
+	comparator="${comparators["${log_key}"]}"
+	if [ "${comparator}" == "" ]; then
+		fail "NIST error in check_counts"
 	fi
 
 	local actual
@@ -1856,10 +1863,26 @@ check_counts()
 	# Remove header
 	actual=$(( actual - 1 ))
 
-	if [ "${expected}" -eq "${actual}" ]; then
-		return 0
+	if [ "${comparator}" == "eq" ]; then
+		if [ "${actual}" -eq "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
+	elif [ "${comparator}" == "ge" ]; then
+		if [ "${actual}" -ge "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
+	elif [ "${comparator}" == "le" ]; then
+		if [ "${actual}" -le "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
 	else
-		return 1
+		fail "NIST error in check_counts"
 	fi
 }
 
