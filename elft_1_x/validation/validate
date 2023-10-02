@@ -1396,7 +1396,7 @@ clean_previous_attempts()
 
 	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
-	    -exec chmod +w {} \;
+	    -exec chmod -R +w {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
 	    -exec rm -rf {} \;
