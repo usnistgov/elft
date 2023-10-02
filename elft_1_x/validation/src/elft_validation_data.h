@@ -2117,6 +2117,24 @@ namespace ELFT::Validation::Data
 	        }
 	    }}},
 
+	    /*
+	     * Nonsensical images
+	     */
+	    {"solid_0_500x500-probe", {
+	        {"solid_0_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_128_500x500-probe", {
+	        {"solid_128_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_250_500x500-probe", {
+	        {"solid_250_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_255_500x500-probe", {
+	        {"solid_255_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"fd249-probe", {
+	        {"fd249_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"gradient-probe", {
+	        {"gradient_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"random-probe", {
+	        {"random_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+
 	};
 
 	/** Images to be made into reference templates. */
@@ -5664,7 +5682,26 @@ namespace ELFT::Validation::Data
 	            FrictionRidgeCaptureTechnology::OpticalTIRBright,
 	            FrictionRidgeGeneralizedPosition::RightFour,
 	            {}, {}, ValueAssessment::Value}}}
-	    }
+	    },
+
+	    /*
+	     * Nonsensical images
+	     */
+	    {"solid_0_500x500-ref", {
+	        {"solid_0_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_128_500x500-ref", {
+	        {"solid_128_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_250_500x500-ref", {
+	        {"solid_250_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"solid_255_500x500-ref", {
+	        {"solid_255_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"fd249-ref", {
+	        {"fd249_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"gradient-ref", {
+	        {"gradient_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+	    {"random-ref", {
+	        {"random_500x500.gray", 500, 500, 500, 8, 8, {}}}},
+
 	};
 }
 

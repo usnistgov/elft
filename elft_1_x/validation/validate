@@ -713,7 +713,7 @@ check_validation_version()
 check_image_versions()
 {
 	# Version of image dataset compatible with this script
-	local expected_image_version="202103120958"
+	local expected_image_version="202310021336"
 
 	echo -n "Checking validation image versions... "
 
@@ -1094,7 +1094,7 @@ compile()
 	md5s["../include/elft.h"]="fc66e34adc54b5b2fc78f62d1ea4191e"
 	md5s["src/elft_validation.cpp"]="973915d876b71e77afba122cf5d492bd"
 	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
-	md5s["src/elft_validation_data.h"]="e2d931dc343a149f0f6ab409b83f611f"
+	md5s["src/elft_validation_data.h"]="6ed6a603ceb0f0b206c13b207265d353"
 	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
 
 	# Check checksums
@@ -1848,11 +1848,11 @@ check_counts()
 
 	declare -A counts
 	declare -A comparators
-	counts["extractionCreate-0"]=117
+	counts["extractionCreate-0"]=124
 	comparators["extractionCreate-0"]="eq"
-	counts["extractionCreate-1"]=55
+	counts["extractionCreate-1"]=62
 	comparators["extractionCreate-1"]="eq"
-	counts["searchCandidates"]=117
+	counts["searchCandidates"]=124
 	comparators["searchCandidates"]="ge"
 
 	# Not all logs have an expected number of lines
@@ -1860,7 +1860,7 @@ check_counts()
 	if [ "${expected}" == "" ]; then
 		return 0
 	fi
-	comparator="${comparators["${log_key}"]}"
+	local comparator="${comparators["${log_key}"]}"
 	if [ "${comparator}" == "" ]; then
 		fail "NIST error in check_counts"
 	fi
