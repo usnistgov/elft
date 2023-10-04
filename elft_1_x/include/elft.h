@@ -238,17 +238,17 @@ namespace ELFT
 		 * @param bpp
 		 * Number of bits comprising a single pixel (8, 16, 24, or 48).
 		 * @param pixels
-		 * #width * #height * (#bpp / #bpc) bytes of image data, with
-		 * `pixels.front()` representing the first byte of the top-left
-		 * pixel, and `pixels.back()` representing the last byte of
-		 * bottom-right pixel. It is decompressed big endian image
-		 * data, canonically coded as defined in ISO/IEC 19794-4:2005,
-		 * section 6.2. For example, 0xFF00 is closer to white than it
-		 * is to black.
+		 * `width` * `height` * (`bpp` / `bpc`) bytes of image data,
+		 * with `pixels.front()` representing the first byte of the
+		 * top-left pixel, and `pixels.back()` representing the last
+		 * byte of the bottom-right pixel. It is decompressed big endian
+		 * image data, canonically coded as defined in
+		 * ISO/IEC 19794-4:2005, section 6.2. For example, 0xFF00 is
+		 * closer to white than it is to black.
 		 *
 		 * @note
-		 * Number of color components is #bpp / #bpc and shall be either
-		 * 1 (grayscale) or 3 (RGB).
+		 * Number of color components is `bpp` / `bpc` and shall be
+		 * either 1 (grayscale) or 3 (RGB).
 		 */
 		Image(
 		    const uint8_t identifier,
@@ -284,7 +284,7 @@ namespace ELFT
 		 * @details
 		 * #width * #height * (#bpp / #bpc) bytes of image data, with
 		 * `pixels.front()` representing the first byte of the top-left
-		 * pixel, and `pixels.back()` representing the last byte of
+		 * pixel, and `pixels.back()` representing the last byte of the
 		 * bottom-right pixel. It is decompressed big endian image
 		 * data, canonically coded as defined in ISO/IEC 19794-4:2005,
 		 * section 6.2. For example, 0xFF00 is closer to white than it
@@ -1291,7 +1291,7 @@ namespace ELFT
 		 * @brief
 		 * Load reference database into memory.
 		 *
- 		 * @param maxSize
+		 * @param maxSize
 		 * Suggested maximum number of bytes of memory to consume in
 		 * support of searching the reference database faster.
 		 *
@@ -1336,7 +1336,7 @@ namespace ELFT
 		 * If the reference database is already loaded when this method
 		 * is called, this method shall return immediately.
 		 *
- 		 * @note
+		 * @note
 		 * This method need not be threadsafe. It may use more than one
 		 * thread.
 		 *
@@ -1473,10 +1473,10 @@ namespace ELFT
 		 * Do **not** load your reference database into memory on
 		 * construction. Instead, wait for a call to load().
 		 * @warning
-		 * It is possible that #databaseDirectory does not exist when
+		 * It is possible that `databaseDirectory` does not exist when
 		 * this function is called, but it will exist before load() is
 		 * called. Do **not** emit errors based on the contents of
-		 * #databaseDirectory from this function. This is necessary to
+		 * `databaseDirectory` from this function. This is necessary to
 		 * call getIdentification() prior to creating an enrollment
 		 * database.
 		 *

@@ -713,7 +713,7 @@ check_validation_version()
 check_image_versions()
 {
 	# Version of image dataset compatible with this script
-	local expected_image_version="202103120958"
+	local expected_image_version="202310021336"
 
 	echo -n "Checking validation image versions... "
 
@@ -1091,10 +1091,10 @@ compile()
 
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
-	md5s["../include/elft.h"]="fc66e34adc54b5b2fc78f62d1ea4191e"
+	md5s["../include/elft.h"]="ce24b0938194e063719c3c8f10828005"
 	md5s["src/elft_validation.cpp"]="973915d876b71e77afba122cf5d492bd"
 	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
-	md5s["src/elft_validation_data.h"]="e2d931dc343a149f0f6ab409b83f611f"
+	md5s["src/elft_validation_data.h"]="6ed6a603ceb0f0b206c13b207265d353"
 	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
 
 	# Check checksums
@@ -1144,6 +1144,19 @@ compile()
 		msg+="dependent on libelft_output.so, remove this library, and "
 		msg+="re-run validation."
 		fail "${msg}"
+	fi
+
+	# Suspected non libraries in library directory
+	local non_libs
+	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
+	    -name README | wc -l)"
+	if [ "${non_libs}" -gt 0 ]; then
+		local msg="You have files in ${local_lib_dir} that don't "
+		msg+="appear to be libraries. That's fine, but are you sure "
+		msg+="they don't belong in \"${local_config_dir}\" instead?"
+
+		warn "${msg}"
+		echo -n "Still building... "
 	fi
 
 	# Catch the case of hardcoding "../lib", etc. into library by always
@@ -1232,15 +1245,42 @@ compile()
 	local num_libs
 	num_libs="$(find "${lib_dir}" -name "lib*" -type f | wc -l)"
 	if [ "${num_libs}" -gt 2 ]; then
-		if ! readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep "\$ORIGIN" > /dev/null
+		# RUNPATH preferred over RPATH
+		local uses_rpath=0
+		if readelf -d "${lib_dir}/${core_lib}" | grep -q RPATH; then
+			uses_rpath=1
+		fi
+		if [ "${uses_rpath}" == "1" ]; then
+			local msg="You are setting RPATH, but RUNPATH is "
+			msg+="preferred for new development. Please consider "
+			msg+="setting RUNPATH instead of RPATH."
+
+			warn "${msg}"
+			echo -n "Still building... "
+		fi
+
+		# Check for $ORIGIN in both RPATH and RUNPATH
+		local origin_in_rpath=0
+		if [ "${uses_rpath}" == "1" ]; then
+			if readelf -d "${lib_dir}/${core_lib}" | \
+			    grep RPATH | grep "\$ORIGIN" > /dev/null; then
+				origin_in_rpath=1
+			fi
+		fi
+		local origin_in_runpath=0
+		if readelf -d "${lib_dir}/${core_lib}" | \
+		    grep RUNPATH | grep "\$ORIGIN" > /dev/null; then
+			origin_in_runpath=1
+		fi
+		if [ "${origin_in_rpath}" == "0" ] && \
+		    [ "${origin_in_runpath}" == "0" ]
 		then
 			local msg="You have supplied multiple libraries, but "
-			msg+="${core_lib} does not have an RUNPATH of \$ORIGIN."
-			msg+=" This may cause runtime issues, because the "
+			msg+="${core_lib} does not have a RUNPATH of \$ORIGIN. "
+			msg+="This may cause runtime issues, because the "
 			msg+="location of libraries on NIST's systems will not "
 			msg+="be laid out the same as in this validation "
-			msg+="package and the only library explicitly linked "
+			msg+="package, and the only library explicitly linked "
 			msg+="will be ${core_lib}."
 
 			warn "${msg}"
@@ -1259,19 +1299,6 @@ compile()
 			fail "${msg}"
 		fi
 	done < <(find "${lib_dir}" -type f -name "lib*")
-
-	# Suspected non libraries in library directory
-	local non_libs
-	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
-	    -name README | wc -l)"
-	if [ "${non_libs}" -gt 0 ]; then
-		local msg="You have files in ${local_lib_dir} that don't "
-		msg+="appear to be libraries. That's fine, but are you sure "
-		msg+="they don't belong in \"${local_config_dir}\" instead?"
-
-		warn "${msg}"
-		echo -n "Still building... "
-	fi
 
 	# Log some extra compilation information that may be useful in helping
 	# to debug future issues
@@ -1369,7 +1396,7 @@ clean_previous_attempts()
 
 	find /tmp -maxdepth 1 -type d -name 'elft_libs.*' -exec rm -rf {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' \
-	    -exec chmod +w {} \;
+	    -exec chmod -R +w {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_configs.*' -exec rm -rf {} \;
 	find /tmp -maxdepth 1 -type d -name 'elft_validation_build.*' \
 	    -exec rm -rf {} \;
@@ -1741,6 +1768,21 @@ check_search_candidates()
 	local too_many=0
 	local neg_sim=0
 	local candidate_log="${driver_output_dir}/searchCandidates.log"
+
+	if ! check_counts "$(basename "${candidate_log}" .log)"; then
+		local msg="Incorrect number of lines in search log. Please "
+		msg+="review: "
+		fail "${msg}" "$(rp "${candidate_log}")"
+	fi
+
+	local num_probes=0
+	num_probes=$(cut -f 1 -d ',' "${candidate_log}" | sort | uniq | wc -l)
+	if [ "${num_probes}" -ne "125" ]; then
+		local msg="Incorrect number of probes in search log. Please "
+		msg+="review: "
+		fail "${msg}" "$(rp "${candidate_log}")"
+	fi
+
 	while read -r line; do
 		read -r max_candidates result num_candidates rank \
 		    similarity <<< "$(cut -f 2,4,7,8,11 -d ',' \
@@ -1813,13 +1855,22 @@ check_counts()
 	local log_key="${1}"
 
 	declare -A counts
-	counts["extractionCreate-0"]=117
-	counts["extractionCreate-1"]=55
+	declare -A comparators
+	counts["extractionCreate-0"]=124
+	comparators["extractionCreate-0"]="eq"
+	counts["extractionCreate-1"]=62
+	comparators["extractionCreate-1"]="eq"
+	counts["searchCandidates"]=124
+	comparators["searchCandidates"]="ge"
 
 	# Not all logs have an expected number of lines
 	local expected="${counts["${log_key}"]}"
 	if [ "${expected}" == "" ]; then
 		return 0
+	fi
+	local comparator="${comparators["${log_key}"]}"
+	if [ "${comparator}" == "" ]; then
+		fail "NIST error in check_counts"
 	fi
 
 	local actual
@@ -1829,10 +1880,26 @@ check_counts()
 	# Remove header
 	actual=$(( actual - 1 ))
 
-	if [ "${expected}" -eq "${actual}" ]; then
-		return 0
+	if [ "${comparator}" == "eq" ]; then
+		if [ "${actual}" -eq "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
+	elif [ "${comparator}" == "ge" ]; then
+		if [ "${actual}" -ge "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
+	elif [ "${comparator}" == "le" ]; then
+		if [ "${actual}" -le "${expected}" ]; then
+			return 0
+		else
+			return 1
+		fi
 	else
-		return 1
+		fail "NIST error in check_counts"
 	fi
 }
 
