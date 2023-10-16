@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ALB+0015</title>
+  <meta name="description" content="ALB+0015" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="ALB+0015" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ALB+0015" />
+  
+  
+  
+
+<meta name="author" content="Evaluation of Latent Friction Ridge Technology (ELFT)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="timing-sample.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32629RT6DJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-32629RT6DJ');
+</script>
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+<script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+<script async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="participation-information.html"><a href="participation-information.html"><i class="fa fa-check"></i><b>1</b> Participation Information</a><ul>
+<li class="chapter" data-level="1.1" data-path="participation-information.html"><a href="participation-information.html#names"><i class="fa fa-check"></i><b>1.1</b> Names</a></li>
+<li class="chapter" data-level="1.2" data-path="participation-information.html"><a href="participation-information.html#dates"><i class="fa fa-check"></i><b>1.2</b> Dates</a></li>
+<li class="chapter" data-level="1.3" data-path="participation-information.html"><a href="participation-information.html#supplied-libraries-and-configurations"><i class="fa fa-check"></i><b>1.3</b> Supplied Libraries and Configurations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="timing-sample.html"><a href="timing-sample.html"><i class="fa fa-check"></i><b>2</b> Timing Sample</a><ul>
+<li class="chapter" data-level="2.1" data-path="timing-sample.html"><a href="timing-sample.html#processor-details"><i class="fa fa-check"></i><b>2.1</b> Processor Details</a></li>
+<li class="chapter" data-level="2.2" data-path="timing-sample.html"><a href="timing-sample.html#composition"><i class="fa fa-check"></i><b>2.2</b> Composition</a></li>
+<li class="chapter" data-level="2.3" data-path="timing-sample.html"><a href="timing-sample.html#feature-extraction"><i class="fa fa-check"></i><b>2.3</b> Feature Extraction</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="timing-sample.html"><a href="timing-sample.html#template-size"><i class="fa fa-check"></i><b>2.3.1</b> Template Size</a></li>
+<li class="chapter" data-level="2.3.2" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-duration"><i class="fa fa-check"></i><b>2.3.2</b> Template Creation Duration</a></li>
+<li class="chapter" data-level="2.3.3" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-memory-consumption"><i class="fa fa-check"></i><b>2.3.3</b> Template Creation Memory Consumption</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="timing-sample.html"><a href="timing-sample.html#enrollment-database"><i class="fa fa-check"></i><b>2.4</b> Enrollment Database</a></li>
+<li class="chapter" data-level="2.5" data-path="timing-sample.html"><a href="timing-sample.html#search"><i class="fa fa-check"></i><b>2.5</b> Search</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="timing-sample.html"><a href="timing-sample.html#search-duration"><i class="fa fa-check"></i><b>2.5.1</b> Search Duration</a></li>
+<li class="chapter" data-level="2.5.2" data-path="timing-sample.html"><a href="timing-sample.html#search-memory-consumption"><i class="fa fa-check"></i><b>2.5.2</b> Search Memory Consumption</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metrics.html"><a href="metrics.html"><i class="fa fa-check"></i><b>3</b> Metrics</a><ul>
+<li class="chapter" data-level="3.1" data-path="metrics.html"><a href="metrics.html#location"><i class="fa fa-check"></i><b>3.1</b> Location</a></li>
+<li class="chapter" data-level="3.2" data-path="metrics.html"><a href="metrics.html#cumulative-match-characteristic-cmc"><i class="fa fa-check"></i><b>3.2</b> Cumulative Match Characteristic (CMC)</a></li>
+<li class="chapter" data-level="3.3" data-path="metrics.html"><a href="metrics.html#detection-error-tradeoff-det"><i class="fa fa-check"></i><b>3.3</b> Detection Error Tradeoff (DET)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html"><i class="fa fa-check"></i><b>4</b> Non-mated Distractor Subjects</a><ul>
+<li class="chapter" data-level="4.1" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html#failures"><i class="fa fa-check"></i><b>4.1</b> Failures</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html"><i class="fa fa-check"></i><b>5</b> FBI Laboratory</a><ul>
+<li class="chapter" data-level="5.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#failures-1"><i class="fa fa-check"></i><b>5.1</b> Failures</a></li>
+<li class="chapter" data-level="5.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#cmc"><i class="fa fa-check"></i><b>5.2</b> CMC</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots"><i class="fa fa-check"></i><b>5.2.1</b> Plots</a></li>
+<li class="chapter" data-level="5.2.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-rank"><i class="fa fa-check"></i><b>5.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#det"><i class="fa fa-check"></i><b>5.3</b> DET</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots-1"><i class="fa fa-check"></i><b>5.3.1</b> Plots</a></li>
+<li class="chapter" data-level="5.3.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-fpir"><i class="fa fa-check"></i><b>5.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="5.3.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#similarity-score-thresholds-at-select-fpir"><i class="fa fa-check"></i><b>5.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html"><i class="fa fa-check"></i><b>6</b> FBI-Provided Solved Dataset #1</a><ul>
+<li class="chapter" data-level="6.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#failures-2"><i class="fa fa-check"></i><b>6.1</b> Failures</a></li>
+<li class="chapter" data-level="6.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#cmc-1"><i class="fa fa-check"></i><b>6.2</b> CMC</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-2"><i class="fa fa-check"></i><b>6.2.1</b> Plots</a></li>
+<li class="chapter" data-level="6.2.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-rank-1"><i class="fa fa-check"></i><b>6.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#det-1"><i class="fa fa-check"></i><b>6.3</b> DET</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-3"><i class="fa fa-check"></i><b>6.3.1</b> Plots</a></li>
+<li class="chapter" data-level="6.3.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="6.3.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#similarity-score-thresholds-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="michigan-state-police.html"><a href="michigan-state-police.html"><i class="fa fa-check"></i><b>7</b> Michigan State Police</a><ul>
+<li class="chapter" data-level="7.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#failures-3"><i class="fa fa-check"></i><b>7.1</b> Failures</a></li>
+<li class="chapter" data-level="7.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#distal-region-cmc"><i class="fa fa-check"></i><b>7.2</b> Distal Region CMC</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-4"><i class="fa fa-check"></i><b>7.2.1</b> Plots</a></li>
+<li class="chapter" data-level="7.2.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-rank-2"><i class="fa fa-check"></i><b>7.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#palm-region-cmc"><i class="fa fa-check"></i><b>7.3</b> Palm Region CMC</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-5"><i class="fa fa-check"></i><b>7.3.1</b> Plots</a></li>
+<li class="chapter" data-level="7.3.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-rank-3"><i class="fa fa-check"></i><b>7.3.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="michigan-state-police.html"><a href="michigan-state-police.html#distal-region-det"><i class="fa fa-check"></i><b>7.4</b> Distal Region DET</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-6"><i class="fa fa-check"></i><b>7.4.1</b> Plots</a></li>
+<li class="chapter" data-level="7.4.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-fpir-2"><i class="fa fa-check"></i><b>7.4.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="7.4.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#similarity-score-thresholds-at-select-fpir-2"><i class="fa fa-check"></i><b>7.4.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="michigan-state-police.html"><a href="michigan-state-police.html#palm-region-det"><i class="fa fa-check"></i><b>7.5</b> Palm Region DET</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-7"><i class="fa fa-check"></i><b>7.5.1</b> Plots</a></li>
+<li class="chapter" data-level="7.5.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-fpir-3"><i class="fa fa-check"></i><b>7.5.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="7.5.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#similarity-score-thresholds-at-select-fpir-3"><i class="fa fa-check"></i><b>7.5.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><code>ALB+0015</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title"><code>ALB+0015</code></h1>
+<h2 class="subtitle"><em>Key Laboratory of Machine Perception (Ministry of Education), Peking University</em></h2>
+<p class="author"><em>Evaluation of Latent Friction Ridge Technology (ELFT)</em></p>
+<p class="date"><em><em>Technical performance report of automated latent fingerprint feature extraction and search software.</em><br />
+<br />
+Last Updated: 16 October 2023</em></p>
+</div>
+<div id="participation-information" class="section level1">
+<h1><span class="header-section-number">1</span> Participation Information</h1>
+<div id="names" class="section level2">
+<h2><span class="header-section-number">1.1</span> Names</h2>
+<p><em>Information in this section is provided by the participant.</em></p>
+<ul>
+<li><strong>Participant Name:</strong>
+Key Laboratory of Machine Perception (Ministry of Education), Peking University</li>
+<li><strong>ELFT Identifier:</strong> <code>ALB+0015</code></li>
+</ul>
+</div>
+<div id="dates" class="section level2">
+<h2><span class="header-section-number">1.2</span> Dates</h2>
+<ul>
+<li><strong>Participation Agreement Date:</strong> 16 November 2022</li>
+<li><strong>First Submission Date:</strong> 16 November 2022 (as version
+<code>0001</code>)</li>
+<li><strong>Final Submission Date:</strong> 10 October 2023 (as version
+<code>0015</code>)</li>
+<li><strong>Validation Date:</strong> 10 October 2023</li>
+<li><strong>Completion Date:</strong> 16 October 2023</li>
+<li><strong>Report Last Updated Date:</strong> 16 October 2023</li>
+</ul>
+</div>
+<div id="supplied-libraries-and-configurations" class="section level2">
+<h2><span class="header-section-number">1.3</span> Supplied Libraries and Configurations</h2>
+<p>Testing was completed using <em>Ubuntu 20.04.3 LTS</em>. Files provided by Key Laboratory of Machine Perception (Ministry of Education), Peking University are listed in <a href="participation-information.html#tab:supplied-files">Table <a href="participation-information.html#tab:supplied-files">1.1</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:supplied-files">Table 1.1: </span>Information regarding library and configuration files provided as part of <code>ALB+0015</code>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Filename
+</th>
+<th style="text-align:left;">
+MD5 Checksum
+</th>
+<th style="text-align:right;">
+Size (MB)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="     ">amp.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">9755deb998a71d041671ddeb3dee693c</span>
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">config</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">a754aecea5d21679ace8acf75a1b98e6</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere_bn.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">9a5eda04fcdb1fd96098b4c27eb2f99d</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere_bn2.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">7adbe79402300eb4f6c5e0442533f39a</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere_bn3.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">de6be20c31e5cbf8c1547dc3c12c7e19</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">fef7b1e2d7bbc96b427935ff7027c86d</span>
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere2.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">22c5665fbd67a60b97ed51873b4b6a6c</span>
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingere3.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6fac9afafe231e48587fa1af3db9f3bd</span>
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingerm.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">981492e8c478e7db59661a787fef4859</span>
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingernetvpretrain.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">b19c4a7bcd3d1f15e3b919242afafa2e</span>
+</td>
+<td style="text-align:right;">
+17.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fingero.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">ef03c75e401e8f10da6c689ed2474e44</span>
+</td>
+<td style="text-align:right;">
+30.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb_cxx-18.1.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f25201e3f7c058fb8e1a09b6b9d492ec</span>
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb_cxx-18.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f25201e3f7c058fb8e1a09b6b9d492ec</span>
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb_cxx.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f25201e3f7c058fb8e1a09b6b9d492ec</span>
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb-18.1.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6d7903b4f0bd25f021918e39e188bace</span>
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb-18.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6d7903b4f0bd25f021918e39e188bace</span>
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libdb.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6d7903b4f0bd25f021918e39e188bace</span>
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libelft_ALB_0015.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">303163a45e99a47ffe1b817f88a59b9e</span>
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libfpnetwork.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">17ff9482d68a6629dcc04f68301abefb</span>
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_avx.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">8a1d765597d12ff8c571228ba8b0457a</span>
+</td>
+<td style="text-align:right;">
+53.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_avx2.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">e10c1998c3efd9bc1047b9424ad948cd</span>
+</td>
+<td style="text-align:right;">
+50.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_avx512.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">d64b9a73e0a58a49c4941a1e613416c3</span>
+</td>
+<td style="text-align:right;">
+66.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_core.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">38f14c49ea5644817f4081281d560471</span>
+</td>
+<td style="text-align:right;">
+74.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_core.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">38f14c49ea5644817f4081281d560471</span>
+</td>
+<td style="text-align:right;">
+74.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_intel_lp64.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f1e9fba723f46e442c2d9367bde62d73</span>
+</td>
+<td style="text-align:right;">
+21.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_intel_lp64.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f1e9fba723f46e442c2d9367bde62d73</span>
+</td>
+<td style="text-align:right;">
+21.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_sequential.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">45ec716ea62f4e8301860bf050baa5ea</span>
+</td>
+<td style="text-align:right;">
+29.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_sequential.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">45ec716ea62f4e8301860bf050baa5ea</span>
+</td>
+<td style="text-align:right;">
+29.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_vml_avx.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">e9e155698888ed078dbc1bdb8b112a75</span>
+</td>
+<td style="text-align:right;">
+15.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_vml_avx2.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">b8584610537579ecf99edc6c104d1937</span>
+</td>
+<td style="text-align:right;">
+15.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libmkl_vml_avx512.so.2</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">bf4534d87b69c0ba9861591bfd339a7d</span>
+</td>
+<td style="text-align:right;">
+14.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_core.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">7bbc4eb74730622d5f696d9a58cebfac</span>
+</td>
+<td style="text-align:right;">
+17.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_core.so.4.6.0</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">7bbc4eb74730622d5f696d9a58cebfac</span>
+</td>
+<td style="text-align:right;">
+17.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_core.so.406</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">7bbc4eb74730622d5f696d9a58cebfac</span>
+</td>
+<td style="text-align:right;">
+17.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_dnn.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">de376ef2056d728e0d907ae780adc8f6</span>
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_dnn.so.4.6.0</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">de376ef2056d728e0d907ae780adc8f6</span>
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_dnn.so.406</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">74671dd33e2e250179694cb8845dcd7d</span>
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgcodecs.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">ef94d914aeaf57e67e7b5393905aa820</span>
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgcodecs.so.4.6.0</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">ef94d914aeaf57e67e7b5393905aa820</span>
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgcodecs.so.406</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">8e6533a39599f9c38a7eed8bee326ecc</span>
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgproc.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">0302871c8b474fa911183c736a052230</span>
+</td>
+<td style="text-align:right;">
+30.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgproc.so.4.6.0</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">0302871c8b474fa911183c736a052230</span>
+</td>
+<td style="text-align:right;">
+30.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libopencv_imgproc.so.406</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">c0e92f8b17be57e5ba6aa0642b600abb</span>
+</td>
+<td style="text-align:right;">
+30.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">minutiaevpretrain.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">56d3c28d35980bdc3419fcfd0135f69b</span>
+</td>
+<td style="text-align:right;">
+15.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">palm_bn.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">aa51f91ee2263ffba3a57acb50d3e915</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">palme.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">17f09daef4bd8291350b4e4cebb5643a</span>
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">palmminutiae.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">54ad16fac827d81386b4d0ad6a2553c9</span>
+</td>
+<td style="text-align:right;">
+15.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">palmnetvpretrain.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">76c682473e56a54a9c08e8d65a02cb7f</span>
+</td>
+<td style="text-align:right;">
+17.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">palmo.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">9b5cf333361a9edc0e28d9e6f254dd5f</span>
+</td>
+<td style="text-align:right;">
+30.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pha.senc</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">d12e6fbfb9a92f4fe51c53c19c46d941</span>
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="timing-sample.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ALB+0015.pdf"],
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
