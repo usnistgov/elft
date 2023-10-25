@@ -292,7 +292,7 @@ Latent
 6.0
 </td>
 <td style="text-align:right;">
-8.6
+8.7
 </td>
 <td style="text-align:right;">
 9.4
@@ -484,16 +484,16 @@ Latent
 3.9
 </td>
 <td style="text-align:right;">
-4.7
+4.6
 </td>
 <td style="text-align:right;">
-6.3
+5.6
 </td>
 <td style="text-align:right;">
-5.3
+5.2
 </td>
 <td style="text-align:right;">
-58.0
+39.8
 </td>
 <td style="text-align:right;">
 0
@@ -681,12 +681,13 @@ Raw Templates on Disk
 </div>
 <div id="search" class="section level2">
 <h2><span class="header-section-number">2.5</span> Search</h2>
-<p>Out of the latent templates generated in <a href="timing-sample.html#tab:timing-dataset-quantity">Table <a href="timing-sample.html#tab:timing-dataset-quantity">2.1</a></a>, a fixed random sample of <strong><span class="math inline">25</span></strong> of the resulting latent templates were searched against the enrollment database described in <a href="timing-sample.html#enrollment-database">Subsection <a href="timing-sample.html#enrollment-database">2.4</a></a>. The results presented in <a href="timing-sample.html#search">Subsection <a href="timing-sample.html#search">2.5</a></a> are based on the measurements made on or during those <span class="math inline">25</span> searches.</p>
+<p>Out of the latent templates generated in <a href="timing-sample.html#tab:timing-dataset-quantity">Table <a href="timing-sample.html#tab:timing-dataset-quantity">2.1</a></a>, a fixed random sample of <strong><span class="math inline">24</span></strong> of the resulting latent templates were searched against the enrollment database described in <a href="timing-sample.html#enrollment-database">Subsection <a href="timing-sample.html#enrollment-database">2.4</a></a>. The results presented in <a href="timing-sample.html#search">Subsection <a href="timing-sample.html#search">2.5</a></a> are based on the measurements made on or during those <span class="math inline">24</span> searches.</p>
 <div id="search-duration" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Search Duration</h3>
 <p><a href="timing-sample.html#tab:search-duration">Table <a href="timing-sample.html#tab:search-duration">2.5</a></a> and <a href="timing-sample.html#fig:search-duration-boxplot">Figure <a href="timing-sample.html#fig:search-duration-boxplot">2.4</a></a> show the amount of time elapsed during searches of the fixed search probe set when searching against the enrollment database described in <a href="timing-sample.html#enrollment-database">Subsection <a href="timing-sample.html#enrollment-database">2.4</a></a>. While unsuccessful searches expend operator time, they are not included in this metric, because search failures typically occur instantaneously (e.g., a template indicates that a probe was of too poor quality to search), which can artificially lower the average search time.</p>
 <p>ELFT defines maximum average search durations for participants based on the number of subjects in the enrollment database. Due to the potential for extended runtimes, NIST may choose to allow some discretion in the enforcement of maximum search durations during times of high demand for compute resources. For example, if a maximum average search duration was <span class="math inline">4</span> hours, but after completing all searches, the average search duration was <span class="math inline">4.5</span> hours, it may be prudent to continue the evaluation, since a resubmission may require regeneration of millions of templates and several thousand repeated searches.</p>
 <p><strong>Note</strong>: In March 2023, NIST lowered the number of searches from <span class="math inline">100</span> to <span class="math inline">25</span>, with all <span class="math inline">25</span> probes depicting a distal phalanx. It also doubled the average quantity of impressions per subject by combining previously separate plain and rolled impressions for each subject. ELFT does not mandate the strategy in which multiple impressions of the same reference finger are stored or searched in the enrollment database, but it does impose search time maximums on a per-subject basis, <em>not</em> per-impression. This means that in <a href="timing-sample.html#tab:search-duration">Table <a href="timing-sample.html#tab:search-duration">2.5</a></a> and <a href="timing-sample.html#fig:search-duration-boxplot">Figure <a href="timing-sample.html#fig:search-duration-boxplot">2.4</a></a>, there may be average search durations <em>significantly</em> higher than the evaluation permitted maximum for implementations submitted prior to March 2023.</p>
+<p><strong>Note</strong>: In October 2023, NIST discovered a probe image in the search dataset contained invalid resolution information. This probe has been removed from the test, reducing the number of searches to <span class="math inline">24</span>. Evaluations run prior to this change will show total elapsed time measures including the now-omitted search.</p>
 <div style="overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -732,16 +733,16 @@ False
 7 865
 </td>
 <td style="text-align:right;">
-7 870
+7 869
 </td>
 <td style="text-align:right;">
-9 600
+9 426
 </td>
 <td style="text-align:right;">
-10 596
+10 418
 </td>
 <td style="text-align:right;">
-11 129
+10 771
 </td>
 <td style="text-align:right;">
 19 044
@@ -764,13 +765,13 @@ True
 7 860
 </td>
 <td style="text-align:right;">
-9 595
+9 422
 </td>
 <td style="text-align:right;">
-10 606
+10 429
 </td>
 <td style="text-align:right;">
-11 683
+10 906
 </td>
 <td style="text-align:right;">
 19 017
