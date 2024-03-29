@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Timing Sample | nec+0008</title>
+  <meta name="description" content="2 Timing Sample | nec+0008" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Timing Sample | nec+0008" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Timing Sample | nec+0008" />
+  
+  
+  
+
+<meta name="author" content="Evaluation of Latent Friction Ridge Technology (ELFT)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="participation-information.html"/>
+<link rel="next" href="metrics.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32629RT6DJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-32629RT6DJ');
+</script>
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+<script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+<script async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="participation-information.html"><a href="participation-information.html"><i class="fa fa-check"></i><b>1</b> Participation Information</a><ul>
+<li class="chapter" data-level="1.1" data-path="participation-information.html"><a href="participation-information.html#names"><i class="fa fa-check"></i><b>1.1</b> Names</a></li>
+<li class="chapter" data-level="1.2" data-path="participation-information.html"><a href="participation-information.html#dates"><i class="fa fa-check"></i><b>1.2</b> Dates</a></li>
+<li class="chapter" data-level="1.3" data-path="participation-information.html"><a href="participation-information.html#supplied-libraries-and-configurations"><i class="fa fa-check"></i><b>1.3</b> Supplied Libraries and Configurations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="timing-sample.html"><a href="timing-sample.html"><i class="fa fa-check"></i><b>2</b> Timing Sample</a><ul>
+<li class="chapter" data-level="2.1" data-path="timing-sample.html"><a href="timing-sample.html#processor-details"><i class="fa fa-check"></i><b>2.1</b> Processor Details</a></li>
+<li class="chapter" data-level="2.2" data-path="timing-sample.html"><a href="timing-sample.html#composition"><i class="fa fa-check"></i><b>2.2</b> Composition</a></li>
+<li class="chapter" data-level="2.3" data-path="timing-sample.html"><a href="timing-sample.html#feature-extraction"><i class="fa fa-check"></i><b>2.3</b> Feature Extraction</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="timing-sample.html"><a href="timing-sample.html#template-size"><i class="fa fa-check"></i><b>2.3.1</b> Template Size</a></li>
+<li class="chapter" data-level="2.3.2" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-duration"><i class="fa fa-check"></i><b>2.3.2</b> Template Creation Duration</a></li>
+<li class="chapter" data-level="2.3.3" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-memory-consumption"><i class="fa fa-check"></i><b>2.3.3</b> Template Creation Memory Consumption</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="timing-sample.html"><a href="timing-sample.html#enrollment-database"><i class="fa fa-check"></i><b>2.4</b> Enrollment Database</a></li>
+<li class="chapter" data-level="2.5" data-path="timing-sample.html"><a href="timing-sample.html#search"><i class="fa fa-check"></i><b>2.5</b> Search</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="timing-sample.html"><a href="timing-sample.html#search-duration"><i class="fa fa-check"></i><b>2.5.1</b> Search Duration</a></li>
+<li class="chapter" data-level="2.5.2" data-path="timing-sample.html"><a href="timing-sample.html#search-memory-consumption"><i class="fa fa-check"></i><b>2.5.2</b> Search Memory Consumption</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metrics.html"><a href="metrics.html"><i class="fa fa-check"></i><b>3</b> Metrics</a><ul>
+<li class="chapter" data-level="3.1" data-path="metrics.html"><a href="metrics.html#location"><i class="fa fa-check"></i><b>3.1</b> Location</a></li>
+<li class="chapter" data-level="3.2" data-path="metrics.html"><a href="metrics.html#cumulative-match-characteristic-cmc"><i class="fa fa-check"></i><b>3.2</b> Cumulative Match Characteristic (CMC)</a></li>
+<li class="chapter" data-level="3.3" data-path="metrics.html"><a href="metrics.html#detection-error-tradeoff-det"><i class="fa fa-check"></i><b>3.3</b> Detection Error Tradeoff (DET)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html"><i class="fa fa-check"></i><b>4</b> Non-mated Distractor Subjects</a><ul>
+<li class="chapter" data-level="4.1" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html#failures"><i class="fa fa-check"></i><b>4.1</b> Failures</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html"><i class="fa fa-check"></i><b>5</b> FBI Laboratory</a><ul>
+<li class="chapter" data-level="5.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#failures-1"><i class="fa fa-check"></i><b>5.1</b> Failures</a></li>
+<li class="chapter" data-level="5.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#cmc"><i class="fa fa-check"></i><b>5.2</b> CMC</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots"><i class="fa fa-check"></i><b>5.2.1</b> Plots</a></li>
+<li class="chapter" data-level="5.2.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-rank"><i class="fa fa-check"></i><b>5.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#det"><i class="fa fa-check"></i><b>5.3</b> DET</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots-1"><i class="fa fa-check"></i><b>5.3.1</b> Plots</a></li>
+<li class="chapter" data-level="5.3.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-fpir"><i class="fa fa-check"></i><b>5.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="5.3.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#similarity-score-thresholds-at-select-fpir"><i class="fa fa-check"></i><b>5.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html"><i class="fa fa-check"></i><b>6</b> FBI-Provided Solved Dataset #1</a><ul>
+<li class="chapter" data-level="6.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#failures-2"><i class="fa fa-check"></i><b>6.1</b> Failures</a></li>
+<li class="chapter" data-level="6.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#cmc-1"><i class="fa fa-check"></i><b>6.2</b> CMC</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-2"><i class="fa fa-check"></i><b>6.2.1</b> Plots</a></li>
+<li class="chapter" data-level="6.2.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-rank-1"><i class="fa fa-check"></i><b>6.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#det-1"><i class="fa fa-check"></i><b>6.3</b> DET</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-3"><i class="fa fa-check"></i><b>6.3.1</b> Plots</a></li>
+<li class="chapter" data-level="6.3.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="6.3.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#similarity-score-thresholds-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="michigan-state-police.html"><a href="michigan-state-police.html"><i class="fa fa-check"></i><b>7</b> Michigan State Police</a><ul>
+<li class="chapter" data-level="7.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#failures-3"><i class="fa fa-check"></i><b>7.1</b> Failures</a></li>
+<li class="chapter" data-level="7.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#distal-region-cmc"><i class="fa fa-check"></i><b>7.2</b> Distal Region CMC</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-4"><i class="fa fa-check"></i><b>7.2.1</b> Plots</a></li>
+<li class="chapter" data-level="7.2.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-rank-2"><i class="fa fa-check"></i><b>7.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#palm-region-cmc"><i class="fa fa-check"></i><b>7.3</b> Palm Region CMC</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-5"><i class="fa fa-check"></i><b>7.3.1</b> Plots</a></li>
+<li class="chapter" data-level="7.3.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-rank-3"><i class="fa fa-check"></i><b>7.3.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="michigan-state-police.html"><a href="michigan-state-police.html#distal-region-det"><i class="fa fa-check"></i><b>7.4</b> Distal Region DET</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-6"><i class="fa fa-check"></i><b>7.4.1</b> Plots</a></li>
+<li class="chapter" data-level="7.4.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-fpir-2"><i class="fa fa-check"></i><b>7.4.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="7.4.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#similarity-score-thresholds-at-select-fpir-2"><i class="fa fa-check"></i><b>7.4.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="michigan-state-police.html"><a href="michigan-state-police.html#palm-region-det"><i class="fa fa-check"></i><b>7.5</b> Palm Region DET</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="michigan-state-police.html"><a href="michigan-state-police.html#plots-7"><i class="fa fa-check"></i><b>7.5.1</b> Plots</a></li>
+<li class="chapter" data-level="7.5.2" data-path="michigan-state-police.html"><a href="michigan-state-police.html#fnir-at-select-fpir-3"><i class="fa fa-check"></i><b>7.5.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="7.5.3" data-path="michigan-state-police.html"><a href="michigan-state-police.html#similarity-score-thresholds-at-select-fpir-3"><i class="fa fa-check"></i><b>7.5.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><code>nec+0008</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="timing-sample" class="section level1">
+<h1><span class="header-section-number">2</span> Timing Sample</h1>
+<p>A fixed sample of images was randomly and proportionally selected from the ELFT datasets. The sample is used to assess whether an implementation adheres to the computational speed requirements from the ELFT Test Plan. These values are chosen in such a way that allows the implementation flexibility while allowing NIST to complete the evaluation in a reasonable amount of time. If an implementation exceeds the maximum allowable duration, the participant will be asked to reduce the processing time of their software prior to NIST completing the evaluation. As such, <em>all</em> published ELFT submissions conform to the published speed requirements.</p>
+<div id="processor-details" class="section level2">
+<h2><span class="header-section-number">2.1</span> Processor Details</h2>
+<p>All measurements in this section were performed on a machine equipped with <a href="https://ark.intel.com/content/www/us/en/ark/products/192451/intel-xeon-gold-6254-processor-24-75m-cache-3-10-ghz.html">Intel Xeon Gold 6254</a> Central Processing Units (CPUs). Each CPU features a 3.10 GHz base frequency and 24.75 MB of cache. Timing tests are all <strong>single threaded</strong>—implementations are not permitted to use more than one CPU core during any function measured here. As such, these values can be used to understand expected scaled performance. NIST testing code embraces the single-threaded nature of implementations to <code>fork</code> processes during other non-timed portions of this evaluation, allowing participants to write thread-unsafe code while still using NIST resources to their maximum efficiency. This CPU supports executing several families of processor intrinsic functions, including AVX-512<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+</div>
+<div id="composition" class="section level2">
+<h2><span class="header-section-number">2.2</span> Composition</h2>
+<p><a href="timing-sample.html#tab:timing-dataset-quantity">Table <a href="timing-sample.html#tab:timing-dataset-quantity">2.1</a></a> shows the quantity of each type of fingerprint image comprising the timing sample dataset.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:timing-dataset-quantity">Table 2.1: </span>Number of images of each generalized finger position comprising the timing sample dataset.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Image Type
+</th>
+<th style="text-align:right;">
+Quantity
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Latent
+</td>
+<td style="text-align:right;">
+243
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Four Finger
+</td>
+<td style="text-align:right;">
+476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Full Palm
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Partial Palm
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Single Finger
+</td>
+<td style="text-align:right;">
+2 784
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="feature-extraction" class="section level2">
+<h2><span class="header-section-number">2.3</span> Feature Extraction</h2>
+<p>Features were extracted from all images depicted in <a href="timing-sample.html#tab:timing-dataset-quantity">Table <a href="timing-sample.html#tab:timing-dataset-quantity">2.1</a></a> and stored in templates. If a sample contained EFS data, it was not included during this test.</p>
+<div id="template-size" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Template Size</h3>
+<p><a href="timing-sample.html#tab:template-size">Table <a href="timing-sample.html#tab:template-size">2.2</a></a> and <a href="timing-sample.html#fig:template-size-boxplot">Figure <a href="timing-sample.html#fig:template-size-boxplot">2.1</a></a> show the distribution of file sizes of templates. Failures of any kind reported during template generation result in NIST code writing 0 byte files. These files are excluded from the template size analysis in this section.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:template-size">Table 2.2: </span>Template file size summary statistics as seen on the Timing Sample dataset, in kB.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Image Type
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+25%
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+75%
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+<th style="text-align:right;">
+Failures
+</th>
+<th style="text-align:right;">
+Attempts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Latent
+</td>
+<td style="text-align:right;">
+4.3
+</td>
+<td style="text-align:right;">
+20.3
+</td>
+<td style="text-align:right;">
+22.8
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+<td style="text-align:right;">
+26.2
+</td>
+<td style="text-align:right;">
+33.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+243
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Single Finger
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+9.6
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+<td style="text-align:right;">
+11.6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2 784
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Four Finger
+</td>
+<td style="text-align:right;">
+28.7
+</td>
+<td style="text-align:right;">
+32.9
+</td>
+<td style="text-align:right;">
+34.3
+</td>
+<td style="text-align:right;">
+34.3
+</td>
+<td style="text-align:right;">
+35.6
+</td>
+<td style="text-align:right;">
+42.7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Partial Palm
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+34.0
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+36.7
+</td>
+<td style="text-align:right;">
+40.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Full Palm
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+<td style="text-align:right;">
+48.8
+</td>
+<td style="text-align:right;">
+50.1
+</td>
+<td style="text-align:right;">
+51.3
+</td>
+<td style="text-align:right;">
+53.8
+</td>
+<td style="text-align:right;">
+60.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:template-size-boxplot"></span>
+<img src="plots/nec+0008-timing-template_size.png" alt="Violin plot of template file sizes as seen on the  Timing Sample dataset. Vertical lines from left to right indicate the 25\%, 50\%, and 75\% quantiles respectively." width="1200" />
+<p class="caption">
+Figure 2.1: Violin plot of template file sizes as seen on the Timing Sample dataset. Vertical lines from left to right indicate the 25%, 50%, and 75% quantiles respectively.
+</p>
+</div>
+</div>
+<div id="template-creation-duration" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Template Creation Duration</h3>
+<p><a href="timing-sample.html#tab:template-creation-duration">Table <a href="timing-sample.html#tab:template-creation-duration">2.3</a></a> and <a href="timing-sample.html#fig:template-creation-duration-boxplot">Figure <a href="timing-sample.html#fig:template-creation-duration-boxplot">2.2</a></a> show the distribution of template creation durations in seconds. Failures of any kind reported during template generation result in NIST code writing 0 byte files, but only after the template creation method returns. These times are included in the template creation duration analysis in this section.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:template-creation-duration">Table 2.3: </span>Duration of template creation in seconds for images from the Timing Sample dataset.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Image Type
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+25%
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+75%
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+<th style="text-align:right;">
+Failures
+</th>
+<th style="text-align:right;">
+Attempts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Latent
+</td>
+<td style="text-align:right;">
+0.9
+</td>
+<td style="text-align:right;">
+14.5
+</td>
+<td style="text-align:right;">
+15.6
+</td>
+<td style="text-align:right;">
+15.1
+</td>
+<td style="text-align:right;">
+16.6
+</td>
+<td style="text-align:right;">
+20.9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+243
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Single Finger
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:right;">
+2.9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2 784
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Four Finger
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+<td style="text-align:right;">
+11.4
+</td>
+<td style="text-align:right;">
+11.6
+</td>
+<td style="text-align:right;">
+11.6
+</td>
+<td style="text-align:right;">
+11.8
+</td>
+<td style="text-align:right;">
+12.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Partial Palm
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+10.2
+</td>
+<td style="text-align:right;">
+12.6
+</td>
+<td style="text-align:right;">
+10.3
+</td>
+<td style="text-align:right;">
+12.8
+</td>
+<td style="text-align:right;">
+13.6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Full Palm
+</td>
+<td style="text-align:right;">
+14.7
+</td>
+<td style="text-align:right;">
+15.2
+</td>
+<td style="text-align:right;">
+15.3
+</td>
+<td style="text-align:right;">
+15.4
+</td>
+<td style="text-align:right;">
+15.5
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:template-creation-duration-boxplot"></span>
+<img src="plots/nec+0008-timing-template_creation_time.png" alt="Violin plot of the duration of template creation in seconds for images from the Timing Sample dataset. Vertical lines from left to right indicate the 25\%, 50\%, and 75\% quantiles respectively." width="1200" />
+<p class="caption">
+Figure 2.2: Violin plot of the duration of template creation in seconds for images from the Timing Sample dataset. Vertical lines from left to right indicate the 25%, 50%, and 75% quantiles respectively.
+</p>
+</div>
+</div>
+<div id="template-creation-memory-consumption" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Template Creation Memory Consumption</h3>
+<p><a href="timing-sample.html#fig:template-memory">Figure <a href="timing-sample.html#fig:template-memory">2.3</a></a> shows the amount of RAM consumed by the single testing process as a function of time during the template creation procedure, including RAM consumed by the NIST testing apparatus.</p>
+<div class="figure" style="text-align: center"><span id="fig:template-memory"></span>
+<img src="plots/nec+0008-timing-memory.png" alt="Amount of RAM used while creating templates in the Timing Sample dataset." width="900" />
+<p class="caption">
+Figure 2.3: Amount of RAM used while creating templates in the Timing Sample dataset.
+</p>
+</div>
+</div>
+</div>
+<div id="enrollment-database" class="section level2">
+<h2><span class="header-section-number">2.4</span> Enrollment Database</h2>
+<p>Reference templates are combined into a participant-defined database structure for optimal searching. Each database consisted of <span class="math inline"> ≈ 1 600 000</span> distractor subjects. Each subject had at least one, but typically twenty, distal phalanges distributed over rolled and flat impression captures to enroll. <span class="math inline"> ≈ 150 000</span> had one or more palm captures.</p>
+<p>While the participant-defined enrollment database should contain information about all references, the file size may be significantly different than the space consumed by concatenation of all individual reference templates. Additionally, the participant-defined database structure may be a structure unique or especially optimized for this evaluation and not necessarily similar to a structure deployed operationally. The sum of file sizes for both types of reference storage are shown in <a href="timing-sample.html#tab:db-tmpl-size">Table <a href="timing-sample.html#tab:db-tmpl-size">2.4</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:db-tmpl-size">Table 2.4: </span>Sum of file storage needed to hold all distractor reference templates in the Timing Sample.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Storage Type
+</th>
+<th style="text-align:right;">
+Size
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Participant-Defined Enrollment Database
+</td>
+<td style="text-align:right;">
+307.3 GB
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Raw Templates on Disk
+</td>
+<td style="text-align:right;">
+306.6 GB
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="search" class="section level2">
+<h2><span class="header-section-number">2.5</span> Search</h2>
+<p>Out of the latent templates generated in <a href="timing-sample.html#tab:timing-dataset-quantity">Table <a href="timing-sample.html#tab:timing-dataset-quantity">2.1</a></a>, a fixed random sample of <strong><span class="math inline">24</span></strong> of the resulting latent templates were searched against the enrollment database described in <a href="timing-sample.html#enrollment-database">Subsection <a href="timing-sample.html#enrollment-database">2.4</a></a>. The results presented in <a href="timing-sample.html#search">Subsection <a href="timing-sample.html#search">2.5</a></a> are based on the measurements made on or during those <span class="math inline">24</span> searches.</p>
+<div id="search-duration" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Search Duration</h3>
+<p><a href="timing-sample.html#tab:search-duration">Table <a href="timing-sample.html#tab:search-duration">2.5</a></a> and <a href="timing-sample.html#fig:search-duration-boxplot">Figure <a href="timing-sample.html#fig:search-duration-boxplot">2.4</a></a> show the amount of time elapsed during searches of the fixed search probe set when searching against the enrollment database described in <a href="timing-sample.html#enrollment-database">Subsection <a href="timing-sample.html#enrollment-database">2.4</a></a>. While unsuccessful searches expend operator time, they are not included in this metric, because search failures typically occur instantaneously (e.g., a template indicates that a probe was of too poor quality to search), which can artificially lower the average search time.</p>
+<p>ELFT defines maximum average search durations for participants based on the number of subjects in the enrollment database. Due to the potential for extended runtimes, NIST may choose to allow some discretion in the enforcement of maximum search durations during times of high demand for compute resources. For example, if a maximum average search duration was <span class="math inline">4</span> hours, but after completing all searches, the average search duration was <span class="math inline">4.5</span> hours, it may be prudent to continue the evaluation, since a resubmission may require regeneration of millions of templates and several thousand repeated searches.</p>
+<p><strong>Note</strong>: In March 2023, NIST lowered the number of searches from <span class="math inline">100</span> to <span class="math inline">25</span>, with all <span class="math inline">25</span> probes depicting a distal phalanx. It also doubled the average quantity of impressions per subject by combining previously separate plain and rolled impressions for each subject. ELFT does not mandate the strategy in which multiple impressions of the same reference finger are stored or searched in the enrollment database, but it does impose search time maximums on a per-subject basis, <em>not</em> per-impression. This means that in <a href="timing-sample.html#tab:search-duration">Table <a href="timing-sample.html#tab:search-duration">2.5</a></a> and <a href="timing-sample.html#fig:search-duration-boxplot">Figure <a href="timing-sample.html#fig:search-duration-boxplot">2.4</a></a>, there may be average search durations <em>significantly</em> higher than the evaluation permitted maximum for implementations submitted prior to March 2023.</p>
+<p><strong>Note</strong>: In October 2023, NIST discovered a probe image in the search dataset contained invalid resolution information. This probe has been removed from the test, reducing the number of searches to <span class="math inline">24</span>. Evaluations run prior to this change will show total elapsed time measures including the now-omitted search.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:search-duration">Table 2.5: </span>Search time durations of the search probe set from the Timing Sample dataset, in seconds. This data is visualized in Figure <a href="timing-sample.html#fig:search-duration-boxplot">2.4</a>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Mated?
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+25%
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+75%
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+<th style="text-align:right;">
+Failures
+</th>
+<th style="text-align:right;">
+Searches
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+False
+</td>
+<td style="text-align:right;">
+4 537
+</td>
+<td style="text-align:right;">
+8 426
+</td>
+<td style="text-align:right;">
+10 278
+</td>
+<td style="text-align:right;">
+10 671
+</td>
+<td style="text-align:right;">
+12 502
+</td>
+<td style="text-align:right;">
+17 408
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+True
+</td>
+<td style="text-align:right;">
+4 504
+</td>
+<td style="text-align:right;">
+8 412
+</td>
+<td style="text-align:right;">
+10 261
+</td>
+<td style="text-align:right;">
+10 671
+</td>
+<td style="text-align:right;">
+12 504
+</td>
+<td style="text-align:right;">
+17 464
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:search-duration-boxplot"></span>
+<img src="plots/nec+0008-timing-search_time.png" alt="Violin plot of search time durations of the search probe set from the Timing Sample dataset. Vertical lines from left to right indicate the 25\%, 50\%, and 75\% quantiles respectively." width="1200" />
+<p class="caption">
+Figure 2.4: Violin plot of search time durations of the search probe set from the Timing Sample dataset. Vertical lines from left to right indicate the 25%, 50%, and 75% quantiles respectively.
+</p>
+</div>
+</div>
+<div id="search-memory-consumption" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Search Memory Consumption</h3>
+<p><a href="timing-sample.html#fig:search-memory">Figure <a href="timing-sample.html#fig:search-memory">2.5</a></a> shows the amount of RAM consumed by the single testing process as a function of time during the search procedure, including RAM consumed by the NIST testing apparatus. Implementations were permitted to use up to 300 GB of RAM (of a total available 384 GB) to load their enrollment database, the rest of which was stored on a local solid-state storage device. Note the different scales on each panel—implementations that do not change the contents of RAM may not show variation.</p>
+<div class="figure" style="text-align: center"><span id="fig:search-memory"></span>
+<img src="plots/nec+0008-timing-memory_search.png" alt="Amount of RAM used while searching templates in the Timing Sample dataset." width="1050" />
+<p class="caption">
+Figure 2.5: Amount of RAM used while searching templates in the Timing Sample dataset.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>The complete set of advertised CPU flags is <code>fpu</code>, <code>vme</code>, <code>de</code>, <code>pse</code>, <code>tsc</code>, <code>msr</code>, <code>pae</code>, <code>mce</code>, <code>cx8</code>, <code>apic</code>, <code>sep</code>, <code>mtrr</code>, <code>pge</code>, <code>mca</code>, <code>cmov</code>, <code>pat</code>, <code>pse36</code>, <code>clflush</code>, <code>dts</code>, <code>acpi</code>, <code>mmx</code>, <code>fxsr</code>, <code>sse</code>, <code>sse2</code>, <code>ss</code>, <code>ht</code>, <code>tm</code>, <code>pbe</code>, <code>syscall</code>, <code>nx</code>, <code>pdpe1gb</code>, <code>rdtscp</code>, <code>lm</code>, <code>constant_tsc</code>, <code>art</code>, <code>arch_perfmon</code>, <code>pebs</code>, <code>bts</code>, <code>rep_good</code>, <code>nopl</code>, <code>xtopology</code>, <code>nonstop_tsc</code>, <code>cpuid</code>, <code>aperfmperf</code>, <code>pni</code>, <code>pclmulqdq</code>, <code>dtes64</code>, <code>monitor</code>, <code>ds_cpl</code>, <code>vmx</code>, <code>smx</code>, <code>est</code>, <code>tm2</code>, <code>ssse3</code>, <code>sdbg</code>, <code>fma</code>, <code>cx16</code>, <code>xtpr</code>, <code>pdcm</code>, <code>pcid</code>, <code>dca</code>, <code>sse4_1</code>, <code>sse4_2</code>, <code>x2apic</code>, <code>movbe</code>, <code>popcnt</code>, <code>tsc_deadline_timer</code>, <code>aes</code>, <code>xsave</code>, <code>avx</code>, <code>f16c</code>, <code>rdrand</code>, <code>lahf_lm</code>, <code>abm</code>, <code>3dnowprefetch</code>, <code>cpuid_fault</code>, <code>epb</code>, <code>cat_l3</code>, <code>cdp_l3</code>, <code>invpcid_single</code>, <code>intel_ppin</code>, <code>ssbd</code>, <code>mba</code>, <code>ibrs</code>, <code>ibpb</code>, <code>stibp</code>, <code>ibrs_enhanced</code>, <code>tpr_shadow</code>, <code>vnmi</code>, <code>flexpriority</code>, <code>ept</code>, <code>vpid</code>, <code>ept_ad</code>, <code>fsgsbase</code>, <code>tsc_adjust</code>, <code>bmi1</code>, <code>avx2</code>, <code>smep</code>, <code>bmi2</code>, <code>erms</code>, <code>invpcid</code>, <code>cqm</code>, <code>mpx</code>, <code>rdt_a</code>, <code>avx512f</code>, <code>avx512dq</code>, <code>rdseed</code>, <code>adx</code>, <code>smap</code>, <code>clflushopt</code>, <code>clwb</code>, <code>intel_pt</code>, <code>avx512cd</code>, <code>avx512bw</code>, <code>avx512vl</code>, <code>xsaveopt</code>, <code>xsavec</code>, <code>xgetbv1</code>, <code>xsaves</code>, <code>cqm_llc</code>, <code>cqm_occup_llc</code>, <code>cqm_mbm_total</code>, <code>cqm_mbm_local</code>, <code>dtherm</code>, <code>ida</code>, <code>arat</code>, <code>pln</code>, <code>pts</code>, <code>pku</code>, <code>ospke</code>, <code>avx512_vnni</code>, <code>md_clear</code>, <code>flush_l1d</code>, <code>arch_capabilities</code><a href="timing-sample.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="participation-information.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="metrics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["nec+0008.pdf"],
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
