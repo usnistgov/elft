@@ -1354,6 +1354,9 @@ compile()
 		echo "${ELFT_REUSE_REFERENCE_TEMPLATES}"
 		echo -n "Reuse Enrollment Databases = "
 		echo "${ELFT_REUSE_ENROLLMENT_DATABASES}"
+
+		echo -n "Image Version = "
+		cat "${wd}/${validation_image_dir}/VERSION"
 	} >> "${log}"
 
 	okay
