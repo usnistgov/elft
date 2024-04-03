@@ -1709,8 +1709,14 @@ check_extract()
 	local fte=0
 	local empty_tmpl=0
 	while read -r line; do
-		read -r result tmpl_size <<< \
-		    "$(cut -f 3,7 -d ',' <<< "${line}" | tr ',' ' ')"
+		read -r key result tmpl_size <<< \
+		    "$(cut -f 1,3,7 -d ',' <<< "${line}" | tr ',' ' ')"
+
+		# Don't warn about failures with non-fingerprint images
+		if grep -q -e 'solid' -e 'gradient' -e 'random'  -e 'fd249' \
+		    <<< "${key}"; then
+			continue
+		fi
 
 		if [ "${result}" -ne 0 ]; then
 			fte=$(( fte + 1 ))
@@ -1725,16 +1731,16 @@ check_extract()
 
 	if [ "${fte}" -gt 0 ]; then
 		local log="${driver_output_dir}/extractionCreate-${suffix}.log"
-		local msg="There are some (${fte}) failure to enroll ${type} "
-		msg+="templates. Please review: "
+		local msg="There are some (${fte}) unexpected failures to "
+		msg+="enroll ${type} templates. Please review: "
 		warn "${msg}" "$(rp "${log}")"
 		echo -n "Still checking ${type} extraction logs... "
 	fi
 
 	if [ "${empty_tmpl}" -gt 0 ]; then
 		local log="${driver_output_dir}/extractionCreate-${suffix}.log"
-		local msg="There are some (${empty_tmpl}) zero-byte ${type} "
-		msg+="templates. Please review: "
+		local msg="There are some (${empty_tmpl}) unexpected zero-byte "
+		msg+="${type} templates. Please review: "
 		warn "${msg}" "$(rp "${log}")"
 		echo -n "Still checking ${type} extraction logs... "
 	fi
@@ -1787,14 +1793,18 @@ check_search_candidates()
 	fi
 
 	while read -r line; do
-		read -r max_candidates result num_candidates rank \
-		    similarity <<< "$(cut -f 2,4,7,8,11 -d ',' \
+		read -r probe max_candidates result num_candidates rank \
+		    similarity <<< "$(cut -f 1,2,4,7,8,11 -d ',' \
 		    <<< "${line}" | tr ',' ' ')"
 
-		# Search failure
-		if [ "${result}" -ne 0 ]; then
-			fts=$(( fts + 1 ))
-			continue
+		# If not a nonsensical image...
+		if grep -v -q -e 'solid' -e 'gradient' -e 'random' -e 'fd249' \
+		    <<< "${probe}"; then
+			# Search failure
+			if [ "${result}" -ne 0 ]; then
+				fts=$(( fts + 1 ))
+				continue
+			fi
 		fi
 
 		# Success, but no candidates
@@ -1816,8 +1826,8 @@ check_search_candidates()
 	done < <(tail -n +2 "${candidate_log}")
 
 	if [ "${fts}" -gt 0 ]; then
-		local msg="There are some (${fts}) failures to search. Please "
-		msg+="review: "
+		local msg="There are some (${fts}) unexpected failures to "
+		msg+="search. Please review: "
 		warn "${msg}" "${candidate_log}"
 		echo -n "Still checking search logs... "
 	fi
@@ -1825,14 +1835,15 @@ check_search_candidates()
 	if [ "${no_candidates}" -gt 0 ]; then
 		local msg="There are some (${no_candidates}) searches that "
 		msg+="returned successfully, but did not produce any "
-		msg+="candidates. Please review:"
+		msg+="candidates. This situation is converted to a failure to "
+		msg+="search during analysis. Please review:"
 		warn "${msg}" "${candidate_log}"
 		echo -n "Still checking search logs... "
 	fi
 
 	if [ "${too_many}" -gt 0 ]; then
 		local msg="There are some (${too_many}) searches that returned "
-		msg+=" more than the maximum number of candidates. Please "
+		msg+="more than the maximum number of candidates. Please "
 		msg+="review: "
 		fail "${msg}" "${candidate_log}"
 	fi
