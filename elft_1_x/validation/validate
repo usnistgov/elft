@@ -1286,6 +1286,28 @@ compile()
 			warn "${msg}"
 			echo -n "Still building... "
 		fi
+
+		# Does it look like we're finding libraries elsewhere?
+		if grep -q -v -e "=> /lib/x86_64-linux-gnu/" \
+		    -e "/ld-linux-x86-64.so" -e "linux-vdso.so.1 " \
+		    -e "=> /tmp/elft_libs." < \
+		    <(ldd "${binary}"); then
+			local msg="You may have required non-system libraries "
+			msg+="that are being found in a location other than "
+			msg+="the ELFT library directory. Review the filtered "
+			msg+="'ldd' output below for more information (please "
+			msg+="report any false-positives):"
+			warn "${msg}"
+
+			ldd "${binary}" | grep -v \
+			    -e "=> /lib/x86_64-linux-gnu/" -e " /lib64/" \
+			    -e "/ld-linux-x86-64.so" -e "linux-vdso.so.1 " \
+			    -e "=> /tmp/elft_libs."
+
+			echo
+
+			echo -n "Still building... "
+		fi
 	fi
 
 	# Don't rely on libelft_output
