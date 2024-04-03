@@ -1665,6 +1665,9 @@ make_tarball()
 
 	if ! mv -n "${output_dir}" "${final_output_path}" > /dev/null 2>&1; then
 		fail "Could not rename $(rp "${output_dir}")"
+	else
+		# Make symlink because warning messages will refer to this path
+		ln -s "${final_output_path}" "${output_dir}"
 	fi
 	if ! cp -pr "${local_lib_dir}" "${final_output_path}"; then
 		fail "Could not copy $(rp "${local_lib_dir}")"
