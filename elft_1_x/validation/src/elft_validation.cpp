@@ -950,19 +950,25 @@ ELFT::Validation::performSingleSearch(
 	    e2i2s(rv.status.result) + ',' +
 	    sanitizeMessage(rv.status.message ? *rv.status.message : "") + ','};
 	std::string logLine{};
-	if (rv.status && (rv.candidateList.size() > 0)) {
-		/* API says driver will stable sort by similarity */
-		std::stable_sort(rv.candidateList.begin(),
-		    rv.candidateList.end(), std::greater<Candidate>());
+	if (rv.status) {
+		if (rv.candidateList.size() > 0) {
+			/* API says driver will stable sort by similarity */
+			std::stable_sort(rv.candidateList.begin(),
+			    rv.candidateList.end(), std::greater<Candidate>());
 
-		std::vector<Candidate>::size_type rank{};
-		for (const auto &c : rv.candidateList) {
-			logLine += logLinePrefix + ts(rv.decision) + ',' +
-			    ts(rv.candidateList.size()) + ',' + ts(++rank) +
-			    ",\"" + c.identifier + "\"," + e2i2s(c.frgp) + ',' +
-			    ts(c.similarity);
-			if (rank < rv.candidateList.size())
-				logLine += '\n';
+			std::vector<Candidate>::size_type rank{};
+			for (const auto &c : rv.candidateList) {
+				logLine += logLinePrefix + ts(rv.decision) +
+				    ',' + ts(rv.candidateList.size()) + ',' +
+				    ts(++rank) + ",\"" + c.identifier + "\"," +
+				    e2i2s(c.frgp) + ',' + ts(c.similarity);
+				if (rank < rv.candidateList.size())
+					logLine += '\n';
+			}
+		} else {
+			/* Success, but no candidates (converted to failure) */
+			logLine += logLinePrefix + splice(
+			    std::vector<std::string>(6, NA), ",");
 		}
 	} else {
 		logLine += logLinePrefix + splice(

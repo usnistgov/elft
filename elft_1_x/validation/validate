@@ -1092,7 +1092,7 @@ compile()
 	declare -A md5s
 	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
 	md5s["../include/elft.h"]="ce24b0938194e063719c3c8f10828005"
-	md5s["src/elft_validation.cpp"]="973915d876b71e77afba122cf5d492bd"
+	md5s["src/elft_validation.cpp"]="34d242e6e94843d15273ac43c8b2634a"
 	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
 	md5s["src/elft_validation_data.h"]="6ed6a603ceb0f0b206c13b207265d353"
 	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
@@ -1860,8 +1860,13 @@ check_search_candidates()
 		fi
 
 		# Success, but no candidates
-		if [ "${num_candidates}" == "NA" ]; then
+		if [ "${result}" -eq 0 ] && [ "${num_candidates}" == "NA" ];
+		then
 			no_candidates=$(( no_candidates + 1 ))
+			continue
+		fi
+
+		if [ "${num_candidates}" == "NA" ]; then
 			continue
 		fi
 
