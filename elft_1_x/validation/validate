@@ -1713,8 +1713,7 @@ check_extract()
 		    "$(cut -f 1,3,7 -d ',' <<< "${line}" | tr ',' ' ')"
 
 		# Don't warn about failures with non-fingerprint images
-		if grep -q -e 'solid' -e 'gradient' -e 'random'  -e 'fd249' \
-		    <<< "${key}"; then
+		if is_nonsense_image "${key}"; then
 			continue
 		fi
 
@@ -1765,6 +1764,59 @@ check_search_correspondence()
 	return 0
 }
 
+is_nonsense_image()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <key>"
+	fi
+
+	grep -q -e 'solid' -e 'gradient' -e 'random' -e 'fd249' <<< "${1}"
+}
+
+is_palm_probe()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <key>"
+	fi
+
+	grep -q \
+	    -e "palm" \
+	    -e "00002357_3_X_0234_IN_D800_1044PPI_16BPC_1CH_LP06_3" <<< "${1}"
+}
+
+is_unknownfr_probe()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <key>"
+	fi
+
+	if is_nonsense_image "${1}"; then
+		return 0
+	fi
+
+	grep -q \
+	    -e "00002357_5A_X_027_IN_D800_1000PPI_8BPC_1CH_LP05_1_615x622" \
+	    -e "00002357_1D_L_L01_BP_S24_1200PPI_8BPC_1CH_LP03_1_757x1104" \
+	    -e "00002357_1H_L_L01_BP_S24_1200PPI_8BPC_1CH_LP15_1_673x839" \
+	    -e "00002357_6A_X_210_BT_D800_1430PPI_16BPC_1CH_LP01_1_579x839" \
+	    -e "00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IO+IO" \
+	    -e "00002357_1C_R_LP02+00002357_5A_X_028_LP03_1_994x652-IO+EO" <<< \
+	    "{$1}"
+}
+
+is_unknown_reference()
+{
+	if [ "${#}" -ne 1 ]; then
+		fail "Usage: ${FUNCNAME[0]} <key>"
+	fi
+
+	if is_nonsense_image "${1}"; then
+		return 0
+	fi
+
+	grep -q -e "00002357" <<< "{$1}"
+}
+
 # Check search candidates log for potential errors
 check_search_candidates()
 {
@@ -1776,6 +1828,7 @@ check_search_candidates()
 	local no_candidates=0
 	local too_many=0
 	local neg_sim=0
+	local bad_fgp=0
 	local candidate_log="${driver_output_dir}/searchCandidates.log"
 
 	if ! check_counts "$(basename "${candidate_log}" .log)"; then
@@ -1794,12 +1847,11 @@ check_search_candidates()
 
 	while read -r line; do
 		read -r probe max_candidates result num_candidates rank \
-		    similarity <<< "$(cut -f 1,2,4,7,8,11 -d ',' \
-		    <<< "${line}" | tr ',' ' ')"
+		    candidate fgp similarity <<< \
+		    "$(cut -f 1,2,4,7,8,9,10,11 -d ',' <<< "${line}" | \
+		    tr ',' ' ')"
 
-		# If not a nonsensical image...
-		if grep -v -q -e 'solid' -e 'gradient' -e 'random' -e 'fd249' \
-		    <<< "${probe}"; then
+		if ! is_nonsense_image "${probe}"; then
 			# Search failure
 			if [ "${result}" -ne 0 ]; then
 				fts=$(( fts + 1 ))
@@ -1822,6 +1874,28 @@ check_search_candidates()
 		# Negative similarity
 		if [ "$(cut -c 1 <<< "${similarity}")" == "-" ]; then
 			neg_sim=$(( neg_sim + 1 ))
+		fi
+
+		# Non-robust finger positions
+		if ! is_unknownfr_probe "${probe}" && \
+		    ! is_unknown_reference "${candidate}"; then
+			# UnknownPalm probe
+			if is_palm_probe "${probe}"; then
+				if [ "${fgp}" != "NA" ]; then
+					if [ "${fgp}" -lt 21 ]; then
+						bad_fgp=$(( bad_fgp + 1 ))
+					fi
+				fi
+			# UnknownFinger probe
+			else
+				if [ "${fgp}" != "NA" ]; then
+					if [ "${fgp}" -lt 1 ] || \
+					    [ "${fgp}" -gt 10 ];
+					then
+						bad_fgp=$(( bad_fgp + 1 ))
+					fi
+				fi
+			fi
 		fi
 	done < <(tail -n +2 "${candidate_log}")
 
@@ -1854,6 +1928,13 @@ check_search_candidates()
 		fail "${msg}" "${candidate_log}"
 	fi
 
+	if [ "${bad_fgp}" -gt 0 ]; then
+		local msg="There are some (${bad_fgp}) candidates that have "
+		msg+="unexpected non-robust finger positions (e.g., unknown, "
+		msg+="multi-finger, palm). These would only count for "
+		msg+="subject-level accuracy, if valid. Please review: "
+		warn "${msg}" "$(rp "${candidate_log}")"
+	fi
 	okay
 }
 
