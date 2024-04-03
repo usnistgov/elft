@@ -1929,7 +1929,7 @@ check_search_candidates()
 	if [ "${fts}" -gt 0 ]; then
 		local msg="There are some (${fts}) unexpected failures to "
 		msg+="search. Please review: "
-		warn "${msg}" "${candidate_log}"
+		warn "${msg}" "$(rp "${candidate_log}")"
 		echo -n "Still checking search logs... "
 	fi
 
@@ -1938,7 +1938,7 @@ check_search_candidates()
 		msg+="returned successfully, but did not produce any "
 		msg+="candidates. This situation is converted to a failure to "
 		msg+="search during analysis. Please review:"
-		warn "${msg}" "${candidate_log}"
+		warn "${msg}" "$(rp "${candidate_log}")"
 		echo -n "Still checking search logs... "
 	fi
 
@@ -1946,13 +1946,13 @@ check_search_candidates()
 		local msg="There are some (${too_many}) searches that returned "
 		msg+="more than the maximum number of candidates. Please "
 		msg+="review: "
-		fail "${msg}" "${candidate_log}"
+		fail "${msg}" "$(rp "${candidate_log}")"
 	fi
 
 	if [ "${neg_sim}" -gt 0 ]; then
 		local msg="There are some (${neg_sim}) searches that returned "
 		msg+="a similarity score < 0. Please review: "
-		fail "${msg}" "${candidate_log}"
+		fail "${msg}" "$(rp "${candidate_log}")"
 	fi
 
 	if [ "${bad_fgp}" -gt 0 ]; then
