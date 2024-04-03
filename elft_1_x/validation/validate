@@ -1935,6 +1935,22 @@ check_search_candidates()
 		msg+="subject-level accuracy, if valid. Please review: "
 		warn "${msg}" "$(rp "${candidate_log}")"
 	fi
+
+	# Duplicate candidate + finger position
+	local total_lines
+	total_lines=$(wc -l "${candidate_log}" | cut -f 1 -d ' ')
+	local unique_lines
+	unique_lines=$(cut -f 1,9,10 -d ',' "${candidate_log}" | sort | uniq | \
+	    wc -l)
+	if [ "${total_lines}" != "${unique_lines}" ]; then
+		local msg="There appear to be non-unique candidate_identifier/"
+		msg+="candidate_frgp pairs in your candidate lists. This will "
+		msg+="hurt the reported hit rate. Only return a single unique "
+		msg+="candidate_identifier/candidate_frgp pair per candidate "
+		msg+="list. Please review:"
+		warn "${msg}" "$(rp "${candidate_log}")"
+	fi
+
 	okay
 }
 
