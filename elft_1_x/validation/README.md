@@ -41,9 +41,8 @@ Requirements
      repository. Request and download the data from our [requests website].
  * Ubuntu Server 20.04.03 LTS
    - Even if this is not the latest version of Ubuntu Server, it will be the
-     version used to run the evaluation. Direct downloads are available from the
-     [Ubuntu Mirrors] ([🇺🇸 USA], [🇪🇺 Europe]) and directly from the [NIST
-     Image Group].
+     version used to run the evaluation. [Direct downloads] are available from
+     the [Ubuntu Mirrors] and directly from the [NIST Image Group].
    - We **highly suggest** matching the exact versions of packages installed in
      our environment. A link to the names and versions of these pacakages is
      available.
@@ -292,8 +291,7 @@ The items in this repository are released in the public domain. See the
 
 [API]: https://pages.nist.gov/elft/elft_1_x/doc/api/
 [Ubuntu Mirrors]: https://launchpad.net/ubuntu/+cdmirrors
-[🇺🇸 USA]: https://mirror.math.princeton.edu/pub/ubuntu-iso/focal/ubuntu-20.04.3-live-server-amd64.iso
-[🇪🇺 Europe]: http://mirror.init7.net/ubuntu-releases/focal/ubuntu-20.04.3-live-server-amd64.iso
+[Direct downloads]: https://old-releases.ubuntu.com/releases/20.04.3/ubuntu-20.04.3-live-server-amd64.iso
 [NIST Image Group]: https://nigos.nist.gov/evaluations/ubuntu-20.04.3-live-server-amd64.iso
 [lib/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/lib
 [../libelft/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/libelft
