@@ -1151,9 +1151,14 @@ compile()
 	non_libs="$(find "${local_lib_dir}" \! -name "lib*" -a \! \
 	    -name README | wc -l)"
 	if [ "${non_libs}" -gt 0 ]; then
-		local msg="You have files in ${local_lib_dir} that don't "
+		local short_libdir
+		short_libdir="$(rp "${local_lib_dir}")"
+		local short_configdir
+		short_configdir="$(rp "${local_config_dir}")"
+
+		local msg="You have files in \"${short_libdir}\" that don't "
 		msg+="appear to be libraries. That's fine, but are you sure "
-		msg+="they don't belong in \"${local_config_dir}\" instead?"
+		msg+="they don't belong in \"${short_configdir}\" instead?"
 
 		warn "${msg}"
 		echo -n "Still building... "
