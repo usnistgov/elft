@@ -488,10 +488,20 @@ print_cbeff()
 	echo
 	box "${msg}" 80 '=' '|' 'l' 1 0
 	boxline
+	local val
+	local print_once=0
 	while read -r line; do
+		val=$(tr -d "[:space:]" <<< "${line}" | cut -f 2 -d '=')
+		if [ "${val}" == "" ] || [ "${val}" == "0x0000" ]; then
+			continue
+		fi
+		print_once=1
 		boxline "${line}"
 	done < <(grep -h -e Exemplar -e Latent -e Search \
 	    "${final_output_dir}"/id_*)
+	if [ "${print_once}" == "0" ]; then
+		boxline "All values were defaults and will NOT be included!"
+	fi
 	printline '=' 80 && echo
 	font_reset
 }
