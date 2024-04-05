@@ -1,1 +1,7 @@
 Place your libraries in this directory.
+
+We strongly encourage setting the RUNPATH (not RPATH) of your core library to
+$ORIGIN to find dependent libraries. Regardless, do NOT hardcode paths to either
+this directory ('lib') or 'config' to load dependencies. These paths, even if
+relative, will NOT exist. Remember, the only library explicitly linked to NIST's
+testing code will be the core library.
