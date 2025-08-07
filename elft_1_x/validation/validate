@@ -776,7 +776,7 @@ check_for_previous_attempts()
 # Check that the version of Ubuntu is the correct version.
 check_os()
 {
-	local expected="20.04.3 LTS (Focal Fossa)"
+	local expected="24.04.3 LTS (Noble Numbat)"
 	echo -n "Checking OS and version... "
 	if [ ! -e /etc/os-release ]; then
 		local msg="You do not appear to be using the appropriate "

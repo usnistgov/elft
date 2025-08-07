@@ -39,10 +39,11 @@ Requirements
    - Because organizations must agree to NIST Special Database terms and
      conditions, the required fingerprint imagery is not included in this GitHub
      repository. Request and download the data from our [requests website].
- * Ubuntu Server 20.04.03 LTS
+ * Ubuntu Server 24.04.3 LTS
    - Even if this is not the latest version of Ubuntu Server, it will be the
-     version used to run the evaluation. [Direct downloads] are available from
-     the [Ubuntu Mirrors] and directly from the [NIST Image Group].
+     version used to run the evaluation. Direct downloads are available from the
+     [Ubuntu Mirrors] ([🇺🇸 USA], [🇪🇺 Europe]) and directly from the [NIST
+     Image Group].
    - We **highly suggest** matching the exact versions of packages installed in
      our environment. A link to the names and versions of these pacakages is
      available.
@@ -102,14 +103,14 @@ $ export ELFT_REUSE_REFERENCE_TEMPLATES=NO
 $ export ELFT_REUSE_ENROLLMENT_DATABASES=NO
 $ ./validate
 ================================================================================
-|     ELFT Validation | Version 202201261021 | 26 Jan 2022 | 15:22:59 UTC      |
+|     ELFT Validation | Version 202404051110 | 07 Aug 2025 | 16:00:40 EDT      |
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
 Checking validation version... (connection failure) [SKIP]
-Checking OS and version... (Ubuntu Server 20.04.3 LTS (Focal Fossa)) [OKAY]
+Checking OS and version... (Ubuntu Server 24.04.3 LTS (Noble Numbat)) [OKAY]
 Checking for unexpanded validation image tarballs... [DEFER]
- -> Expanding "elft_validation_images-202103120958.tar.xz"... [OKAY]
+ -> Expanding "elft_validation_images-202310021336.tar.xz"... [OKAY]
 Checking for unexpanded validation image tarballs... [OKAY]
 Looking for core library... (libelft_nullimpl_0001.so) [OKAY]
 Checking for known environment variables... [SHOW]
@@ -119,11 +120,12 @@ Checking for known environment variables... [SHOW]
 Checking for known environment variables... [OKAY]
 Building... [OKAY]
 Checking API version... [OKAY]
+Checking library name... [OKAY]
 Testing ExtractionInterface (probe)... [OKAY]
 Checking probe extraction logs... [WARN]
 
 ================================================================================
-| There are some (117) zero-byte probe templates. Please review:               |
+| There are some (117) unexpected zero-byte probe templates. Please review:    |
 | output/driver/extractionCreate-0.log                                         |
 ================================================================================
 Still checking probe extraction logs... [OKAY]
@@ -131,7 +133,8 @@ Testing ExtractionInterface (reference)... [OKAY]
 Checking reference extraction logs... [WARN]
 
 ================================================================================
-| There are some (55) zero-byte reference templates. Please review:            |
+| There are some (55) unexpected zero-byte reference templates. Please         |
+| review:                                                                      |
 | output/driver/extractionCreate-1.log                                         |
 ================================================================================
 Still checking reference extraction logs... [OKAY]
@@ -140,10 +143,10 @@ Testing SearchInterface... [OKAY]
 Checking search logs (candidates)... [WARN]
 
 ================================================================================
-| There are some (117) searches that returned successfully, but did not        |
-| produce any candidates. Please review:                                       |
-| /mnt/hgfs/git/elft_public/elft_1_x/validation/output/driver/searchCandidates |
-| .log                                                                         |
+| There are some (124) searches that returned successfully, but did not        |
+| produce any candidates. This situation is converted to a failure to search   |
+| during analysis. Please review:                                              |
+| output/driver/searchCandidates.log                                           |
 ================================================================================
 Still checking search logs... [OKAY]
 Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
@@ -180,7 +183,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 + This script could not check online to ensure there are no updates            +
 + available. NIST requires that ELFT submissions always use the latest         +
 + version. Retrieve the latest version number by visiting the URL below and    +
-+ be sure it matches this version: 202201261021.                               +
++ be sure it matches this version: 202404051110.                               +
 +                                                                              +
 + https://github.com/usnistgov/elft/tree/master/elft_1_x/validation/VERSION    +
 +                                                                              +
@@ -194,10 +197,10 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 |                                                                              |
 |                     elft_validation_nullimpl_0001.tar.xz                     |
 |                                                                              |
-| Please attach both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
-| key to an email addressed to elft@nist.gov.                                  |
+| Please upload both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
+| key via https://pages.nist.gov/elft/upload                                   |
 ================================================================================
-Completed: 26 Jan 2022 | 15:23:44 UTC (Runtime: 45s)
+Completed: 07 Aug 2025 | 16:00:48 EDT (Runtime: 8s)
 ```
 </details>
 
@@ -291,8 +294,9 @@ The items in this repository are released in the public domain. See the
 
 [API]: https://pages.nist.gov/elft/elft_1_x/doc/api/
 [Ubuntu Mirrors]: https://launchpad.net/ubuntu/+cdmirrors
-[Direct downloads]: https://old-releases.ubuntu.com/releases/20.04.3/ubuntu-20.04.3-live-server-amd64.iso
-[NIST Image Group]: https://nigos.nist.gov/evaluations/ubuntu-20.04.3-live-server-amd64.iso
+[🇺🇸 USA]: https://mirror.math.princeton.edu/pub/ubuntu-iso/noble/ubuntu-24.04.3-live-server-amd64.iso
+[🇪🇺 Europe]: http://mirror.init7.net/ubuntu-releases/noble/ubuntu-24.04.3-live-server-amd64.iso
+[NIST Image Group]: https://nigos.nist.gov/evaluations/ubuntu-24.04.3-live-server-amd64.iso
 [lib/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/validation/lib
 [../libelft/]: https://github.com/usnistgov/elft/blob/master/elft_1_x/libelft
 [../include/elft.h]: https://github.com/usnistgov/elft/blob/master/elft_1_x/include/elft.h
