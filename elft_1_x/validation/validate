@@ -1393,10 +1393,9 @@ compile()
 			echo
 		done < <(find "${lib_dir}" -type f -name "lib*")
 
-		echo -n "CPU Model = "
+		echo "CPU Info:"
 		if [ -e /proc/cpuinfo ]; then
-			grep "model name" /proc/cpuinfo | sort | uniq | \
-			    cut -f2 -d ':' | xargs
+			cat /proc/cpuinfo
 		else
 			echo "NA"
 		fi
