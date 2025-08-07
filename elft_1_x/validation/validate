@@ -1127,6 +1127,14 @@ compile()
 	done
 	echo >> "${log}"
 
+	if [ -n "${LD_LIBRARY_PATH}" ]; then
+		local msg="You appear to have set the variable "
+		msg+="LD_LIBRARY_PATH. This is something that you should not "
+		msg+="do. Instead, ensure the RUNPATH of your core library is "
+		msg+="set to \$ORIGIN."
+		fail "${msg}"
+	fi
+
 	# Check for pre-built libelft.so
 	if [ -e "${local_lib_dir}/libelft.so" ]; then
 		local msg="The library 'libelft.so' is in the directory "
