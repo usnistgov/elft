@@ -107,7 +107,7 @@ $ ./validate
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
-Checking validation version... (connection failure) [SKIP]
+Checking validation version... (202404051110) [OKAY]
 Checking OS and version... (Ubuntu Server 24.04.3 LTS (Noble Numbat)) [OKAY]
 Checking for unexpanded validation image tarballs... [DEFER]
  -> Expanding "elft_validation_images-202310021336.tar.xz"... [OKAY]
@@ -178,18 +178,6 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 | Search Algorithm CBEFF Owner = 0x000F                                        |
 | Search Algorithm CBEFF Identifier = 0x0101                                   |
 ================================================================================
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ This script could not check online to ensure there are no updates            +
-+ available. NIST requires that ELFT submissions always use the latest         +
-+ version. Retrieve the latest version number by visiting the URL below and    +
-+ be sure it matches this version: 202404051110.                               +
-+                                                                              +
-+ https://github.com/usnistgov/elft/tree/master/elft_1_x/validation/VERSION    +
-+                                                                              +
-+ If these numbers don't match, visit our website to retrieve the latest       +
-+ version.                                                                     +
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ================================================================================
 | You have successfully completed your part of ELFT validation. Please sign    |
