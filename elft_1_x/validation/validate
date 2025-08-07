@@ -49,6 +49,8 @@ validation_dl_url="https://github.com/usnistgov/elft/releases"
 # URL where the validation imagery is requested
 validation_image_request_url="https://nigos.nist.gov/datasets/"
 validation_image_request_url+="elft_validation/request"
+# Branch on GitHub where links should point
+git_branch="ubuntu24"
 
 # Directory containing validation materials
 wd="$(cd "$(dirname "${0}")" && pwd)"
@@ -360,8 +362,8 @@ print_couldnt_check_version()
 {
 	font_lightred
 
-	local vers_url="https://github.com/usnistgov/elft/tree/master/elft_1_x/"
-	vers_url+="validation/VERSION"
+	local vers_url="https://github.com/usnistgov/elft/tree/${git_branch}/"
+	vers_url+="elft_1_x/validation/VERSION"
 
 	local msg="This script could not check online to ensure there are no "
 	msg+="updates available. NIST requires that ELFT submissions always "
@@ -678,7 +680,7 @@ check_validation_version()
 
 	# URL with the most recent version number of the validation package
 	local version_url="https://raw.githubusercontent.com/usnistgov/elft/"
-	local version_url+="master/elft_1_x/validation/VERSION"
+	local version_url+="${git_branch}/elft_1_x/validation/VERSION"
 
 	echo -n "Checking validation version... "
 	# d.root-servers.net -> 199.7.91.13
