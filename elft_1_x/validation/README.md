@@ -103,11 +103,11 @@ $ export ELFT_REUSE_REFERENCE_TEMPLATES=NO
 $ export ELFT_REUSE_ENROLLMENT_DATABASES=NO
 $ ./validate
 ================================================================================
-|     ELFT Validation | Version 202404051110 | 07 Aug 2025 | 16:00:40 EDT      |
+|     ELFT Validation | Version 202508071622 | 07 Aug 2025 | 16:22:40 EDT      |
 ================================================================================
 Checking for required packages... [OKAY]
 Checking for previous validation attempts... [OKAY]
-Checking validation version... (202404051110) [OKAY]
+Checking validation version... (202508071622) [OKAY]
 Checking OS and version... (Ubuntu Server 24.04.3 LTS (Noble Numbat)) [OKAY]
 Checking for unexpanded validation image tarballs... [DEFER]
  -> Expanding "elft_validation_images-202310021336.tar.xz"... [OKAY]
@@ -188,7 +188,7 @@ Creating validation submission... (elft_validation_nullimpl_0001.tar.xz) [OKAY]
 | Please upload both elft_validation_nullimpl_0001.tar.xz.asc and your public  |
 | key via https://pages.nist.gov/elft/upload                                   |
 ================================================================================
-Completed: 07 Aug 2025 | 16:00:48 EDT (Runtime: 8s)
+Completed: 07 Aug 2025 | 16:22:48 EDT (Runtime: 8s)
 ```
 </details>
 
