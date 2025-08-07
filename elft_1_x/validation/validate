@@ -1278,14 +1278,32 @@ compile()
 		local origin_in_rpath=0
 		if [ "${uses_rpath}" == "1" ]; then
 			if readelf -d "${lib_dir}/${core_lib}" | \
-			    grep RPATH | grep "\$ORIGIN" > /dev/null; then
-				origin_in_rpath=1
+			    grep RPATH | grep -q "\$ORIGIN"; then
+				for p in $(readelf -d "${lib_dir}/${core_lib}" \
+				    | grep RUNPATH | grep "\$ORIGIN" | \
+				    cut -f 2 -d '[' | tr -d ']' | tr ':' ' ');
+				    do
+					if [ "${p}" == "\$ORIGIN" ] || \
+					    [ "${p}" == "\$ORIGIN/" ]; then
+						origin_in_rpath=1
+						break
+					fi
+				done
 			fi
 		fi
 		local origin_in_runpath=0
 		if readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep "\$ORIGIN" > /dev/null; then
-			origin_in_runpath=1
+		    grep RUNPATH | grep -q "\$ORIGIN"; then
+			for p in $(readelf -d "${lib_dir}/${core_lib}" \
+			    | grep RUNPATH | grep "\$ORIGIN" | \
+			    cut -f 2 -d '[' | tr -d ']' | tr ':' ' ');
+			    do
+				if [ "${p}" == "\$ORIGIN" ] || \
+				    [ "${p}" == "\$ORIGIN/" ]; then
+					origin_in_runpath=1
+					break
+				fi
+			done
 		fi
 		if [ "${origin_in_rpath}" == "0" ] && \
 		    [ "${origin_in_runpath}" == "0" ]
