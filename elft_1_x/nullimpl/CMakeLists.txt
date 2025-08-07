@@ -6,7 +6,7 @@
 # its use by other parties, and makes no guarantees, expressed or implied,
 # about its quality, reliability, or any other characteristic.
 
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.28.3)
 
 project(elft_nullimpl)
 
