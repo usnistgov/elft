@@ -1101,33 +1101,28 @@ compile()
 
 	local log="${output_dir}/${compile_log}"
 
-	declare -A md5s
-	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
-	md5s["../include/elft.h"]="ce24b0938194e063719c3c8f10828005"
-	md5s["src/elft_validation.cpp"]="34d242e6e94843d15273ac43c8b2634a"
-	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
-	md5s["src/elft_validation_data.h"]="6ed6a603ceb0f0b206c13b207265d353"
-	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
+	# cksum -a sha256 "../libelft/libelft.cpp" \
+	#     "../include/elft.h" \
+	#     "src/CMakeLists.txt" \
+	#     "src/elft_validation.cpp" \
+	#     "src/elft_validation.h" \
+	#     "src/elft_validation_data.h" \
+	#     "src/elft_validation_utils.h" \
+	#     "validate" > \
+	#     CHECKSUMS
 
 	# Check checksums
-	local expected
-	local actual
 	echo "Source checksums:" >> "${log}"
-	for f in "${!md5s[@]}"; do
-		expected="${md5s[${f}]}"
-		actual=$(md5sum "${wd}/${f}" | cut -f 1 -d ' ')
-		if [ "${expected}" != "${actual}" ]; then
-			local bf
-			bf="$(basename "${f}")"
-			local msg="Your copy of ${bf} appears to be modified. "
-			msg+="Please restore the original copy. Making changes "
-			msg+="will almost certainly cause errors."
-			fail "${msg}"
-		fi
-
-		echo "${actual} ${f}" >> "${log}"
-	done
-	echo >> "${log}"
+	if ! cksum --strict --check "${wd}/CHECKSUMS" >> "${log}"; then
+		local msg="One or more validation source files appears to have "
+		msg+="been modified. Refer to \"${wd}/CHECKSUMS\"."
+		fail "${msg}"
+	fi
+	{
+		echo
+		cksum -a sha256 "${wd}/validate"
+		echo
+	} >> "${log}"
 
 	if [ -n "${LD_LIBRARY_PATH}" ]; then
 		local msg="You appear to have set the variable "
