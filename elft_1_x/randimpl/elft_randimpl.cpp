@@ -143,7 +143,7 @@ ELFT::RandomImplementation::Util::readTemplate(
 	file.seekg(std::ifstream::beg);
 	file.read(reinterpret_cast<char*>(buf.data()), size);
 
-	return {{}, buf};
+	return {ReturnStatus{}, buf};
 }
 
 ELFT::ReturnStatus
