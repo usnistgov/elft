@@ -1201,6 +1201,17 @@ namespace ELFT
 		 * The files pointed to by `referenceTemplates` **will not
 		 * exist** when SearchInterface is instantiated.
 		 *
+		 * @attention
+		 * Implementations may not write more than 1000 **total** files.
+		 *
+		 * @attention
+		 * Writing many files is detrimental to the performance of the
+		 * file system during this evaluation. It is strongly encouraged
+		 * to write a small number of large files to store the reference
+		 * database. *NIST reserves the right to reject the
+		 * implementation based on the file system requirements of the
+		 * reference database scheme employed.*
+		 *
 		 * @note
 		 * This method may use more than one thread.
 		 *
@@ -1298,6 +1309,10 @@ namespace ELFT
 		 * @return
 		 * Information about the result of executing the method.
 		 *
+		 * @attention
+		 * You should confirm that your database is fully loaded and all
+		 * files expected are present before returning.
+		 *
 		 * @warning
 		 * This method will be called after construction and should
 		 * **not** be called from an implementation's constructor. This
@@ -1308,7 +1323,6 @@ namespace ELFT
 		 * *after* this method returns! After calling this method, the
 		 * test application may `fork()`, allowing calls to search() to
 		 * share the contents of memory using copy-on-write semantics.
-
 		 *
 		 * @warning
 		 * **DO NOT MODIFY** the contents of the database on disk at any
@@ -1479,7 +1493,6 @@ namespace ELFT
 		 * `databaseDirectory` from this function. This is necessary to
 		 * call getIdentification() prior to creating an enrollment
 		 * database.
-		 *
 		 *
 		 * @note
 		 * A possible implementation might be:

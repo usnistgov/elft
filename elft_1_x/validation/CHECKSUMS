@@ -1,5 +1,5 @@
 SHA256 (../libelft/libelft.cpp) = 8ed0d1d2fdde0d959c187f1af4883c3408ba534dee66796416292e9d6858bed2
-SHA256 (../include/elft.h) = 066e2bec22d77506c7be5612bb1f938e96cc31aa00d139a67e1293e3107136e4
+SHA256 (../include/elft.h) = 638d3fd1b5bc80ba9ed05010faa3d44cf8794d8243ad9fd25f685ca419436930
 SHA256 (src/CMakeLists.txt) = 1e73c02ec694e1db65f533d45d0ca66d61b9c161b56d7d4b0f8bb3a5c7bd988c
 SHA256 (src/elft_validation.cpp) = de7d3812bf5a93ffa077b5ea3a5020549688ced0a9d5e70ad13304dc7addc9cc
 SHA256 (src/elft_validation.h) = 5de1a9f6c1b79539907131fc969dbff723248c7032b63807bc669847088419bd
