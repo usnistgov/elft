@@ -5,4 +5,4 @@ SHA256 (src/elft_validation.cpp) = de7d3812bf5a93ffa077b5ea3a5020549688ced0a9d5e
 SHA256 (src/elft_validation.h) = 5de1a9f6c1b79539907131fc969dbff723248c7032b63807bc669847088419bd
 SHA256 (src/elft_validation_data.h) = 98dd1ac2b25f31c06ae68e92136e1441b157696dda78f643c0165426f8d4bdbd
 SHA256 (src/elft_validation_utils.h) = 7e7b8126c756e904877ffcf25901b1de8843adbbee9b9a13d0c626a8104f53e0
-SHA256 (validate) = 99f8ffb59391ee7b9fba9d408e03bda1261e579c48a1ab323d4c13ff2f4b1132
+SHA256 (validate) = 16f25d2e49c4ce089d5fe504db1212a44a819d25f825fdc3d0c02db198a0c178
