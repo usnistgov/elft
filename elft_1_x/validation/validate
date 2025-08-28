@@ -49,6 +49,8 @@ validation_dl_url="https://github.com/usnistgov/elft/releases"
 # URL where the validation imagery is requested
 validation_image_request_url="https://nigos.nist.gov/datasets/"
 validation_image_request_url+="elft_validation/request"
+# Branch on GitHub where links should point
+git_branch="ubuntu24"
 
 # Directory containing validation materials
 wd="$(cd "$(dirname "${0}")" && pwd)"
@@ -360,8 +362,8 @@ print_couldnt_check_version()
 {
 	font_lightred
 
-	local vers_url="https://github.com/usnistgov/elft/tree/master/elft_1_x/"
-	vers_url+="validation/VERSION"
+	local vers_url="https://github.com/usnistgov/elft/tree/${git_branch}/"
+	vers_url+="elft_1_x/validation/VERSION"
 
 	local msg="This script could not check online to ensure there are no "
 	msg+="updates available. NIST requires that ELFT submissions always "
@@ -678,13 +680,13 @@ check_validation_version()
 
 	# URL with the most recent version number of the validation package
 	local version_url="https://raw.githubusercontent.com/usnistgov/elft/"
-	local version_url+="master/elft_1_x/validation/VERSION"
+	local version_url+="${git_branch}/elft_1_x/validation/VERSION"
 
 	echo -n "Checking validation version... "
 	# d.root-servers.net -> 199.7.91.13
 	if ping -W 1 -c 1 199.7.91.13 > /dev/null 2>&1; then
 		local internet_version=0
-		if ! internet_version=$(curl -m 10 -f "${version_url}" \
+		if internet_version=$(curl -m 10 -f "${version_url}" \
 		    2>/dev/null)
 		then
 			if [ "${internet_version}" != "${validation_version}" ];
@@ -776,7 +778,7 @@ check_for_previous_attempts()
 # Check that the version of Ubuntu is the correct version.
 check_os()
 {
-	local expected="20.04.3 LTS (Focal Fossa)"
+	local expected="24.04.3 LTS (Noble Numbat)"
 	echo -n "Checking OS and version... "
 	if [ ! -e /etc/os-release ]; then
 		local msg="You do not appear to be using the appropriate "
@@ -1099,33 +1101,36 @@ compile()
 
 	local log="${output_dir}/${compile_log}"
 
-	declare -A md5s
-	md5s["../libelft/libelft.cpp"]="b7105274543b422e51c656d8db36b165"
-	md5s["../include/elft.h"]="ce24b0938194e063719c3c8f10828005"
-	md5s["src/elft_validation.cpp"]="34d242e6e94843d15273ac43c8b2634a"
-	md5s["src/elft_validation.h"]="c27629ef53a2f86874fe7b89de301d49"
-	md5s["src/elft_validation_data.h"]="6ed6a603ceb0f0b206c13b207265d353"
-	md5s["src/elft_validation_utils.h"]="1608f980123e57619d92370feddf9225"
+	# cksum -a sha256 "../libelft/libelft.cpp" \
+	#     "../include/elft.h" \
+	#     "src/CMakeLists.txt" \
+	#     "src/elft_validation.cpp" \
+	#     "src/elft_validation.h" \
+	#     "src/elft_validation_data.h" \
+	#     "src/elft_validation_utils.h" \
+	#     "validate" > \
+	#     CHECKSUMS
 
 	# Check checksums
-	local expected
-	local actual
 	echo "Source checksums:" >> "${log}"
-	for f in "${!md5s[@]}"; do
-		expected="${md5s[${f}]}"
-		actual=$(md5sum "${wd}/${f}" | cut -f 1 -d ' ')
-		if [ "${expected}" != "${actual}" ]; then
-			local bf
-			bf="$(basename "${f}")"
-			local msg="Your copy of ${bf} appears to be modified. "
-			msg+="Please restore the original copy. Making changes "
-			msg+="will almost certainly cause errors."
-			fail "${msg}"
-		fi
+	if ! cksum --strict --check "${wd}/CHECKSUMS" >> "${log}"; then
+		local msg="One or more validation source files appears to have "
+		msg+="been modified. Refer to \"${wd}/CHECKSUMS\"."
+		fail "${msg}"
+	fi
+	{
+		echo
+		cksum -a sha256 "${wd}/validate"
+		echo
+	} >> "${log}"
 
-		echo "${actual} ${f}" >> "${log}"
-	done
-	echo >> "${log}"
+	if [ -n "${LD_LIBRARY_PATH}" ]; then
+		local msg="You appear to have set the variable "
+		msg+="LD_LIBRARY_PATH. This is something that you should not "
+		msg+="do. Instead, ensure the RUNPATH of your core library is "
+		msg+="set to \$ORIGIN."
+		fail "${msg}"
+	fi
 
 	# Check for pre-built libelft.so
 	if [ -e "${local_lib_dir}/libelft.so" ]; then
@@ -1278,14 +1283,32 @@ compile()
 		local origin_in_rpath=0
 		if [ "${uses_rpath}" == "1" ]; then
 			if readelf -d "${lib_dir}/${core_lib}" | \
-			    grep RPATH | grep "\$ORIGIN" > /dev/null; then
-				origin_in_rpath=1
+			    grep RPATH | grep -q "\$ORIGIN"; then
+				for p in $(readelf -d "${lib_dir}/${core_lib}" \
+				    | grep RUNPATH | grep "\$ORIGIN" | \
+				    cut -f 2 -d '[' | tr -d ']' | tr ':' ' ');
+				    do
+					if [ "${p}" == "\$ORIGIN" ] || \
+					    [ "${p}" == "\$ORIGIN/" ]; then
+						origin_in_rpath=1
+						break
+					fi
+				done
 			fi
 		fi
 		local origin_in_runpath=0
 		if readelf -d "${lib_dir}/${core_lib}" | \
-		    grep RUNPATH | grep "\$ORIGIN" > /dev/null; then
-			origin_in_runpath=1
+		    grep RUNPATH | grep -q "\$ORIGIN"; then
+			for p in $(readelf -d "${lib_dir}/${core_lib}" \
+			    | grep RUNPATH | grep "\$ORIGIN" | \
+			    cut -f 2 -d '[' | tr -d ']' | tr ':' ' ');
+			    do
+				if [ "${p}" == "\$ORIGIN" ] || \
+				    [ "${p}" == "\$ORIGIN/" ]; then
+					origin_in_runpath=1
+					break
+				fi
+			done
 		fi
 		if [ "${origin_in_rpath}" == "0" ] && \
 		    [ "${origin_in_runpath}" == "0" ]
@@ -1367,10 +1390,9 @@ compile()
 			echo
 		done < <(find "${lib_dir}" -type f -name "lib*")
 
-		echo -n "CPU Model = "
+		echo "CPU Info:"
 		if [ -e /proc/cpuinfo ]; then
-			grep "model name" /proc/cpuinfo | sort | uniq | \
-			    cut -f2 -d ':' | xargs
+			cat /proc/cpuinfo
 		else
 			echo "NA"
 		fi
