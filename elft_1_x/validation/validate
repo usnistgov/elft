@@ -1285,7 +1285,7 @@ compile()
 			if readelf -d "${lib_dir}/${core_lib}" | \
 			    grep RPATH | grep -q "\$ORIGIN"; then
 				for p in $(readelf -d "${lib_dir}/${core_lib}" \
-				    | grep RUNPATH | grep "\$ORIGIN" | \
+				    | grep RPATH | grep "\$ORIGIN" | \
 				    cut -f 2 -d '[' | tr -d ']' | tr ':' ' ');
 				    do
 					if [ "${p}" == "\$ORIGIN" ] || \
