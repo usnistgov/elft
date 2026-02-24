@@ -37,7 +37,7 @@ $(document).ready(function() {
 			 * Visibility
 			 */
 			{
-				targets: [0, 1, 5, 7, 8, 13, 58],
+				targets: [0, 1, 5, 7, 8, 13, 44],
 				visible: true
 			},
 			{
