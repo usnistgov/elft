@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>idemia+0008</title>
+  <meta name="description" content="idemia+0008" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="idemia+0008" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="idemia+0008" />
+  
+  
+  
+
+<meta name="author" content="Evaluation of Latent Friction Ridge Technology (ELFT)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="timing-sample.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-32629RT6DJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-32629RT6DJ');
+</script>
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+<script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+<script async id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
+
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="participation-information.html"><a href="participation-information.html"><i class="fa fa-check"></i><b>1</b> Participation Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="participation-information.html"><a href="participation-information.html#names"><i class="fa fa-check"></i><b>1.1</b> Names</a></li>
+<li class="chapter" data-level="1.2" data-path="participation-information.html"><a href="participation-information.html#dates"><i class="fa fa-check"></i><b>1.2</b> Dates</a></li>
+<li class="chapter" data-level="1.3" data-path="participation-information.html"><a href="participation-information.html#supplied-libraries-and-configurations"><i class="fa fa-check"></i><b>1.3</b> Supplied Libraries and Configurations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="timing-sample.html"><a href="timing-sample.html"><i class="fa fa-check"></i><b>2</b> Timing Sample</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="timing-sample.html"><a href="timing-sample.html#processor-details"><i class="fa fa-check"></i><b>2.1</b> Processor Details</a></li>
+<li class="chapter" data-level="2.2" data-path="timing-sample.html"><a href="timing-sample.html#composition"><i class="fa fa-check"></i><b>2.2</b> Composition</a></li>
+<li class="chapter" data-level="2.3" data-path="timing-sample.html"><a href="timing-sample.html#feature-extraction"><i class="fa fa-check"></i><b>2.3</b> Feature Extraction</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="timing-sample.html"><a href="timing-sample.html#template-size"><i class="fa fa-check"></i><b>2.3.1</b> Template Size</a></li>
+<li class="chapter" data-level="2.3.2" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-duration"><i class="fa fa-check"></i><b>2.3.2</b> Template Creation Duration</a></li>
+<li class="chapter" data-level="2.3.3" data-path="timing-sample.html"><a href="timing-sample.html#template-creation-memory-consumption"><i class="fa fa-check"></i><b>2.3.3</b> Template Creation Memory Consumption</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="timing-sample.html"><a href="timing-sample.html#enrollment-database"><i class="fa fa-check"></i><b>2.4</b> Enrollment Database</a></li>
+<li class="chapter" data-level="2.5" data-path="timing-sample.html"><a href="timing-sample.html#search"><i class="fa fa-check"></i><b>2.5</b> Search</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="timing-sample.html"><a href="timing-sample.html#search-duration"><i class="fa fa-check"></i><b>2.5.1</b> Search Duration</a></li>
+<li class="chapter" data-level="2.5.2" data-path="timing-sample.html"><a href="timing-sample.html#search-memory-consumption"><i class="fa fa-check"></i><b>2.5.2</b> Search Memory Consumption</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metrics.html"><a href="metrics.html"><i class="fa fa-check"></i><b>3</b> Metrics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="metrics.html"><a href="metrics.html#location"><i class="fa fa-check"></i><b>3.1</b> Location</a></li>
+<li class="chapter" data-level="3.2" data-path="metrics.html"><a href="metrics.html#cumulative-match-characteristic-cmc"><i class="fa fa-check"></i><b>3.2</b> Cumulative Match Characteristic (CMC)</a></li>
+<li class="chapter" data-level="3.3" data-path="metrics.html"><a href="metrics.html#detection-error-tradeoff-det"><i class="fa fa-check"></i><b>3.3</b> Detection Error Tradeoff (DET)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html"><i class="fa fa-check"></i><b>4</b> Non-mated Distractor Subjects</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="non-mated-distractor-subjects.html"><a href="non-mated-distractor-subjects.html#failures"><i class="fa fa-check"></i><b>4.1</b> Failures</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html"><i class="fa fa-check"></i><b>5</b> FBI Laboratory</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#failures-1"><i class="fa fa-check"></i><b>5.1</b> Failures</a></li>
+<li class="chapter" data-level="5.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#cmc"><i class="fa fa-check"></i><b>5.2</b> CMC</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots"><i class="fa fa-check"></i><b>5.2.1</b> Plots</a></li>
+<li class="chapter" data-level="5.2.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-rank"><i class="fa fa-check"></i><b>5.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#det"><i class="fa fa-check"></i><b>5.3</b> DET</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#plots-1"><i class="fa fa-check"></i><b>5.3.1</b> Plots</a></li>
+<li class="chapter" data-level="5.3.2" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#fnir-at-select-fpir"><i class="fa fa-check"></i><b>5.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="5.3.3" data-path="fbi-laboratory.html"><a href="fbi-laboratory.html#similarity-score-thresholds-at-select-fpir"><i class="fa fa-check"></i><b>5.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html"><i class="fa fa-check"></i><b>6</b> FBI-Provided Solved Dataset #1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#failures-2"><i class="fa fa-check"></i><b>6.1</b> Failures</a></li>
+<li class="chapter" data-level="6.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#cmc-1"><i class="fa fa-check"></i><b>6.2</b> CMC</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-2"><i class="fa fa-check"></i><b>6.2.1</b> Plots</a></li>
+<li class="chapter" data-level="6.2.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-rank-1"><i class="fa fa-check"></i><b>6.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#det-1"><i class="fa fa-check"></i><b>6.3</b> DET</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#plots-3"><i class="fa fa-check"></i><b>6.3.1</b> Plots</a></li>
+<li class="chapter" data-level="6.3.2" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#fnir-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="6.3.3" data-path="fbi-provided-solved-dataset-1.html"><a href="fbi-provided-solved-dataset-1.html#similarity-score-thresholds-at-select-fpir-1"><i class="fa fa-check"></i><b>6.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html"><i class="fa fa-check"></i><b>7</b> DoD-Provided Dataset #1</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#failures-3"><i class="fa fa-check"></i><b>7.1</b> Failures</a></li>
+<li class="chapter" data-level="7.2" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#cmc-2"><i class="fa fa-check"></i><b>7.2</b> CMC</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#plots-4"><i class="fa fa-check"></i><b>7.2.1</b> Plots</a></li>
+<li class="chapter" data-level="7.2.2" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#fnir-at-select-rank-2"><i class="fa fa-check"></i><b>7.2.2</b> FNIR at Select Rank</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#det-2"><i class="fa fa-check"></i><b>7.3</b> DET</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#plots-5"><i class="fa fa-check"></i><b>7.3.1</b> Plots</a></li>
+<li class="chapter" data-level="7.3.2" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#fnir-at-select-fpir-2"><i class="fa fa-check"></i><b>7.3.2</b> FNIR at Select FPIR</a></li>
+<li class="chapter" data-level="7.3.3" data-path="dod-provided-dataset-1.html"><a href="dod-provided-dataset-1.html#similarity-score-thresholds-at-select-fpir-2"><i class="fa fa-check"></i><b>7.3.3</b> Similarity Score Thresholds at Select FPIR</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="iarpa-n2n-sequestered.html"><a href="iarpa-n2n-sequestered.html"><i class="fa fa-check"></i><b>8</b> IARPA N2N (Sequestered)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="iarpa-n2n-sequestered.html"><a href="iarpa-n2n-sequestered.html#suitable-for-automated-searching"><i class="fa fa-check"></i><b>8.1</b> Suitable for Automated Searching</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="iarpa-n2n-sequestered.html"><a href="iarpa-n2n-sequestered.html#failures-4"><i class="fa fa-check"></i><b>8.1.1</b> Failures</a></li>
+<li class="chapter" data-level="8.1.2" data-path="iarpa-n2n-sequestered.html"><a href="iarpa-n2n-sequestered.html#cmc-3"><i class="fa fa-check"></i><b>8.1.2</b> CMC</a></li>
+<li class="chapter" data-level="8.1.3" data-path="iarpa-n2n-sequestered.html"><a href="iarpa-n2n-sequestered.html#det-3"><i class="fa fa-check"></i><b>8.1.3</b> DET</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><code>idemia+0008</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title"><code>idemia+0008</code></h1>
+<h2 class="subtitle"><em>IDEMIA</em></h2>
+<p class="author"><em>Evaluation of Latent Friction Ridge Technology (ELFT)</em></p>
+<p class="date"><em><p><em>Technical performance report of automated latent fingerprint feature extraction and search software.</em><br />
+<br />
+Last Updated: 21 May 2026</p></em></p>
+</div>
+<div id="participation-information" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Participation Information<a href="participation-information.html#participation-information" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="names" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Names<a href="participation-information.html#names" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Information in this section is provided by the participant.</em></p>
+<ul>
+<li><p><strong>Participant Name:</strong>
+IDEMIA</p></li>
+<li><p><strong>ELFT Identifier:</strong> <code>idemia+0008</code></p></li>
+<li><p><strong>Exemplar Feature Extractor:</strong></p>
+<ul>
+<li><strong>CBEFF Product Owner:</strong> <code>0x001D</code></li>
+</ul></li>
+<li><p><strong>Latent Feature Extractor:</strong></p>
+<ul>
+<li><strong>CBEFF Product Owner:</strong> <code>0x001D</code></li>
+</ul></li>
+<li><p><strong>Search:</strong></p>
+<ul>
+<li><strong>CBEFF Product Owner:</strong> <code>0x001D</code></li>
+</ul></li>
+</ul>
+</div>
+<div id="dates" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Dates<a href="participation-information.html#dates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Participation Agreement Date:</strong> 12 May 2026</li>
+<li><strong>First Submission Date:</strong> 12 May 2026 (as version
+<code>0008</code>)</li>
+<li><strong>Final Submission Date:</strong> 13 May 2026 (as version
+<code>0008</code>)</li>
+<li><strong>Validation Date:</strong> 13 May 2026</li>
+<li><strong>Completion Date:</strong> 21 May 2026</li>
+<li><strong>Report Last Updated Date:</strong> 21 May 2026</li>
+</ul>
+</div>
+<div id="supplied-libraries-and-configurations" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Supplied Libraries and Configurations<a href="participation-information.html#supplied-libraries-and-configurations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Testing was completed using <em>Ubuntu 24.04.3 LTS</em>. Files provided by IDEMIA are listed in <a href="participation-information.html#tab:supplied-files">Table <a href="participation-information.html#tab:supplied-files">1.1</a></a>.</p>
+<div style="overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:supplied-files">Table 1.1: </span>Information regarding library and configuration files provided as part of <code>idemia+0008</code>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Filename
+</th>
+<th style="text-align:left;">
+MD5 Checksum
+</th>
+<th style="text-align:right;">
+Size (MB)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="     ">ab80.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">2c81521057b5aabe920e78265f47b4dd</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">ab81.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">f4f85ddc475d3cbe7b1db9b215273803</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">ab82.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">46b09f9c43ded0f06053db3ba8d283d3</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">dvcss2.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">863bc6104cfbc81c73fe110119d3e50a</span>
+</td>
+<td style="text-align:right;">
+17.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">dvmss.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">e583b6af63b39af831fd21cc84d5233f</span>
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">dvmssmedium.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">09d2c8bbb514bd89184bb697f1241caf</span>
+</td>
+<td style="text-align:right;">
+6.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">dvmssslow.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">b556cda6536dfd19da3cec6c7895182d</span>
+</td>
+<td style="text-align:right;">
+15.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">dvmssv2.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">031c2de26dc6850a708a150c9d3e2da7</span>
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">eg_0.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">9b9473cb24b0f31c0f38c156f5efb582</span>
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">eg_1.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">13f45b806af468b4c6f3e002fc08cc4f</span>
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">eg_2.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">8e16b9d04b20ee75c2ae77b95da7e934</span>
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib00.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">d83df3d6d0de9ddaa06eed766efd4d0e</span>
+</td>
+<td style="text-align:right;">
+1.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib01.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">d8f9158237e3a0237f3c2a0cda41beb2</span>
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib02.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">5276ff719bb7eb3eb879c808577dcac6</span>
+</td>
+<td style="text-align:right;">
+52.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib03.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">03d0fb75bd5ffad2cf8fafa52e5baedb</span>
+</td>
+<td style="text-align:right;">
+72.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib04.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">11f6788335af0651071bcd0d9f318b08</span>
+</td>
+<td style="text-align:right;">
+305.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib05.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">62f75c6c223e0092a2bf14065b4c37cd</span>
+</td>
+<td style="text-align:right;">
+55.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib06.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">9db32d8bc60906d985c60b65800048ea</span>
+</td>
+<td style="text-align:right;">
+8.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib07.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">53f861f812f2c40b63097332117d907a</span>
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib08.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">287bcdfdd72c70e3f4f9d194843c53e3</span>
+</td>
+<td style="text-align:right;">
+20.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fib09.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">980a211f8df439c1d53605efd3c4bbdf</span>
+</td>
+<td style="text-align:right;">
+202.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fibsmall.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6cb8242174cdc3c333087e4b2a2cf239</span>
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">fpb.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6c0d8a97cefa63d805c17eb9b0d7582d</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">libelft_idemia_0008.so</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">baed88a99c58354230d2d6fdc3b0b0c9</span>
+</td>
+<td style="text-align:right;">
+53.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr0.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">df233cecefe483d99d2d98ba9dc64537</span>
+</td>
+<td style="text-align:right;">
+119.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr1.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">d00669892119ed1399e94c3a2904db3f</span>
+</td>
+<td style="text-align:right;">
+73.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr11.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">6bf51bda36639c1e6af6724f9890e9d8</span>
+</td>
+<td style="text-align:right;">
+77.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr2.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">65d48016fbf0e117b0bdb52298f0dfaf</span>
+</td>
+<td style="text-align:right;">
+306.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr21.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">38cbb1661fe2cae1f7e566960f38f8d4</span>
+</td>
+<td style="text-align:right;">
+208.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr3.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">b86f32a21fe894980d18f12ca1c2941b</span>
+</td>
+<td style="text-align:right;">
+186.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr4.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">60a65a264a7eafae03ce555cb958e2aa</span>
+</td>
+<td style="text-align:right;">
+28.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr5.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">cccfac0a3d7773795cdfcfbf9b144c91</span>
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr6.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">a313df9e27a3bdb1723bf92b9888fa15</span>
+</td>
+<td style="text-align:right;">
+28.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">pr7.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">57dc9cec713468f5aa0480dd31dde8aa</span>
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">sw4g.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">fd0b69d42b9b1fe3b126409b16647e1c</span>
+</td>
+<td style="text-align:right;">
+67.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">tr13.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">adcf572c72611040f513bf26259e44c5</span>
+</td>
+<td style="text-align:right;">
+15.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umacf.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">c9241efd528899b5f515a486053ccd91</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umacgc.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">467ce2c5934ee7425902193b1bbe452b</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umaefc.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">66134c710917415bf0977c00235deb82</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umaefcni.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">33fa3c2871e8382c2d3cb7be8b022c74</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umafm.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">7ca0173a9a879a17c3eab71107917988</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umafmc.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">8831a5c4b54d2a1db99322f030114162</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umal3.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">1e41a294688bb2c02fec272a2df9cb3b</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umal3ni.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">a5a0a6e27e88c693fbc00aeac5e2cdbe</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umbl.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">94306234a1de7d93656bad32a706ae2f</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umbp.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">47c1ed52dab0ee325319087803308993</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umdi.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">807b541485e8e801f46b74ca6d245e73</span>
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">umn.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">ddf109ea37a3017009762dd21877f010</span>
+</td>
+<td style="text-align:right;">
+2.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="     ">yibb.dat</span>
+</td>
+<td style="text-align:left;">
+<span style="   font-family: monospace;  ">48ff08cbdfc7146b0394783b4e6234b0</span>
+</td>
+<td style="text-align:right;">
+35.4
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="timing-sample.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["idemia+0008.pdf"],
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
